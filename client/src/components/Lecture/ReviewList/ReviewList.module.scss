@@ -1,0 +1,35 @@
+.review-list {
+	display: flex;
+	width: 100%;
+	flex-wrap: wrap;
+	margin-top: 12px;
+	gap: 20px;
+	.review {
+		width: 32%;
+		min-height: 150px;
+		background-color: #e7e9eb;
+		color: black;
+		padding: 10px;
+		padding-bottom: 20px;
+		border-radius: 8px;
+		header {
+			display: flex;
+			align-items: center;
+			.content {
+				display: flex;
+				flex-direction: column;
+				margin-left: 8px;
+				.name {
+					display: flex;
+					div {
+						margin-right: 5px;
+					}
+				}
+			}
+		}
+
+		.comment {
+			padding: 10px 0px 0px 10px;
+		}
+	}
+}

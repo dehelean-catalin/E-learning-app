@@ -1,0 +1,17 @@
+@import "../../../resources/styles/variables.scss";
+.rating {
+	margin-top: 2px;
+	display: flex;
+	align-items: center;
+	color: #808080;
+
+	.rating-score {
+		margin-right: 4px;
+	}
+	.stars {
+		margin-right: 4px;
+	}
+	.emptyStar {
+		color: rgb(150, 150, 150);
+	}
+}

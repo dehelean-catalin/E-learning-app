@@ -1,0 +1,28 @@
+.lecture-overview {
+	flex: 1;
+	padding: 20px 40px;
+	display: flex;
+	color: white;
+	font-size: 16px;
+
+	gap: 30px;
+
+	.content {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+
+		span {
+			font-size: 20px;
+			font-weight: 700;
+			margin-bottom: 10px;
+		}
+		.chapter {
+			padding: 10px 20px;
+			border-radius: 8px;
+			border: 1px solid gray;
+			cursor: pointer;
+			margin-bottom: 10px;
+		}
+	}
+}

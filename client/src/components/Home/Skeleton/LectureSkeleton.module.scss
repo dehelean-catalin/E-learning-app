@@ -1,0 +1,36 @@
+@import "../../../resources/styles/variables.scss";
+
+.skeleton-card {
+	color: white;
+	border-radius: 8px;
+	.image {
+		min-height: 180px;
+		max-height: 180px;
+		background-color: $color-10;
+		border-radius: 12px;
+	}
+	.details {
+		height: 30%;
+		font-weight: 300;
+		font-size: 16px;
+		color: rgb(150, 150, 150);
+		.field {
+			background-color: $color-10;
+			height: 28px;
+			max-width: 20%;
+			border-radius: 14px;
+
+			&:nth-child(1) {
+				margin-top: 4px;
+				min-width: 90%;
+			}
+			&:nth-child(2) {
+				margin-top: -2px;
+			}
+			&:nth-child(3) {
+				min-width: 40%;
+				margin-top: -2px;
+			}
+		}
+	}
+}

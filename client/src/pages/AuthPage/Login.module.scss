@@ -1,0 +1,91 @@
+@import "../../resources/styles/variables.scss";
+
+.auth-page {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	form {
+		max-width: 500px;
+		max-height: 700px;
+		display: flex;
+		flex-direction: column;
+		background-color: white;
+		color: black;
+		font-size: 18px;
+		padding: 20px;
+		border-radius: 8px;
+		box-shadow: 0px 4px 10px -2px black;
+		.container {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+		}
+		img {
+			object-fit: cover;
+			max-width: 100%;
+			max-height: 100%;
+		}
+		.title {
+			font-size: 32px;
+			text-align: center;
+			margin-bottom: 24px;
+			font-weight: 700;
+			color: $color-10;
+		}
+		.register-title {
+			margin-top: 15px;
+			font-size: 32px;
+			text-align: center;
+			font-weight: 700;
+			color: $color-10;
+			margin-bottom: 20px;
+		}
+		.initials {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		button {
+			min-height: 44px;
+			max-height: 44px;
+			color: white;
+			border: 0px;
+			background-color: $prime-green;
+			margin: 0px 10px;
+			margin-top: 10px;
+			font-size: 16px;
+			font-weight: 700;
+			border-radius: 25px;
+			cursor: pointer;
+
+			&:disabled {
+				background-color: rgb(175, 175, 175);
+				color: rgb(235, 235, 235);
+				cursor: default;
+			}
+		}
+		.error {
+			height: 10px;
+			color: $error;
+			font-size: 12px;
+			font-weight: 600;
+		}
+		.loading {
+			height: 100%;
+			circle {
+				stroke: white !important;
+			}
+		}
+	}
+	.sign-up-info {
+		color: white;
+		margin-top: 15px;
+		.link {
+			margin-left: 4px;
+			color: $prime-green;
+		}
+	}
+}

@@ -1,0 +1,76 @@
+@import "../../resources/styles/variables.scss";
+
+.header {
+	height: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: end;
+	padding: 0px 20px;
+	color: white;
+	background-color: $color-60;
+	position: sticky;
+	top: 0px;
+	z-index: 10;
+}
+
+.profile-overlay {
+	display: flex;
+	flex-direction: column;
+	background-color: $color-30 !important;
+	color: white !important;
+	width: 300px;
+	&::before {
+		border-bottom-color: $color-30 !important;
+	}
+	&::after {
+		border-bottom-color: $color-30 !important;
+	}
+	header {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		.profile-details {
+			display: flex;
+			flex-direction: column;
+			margin-left: 12px;
+		}
+
+		span {
+			display: inline-block;
+			margin-right: 4px;
+			font-weight: 700;
+			font-size: 18px;
+			max-width: 100px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+	}
+	.row {
+		display: flex;
+		align-items: center;
+		color: white;
+		text-decoration: none;
+		padding: 8px 0px;
+		font-size: 16px;
+		cursor: pointer;
+
+		svg {
+			margin-right: 16px;
+			// font-size: 24px;
+		}
+
+		&:last-child {
+			padding-bottom: 0px;
+		}
+	}
+	hr {
+		border-color: $color-10 !important;
+		margin: 6px 0px;
+	}
+	main {
+		margin-top: 10px;
+		.profile {
+			cursor: pointer;
+		}
+	}
+}

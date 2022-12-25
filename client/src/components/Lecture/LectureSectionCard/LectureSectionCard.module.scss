@@ -1,0 +1,48 @@
+@import "../../../resources/styles/variables.scss";
+
+.lecture-item {
+	padding: 10px 0px;
+
+	.section-title {
+		margin-bottom: 8px;
+		padding-bottom: 4px;
+		font-size: 24px;
+		font-weight: 600;
+		border-bottom: 1px solid white;
+	}
+	.course-list {
+		margin-top: 8px;
+	}
+
+	circle {
+		color: $second-green !important;
+	}
+	section {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		width: 100%;
+		height: 200px;
+		gap: 12px;
+		main {
+			width: 32%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 12px;
+			color: black;
+			height: 100%;
+			background: #c2dfcd;
+			padding: 10px;
+		}
+		main:nth-child(1) {
+			background-color: white;
+		}
+		main:nth-child(2) {
+			background-color: $error;
+		}
+		main:nth-child(3) {
+			background: #c2dfcd;
+		}
+	}
+}

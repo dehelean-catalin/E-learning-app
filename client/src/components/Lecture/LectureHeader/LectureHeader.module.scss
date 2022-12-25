@@ -1,0 +1,78 @@
+.lecture-header {
+	flex: 1;
+	display: flex;
+	background: #272727;
+	padding: 15px 25px;
+	gap: 20px;
+	border-radius: 12px;
+	overflow: hidden;
+
+	.left {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		color: black;
+		background-color: white;
+		padding: 10px;
+		border-radius: 8px;
+
+		img {
+			flex: 1;
+			max-height: 200px;
+			object-fit: cover;
+			border-radius: 8px;
+		}
+		.rows {
+			margin-top: 8px;
+		}
+		.row {
+			display: flex;
+			align-items: center;
+			min-width: 50%;
+
+			svg {
+				margin-right: 4px;
+			}
+		}
+	}
+	.right {
+		flex: 3;
+		display: flex;
+		flex-direction: column;
+	}
+	.title {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		font-size: 32px;
+		font-weight: 700;
+		margin-bottom: 12px;
+		svg {
+			font-size: 28px;
+			position: relative;
+			right: -10px;
+		}
+	}
+	.description {
+		font-size: 20px;
+		font-weight: 600;
+		margin-bottom: 12px;
+		width: 90%;
+	}
+	.author {
+		margin-bottom: 12px;
+	}
+	.lastUpdate {
+		margin-bottom: 12px;
+	}
+	.btns {
+		margin-top: 12px;
+		display: flex;
+		justify-content: space-between;
+	}
+	span {
+		font-weight: 600;
+	}
+}
