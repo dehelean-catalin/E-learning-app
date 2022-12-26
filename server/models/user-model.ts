@@ -1,10 +1,5 @@
 import Joi from "joi";
-// if (req.body?.firstName.trim().length < 3) {
-// 	return res.status(400).json({ firstName: "Required length: 3" });
-// }
-// if (req.body?.lastName.trim().length < 3) {
-// 	return res.status(400).json({ lastName: "Required length: 3" });
-// }
+
 export const userModel = Joi.object({
 	firstName: Joi.string().required().messages({
 		"any.required": "FirstName is required",
@@ -68,19 +63,5 @@ export const userDetailsModel = Joi.object({
 	}),
 	aboutYou: Joi.string().required().messages({
 		"any.required": "aboutYou is required",
-	}),
-});
-
-export const wachingLecturesModel = Joi.object({
-	id: Joi.string().required().messages({
-		"any.required": "id is required",
-	}),
-	progress: Joi.array().items({
-		page: Joi.string().required().messages({
-			"any.required": "id is required",
-		}),
-		value: Joi.number().required().messages({
-			"any.required": "id is required",
-		}),
 	}),
 });

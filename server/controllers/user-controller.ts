@@ -87,18 +87,18 @@ export const deleteUserSavedLecture = async (req: any, res: Response) => {
 	}
 };
 
-export const getWatchingLectures = async (req: any, res: Response) => {
+export const getWatchingLectureByID = async (req: any, res: Response) => {
 	try {
 		const docRef = doc(db, "users", req.userData.userId);
 		const docSnap = await getDoc(docRef);
 		if (!docSnap.exists()) {
 			throw new Error("Try again! Something went wrong");
 		}
-
+		console.log(req.query);
 		let { watchingLectures } = docSnap.data();
 		const value = watchingLectures.find((i: any) => i.id == req.query.id);
-		const data = value?.progress.find((i: any) => i.page == req.query.page);
-		res.status(200).json(data.value);
+
+		res.status(200).json(value);
 	} catch (err: any) {
 		return res.status(400).json({ code: 400, message: err.message });
 	}
@@ -134,19 +134,17 @@ export const updateWatchingLectures = async (req: any, res: Response) => {
 
 		let { watchingLectures } = docSnap.data();
 
-		watchingLectures.forEach((i: any) => {
-			if (i.id === req.query.id) {
-				i.progress.forEach((p: any) => {
-					if (p.page == req.query.page) {
-						p.value = req.body.value;
-					}
-				});
-			}
-		});
+		// watchingLectures.forEach((i: any) => {
+		// 	if (i.id === req.query.id) {
+		// 		i.progress.forEach((p: any) => {
+		// 			if (p.page == req.query.page) {
+		// 				p.value = req.body.value;
+		// 			}
+		// 		});
+		// 	}
+		// });
 
-		await updateDoc(docRef, {
-			watchingLectures,
-		});
+		await updateDoc(docRef, { watchingLectures: req.body });
 
 		res.status(200).json("succes");
 	} catch (err: any) {

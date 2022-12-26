@@ -6,20 +6,14 @@ import { useDispatch } from "react-redux";
 import AuthContext from "../store/context/auth-context";
 import { Axios } from "../resources/routes";
 import { BannerNotificationType } from "../resources/models/models";
-type Error = {
-	code: string;
-	field: string;
-	message: string;
-};
+
 export const useAuthentication = () => {
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
 	const { login } = useContext(AuthContext);
 	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState<Error>({
+	const [error, setError] = useState({
 		code: null,
 		message: null,
-		field: null,
 	});
 
 	const handleRegister = (data: any) => {
@@ -57,7 +51,6 @@ export const useAuthentication = () => {
 			.then((response) => {
 				const { uid, token } = response.data;
 				login(token, uid);
-				navigate("/home");
 			})
 			.catch((err) => {
 				setError(err.response.data);

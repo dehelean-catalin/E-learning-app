@@ -1,28 +1,22 @@
-import {
-	addUserSavedLecture,
-	addWatchingLectures,
-	deleteUserSavedLecture,
-	getWatchingLectures,
-	updateWatchingLectures,
-} from "./../controllers/user-controller";
-import {
-	userSavedLectureModel,
-	userModel,
-	userDetailsModel,
-	wachingLecturesModel,
-} from "./../models/user-model";
-import { addUserData } from "../controllers/user-controller";
-import { getUserData, updateUserData } from "../controllers/user-controller";
 import { Router } from "express";
+import {
+	addUserData,
+	getUserData,
+	updateUserData,
+} from "../controllers/user-controller";
 import tokenAuth from "../middleware/tokenAuth-middleware";
 import validation from "../middleware/validation-middleware";
+import {
+	addUserSavedLecture,
+	deleteUserSavedLecture,
+} from "./../controllers/user-controller";
+import {
+	userDetailsModel,
+	userModel,
+	userSavedLectureModel,
+} from "./../models/user-model";
 
 const router = Router();
-
-enum Route {
-	UserDetails = "/user-details",
-	WatchingLectures = "/watching-lectures",
-}
 
 // router.get("/user/lectures", tokenAuth, getAllUserSavedLectures);
 router.put(
@@ -40,16 +34,5 @@ router.post("/user", validation(userModel), addUserData);
 
 router.get("/user-details", tokenAuth, getUserData);
 router.put("/user-details", validation(userDetailsModel), updateUserData);
-
-// !!! WATCHING LECTURES ROUTES:
-
-router.get(Route.WatchingLectures, tokenAuth, getWatchingLectures);
-router.post(
-	Route.WatchingLectures,
-	validation(wachingLecturesModel),
-	addWatchingLectures
-);
-
-router.put(Route.WatchingLectures, tokenAuth, updateWatchingLectures);
 
 export default router;

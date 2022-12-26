@@ -1,8 +1,10 @@
+import { AxiosRequestConfig } from "axios";
 import { FC, useContext } from "react";
 import { BiBook, BiDotsVerticalRounded } from "react-icons/bi";
 import { BsPlayBtn } from "react-icons/bs";
 import { useNavigate } from "react-router";
 import { ILecture } from "../../../resources/models/lectures";
+import { WatchingLectureItem } from "../../../resources/models/watchingLecturesModel";
 import { Axios } from "../../../resources/routes";
 import AuthContext from "../../../store/context/auth-context";
 import Button from "../../common/Button/Button";
@@ -28,7 +30,18 @@ const LectureHeader: FC<Props> = ({ value }) => {
 	} = value;
 	const navigate = useNavigate();
 	const { token } = useContext(AuthContext);
-
+	// TODO: Check if you are already watching this lecture
+	const handleClick = () => {
+		Axios.put(
+			"/watching-lectures",
+			{},
+			{
+				headers: {
+					authorization: "Bearer " + token,
+				},
+			}
+		).then(() => navigate(`/lecture/${id}/overview?page=0`));
+	};
 	return (
 		<div className={styles["lecture-header"]}>
 			<div className={styles.left}>
@@ -67,23 +80,7 @@ const LectureHeader: FC<Props> = ({ value }) => {
 						numberOfRates={numberOfRates}
 						numberOfUsers={numberOfUsers}
 					/>
-					<Button
-						disabled={false}
-						clickHandler={() => {
-							Axios.put(
-								"/watching-lectures",
-								{
-									watchingLectures: { id: "lala", chapter: 1, progress: 120 },
-								},
-								{
-									headers: {
-										authorization: "Bearer " + token,
-									},
-								}
-							);
-							navigate(`/lecture/${id}/overview?page=0`);
-						}}
-					>
+					<Button disabled={false} onClick={() => handleClick()}>
 						Start now
 					</Button>
 				</div>

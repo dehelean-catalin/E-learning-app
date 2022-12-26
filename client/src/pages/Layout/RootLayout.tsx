@@ -1,4 +1,4 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Navigate, Outlet, useLocation, useNavigate } from "react-router";
 import NewForm from "../../components/Forms/NewForm";
@@ -10,8 +10,8 @@ import AuthContext from "../../store/context/auth-context";
 import { AppInitializationActions } from "../../store/redux/appInitializationReducer";
 const RootLayout = () => {
 	const dispatch = useDispatch();
-
-	const { token } = useContext(AuthContext);
+	const { token, logout } = useContext(AuthContext);
+	const [error, setError] = useState(false);
 
 	useEffect(() => {
 		if (token) {
@@ -25,10 +25,12 @@ const RootLayout = () => {
 						AppInitializationActions.getInitializationData(response.data)
 					);
 				})
-				.catch((err) => console.log(err));
+				.catch((err) => setError(true));
 		}
 	}, [token]);
-	if (!token) {
+
+	if (error || !token) {
+		logout();
 		return <Navigate to="/login" replace />;
 	}
 
