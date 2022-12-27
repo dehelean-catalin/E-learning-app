@@ -1,10 +1,10 @@
 import { FC, FormEvent, useState } from "react";
-import { useProfileDetails } from "../../../hooks/useProfileDetails";
+// import { useProfileDetails } from "../../../hooks/useProfileDetails";
 import style from "../NewForm.module.scss";
 import { StepProps } from "./ProfileForm";
 
 const SettingsForm: FC<StepProps> = ({ onSelect, activeIndex }) => {
-	const { sendRequest } = useProfileDetails();
+	// const { sendRequest } = useProfileDetails();
 	const [values, setValues] = useState({
 		favoriteTopics: "",
 		links: "",

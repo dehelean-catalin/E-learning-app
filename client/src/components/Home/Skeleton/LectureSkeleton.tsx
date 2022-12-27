@@ -1,4 +1,4 @@
-import { Skeleton } from "@mui/material";
+import { Skeleton } from "primereact/skeleton";
 import { FC } from "react";
 import styles from "./LectureSkeleton.module.scss";
 
@@ -8,21 +8,25 @@ const LectureSkeleton: FC = () => {
 	return (
 		<>
 			{SKELETONLIST.map((i, k) => (
-				<div key={k} className={styles["skeleton-card"]}>
-					<Skeleton
-						className={styles.image}
-						width="100%"
-						variant="rectangular"
-					/>
-					<div className={styles.details}>
-						<Skeleton className={styles.field} />
-						<Skeleton className={styles.field} />
-						<Skeleton className={styles.field} />
-					</div>
-				</div>
+				<SkeletonCard key={k} />
 			))}
 		</>
 	);
 };
 
 export default LectureSkeleton;
+
+const SkeletonCard: FC = () => {
+	return (
+		<div className={styles["skeleton-card"]}>
+			<Skeleton className={styles.thumbnail} width="100%" />
+			<div className={styles.details}>
+				<Skeleton className={styles.circle} shape="circle" />
+				<div className={styles.right}>
+					<Skeleton className={styles.row} />
+					<Skeleton className={styles.row} />
+				</div>
+			</div>
+		</div>
+	);
+};

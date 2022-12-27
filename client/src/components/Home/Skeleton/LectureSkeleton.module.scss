@@ -3,33 +3,63 @@
 .skeleton-card {
 	color: white;
 	border-radius: 8px;
-	.image {
+	.thumbnail {
 		min-height: 180px;
 		max-height: 180px;
-		background-color: $color-10;
+		background-color: $color-30;
 		border-radius: 12px;
+
+		&::after {
+			background: linear-gradient(
+				90deg,
+				$color-30,
+				rgb(54, 54, 54),
+				$color-30
+			) !important;
+		}
 	}
 	.details {
-		height: 30%;
-		font-weight: 300;
-		font-size: 16px;
-		color: rgb(150, 150, 150);
-		.field {
-			background-color: $color-10;
-			height: 28px;
-			max-width: 20%;
-			border-radius: 14px;
+		flex: 1;
+		display: flex;
+		flex-direction: row;
+		gap: 10px;
 
-			&:nth-child(1) {
-				margin-top: 4px;
-				min-width: 90%;
+		.circle {
+			flex: 1;
+			max-width: 40px !important;
+			height: 40px !important;
+			margin-top: 10px;
+			margin-left: 10px;
+			background-color: $color-30;
+
+			&::after {
+				background: linear-gradient(
+					90deg,
+					$color-30,
+					rgb(54, 54, 54),
+					$color-30
+				) !important;
 			}
+		}
+		.right {
+			flex: 4;
+		}
+		.row {
+			background-color: $color-30;
+			height: 28px;
+			border-radius: 14px;
+			margin-top: 10px;
+			&::after {
+				background: linear-gradient(
+					90deg,
+					$color-30,
+					rgb(54, 54, 54),
+					$color-30
+				) !important;
+			}
+
 			&:nth-child(2) {
-				margin-top: -2px;
-			}
-			&:nth-child(3) {
-				min-width: 40%;
-				margin-top: -2px;
+				width: 50% !important;
 			}
 		}
 	}

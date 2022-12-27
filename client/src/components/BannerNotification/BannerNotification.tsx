@@ -3,7 +3,7 @@ import { IoMdWarning } from "react-icons/io";
 import { RiErrorWarningFill } from "react-icons/ri";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { BannerNotificationType } from "../../resources/models/models";
+import { BannerNotificationType } from "../../resources/models/usersModel";
 import {
 	BannerNotificationState,
 	NotificationActions,

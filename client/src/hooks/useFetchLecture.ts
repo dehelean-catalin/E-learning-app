@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useContext } from "react";
 import { Axios } from "../resources/routes";
 import AuthContext from "../store/context/auth-context";
-import { BannerNotificationType } from "../resources/models/models";
+import { BannerNotificationType } from "../resources/models/usersModel";
 
 const useFetchLecture = () => {
 	const { token } = useContext(AuthContext);

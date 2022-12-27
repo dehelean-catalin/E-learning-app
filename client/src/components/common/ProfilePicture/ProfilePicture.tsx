@@ -1,7 +1,7 @@
 import {
 	IProfilePicture,
 	ProfileIconSize,
-} from "../../../resources/models/models";
+} from "../../../resources/models/usersModel";
 import styles from "./ProfilePicture.module.scss";
 const ProfilePicture = ({
 	picture,

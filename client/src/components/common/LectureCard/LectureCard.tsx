@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router";
 import useFetchLecture from "../../../hooks/useFetchLecture";
 import { BasicLecture } from "../../../resources/models/lectures";
-import { BannerNotificationType } from "../../../resources/models/models";
+import { BannerNotificationType } from "../../../resources/models/usersModel";
 import { NotificationActions } from "../../../store/redux/notificationReducer";
 import { CustomRating } from "../CustomRating/CustomRating";
 import styles from "./LectureCard.module.scss";

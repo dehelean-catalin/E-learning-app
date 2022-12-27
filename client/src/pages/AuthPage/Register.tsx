@@ -66,10 +66,10 @@ const Register = () => {
 	const hasValue = !!email && !!password && !!firstName && !!lastName;
 
 	const getSignUpBtn = () => {
-		if (isLoading) {
+		if (!isLoading) {
 			return (
 				<button>
-					<ProgressSpinner className={styles.loading} />
+					<ProgressSpinner className={styles.loading} strokeWidth={"6px"} />
 				</button>
 			);
 		}

@@ -1,7 +1,5 @@
 import { FC, FormEvent, useState } from "react";
-import { useProfileDetails } from "../../../hooks/useProfileDetails";
-import { UserDetails } from "../../../resources/models/models";
-// import InputText from "../../common/InputText";
+// import { useProfileDetails } from "../../../hooks/useProfileDetails";
 import style from "../NewForm.module.scss";
 
 export type StepProps = {
@@ -9,9 +7,9 @@ export type StepProps = {
 	onSelect?: (e: any) => void;
 };
 const ProfileForm: FC<StepProps> = ({ onSelect, activeIndex }) => {
-	const { loading, sendRequest } = useProfileDetails();
+	// const { loading, sendRequest } = useProfileDetails();
 	const [profilePicure, setProfilePicture] = useState<File>(null);
-	const [values, setValues] = useState<UserDetails>({
+	const [values, setValues] = useState({
 		phone: "",
 		address: "",
 		aboutYou: "",
@@ -19,12 +17,12 @@ const ProfileForm: FC<StepProps> = ({ onSelect, activeIndex }) => {
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
-		sendRequest(values, onSelect, activeIndex, profilePicure);
+		// sendRequest(values, onSelect, activeIndex, profilePicure);
 	};
 	const getButton = () => {
-		if (loading) {
-			return <>loading ...</>;
-		}
+		// if (loading) {
+		// 	return <>loading ...</>;
+		// }
 		return <button className={style.submit}>Next</button>;
 	};
 	return (

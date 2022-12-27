@@ -1,7 +1,6 @@
 import axios from "axios";
 import { Dropdown } from "primereact/dropdown";
 import { FC, FormEvent, useEffect, useState } from "react";
-import { UserDetails } from "../../../resources/models/models";
 // import InputText from "../../common/InputText";
 
 import style from "../NewForm.module.scss";
@@ -11,7 +10,7 @@ type Props = {
 };
 const EducationForm: FC<Props> = ({ onSelect, activeIndex }) => {
 	const userId = localStorage.getItem("userId");
-	const [values, setValues] = useState<UserDetails>({
+	const [values, setValues] = useState({
 		degree: "",
 		institution: "",
 		institutionKey: "",

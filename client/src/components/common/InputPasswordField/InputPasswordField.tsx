@@ -1,5 +1,6 @@
 import { Password } from "primereact/password";
 import { FC } from "react";
+import { AiOutlineEye } from "react-icons/ai";
 import styles from "./InputPasswordField.module.scss";
 
 type Props = {
@@ -23,7 +24,7 @@ const InputPasswordField: FC<Props> = ({
 				value={value}
 				onChange={(e) => setValue(e.target.value)}
 				placeholder={"Enter Passowrd"}
-				toggleMask
+				toggleMask={true}
 				feedback={false}
 				panelStyle={{ boxShadow: "0px" }}
 				inputClassName={

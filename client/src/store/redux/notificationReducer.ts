@@ -1,5 +1,5 @@
 import { createAction, ActionType, getType, Reducer } from "typesafe-actions";
-import { BannerNotificationType } from "../../resources/models/models";
+import { BannerNotificationType } from "../../resources/models/usersModel";
 
 const actions = {
 	showBannerNotification: createAction(

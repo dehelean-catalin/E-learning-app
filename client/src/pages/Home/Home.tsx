@@ -1,17 +1,15 @@
 import { FC, useContext, useEffect, useState } from "react";
-import { BasicLecture, ICategory } from "../../resources/models/lectures";
-import { Axios } from "../../resources/routes";
-import { useLocation, useNavigate } from "react-router";
-import FilterList from "../../components/Home/FilterList/FilterList";
-import LectureList from "../../components/Home/LectureCard/LectureList";
-import styles from "./Home.module.scss";
-import LectureSkeleton from "../../components/Home/Skeleton/LectureSkeleton";
-import AuthContext from "../../store/context/auth-context";
-import { Divider } from "@mui/material";
 import { FaRegFrown } from "react-icons/fa";
 import { useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router";
+import FilterList from "../../components/Home/FilterList/FilterList";
+import { BasicLecture, ICategory } from "../../resources/models/lectures";
+import { BannerNotificationType } from "../../resources/models/usersModel";
+import { Axios } from "../../resources/routes";
+import AuthContext from "../../store/context/auth-context";
 import { NotificationActions } from "../../store/redux/notificationReducer";
-import { BannerNotificationType } from "../../resources/models/models";
+import styles from "./Home.module.scss";
+import HomeSection from "./HomeSection";
 
 const Home: FC = () => {
 	const navigate = useNavigate();
@@ -22,21 +20,51 @@ const Home: FC = () => {
 	const [lectures, setLectures] = useState<BasicLecture[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState(false);
+
 	useEffect(() => {
-		Axios.get("/lectures", {
-			params: { category },
-			headers: {
-				authorization: "Bearer " + token,
-			},
-		})
+		getLectures(category, token)
 			.then((res) => setLectures(res.data))
-			.catch((err) => setError(true))
+			.catch(() => setError(true))
 			.finally(() => setIsLoading(false));
 	}, [category]);
 
-	const getLectures = () => {
-		if (isLoading) return <LectureSkeleton />;
-		return <LectureList value={lectures} />;
+	const getContent = () => {
+		if (error) {
+			return (
+				<div className={styles.empty}>
+					<FaRegFrown />
+					<span>This category doesn't have any lectures!</span>
+				</div>
+			);
+		}
+
+		return (
+			<>
+				<HomeSection
+					title="Recomended Lectures"
+					value={lectures}
+					isLoading={isLoading}
+					showDivider
+				/>
+				<HomeSection
+					title="New Lectures"
+					value={lectures}
+					isLoading={isLoading}
+					showDivider
+				/>
+				<HomeSection
+					title="Top Rated Lectures"
+					value={lectures}
+					isLoading={isLoading}
+					showDivider
+				/>
+				<HomeSection
+					title="Most Viewed Lectures"
+					value={lectures}
+					isLoading={isLoading}
+				/>
+			</>
+		);
 	};
 	const setNavigation = (f: ICategory) => {
 		Axios.get("/lectures", {
@@ -62,29 +90,19 @@ const Home: FC = () => {
 	};
 	return (
 		<div className={styles.home}>
-			<FilterList onFilterChange={(f) => setNavigation(f)} />
-			{error ? (
-				<div className={styles.empty}>
-					<FaRegFrown />
-					<span>This category doesn't have any lectures!</span>
-				</div>
-			) : (
-				<>
-					<div className={styles["section-title"]}>Recomanded Lectures</div>
-					<div className={styles["lecture-list"]}>{getLectures()}</div>
-					<Divider />
-					<div className={styles["section-title"]}>New Lectures</div>
-					<div className={styles["lecture-list"]}>{getLectures()}</div>
-					<Divider />
-					<div className={styles["section-title"]}>Top Rated Lectures</div>
-					<div className={styles["lecture-list"]}>{getLectures()}</div>
-					<Divider />
-					<div className={styles["section-title"]}>Most Viewed Lectures</div>
-					<div className={styles["lecture-list"]}>{getLectures()}</div>
-				</>
-			)}
+			<FilterList onFilterChange={(category) => setNavigation(category)} />
+			{getContent()}
 		</div>
 	);
 };
 
 export default Home;
+
+const getLectures = (category, token) => {
+	return Axios.get("/lectures", {
+		params: { category },
+		headers: {
+			authorization: "Bearer " + token,
+		},
+	});
+};

@@ -3,7 +3,7 @@ import http from "http";
 import cors from "cors";
 import userRoutes from "./routes/users-routes";
 import authRoutes from "./routes/auth-routes";
-import appInitializationRoutes from "./routes/app-initialization";
+import appInitRoutes from "./routes/app-init-routes";
 import lecturesRoutes from "./routes/lectures-routes";
 import watchingLecturesRoutes from "./routes/watching-lectures-routes";
 const app = express();
@@ -12,7 +12,7 @@ app.use(cors());
 app.use(json());
 
 app.use(authRoutes);
-app.use(appInitializationRoutes);
+app.use(appInitRoutes);
 app.use(userRoutes);
 app.use(lecturesRoutes);
 app.use(watchingLecturesRoutes);

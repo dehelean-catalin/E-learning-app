@@ -1,8 +1,9 @@
 import Joi from "joi";
+import { LoginModel, RegisterModel } from "../models/auth-model";
 
 const pattern = "^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$";
 
-export const registerSchema = Joi.object({
+export const registerSchema = Joi.object<RegisterModel>({
 	firstName: Joi.string().required().messages({
 		"any.required": "First name is required",
 		"string.empty": "First name cannot be empty",
@@ -24,7 +25,7 @@ export const registerSchema = Joi.object({
 	}),
 });
 
-export const loginSchema = Joi.object({
+export const loginSchema = Joi.object<LoginModel>({
 	email: Joi.string().required().messages({
 		"any.required": "Email is required",
 		"string.empty": "Email cannot be empty",

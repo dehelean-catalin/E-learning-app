@@ -1,5 +1,5 @@
 import { createContext, useEffect, FC, useState } from "react";
-import { IAuthContext } from "../../resources/models/models";
+import { IAuthContext } from "../../resources/models/usersModel";
 
 type Props = {
 	children: JSX.Element;

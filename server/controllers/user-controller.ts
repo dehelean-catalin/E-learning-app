@@ -1,23 +1,37 @@
 import { Request, Response } from "express";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import db from "../firebase";
+import { ValidatedRequest } from "../models/request";
+import { UserDataModel, UserModel } from "../models/user-model";
 
-export const getUserData = async (req: any, res: Response) => {
+export const getUserByID = async (req: Request, res: Response) => {
 	try {
-		const docRef = doc(db, "users", req.userData.userId);
-		const docSnap = await getDoc(docRef);
-		if (!docSnap.exists()) {
+		const validatedReq = req as ValidatedRequest;
+		const userRef = doc(db, "users", validatedReq.userData.userId);
+		const userSnap = await getDoc(userRef);
+		if (!userSnap.exists()) {
 			throw new Error("This user don't exist");
 		}
-		const { firstName, lastName, address, aboutYou, phoneNumber } =
-			docSnap.data();
-		res.status(200).json({
-			firstName,
-			lastName,
-			address,
-			aboutYou,
-			phoneNumber,
-		});
+		const userData = userSnap.data() as UserModel;
+		res.status(200).json(userData);
+	} catch (err: any) {
+		res.status(400).json({ code: 400, message: err.message });
+	}
+};
+
+export const getUserData = async (req: Request, res: Response) => {
+	try {
+		const validatedReq = req as ValidatedRequest;
+		const userRef = doc(db, "users", validatedReq.userData.userId);
+		const userSnap = await getDoc(userRef);
+		if (!userSnap.exists()) {
+			throw new Error("This user don't exist");
+		}
+		const userData = userSnap.data() as UserDataModel;
+		const { firstName, lastName, phoneNumber, address, aboutYou } = userData;
+		res
+			.status(200)
+			.json({ firstName, lastName, phoneNumber, address, aboutYou });
 	} catch (err: any) {
 		res.status(400).json({ code: 400, message: err.message });
 	}
@@ -87,70 +101,6 @@ export const deleteUserSavedLecture = async (req: any, res: Response) => {
 	}
 };
 
-export const getWatchingLectureByID = async (req: any, res: Response) => {
-	try {
-		const docRef = doc(db, "users", req.userData.userId);
-		const docSnap = await getDoc(docRef);
-		if (!docSnap.exists()) {
-			throw new Error("Try again! Something went wrong");
-		}
-		console.log(req.query);
-		let { watchingLectures } = docSnap.data();
-		const value = watchingLectures.find((i: any) => i.id == req.query.id);
-
-		res.status(200).json(value);
-	} catch (err: any) {
-		return res.status(400).json({ code: 400, message: err.message });
-	}
-};
-export const addWatchingLectures = async (req: any, res: Response) => {
-	try {
-		const docRef = doc(db, "users", req.userData.userId);
-		const docSnap = await getDoc(docRef);
-		if (!docSnap.exists()) {
-			throw new Error("Try again! Something went wrong");
-		}
-
-		let { watchingLectures } = docSnap.data();
-
-		watchingLectures.push(req.body);
-
-		await updateDoc(docRef, {
-			watchingLectures,
-		});
-
-		res.status(200).json({ code: 200, message: "Succesfully saved" });
-	} catch (err: any) {
-		return res.status(400).json({ code: 400, message: err.message });
-	}
-};
-export const updateWatchingLectures = async (req: any, res: Response) => {
-	try {
-		const docRef = doc(db, "users", req.userData.userId);
-		const docSnap = await getDoc(docRef);
-		if (!docSnap.exists()) {
-			throw new Error("Try again! Something went wrong");
-		}
-
-		let { watchingLectures } = docSnap.data();
-
-		// watchingLectures.forEach((i: any) => {
-		// 	if (i.id === req.query.id) {
-		// 		i.progress.forEach((p: any) => {
-		// 			if (p.page == req.query.page) {
-		// 				p.value = req.body.value;
-		// 			}
-		// 		});
-		// 	}
-		// });
-
-		await updateDoc(docRef, { watchingLectures: req.body });
-
-		res.status(200).json("succes");
-	} catch (err: any) {
-		return res.status(400).json({ code: 400, message: err.message });
-	}
-};
 // export const getAllUserSavedLectures = async (req: any, res: Response) => {
 // 	try {
 // 		const docRef = doc(db, "users", req.userData.userId);

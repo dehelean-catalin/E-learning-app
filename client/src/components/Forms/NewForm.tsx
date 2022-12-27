@@ -9,13 +9,13 @@ const NewForm = () => {
 		(s) => s.formReducer.form
 	);
 
-	const getForm = () => {
-		if (form.type === "register") {
-			return <RegisterDetailsForm />;
-		}
-		return null;
-	};
-	return <div>{form && getForm()}</div>;
+	// const getForm = () => {
+	// 	if (form.type === "register") {
+	// 		return <RegisterDetailsForm />;
+	// 	}
+	// 	return null;
+	// };
+	return <div>{/* {form && getForm()} */}</div>;
 };
 
 export default NewForm;

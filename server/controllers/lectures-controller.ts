@@ -55,7 +55,7 @@ const FILTERS = [
 	ICategory.Policy,
 ];
 export const getLectures = async (
-	req: Request<{}, {}, {}, Query>,
+	req: Request<any, any, Query, any>,
 	res: Response
 ) => {
 	let lectures: any = [];
@@ -65,7 +65,7 @@ export const getLectures = async (
 		if (!req.query?.category) {
 			throw new Error("Missing category!");
 		}
-		if (!FILTERS.includes(req.query.category)) {
+		if (!FILTERS.includes(req.query?.category)) {
 			throw new Error("Category doesnt exist !");
 		}
 		if (req.query.category === "all") {

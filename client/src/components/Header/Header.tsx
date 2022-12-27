@@ -1,4 +1,3 @@
-import { Divider } from "@mui/material";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useContext, useRef } from "react";
 import { BsBookmark, BsPersonCircle } from "react-icons/bs";
@@ -6,31 +5,34 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { VscSignOut } from "react-icons/vsc";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { IUser, ProfileIconSize } from "../../resources/models/models";
+import {
+	ProfileIconSize,
+	UserDataModel,
+} from "../../resources/models/usersModel";
 import AuthContext from "../../store/context/auth-context";
-import { AppInitializationState } from "../../store/redux/appInitializationReducer";
 import { RootState } from "../../store/redux/reducers";
+import Divider from "../common/Divider";
 import ProfilePicture from "../common/ProfilePicture/ProfilePicture";
 import styles from "./Header.module.scss";
 
 const Header = () => {
 	const op = useRef(null);
 	const { logout } = useContext(AuthContext);
-	const user: IUser = useSelector<RootState, AppInitializationState | any>(
+	const user = useSelector<RootState, UserDataModel>(
 		(s) => s.appInitializationReducer
 	);
-	const { firstName, lastName, profilePicture } = user;
+	const { firstName, lastName } = user;
 	const initials =
 		firstName.slice(0, 1).toUpperCase() + lastName.slice(0, 1).toUpperCase();
 	return (
 		<header className={styles.header}>
 			<div onClick={(e) => op.current.toggle(e)}>
-				<ProfilePicture picture={profilePicture} initials={initials} />
+				<ProfilePicture picture={""} initials={initials} />
 			</div>
 			<OverlayPanel ref={op} className={styles["profile-overlay"]}>
 				<header>
 					<ProfilePicture
-						picture={profilePicture}
+						picture={""}
 						initials={initials}
 						size={ProfileIconSize.Medium}
 					/>

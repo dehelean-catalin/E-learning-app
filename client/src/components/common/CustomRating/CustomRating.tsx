@@ -1,8 +1,8 @@
 import { FC } from "react";
 import styles from "./CustomRating.module.scss";
-import Rating from "@mui/material/Rating";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
-import StarIcon from "@material-ui/icons/Star";
+// import Rating from "@mui/material/Rating";
+// import StarBorderIcon from "@material-ui/icons/StarBorder";
+// import StarIcon from "@material-ui/icons/Star";
 
 type Props = {
 	rating: number;
@@ -19,7 +19,7 @@ export const CustomRating: FC<Props> = ({
 	return (
 		<div className={styles.rating}>
 			{!showOnlyStars && <div className={styles["rating-score"]}>{rating}</div>}
-			<Rating
+			{/* <Rating
 				className={styles.stars}
 				value={rating / 2}
 				precision={0.1}
@@ -29,7 +29,7 @@ export const CustomRating: FC<Props> = ({
 				}
 				size={"small"}
 				readOnly
-			/>
+			/> */}
 			{!showOnlyStars && `(${numberOfRates} ratings)`}
 			{numberOfUsers && (
 				<div className={styles.users}>,{numberOfUsers} students</div>

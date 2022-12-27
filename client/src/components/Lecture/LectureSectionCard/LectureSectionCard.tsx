@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { LectureItem } from "../../../resources/models/lectures";
-import { Step, Stepper, StepLabel, StepContent } from "@mui/material";
+// import { Step, Stepper, StepLabel, StepContent } from "@mui/material";
 import styles from "./LectureSectionCard.module.scss";
 import ReviewList from "../ReviewList/ReviewList";
 type Props = {
@@ -13,7 +13,7 @@ const LectureSectionCard: FC<Props> = ({ item }) => {
 			<div className={styles["section-title"]}>{title}</div>
 			<div>{description}</div>
 
-			{item?.courseContent && (
+			{/* {item?.courseContent && (
 				<Stepper className={styles["course-list"]} orientation="vertical">
 					{item.courseContent.map((step) => (
 						<Step key={step.title}>
@@ -30,7 +30,7 @@ const LectureSectionCard: FC<Props> = ({ item }) => {
 						</Step>
 					))}
 				</Stepper>
-			)}
+			)} */}
 			{item.items && <ReviewList items={item.items} />}
 		</div>
 	);

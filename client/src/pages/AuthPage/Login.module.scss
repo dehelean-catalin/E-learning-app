@@ -8,8 +8,9 @@
 	justify-content: center;
 
 	form {
-		max-width: 500px;
-		max-height: 700px;
+		max-width: 480px;
+		min-height: 610px;
+		max-height: 610px;
 		display: flex;
 		flex-direction: column;
 		background-color: white;
@@ -29,9 +30,9 @@
 			max-height: 100%;
 		}
 		.title {
-			font-size: 32px;
+			font-size: 30px;
 			text-align: center;
-			margin-bottom: 24px;
+			margin-bottom: 18px;
 			font-weight: 700;
 			color: $color-10;
 		}

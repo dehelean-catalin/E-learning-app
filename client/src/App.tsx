@@ -15,6 +15,9 @@ import Lecture from "./pages/Lecture/Lecture";
 import LectureOverview from "./pages/LectureOverview/LectureOverview";
 import Settings from "./pages/Settings/Settings";
 import SavedLectures from "./components/SettingsComp/SavedLectures";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
 
 function App() {
 	const router = createBrowserRouter(

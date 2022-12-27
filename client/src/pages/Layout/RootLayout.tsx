@@ -1,13 +1,13 @@
-import { useEffect, useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Navigate, Outlet, useLocation, useNavigate } from "react-router";
-import NewForm from "../../components/Forms/NewForm";
+import { Navigate, Outlet } from "react-router";
 import Notification from "../../components/BannerNotification/BannerNotification";
+import NewForm from "../../components/Forms/NewForm";
 import Header from "../../components/Header/Header";
-import NavigationHeader from "../../components/Header/NavigationHeader/NavigationHeader";
+import SideBar from "../../components/SideBar/SideBar";
 import { Axios } from "../../resources/routes";
 import AuthContext from "../../store/context/auth-context";
-import { AppInitializationActions } from "../../store/redux/appInitializationReducer";
+import { AppInitializationActions } from "../../store/redux/appInitReducer";
 const RootLayout = () => {
 	const dispatch = useDispatch();
 	const { token, logout } = useContext(AuthContext);
@@ -21,22 +21,20 @@ const RootLayout = () => {
 				},
 			})
 				.then((response) => {
-					dispatch(
-						AppInitializationActions.getInitializationData(response.data)
-					);
+					dispatch(AppInitializationActions.setAppInitData(response.data));
 				})
 				.catch((err) => setError(true));
 		}
 	}, [token]);
 
-	if (error || !token) {
+	if (!token) {
 		logout();
 		return <Navigate to="/login" replace />;
 	}
 
 	return (
 		<div className="App">
-			<NavigationHeader />
+			<SideBar />
 			<div className="box">
 				<Header />
 				<Notification />

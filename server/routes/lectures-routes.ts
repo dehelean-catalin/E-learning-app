@@ -12,10 +12,11 @@ import tokenAuth from "../middleware/tokenAuth-middleware";
 import { lectureSchema } from "../models/lecture-model";
 
 const router = Router();
-router.get("/lecture/:id/overview", tokenAuth, getLectureChapterUrl);
-router.get("/lecture/:id/chapters", tokenAuth, getLectureChapterList);
 router.get("/lectures", tokenAuth, getLectures);
-router.get("/lectures/:id", tokenAuth, getLectureById);
+// router.get("/lecture/:id/overview", tokenAuth, getLectureChapterUrl);
+// router.get("/lecture/:id/chapters", tokenAuth, getLectureChapterList);
+
+// router.get("/lectures/:id", tokenAuth, getLectureById);
 router.post("/lectures", validation(lectureSchema), addLecture);
 
 router.get("/saved-lectures", tokenAuth, getSavedLectures);

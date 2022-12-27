@@ -1,9 +1,8 @@
-import { NavLink } from "react-router-dom";
-import { IoMdNotifications } from "react-icons/io";
-import { FaUsers } from "react-icons/fa";
-import { MdHelp } from "react-icons/md";
-import styles from "./NavigationHeader.module.scss";
 import { AiFillHome } from "react-icons/ai";
+import { IoMdNotifications } from "react-icons/io";
+import { MdHelp } from "react-icons/md";
+import { NavLink } from "react-router-dom";
+import styles from "./SideBar.module.scss";
 
 const NavigationHeader = () => {
 	return (
@@ -24,17 +23,7 @@ const NavigationHeader = () => {
 			>
 				<span>
 					<IoMdNotifications />
-					Activity
-				</span>
-			</NavLink>
-
-			<NavLink
-				to="/teams/active"
-				className={({ isActive }) => (isActive ? styles.active : "")}
-			>
-				<span>
-					<FaUsers />
-					Teams
+					History
 				</span>
 			</NavLink>
 

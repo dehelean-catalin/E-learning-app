@@ -5,7 +5,7 @@ import { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
 import AuthContext from "../store/context/auth-context";
 import { Axios } from "../resources/routes";
-import { BannerNotificationType } from "../resources/models/models";
+import { BannerNotificationType } from "../resources/models/usersModel";
 
 export const useAuthentication = () => {
 	const dispatch = useDispatch();

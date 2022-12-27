@@ -1,7 +1,10 @@
 import { ObjectSchema } from "joi";
 import { NextFunction, Request, Response } from "express";
+import { LoginModel, RegisterModel } from "../models/auth-model";
 
-export default function authentication(model: ObjectSchema) {
+export default function authentication(
+	model: ObjectSchema<RegisterModel | LoginModel>
+) {
 	return (req: Request, res: Response, next: NextFunction) => {
 		const { error } = model.validate(req.body);
 		if (error) {

@@ -17,7 +17,6 @@
 .App {
 	display: flex;
 	min-height: 100vh;
-
 	background: $color-60;
 	.box {
 		flex: 1;
@@ -53,4 +52,11 @@
 }
 .MuiStepContent-root {
 	padding-right: 0px !important;
+}
+
+// DIVIDER
+
+.p-divider.p-divider-horizontal::before {
+	border-top: 3px $color-30 !important;
+	border-top-style: solid !important;
 }

@@ -34,12 +34,11 @@ const Login = () => {
 	const hasErrorPassword = getPasswordErrorMessage() !== "";
 	const hasErrorEmail = getEmailErrorMessage() !== "";
 	const hasValue = !!email && !!password;
-
 	const getSignInBtn = () => {
 		if (isLoading) {
 			return (
 				<button>
-					<ProgressSpinner className={styles.loading} />
+					<ProgressSpinner className={styles.loading} strokeWidth={"6px"} />
 				</button>
 			);
 		}
@@ -65,7 +64,7 @@ const Login = () => {
 				<InputTextField
 					overlay="white"
 					value={email}
-					placeholder="Enter email or school email"
+					placeholder="Enter email"
 					label="Email"
 					onChange={(e) => setEmail(e)}
 					onBlur={() => setEmailTouched(true)}

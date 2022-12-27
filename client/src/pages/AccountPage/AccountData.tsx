@@ -7,20 +7,17 @@ import AuthContext from "../../store/context/auth-context";
 import { NotificationActions } from "../../store/redux/notificationReducer";
 import styles from "./AccountData.module.scss";
 import InputTextField from "../../components/common/InputTextField/InputTextField";
-import { BannerNotificationType } from "../../resources/models/models";
+import {
+	BannerNotificationType,
+	UserDataModel,
+} from "../../resources/models/usersModel";
 import InputTextareaField from "../../components/common/InputTextareaField/InputTextareaField";
 
 const Account = () => {
 	const dispatch = useDispatch();
 	const { token } = useContext(AuthContext);
 	const [isLoading, setIsLoading] = useState(true);
-	const [values, setValues] = useState({
-		firstName: "",
-		lastName: "",
-		phoneNumber: "",
-		address: "",
-		aboutYou: "",
-	});
+	const [values, setValues] = useState<UserDataModel>(null);
 	const [isTouched, setIsTouched] = useState({
 		firstName: false,
 		lastName: false,
@@ -32,7 +29,7 @@ const Account = () => {
 		!values.phoneNumber.length;
 
 	useEffect(() => {
-		Axios.get("/user-details", {
+		Axios.get("/user/data", {
 			headers: {
 				authorization: "Bearer " + token,
 			},

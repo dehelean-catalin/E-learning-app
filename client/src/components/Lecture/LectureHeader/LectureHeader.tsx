@@ -39,6 +39,7 @@ const LectureHeader: FC<Props> = ({ value }) => {
 				headers: {
 					authorization: "Bearer " + token,
 				},
+				params: id,
 			}
 		).then(() => navigate(`/lecture/${id}/overview?page=0`));
 	};

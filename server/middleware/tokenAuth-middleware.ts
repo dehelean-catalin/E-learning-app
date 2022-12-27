@@ -1,7 +1,9 @@
-import { NextFunction, Response } from "express";
+import { ValidatedRequest } from "./../models/request";
+import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 
-export default (req: any, res: Response, next: NextFunction) => {
+export default (req: Request, res: Response, next: NextFunction) => {
+	const validatedReq = req as ValidatedRequest;
 	if (req.method === "OPTIONS") {
 		return next();
 	}
@@ -14,7 +16,8 @@ export default (req: any, res: Response, next: NextFunction) => {
 			throw new Error("Authentication failed!");
 		}
 		const decodedData: any = jwt.verify(token, "code");
-		req.userData = { userId: decodedData.userId };
+		validatedReq.userData = { userId: decodedData.userId };
+
 		next();
 	} catch (err: any) {
 		if (err instanceof jwt.JsonWebTokenError) {

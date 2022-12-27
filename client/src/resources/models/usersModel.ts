@@ -1,32 +1,20 @@
-export interface IUser {
-	id: string;
+export type UserModel = {
+	email: string;
 	firstName: string;
 	lastName: string;
-	email: string;
-	phone: string;
+	phoneNumber: string;
 	address: string;
-	favoriteTopics: string;
-	degree: string;
-	institution: string;
-	institutionKey: string;
-	jobTitle: string;
-	profilePicture: string;
 	aboutYou: string;
-	links: string;
-	role: string;
-}
-export type UserDetails = {
-	phone?: string;
-	address?: string;
-	favoriteTopics?: string;
-	degree?: string;
-	institution?: string;
-	institutionKey?: string;
-	jobTitle?: string;
-	profilePicture?: Blob | File;
-	aboutYou?: string;
-	links?: string;
+	profilePicture: string;
+	savedLectures: string[];
+	watchingLectures: [];
 };
+
+export type UserDataModel = Omit<
+	UserModel,
+	"savedLectures" | "watchingLectures"
+>;
+
 export interface ITeam {
 	id: string;
 	name: string;

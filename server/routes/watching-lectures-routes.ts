@@ -5,7 +5,7 @@ import {
 	addWatchingLectures,
 	getWatchingLectureByID,
 	updateWatchingLectures,
-} from "./../controllers/user-controller";
+} from "./../controllers//watching-lectures-controller";
 import { WatchingLectureModel } from "./../models/watching-lectures-model";
 
 const router = Router();
