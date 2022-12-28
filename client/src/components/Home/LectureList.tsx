@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
-import { BasicLecture } from "../../../resources/models/lectures";
-import LectureCard from "../../common/LectureCard/LectureCard";
+import { BasicLecture } from "../../resources/models/lectures";
+import LectureCard from "../common/LectureCard/LectureCard";
 type Props = {
 	value: BasicLecture[];
 };

@@ -18,19 +18,39 @@
 			margin-bottom: 10px;
 		}
 		.chapter {
-			padding: 10px 20px;
+			display: flex;
+			flex-direction: row;
+			gap: 10px;
+			background-color: $color-30;
+			padding: 10px 12px;
 			border-radius: 8px;
-			border: 1px solid gray;
 			cursor: pointer;
 			margin-bottom: 10px;
-		}
-		.active-chapter {
-			padding: 10px 20px;
-			background-color: $color-10;
-			border-radius: 8px;
-			border: 1px solid gray;
-			cursor: pointer;
-			margin-bottom: 10px;
+
+			font-weight: 600;
+			font-size: 16px;
+			align-items: center;
+			svg {
+				font-size: 20px;
+			}
+			.details {
+				display: flex;
+				flex-direction: column;
+			}
+			.time {
+				display: flex;
+				align-items: center;
+				margin-top: 4px;
+				font-size: 14px;
+				font-weight: 400;
+
+				svg {
+					font-size: 15px;
+				}
+			}
+			&.active {
+				background-color: $color-10;
+			}
 		}
 	}
 }

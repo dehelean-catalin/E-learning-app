@@ -1,11 +1,10 @@
-import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
+import LectureHeader from "../../components/Lecture/LectureHeader/LectureHeader";
+import LectureSectionList from "../../components/Lecture/LectureSectionCard/LectureSectionList";
+import useFetchQuery from "../../hooks/useFetchQuery";
 import { ICategory, ILecture } from "../../resources/models/lectures";
 import { Axios } from "../../resources/routes";
 import styles from "./Lecture.module.scss";
-import LectureHeader from "../../components/Lecture/LectureHeader/LectureHeader";
-import LectureSectionList from "../../components/Lecture/LectureSectionCard/LectureSectionList";
-import AuthContext from "../../store/context/auth-context";
 
 const INITIAL_DATA: ILecture = {
 	id: "",
@@ -28,22 +27,24 @@ const INITIAL_DATA: ILecture = {
 
 const Lecture = () => {
 	const { id } = useParams();
-	const [lecture, setLecture] = useState<ILecture>(INITIAL_DATA);
-	const { token } = useContext(AuthContext);
-	useEffect(() => {
-		Axios.get(`/lectures/${id}`, {
-			headers: { authorization: "Bearer " + token },
-		})
-			.then((res) => setLecture(res.data))
-			.catch((err) => console.log(err.response.data));
-	}, [id, token]);
+	const { data } = useFetchQuery(
+		"get-lecture",
+		() => {
+			return Axios.get(`/lecture/${id}`).then((res) => res.data);
+		},
+		{
+			initialData: INITIAL_DATA,
+			onError: () => console.log("error"),
+			onSuccess: () => console.log("succ"),
+		}
+	);
 
 	return (
 		<div className={styles.lecture}>
 			<div className={styles.container}>
-				<LectureHeader value={lecture} />
+				<LectureHeader value={data} />
 				<LectureSectionList
-					items={lecture.items}
+					items={data.items}
 					className={styles["lecture-list"]}
 				/>
 			</div>

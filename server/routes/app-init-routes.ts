@@ -3,7 +3,7 @@ import { doc, getDoc } from "firebase/firestore";
 import db from "../firebase";
 import tokenAuth from "../middleware/tokenAuth-middleware";
 import { ValidatedRequest } from "../models/request";
-import { UserDataModel } from "../models/user-model";
+import { AppInitModel, UserDataModel } from "../models/user-model";
 
 const router = Router();
 
@@ -20,7 +20,7 @@ router.get(
 				throw new Error("This user don't exist anymore");
 			}
 			const { firstName, lastName, profilePicture, email } =
-				userSnap.data() as UserDataModel;
+				userSnap.data() as AppInitModel;
 			return res.status(200).json({
 				lastName,
 				firstName,

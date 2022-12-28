@@ -1,12 +1,14 @@
-import { FC, useContext, useEffect, useState } from "react";
+import { AxiosError } from "axios";
+import { FC, useState } from "react";
 import { FaRegFrown } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router";
 import FilterList from "../../components/Home/FilterList/FilterList";
-import { BasicLecture, ICategory } from "../../resources/models/lectures";
+import LectureSkeleton from "../../components/Home/Skeleton/LectureSkeleton";
+import useFetchQuery from "../../hooks/useFetchQuery";
+import { BasicLecture } from "../../resources/models/lectures";
 import { BannerNotificationType } from "../../resources/models/usersModel";
 import { Axios } from "../../resources/routes";
-import AuthContext from "../../store/context/auth-context";
 import { NotificationActions } from "../../store/redux/notificationReducer";
 import styles from "./Home.module.scss";
 import HomeSection from "./HomeSection";
@@ -15,94 +17,68 @@ const Home: FC = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const search = useLocation().search;
-	const category = new URLSearchParams(search).get("category");
-	const { token } = useContext(AuthContext);
-	const [lectures, setLectures] = useState<BasicLecture[]>([]);
-	const [isLoading, setIsLoading] = useState(true);
-	const [error, setError] = useState(false);
-
-	useEffect(() => {
-		getLectures(category, token)
-			.then((res) => setLectures(res.data))
-			.catch(() => setError(true))
-			.finally(() => setIsLoading(false));
-	}, [category]);
-
-	const getContent = () => {
-		if (error) {
-			return (
-				<div className={styles.empty}>
-					<FaRegFrown />
-					<span>This category doesn't have any lectures!</span>
-				</div>
-			);
-		}
-
-		return (
-			<>
-				<HomeSection
-					title="Recomended Lectures"
-					value={lectures}
-					isLoading={isLoading}
-					showDivider
-				/>
-				<HomeSection
-					title="New Lectures"
-					value={lectures}
-					isLoading={isLoading}
-					showDivider
-				/>
-				<HomeSection
-					title="Top Rated Lectures"
-					value={lectures}
-					isLoading={isLoading}
-					showDivider
-				/>
-				<HomeSection
-					title="Most Viewed Lectures"
-					value={lectures}
-					isLoading={isLoading}
-				/>
-			</>
-		);
-	};
-	const setNavigation = (f: ICategory) => {
-		Axios.get("/lectures", {
-			params: { category: f },
-			headers: {
-				authorization: "Bearer " + token,
-			},
-		})
-			.then((res) => {
-				setLectures(res.data);
-				setError(false);
-				navigate(`/home?category=${f}`);
-			})
-			.catch((err) => {
+	const param = new URLSearchParams(search).get("category");
+	const [category, setCategory] = useState(param);
+	const { data, isError, isLoading } = useFetchQuery(
+		["/lectures", category],
+		() => {
+			return Axios.get<any, { data: BasicLecture[] }>("/lectures", {
+				params: { category },
+			}).then((res) => res.data);
+		},
+		{
+			initialData: [],
+			onSuccess: () => navigate(`/home?category=${category}`),
+			onError: (err: AxiosError<{ code: string; message: string }>) =>
 				dispatch(
 					NotificationActions.showBannerNotification({
 						type: BannerNotificationType.Warning,
 						message: err.response.data?.message,
 					})
-				);
-			})
-			.finally(() => setIsLoading(false));
-	};
+				),
+		}
+	);
+
+	if (isLoading) {
+		return (
+			<div className={styles.home}>
+				<LectureSkeleton />
+			</div>
+		);
+	}
+	if (isError) {
+		return (
+			<div className={styles.home}>
+				<FilterList
+					onFilterChange={(f) => {
+						setCategory(f);
+					}}
+				/>
+				<div className={styles.empty}>
+					<FaRegFrown />
+					<span>This category doesn't have any lectures!</span>
+				</div>
+			</div>
+		);
+	}
+
 	return (
 		<div className={styles.home}>
-			<FilterList onFilterChange={(category) => setNavigation(category)} />
-			{getContent()}
+			<FilterList
+				onFilterChange={(f) => {
+					setCategory(f);
+				}}
+			/>
+			{data.length && (
+				<>
+					<HomeSection title="Recomended Lectures" value={data} showDivider />
+					<HomeSection title="New Lectures" value={data} showDivider />
+					<HomeSection title="Top Rated Lectures" value={data} showDivider />
+					<HomeSection title="Most Viewed Lectures" value={data} />
+				</>
+			)}
 		</div>
 	);
 };
 
 export default Home;
-
-const getLectures = (category, token) => {
-	return Axios.get("/lectures", {
-		params: { category },
-		headers: {
-			authorization: "Bearer " + token,
-		},
-	});
-};

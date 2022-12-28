@@ -1,32 +1,56 @@
 import { OverlayPanel } from "primereact/overlaypanel";
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { BsBookmark, BsPersonCircle } from "react-icons/bs";
 import { IoSettingsOutline } from "react-icons/io5";
 import { VscSignOut } from "react-icons/vsc";
-import { useSelector } from "react-redux";
+import { useQuery } from "@tanstack/react-query";
 import { NavLink } from "react-router-dom";
 import {
+	HeaderDataModel,
 	ProfileIconSize,
-	UserDataModel,
 } from "../../resources/models/usersModel";
+import { Axios } from "../../resources/routes";
 import AuthContext from "../../store/context/auth-context";
-import { RootState } from "../../store/redux/reducers";
 import Divider from "../common/Divider";
 import ProfilePicture from "../common/ProfilePicture/ProfilePicture";
 import styles from "./Header.module.scss";
+import { FC } from "react";
+import useFetchQuery from "../../hooks/useFetchQuery";
 
-const Header = () => {
+const Header: FC = () => {
 	const op = useRef(null);
 	const { logout } = useContext(AuthContext);
-	const user = useSelector<RootState, UserDataModel>(
-		(s) => s.appInitializationReducer
+
+	const { data: lala, isError } = useFetchQuery(
+		"/app-initialization",
+		() => {
+			return Axios.get<HeaderDataModel>("/app-initialization").then(
+				(res) => res.data
+			);
+		},
+		{
+			initialData: {
+				email: "",
+				firstName: "",
+				lastName: "",
+				profilePicture: "",
+			},
+			onSuccess: () => console.log("a"),
+			onError: () => console.log("a"),
+		}
 	);
-	const { firstName, lastName } = user;
+	const data = lala as HeaderDataModel;
+	const { firstName, lastName, email } = data;
+
 	const initials =
 		firstName.slice(0, 1).toUpperCase() + lastName.slice(0, 1).toUpperCase();
+
+	if (isError) {
+		return <>error</>;
+	}
 	return (
 		<header className={styles.header}>
-			<div onClick={(e) => op.current.toggle(e)}>
+			<div className={styles.toogleIcon} onClick={(e) => op.current.toggle(e)}>
 				<ProfilePicture picture={""} initials={initials} />
 			</div>
 			<OverlayPanel ref={op} className={styles["profile-overlay"]}>
@@ -39,10 +63,10 @@ const Header = () => {
 
 					<div className={styles["profile-details"]}>
 						<div>
-							<span>{user.lastName}</span>
-							<span>{user.firstName}</span>
+							<span>{lastName}</span>
+							<span>{firstName}</span>
 						</div>
-						{user.email}
+						{email}
 					</div>
 				</header>
 				<main>
@@ -69,7 +93,7 @@ const Header = () => {
 						<BsBookmark fontSize="20px" /> Saved Lectures
 					</NavLink>
 					<Divider />
-					<div className={styles.row} onClick={() => logout()}>
+					<div className={styles.row} onClick={logout}>
 						<VscSignOut fontSize="22px" /> Log out
 					</div>
 				</main>

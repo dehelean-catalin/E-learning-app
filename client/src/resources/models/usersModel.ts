@@ -15,21 +15,29 @@ export type UserDataModel = Omit<
 	"savedLectures" | "watchingLectures"
 >;
 
-export interface ITeam {
+export type HeaderDataModel = Omit<
+	UserDataModel,
+	"aboutYou" | "phoneNumber" | "address"
+>;
+
+export type AppInitModel = Omit<
+	UserModel,
+	"savedLectures" | "watchingLectures" | "phoneNumber" | "address" | "aboutYou"
+>;
+
+export type WatchingLectureModel = {
 	id: string;
-	name: string;
-	privacy: string;
-	description: string;
-	status: string;
-	avatar: any;
-	roles: Roles;
-	requests: string[];
-	channels: string[];
-}
-type Roles = {
-	members: string[];
-	owners: string[];
+	items: WatchingLectureItem[];
 };
+export type WatchingLectureItem = {
+	title: string;
+	url: string;
+	page: string;
+	duration: number;
+	currentProgress: number;
+	confirmedProgress: number;
+};
+
 export interface IMessage {
 	roomId?: string;
 	message: string;

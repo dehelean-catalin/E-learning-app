@@ -1,23 +1,23 @@
+import "primeicons/primeicons.css";
+import "primereact/resources/primereact.min.css";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
 import {
 	createBrowserRouter,
 	createRoutesFromElements,
 	Route,
 	RouterProvider,
 } from "react-router-dom";
+import "./App.scss";
+import SavedLectures from "./components/SettingsComp/SavedLectures";
+import Account from "./pages/AccountPage/AccountData";
 import Login from "./pages/AuthPage/Login";
 import Register from "./pages/AuthPage/Register";
-import "./App.scss";
-import Account from "./pages/AccountPage/AccountData";
-import RootLayout from "./pages/Layout/RootLayout";
 import Home from "./pages/Home/Home";
 import LoginLayout from "./pages/Layout/LoginLayout";
+import RootLayout from "./pages/Layout/RootLayout";
 import Lecture from "./pages/Lecture/Lecture";
 import LectureOverview from "./pages/LectureOverview/LectureOverview";
 import Settings from "./pages/Settings/Settings";
-import SavedLectures from "./components/SettingsComp/SavedLectures";
-import "primereact/resources/themes/lara-light-indigo/theme.css";
-import "primereact/resources/primereact.min.css";
-import "primeicons/primeicons.css";
 
 function App() {
 	const router = createBrowserRouter(

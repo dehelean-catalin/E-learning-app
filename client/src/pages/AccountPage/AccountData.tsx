@@ -12,32 +12,41 @@ import {
 	UserDataModel,
 } from "../../resources/models/usersModel";
 import InputTextareaField from "../../components/common/InputTextareaField/InputTextareaField";
+import useFetchQuery from "../../hooks/useFetchQuery";
 
 const Account = () => {
 	const dispatch = useDispatch();
-	const { token } = useContext(AuthContext);
-	const [isLoading, setIsLoading] = useState(true);
-	const [values, setValues] = useState<UserDataModel>(null);
+	const { data, isLoading, isError } = useFetchQuery(
+		"/user/data",
+		() => {
+			return Axios.get<Omit<UserDataModel, "profilePicture" | "email">>(
+				"/user/data"
+			).then((res) => res.data);
+		},
+		{
+			initialData: {
+				firstName: "",
+				lastName: "",
+				address: "",
+				aboutYou: "",
+				phoneNumber: "",
+			},
+			onError: () => console.log("lla"),
+			onSuccess: () => console.log("SUCCES"),
+		}
+	);
+	const lala = data as UserDataModel;
+	const [values, setValues] = useState<UserDataModel>(lala);
+
 	const [isTouched, setIsTouched] = useState({
 		firstName: false,
 		lastName: false,
 		phoneNumber: false,
 	});
 	const disabled =
-		!values.firstName.length ||
-		!values.lastName.length ||
-		!values.phoneNumber.length;
-
-	useEffect(() => {
-		Axios.get("/user/data", {
-			headers: {
-				authorization: "Bearer " + token,
-			},
-		})
-			.then((res) => setValues(res.data))
-			.catch((err) => console.log(err))
-			.finally(() => setIsLoading(false));
-	}, []);
+		!values?.firstName.length ||
+		!values?.lastName.length ||
+		!values?.phoneNumber.length;
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
@@ -45,11 +54,7 @@ const Account = () => {
 		if (disabled) {
 			return;
 		}
-		Axios.put("/user-details", values, {
-			headers: {
-				authorization: "Bearer " + token,
-			},
-		})
+		Axios.put("/user/data", values)
 			.then((res) =>
 				dispatch(
 					NotificationActions.showBannerNotification({
@@ -68,9 +73,6 @@ const Account = () => {
 			});
 	};
 
-	// if (isLoading) {
-	// 	return <ProgressSpinner className={styles.loading} />;
-	// }
 	return (
 		<div className={styles["settings-content"]}>
 			<header>Account</header>
@@ -79,15 +81,16 @@ const Account = () => {
 				<div>
 					<InputTextField
 						label="First name"
-						value={values.firstName}
+						value={values?.firstName}
 						onChange={(e) => setValues({ ...values, firstName: e })}
 						onBlur={() => setIsTouched({ ...isTouched, firstName: true })}
 						hasError={!values.firstName.length && isTouched.firstName}
 						errorMessage={"First name is required"}
 					/>
+
 					<InputTextField
 						label="Last name"
-						value={values.lastName}
+						value={values?.lastName}
 						onChange={(e) => setValues({ ...values, lastName: e })}
 						onBlur={() => setIsTouched({ ...isTouched, lastName: true })}
 						hasError={!values.lastName.length && isTouched.lastName}
@@ -96,7 +99,7 @@ const Account = () => {
 
 					<InputTextField
 						label="Phone number"
-						value={values.phoneNumber}
+						value={values?.phoneNumber}
 						onChange={(e) => setValues({ ...values, phoneNumber: e })}
 						onBlur={() => setIsTouched({ ...isTouched, phoneNumber: true })}
 						hasError={!values.phoneNumber.length && isTouched.phoneNumber}
@@ -104,17 +107,17 @@ const Account = () => {
 					/>
 					<InputTextField
 						label="Address"
-						value={values.address}
+						value={values?.address}
 						onChange={(e) => setValues({ ...values, address: e })}
 					/>
 					<InputTextareaField
 						label="About you"
-						value={values.aboutYou}
+						value={values?.aboutYou}
 						onChange={(e) => setValues({ ...values, aboutYou: e })}
 					/>
 				</div>
 				<div className={styles.btns}>
-					<Button disabled={disabled}>Save</Button>
+					<button disabled={disabled}>Save</button>
 				</div>
 			</form>
 		</div>

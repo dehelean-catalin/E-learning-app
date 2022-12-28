@@ -13,12 +13,13 @@ import { lectureSchema } from "../models/lecture-model";
 
 const router = Router();
 router.get("/lectures", tokenAuth, getLectures);
+
+router.get("/lecture/:id", tokenAuth, getLectureById);
 // router.get("/lecture/:id/overview", tokenAuth, getLectureChapterUrl);
 // router.get("/lecture/:id/chapters", tokenAuth, getLectureChapterList);
 
-// router.get("/lectures/:id", tokenAuth, getLectureById);
 router.post("/lectures", validation(lectureSchema), addLecture);
 
-router.get("/saved-lectures", tokenAuth, getSavedLectures);
+// router.get("/saved-lectures", tokenAuth, getSavedLectures);
 
 export default router;

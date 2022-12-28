@@ -1,15 +1,14 @@
 import { OverlayPanel } from "primereact/overlaypanel";
-import React, { FC, useRef } from "react";
-import { AiOutlineLink } from "react-icons/ai";
+import { FC, useRef } from "react";
 import { BiLinkAlt } from "react-icons/bi";
-import { BsBookmark, BsShare } from "react-icons/bs";
+import { BsBookmark } from "react-icons/bs";
 import { IoTrashOutline } from "react-icons/io5";
-import { MdContentCopy } from "react-icons/md";
+import { useMutation, useQueryClient } from "react-query";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router";
-import useFetchLecture from "../../../hooks/useFetchLecture";
 import { BasicLecture } from "../../../resources/models/lectures";
 import { BannerNotificationType } from "../../../resources/models/usersModel";
+import { Axios } from "../../../resources/routes";
 import { NotificationActions } from "../../../store/redux/notificationReducer";
 import { CustomRating } from "../CustomRating/CustomRating";
 import styles from "./LectureCard.module.scss";
@@ -22,7 +21,6 @@ type Props = {
 	bannerClassName?: string;
 	contentClassName?: string;
 	iconClassName?: string;
-	onRemoveLecture?: (id: string) => void;
 };
 
 const LectureCard: FC<Props> = ({
@@ -32,14 +30,42 @@ const LectureCard: FC<Props> = ({
 	contentClassName = styles.content,
 	iconClassName = styles.icon,
 	icon,
-	onRemoveLecture,
 }) => {
-	const op = useRef(null);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const { id, thumbnail, title, createdBy, rating, numberOfRates } = value;
-	const { saveLecture } = useFetchLecture();
 	const { pathname } = useLocation();
+	const queryClient = useQueryClient();
+	const op = useRef(null);
+	const { id, thumbnail, title, createdBy, rating, numberOfRates } = value;
+
+	const { mutate } = useMutation(
+		() => Axios.delete(`user/save-lecture/${id}`),
+		{
+			onSuccess: () => queryClient.invalidateQueries("save-lecture"),
+		}
+	);
+	const { mutate: saveLecture } = useMutation(
+		() => Axios.post(`user/save-lecture/${id}`),
+		{
+			onSuccess: () => {
+				dispatch(
+					NotificationActions.showBannerNotification({
+						type: BannerNotificationType.Info,
+						action: "settings/saved-lectures",
+						message: "Added to Saved Lectures",
+					})
+				);
+			},
+			onError: (err: any) => {
+				dispatch(
+					NotificationActions.showBannerNotification({
+						type: BannerNotificationType.Warning,
+						message: err.response.data.message,
+					})
+				);
+			},
+		}
+	);
 
 	const getPanelAction = () => {
 		if (pathname.includes("saved-lecture")) {
@@ -47,7 +73,7 @@ const LectureCard: FC<Props> = ({
 				<div
 					className={"item"}
 					onClick={(e) => {
-						onRemoveLecture(id);
+						mutate();
 						op.current.toggle(e);
 					}}
 				>
@@ -59,7 +85,7 @@ const LectureCard: FC<Props> = ({
 			<div
 				className={"item"}
 				onClick={(e) => {
-					saveLecture(id);
+					saveLecture();
 					op.current.toggle(e);
 				}}
 			>

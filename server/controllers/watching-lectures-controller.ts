@@ -14,7 +14,7 @@ export const getWatchingLectureByID = async (req: Request, res: Response) => {
 		}
 
 		let { watchingLectures } = userSnap.data();
-		const value = watchingLectures.find((i: any) => i.id == req.query.id);
+		const value = watchingLectures.find((i: any) => i.id == req.params.id);
 		res.status(200).json(value);
 	} catch (err: any) {
 		return res.status(400).json({ code: 400, message: err.message });

@@ -1,51 +1,27 @@
-import { useContext, useEffect, useState } from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { RiAddCircleLine } from "react-icons/ri";
 import { useNavigate } from "react-router";
-import { BasicLecture } from "../../resources/models/lectures";
+import useFetchQuery from "../../hooks/useFetchQuery";
 import { Axios } from "../../resources/routes";
-import AuthContext from "../../store/context/auth-context";
 import LectureCard from "../common/LectureCard/LectureCard";
 import styles from "./SavedLectures.module.scss";
 
 const SavedLectures = () => {
-	const { token } = useContext(AuthContext);
 	const navigate = useNavigate();
-	const [lectures, setLectures] = useState<BasicLecture[]>([]);
+	const { data } = useFetchQuery(
+		"save-lecture",
+		() => {
+			return Axios.get("/user/save-lecture").then((res) => res.data);
+		},
+		{
+			initialData: [],
+			onError: (e) => console.log(e),
+			onSuccess: (e) => console.log(e),
+		}
+	);
 
-	useEffect(() => {
-		Axios.get("/saved-lectures", {
-			headers: {
-				authorization: "Bearer " + token,
-			},
-		})
-			.then((res) => setLectures(res.data))
-			.catch((err) => console.log(err));
-	}, [token]);
-
-	const Delete = (id) => {
-		Axios.put(
-			"/delete-lecture",
-			{ id },
-			{
-				headers: {
-					authorization: "Bearer " + token,
-				},
-			}
-		)
-			.then(() => {
-				Axios.get("/saved-lectures", {
-					headers: {
-						authorization: "Bearer " + token,
-					},
-				})
-					.then((res) => setLectures(res.data))
-					.catch((err) => console.log("err"));
-			})
-			.catch((err) => console.log(err.response));
-	};
 	const getLectures = () => {
-		if (!lectures.length)
+		if (!data.length)
 			return (
 				<div
 					className={styles.empty}
@@ -56,7 +32,7 @@ const SavedLectures = () => {
 				</div>
 			);
 
-		return lectures?.map((lecture, key) => (
+		return data?.map((lecture, key) => (
 			<LectureCard
 				key={key}
 				value={lecture}
@@ -64,7 +40,6 @@ const SavedLectures = () => {
 				bannerClassName={styles.banner}
 				contentClassName={styles.content}
 				icon={<BiDotsVerticalRounded size="26px" />}
-				onRemoveLecture={(id) => Delete(id)}
 			/>
 		));
 	};

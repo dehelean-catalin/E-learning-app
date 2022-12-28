@@ -103,13 +103,9 @@ export const getLectures = async (
 	}
 };
 
-export const getLectureById = async (
-	req: Request<Params, any, any, any>,
-	res: Response
-) => {
+export const getLectureById = async (req: Request, res: Response) => {
 	try {
-		const { id } = req.params;
-		const docRef = doc(db, "lectures", id);
+		const docRef = doc(db, "lectures", req.params.id);
 		const docSnap = await getDoc(docRef);
 		if (!docSnap.exists()) {
 			throw new Error("This Lecture dont exist");
@@ -193,15 +189,3 @@ export const getSavedLectures = async (req: any, res: Response) => {
 		res.status(400).json({ code: 400, message: err.message });
 	}
 };
-
-// export const getUrl = async (req: any, response: Response) => {
-// 	const storage = getStorage();
-// 	// getDownloadURL(ref(storage, "images/Dehelean_Rares_Catalin.pdf")).then(
-// 	// 	(url) => console.log(url)
-// 	// );
-// 	axios
-// 		.get(
-// 			"https://firebasestorage.googleapis.com/v0/b/licenta-986d3.appspot.com/o/images%2FDehelean_Rares_Catalin.pdf?alt=media&token=bbc2deb6-a447-463c-af64-c2d446362f31"
-// 		)
-// 		.then((res) => response.send(res.data));
-// };

@@ -1,42 +1,31 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate, useParams } from "react-router";
-import AuthContext from "../../store/context/auth-context";
-import styles from "./LectureOverview.module.scss";
-
+import { useEffect, useRef, useState } from "react";
+import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
+import { RiVideoLine } from "react-icons/ri";
 import ReactPlayer from "react-player/lazy";
+import { useLocation, useNavigate, useParams } from "react-router";
+import { WatchingLectureItem } from "../../resources/models/watchingLecturesModel";
 import { Axios } from "../../resources/routes";
 import video from "../../video.mp4";
-import { ProgressBar } from "primereact/progressbar";
-import {
-	WatchingLecture,
-	WatchingLectureItem,
-} from "../../resources/models/watchingLecturesModel";
+import styles from "./LectureOverview.module.scss";
+import LectureOverviewNavTab from "./LectureOverviewNavTab";
 
 const LectureOverview = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const search = useLocation().search;
 	const page = new URLSearchParams(search).get("page");
-	const { token } = useContext(AuthContext);
 	const playerRef = useRef(null);
-	const [lecture, setLecture] = useState<WatchingLectureItem[]>(null);
+	const [data, setData] = useState([]);
 
 	useEffect(() => {
-		Axios.get<WatchingLecture>("/watching-lectures", {
-			headers: {
-				authorization: "Bearer " + token,
-			},
-			params: {
-				id,
-			},
-		}).then((res) => {
-			setLecture(res.data.items);
-			let currentPage = lecture?.find((i) => i.page === page);
+		Axios.get(`/user/watching-lectures/${id}`).then((res: any) => {
+			setData(res.data.items);
+			let currentPage = res.data.items.find((i) => i.page === page);
 			playerRef.current.seekTo(currentPage.currentProgress, "seconds");
 		});
-	}, [id, page, token]);
+	}, [page, id]);
 
-	const currentPage = lecture?.find((i) => i.page === page);
+	// const currentPage = data?.find((i) => i.page === page);
 
 	return (
 		<div className={styles["lecture-overview"]}>
@@ -51,26 +40,23 @@ const LectureOverview = () => {
 				}}
 				height="auto"
 				width="70%"
-				onProgress={(e) => console.log(e)}
+				onProgress={(e) => {
+					Axios.put(
+						`/user/watching-lectures/${id}/time`,
+						{ time: e.playedSeconds },
+						{
+							params: {
+								page,
+							},
+						}
+					);
+				}}
 				playing={false}
 			/>
 			<div className={styles.content}>
 				<span>Lecture content</span>
-				{lecture?.map((i: WatchingLectureItem) => (
-					<div
-						key={i.title}
-						className={
-							i.page === page ? styles["active-chapter"] : styles.chapter
-						}
-						onClick={() => navigate(`/lecture/${id}/overview?page=${i.page}`)}
-					>
-						{i.title}
-
-						<ProgressBar
-							value={(i.confirmedProgress * 100) / i.duration}
-							showValue={false}
-						/>
-					</div>
+				{data?.map((i: WatchingLectureItem) => (
+					<LectureOverviewNavTab key={i.title} value={i} id={id} page={page} />
 				))}
 			</div>
 		</div>
