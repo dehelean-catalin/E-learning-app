@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Review } from "../../../resources/models/lectures";
+import { Review } from "../../../resources/models/lectureModel";
 import ReviewCard from "./ReviewCard";
 import styles from "./ReviewList.module.scss";
 

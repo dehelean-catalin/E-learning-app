@@ -1,16 +1,16 @@
-import { AxiosRequestConfig } from "axios";
-import { FC, useContext } from "react";
+import { FC } from "react";
 import { BiBook, BiDotsVerticalRounded } from "react-icons/bi";
 import { BsPlayBtn } from "react-icons/bs";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { ILecture } from "../../../resources/models/lectures";
-import { WatchingLectureItem } from "../../../resources/models/watchingLecturesModel";
-import { Axios } from "../../../resources/routes";
-import AuthContext from "../../../store/context/auth-context";
+import { LectureModel } from "../../../resources/models/lectureModel";
+import { BannerNotificationType } from "../../../resources/models/usersModel";
+import { useAxios } from "../../../resources/axiosInstance";
+import { NotificationActions } from "../../../store/redux/notificationReducer";
 import Button from "../../common/Button/Button";
 import { CustomRating } from "../../common/CustomRating/CustomRating";
 import styles from "./LectureHeader.module.scss";
-type Props = { value: ILecture };
+type Props = { value: LectureModel };
 const LectureHeader: FC<Props> = ({ value }) => {
 	const {
 		id,
@@ -24,24 +24,35 @@ const LectureHeader: FC<Props> = ({ value }) => {
 		rating,
 		language,
 		numberOfUsers,
-		numberOfChapters,
-		totalHours,
 		lastUpdate,
 	} = value;
 	const navigate = useNavigate();
-	const { token } = useContext(AuthContext);
-	// TODO: Check if you are already watching this lecture
+	const dispatch = useDispatch();
+
+	let a = value.items.find((i) => i.courseContent);
+	let b = a.courseContent.map((i) => i.children);
+	let sum = 0;
+
+	for (const key in b) {
+		let c = b[key];
+
+		for (const yey in c) {
+			sum += c[yey].data.duration;
+		}
+	}
+	const axiosInstance = useAxios();
 	const handleClick = () => {
-		Axios.put(
-			"/watching-lectures",
-			{},
-			{
-				headers: {
-					authorization: "Bearer " + token,
-				},
-				params: id,
-			}
-		).then(() => navigate(`/lecture/${id}/overview?page=0`));
+		axiosInstance
+			.post(`/user/watching-lectures/${id}`)
+			.then(() => navigate(`/lecture/${id}/overview?page=0`))
+			.catch((e) =>
+				dispatch(
+					NotificationActions.showBannerNotification({
+						type: BannerNotificationType.Warning,
+						message: e.response.data.message,
+					})
+				)
+			);
 	};
 	return (
 		<div className={styles["lecture-header"]}>
@@ -50,11 +61,11 @@ const LectureHeader: FC<Props> = ({ value }) => {
 				<div className={styles.rows}>
 					<div className={styles.row}>
 						<BsPlayBtn />
-						{totalHours}h of video
+						{Math.round(sum / 360)}h of video
 					</div>
 					<div className={styles.row}>
 						<BiBook />
-						{numberOfChapters} chapters
+						{a.courseContent.length} chapters
 					</div>
 				</div>
 			</div>

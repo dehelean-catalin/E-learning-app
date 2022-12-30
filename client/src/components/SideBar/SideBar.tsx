@@ -1,6 +1,5 @@
 import { AiFillHome } from "react-icons/ai";
-import { IoMdNotifications } from "react-icons/io";
-import { MdHelp } from "react-icons/md";
+import { MdOutlineHistory } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import styles from "./SideBar.module.scss";
 
@@ -18,22 +17,12 @@ const NavigationHeader = () => {
 			</NavLink>
 
 			<NavLink
-				to="activity"
+				to="history"
 				className={({ isActive }) => (isActive ? styles.active : "")}
 			>
 				<span>
-					<IoMdNotifications />
+					<MdOutlineHistory />
 					History
-				</span>
-			</NavLink>
-
-			<NavLink
-				to="help"
-				className={({ isActive }) => (isActive ? styles.active : "")}
-			>
-				<span>
-					<MdHelp />
-					Help
 				</span>
 			</NavLink>
 		</nav>

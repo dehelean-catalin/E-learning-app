@@ -1,12 +1,12 @@
 import { FC } from "react";
 import Divider from "../../components/common/Divider";
 import LectureList from "../../components/Home/LectureList";
-import { BasicLecture } from "../../resources/models/lectures";
+import { LectureModel } from "../../resources/models/lectureModel";
 import styles from "./Home.module.scss";
 
 type Props = {
 	title: string;
-	value: BasicLecture[];
+	value: LectureModel[];
 	showDivider?: boolean;
 };
 const HomeSection: FC<Props> = ({ value, title, showDivider }) => {
@@ -16,7 +16,9 @@ const HomeSection: FC<Props> = ({ value, title, showDivider }) => {
 			<div className={styles["lecture-list"]}>
 				<LectureList value={value} />
 			</div>
-			{showDivider && <Divider color="#272727" borderWidth="2px" />}
+			{showDivider && (
+				<Divider color="#272727" borderWidth="2px" margin="30px " />
+			)}
 		</>
 	);
 };

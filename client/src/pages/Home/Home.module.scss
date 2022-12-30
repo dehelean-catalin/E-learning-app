@@ -1,20 +1,15 @@
 @import "../../resources/styles/variables.scss";
 .home {
-	flex: 1;
+	grid-area: main;
 	display: flex;
 	flex-direction: column;
-	padding: 20px 60px;
-	font-size: 16px;
-
+	margin-right: 60px;
 	.lecture-list {
 		display: grid;
-		width: 100%;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 		gap: 20px;
 	}
-
 	.section-title {
-		width: 100%;
 		margin: 20px 0px;
 		font-weight: 600;
 		color: white;

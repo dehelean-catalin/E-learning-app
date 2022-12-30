@@ -12,11 +12,13 @@ import SavedLectures from "./components/SettingsComp/SavedLectures";
 import Account from "./pages/AccountPage/AccountData";
 import Login from "./pages/AuthPage/Login";
 import Register from "./pages/AuthPage/Register";
+import History from "./pages/History/History";
 import Home from "./pages/Home/Home";
 import LoginLayout from "./pages/Layout/LoginLayout";
 import RootLayout from "./pages/Layout/RootLayout";
 import Lecture from "./pages/Lecture/Lecture";
 import LectureOverview from "./pages/LectureOverview/LectureOverview";
+import NotFound from "./pages/NotFound/NotFound";
 import Settings from "./pages/Settings/Settings";
 
 function App() {
@@ -28,7 +30,8 @@ function App() {
 					<Route path="register" element={<Register />} />
 				</Route>
 				<Route path="/*" element={<RootLayout />}>
-					<Route index path="home" element={<Home />} />
+					<Route index element={<Home />} />
+					<Route path="home" element={<Home />} />
 					<Route path="settings/*" element={<Settings />}>
 						<Route index path="account" element={<Account />} />
 						<Route index path="saved-lectures" element={<SavedLectures />} />
@@ -39,8 +42,9 @@ function App() {
 						path="lecture/:id/overview"
 						element={<LectureOverview />}
 					/>
+					<Route index path="history" element={<History />} />
 
-					<Route path="*" element={<>not found</>} />
+					<Route path="*" element={<NotFound />} />
 				</Route>
 			</Route>
 		)

@@ -1,15 +1,14 @@
 @import "../../resources/styles/variables.scss";
 
 .navigation-header {
-	min-width: 80px;
+	grid-area: menu;
 	position: sticky;
+	top: 0px;
+	height: 100vh;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	background-color: $color-60;
 	font-weight: 600;
-	height: 100vh;
-	top: 0px;
 
 	a {
 		display: flex;

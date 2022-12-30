@@ -14,15 +14,10 @@ export type UserDataModel = Omit<
 	UserModel,
 	"savedLectures" | "watchingLectures"
 >;
-
+export type AcountDataModel = Omit<UserDataModel, "email" | "profilePicture">;
 export type HeaderDataModel = Omit<
 	UserDataModel,
 	"aboutYou" | "phoneNumber" | "address"
->;
-
-export type AppInitModel = Omit<
-	UserModel,
-	"savedLectures" | "watchingLectures" | "phoneNumber" | "address" | "aboutYou"
 >;
 
 export type WatchingLectureModel = {

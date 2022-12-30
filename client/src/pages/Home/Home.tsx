@@ -4,11 +4,11 @@ import { FaRegFrown } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router";
 import FilterList from "../../components/Home/FilterList/FilterList";
-import LectureSkeleton from "../../components/Home/Skeleton/LectureSkeleton";
+import LectureSkeleton from "../../components/Home/HomeSkeleton/HomeSkeleton";
 import useFetchQuery from "../../hooks/useFetchQuery";
-import { BasicLecture } from "../../resources/models/lectures";
+import { LectureModel } from "../../resources/models/lectureModel";
 import { BannerNotificationType } from "../../resources/models/usersModel";
-import { Axios } from "../../resources/routes";
+import { useAxios } from "../../resources/axiosInstance";
 import { NotificationActions } from "../../store/redux/notificationReducer";
 import styles from "./Home.module.scss";
 import HomeSection from "./HomeSection";
@@ -19,23 +19,28 @@ const Home: FC = () => {
 	const search = useLocation().search;
 	const param = new URLSearchParams(search).get("category");
 	const [category, setCategory] = useState(param);
+	const axiosInstance = useAxios();
 	const { data, isError, isLoading } = useFetchQuery(
 		["/lectures", category],
 		() => {
-			return Axios.get<any, { data: BasicLecture[] }>("/lectures", {
-				params: { category },
-			}).then((res) => res.data);
+			return axiosInstance
+				.get<any, { data: LectureModel[] }>("/lectures", {
+					params: { category },
+				})
+				.then((res) => res.data);
 		},
 		{
 			initialData: [],
 			onSuccess: () => navigate(`/home?category=${category}`),
-			onError: (err: AxiosError<{ code: string; message: string }>) =>
+			onError: (err: AxiosError<{ code: string; message: string }>) => {
 				dispatch(
 					NotificationActions.showBannerNotification({
 						type: BannerNotificationType.Warning,
 						message: err.response.data?.message,
 					})
-				),
+				);
+				navigate(`/home?category=${category}`);
+			},
 		}
 	);
 

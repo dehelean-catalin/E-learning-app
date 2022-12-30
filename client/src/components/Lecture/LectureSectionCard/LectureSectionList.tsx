@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { LectureItem } from "../../../resources/models/lectures";
+import { LectureItem } from "../../../resources/models/lectureModel";
 import LectureSectionCard from "./LectureSectionCard";
 
 type Props = {

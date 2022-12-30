@@ -6,16 +6,16 @@ import { IoTrashOutline } from "react-icons/io5";
 import { useMutation, useQueryClient } from "react-query";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router";
-import { BasicLecture } from "../../../resources/models/lectures";
+import { LectureModel } from "../../../resources/models/lectureModel";
 import { BannerNotificationType } from "../../../resources/models/usersModel";
-import { Axios } from "../../../resources/routes";
+import { useAxios } from "../../../resources/axiosInstance";
 import { NotificationActions } from "../../../store/redux/notificationReducer";
 import { CustomRating } from "../CustomRating/CustomRating";
 import styles from "./LectureCard.module.scss";
 import "./LectureCard.scss";
 
 type Props = {
-	value: BasicLecture;
+	value: LectureModel;
 	icon: JSX.Element;
 	className?: string;
 	bannerClassName?: string;
@@ -37,15 +37,15 @@ const LectureCard: FC<Props> = ({
 	const queryClient = useQueryClient();
 	const op = useRef(null);
 	const { id, thumbnail, title, createdBy, rating, numberOfRates } = value;
-
+	const axiosInstance = useAxios();
 	const { mutate } = useMutation(
-		() => Axios.delete(`user/save-lecture/${id}`),
+		() => axiosInstance.delete(`user/save-lecture/${id}`),
 		{
 			onSuccess: () => queryClient.invalidateQueries("save-lecture"),
 		}
 	);
 	const { mutate: saveLecture } = useMutation(
-		() => Axios.post(`user/save-lecture/${id}`),
+		() => axiosInstance.post(`user/save-lecture/${id}`),
 		{
 			onSuccess: () => {
 				dispatch(

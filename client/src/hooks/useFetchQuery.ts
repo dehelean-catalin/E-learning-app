@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { Axios } from "../resources/routes";
+import { useAxios } from "../resources/axiosInstance";
 
 const useFetchQuery = (key, fetcher, { initialData, onSuccess, onError }) => {
 	const {
@@ -24,9 +24,9 @@ const useFetchQuery = (key, fetcher, { initialData, onSuccess, onError }) => {
 
 export const useAddComment = (id) => {
 	const queryClient = useQueryClient();
-
+	const axiosInstance = useAxios();
 	useMutation(
-		() => Axios.delete(`user/save-lecture/${id}`),
+		() => axiosInstance.delete(`user/save-lecture/${id}`),
 
 		{
 			onSuccess: () => {

@@ -1,48 +1,45 @@
-import { ProgressSpinner } from "primereact/progressspinner";
-import { useState, useEffect, FormEvent, useContext } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import Button from "../../components/common/Button/Button";
-import { Axios } from "../../resources/routes";
-import AuthContext from "../../store/context/auth-context";
-import { NotificationActions } from "../../store/redux/notificationReducer";
-import styles from "./AccountData.module.scss";
+import InputTextareaField from "../../components/common/InputTextareaField/InputTextareaField";
 import InputTextField from "../../components/common/InputTextField/InputTextField";
 import {
+	AcountDataModel,
 	BannerNotificationType,
-	UserDataModel,
 } from "../../resources/models/usersModel";
-import InputTextareaField from "../../components/common/InputTextareaField/InputTextareaField";
-import useFetchQuery from "../../hooks/useFetchQuery";
+import { useAxios } from "../../resources/axiosInstance";
+import { NotificationActions } from "../../store/redux/notificationReducer";
+import styles from "./AccountData.module.scss";
 
 const Account = () => {
 	const dispatch = useDispatch();
-	const { data, isLoading, isError } = useFetchQuery(
-		"/user/data",
-		() => {
-			return Axios.get<Omit<UserDataModel, "profilePicture" | "email">>(
-				"/user/data"
-			).then((res) => res.data);
-		},
-		{
-			initialData: {
-				firstName: "",
-				lastName: "",
-				address: "",
-				aboutYou: "",
-				phoneNumber: "",
-			},
-			onError: () => console.log("lla"),
-			onSuccess: () => console.log("SUCCES"),
-		}
-	);
-	const lala = data as UserDataModel;
-	const [values, setValues] = useState<UserDataModel>(lala);
+	const axiosInstance = useAxios();
+	const [values, setValues] = useState<AcountDataModel>({
+		firstName: "",
+		lastName: "",
+		address: "",
+		aboutYou: "",
+		phoneNumber: "",
+	});
+	useEffect(() => {
+		axiosInstance
+			.get<AcountDataModel>("/user/data")
+			.then((res) => setValues(res.data))
+			.catch(() => {
+				dispatch(
+					NotificationActions.showBannerNotification({
+						type: BannerNotificationType.Warning,
+						message: "Something went wrong",
+					})
+				);
+			});
+	}, []);
 
 	const [isTouched, setIsTouched] = useState({
 		firstName: false,
 		lastName: false,
 		phoneNumber: false,
 	});
+
 	const disabled =
 		!values?.firstName.length ||
 		!values?.lastName.length ||
@@ -54,7 +51,8 @@ const Account = () => {
 		if (disabled) {
 			return;
 		}
-		Axios.put("/user/data", values)
+		axiosInstance
+			.put("/user/data", values)
 			.then((res) =>
 				dispatch(
 					NotificationActions.showBannerNotification({

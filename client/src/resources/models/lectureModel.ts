@@ -1,24 +1,31 @@
-export interface BasicLecture {
+import TreeNode from "primereact/treenode";
+
+export type LectureModel = {
 	id: string;
 	title: string;
 	thumbnail: string;
 	createdBy: string;
 	rating: number;
 	numberOfRates: number;
-}
-export interface ILecture extends BasicLecture {
 	description: string;
 	category: ICategory;
 	subCategory: string;
 	createdAt: string;
 	lastUpdate: string;
 	numberOfUsers: number;
-	numberOfChapters: number;
-	totalHours: number;
 	language: string;
 	items: LectureItem[];
-	details?: any[];
-}
+};
+// export interface ILecture extends BasicLecture {
+// 	description: string;
+// 	category: ICategory;
+// 	subCategory: string;
+// 	createdAt: string;
+// 	lastUpdate: string;
+// 	numberOfUsers: number;
+// 	language: string;
+// 	items: LectureItem[];
+// }
 
 export enum ICategory {
 	ALL = "all",
@@ -36,16 +43,8 @@ export enum ICategory {
 export type LectureItem = {
 	title: string;
 	description: string;
-	courseContent?: Capitol[];
+	courseContent?: TreeNode[];
 	items?: Review[];
-};
-
-type Capitol = {
-	title: string;
-	items: {
-		title: string;
-		time: string;
-	}[];
 };
 
 export type Review = {

@@ -12,7 +12,7 @@ const Divider: FC<Props> = ({
 	return (
 		<hr
 			style={{
-				margin: `${margin} 0px`,
+				margin: `${margin} 0px `,
 				border: `${borderWidth} solid ${color}`,
 			}}
 		/>

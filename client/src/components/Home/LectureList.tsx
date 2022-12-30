@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
-import { BasicLecture } from "../../resources/models/lectures";
+import { LectureModel } from "../../resources/models/lectureModel";
 import LectureCard from "../common/LectureCard/LectureCard";
 type Props = {
-	value: BasicLecture[];
+	value: LectureModel[];
 };
 const LectureList: FC<Props> = ({ value }) => {
 	return (

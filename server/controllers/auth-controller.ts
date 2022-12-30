@@ -14,7 +14,7 @@ export const login = async (req: Request, res: Response) => {
 		const response = await signInWithEmailAndPassword(auth, email, password);
 		const { uid } = response.user;
 		let token = jwt.sign({ userId: uid, email: email }, "code", {
-			expiresIn: `4h`,
+			expiresIn: `8h`,
 		});
 		res.status(200).json({
 			uid,

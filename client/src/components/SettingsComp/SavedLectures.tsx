@@ -2,16 +2,17 @@ import { BiDotsVerticalRounded } from "react-icons/bi";
 import { RiAddCircleLine } from "react-icons/ri";
 import { useNavigate } from "react-router";
 import useFetchQuery from "../../hooks/useFetchQuery";
-import { Axios } from "../../resources/routes";
+import { useAxios } from "../../resources/axiosInstance";
 import LectureCard from "../common/LectureCard/LectureCard";
 import styles from "./SavedLectures.module.scss";
 
 const SavedLectures = () => {
 	const navigate = useNavigate();
+	const axiosInstance = useAxios();
 	const { data } = useFetchQuery(
 		"save-lecture",
 		() => {
-			return Axios.get("/user/save-lecture").then((res) => res.data);
+			return axiosInstance.get("/user/save-lecture").then((res) => res.data);
 		},
 		{
 			initialData: [],

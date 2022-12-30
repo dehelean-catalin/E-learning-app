@@ -9,7 +9,7 @@ import {
 	HeaderDataModel,
 	ProfileIconSize,
 } from "../../resources/models/usersModel";
-import { Axios } from "../../resources/routes";
+import { useAxios } from "../../resources/axiosInstance";
 import AuthContext from "../../store/context/auth-context";
 import Divider from "../common/Divider";
 import ProfilePicture from "../common/ProfilePicture/ProfilePicture";
@@ -20,13 +20,14 @@ import useFetchQuery from "../../hooks/useFetchQuery";
 const Header: FC = () => {
 	const op = useRef(null);
 	const { logout } = useContext(AuthContext);
+	const axiosInstance = useAxios();
 
-	const { data: lala, isError } = useFetchQuery(
+	const { data, isError } = useFetchQuery(
 		"/app-initialization",
 		() => {
-			return Axios.get<HeaderDataModel>("/app-initialization").then(
-				(res) => res.data
-			);
+			return axiosInstance
+				.get<HeaderDataModel>("/app-initialization")
+				.then((res) => res.data);
 		},
 		{
 			initialData: {
@@ -39,7 +40,6 @@ const Header: FC = () => {
 			onError: () => console.log("a"),
 		}
 	);
-	const data = lala as HeaderDataModel;
 	const { firstName, lastName, email } = data;
 
 	const initials =

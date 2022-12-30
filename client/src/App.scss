@@ -15,14 +15,18 @@
 }
 
 .App {
-	display: flex;
+	display: grid;
 	min-height: 100vh;
 	background: $color-60;
-	.box {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-	}
+	grid-template-columns: 80px 1fr;
+	grid-template-rows: 50px 1fr;
+
+	grid-template-areas:
+		"menu header"
+		"menu main"
+		"menu main";
+	gap: 20px 60px;
+	// column-gap: 60px;
 }
 
 .join-avatar {
@@ -59,4 +63,29 @@
 .p-divider.p-divider-horizontal::before {
 	border-top: 3px $color-30 !important;
 	border-top-style: solid !important;
+}
+
+.p-rating .p-rating-item.p-rating-item-active .p-rating-icon {
+	color: rgb(255, 217, 0);
+}
+.p-rating .p-rating-item .p-rating-icon {
+	color: $color-10;
+
+	font-size: 0.9rem;
+}
+
+.p-tree
+	.p-tree-container
+	.p-treenode
+	.p-treenode-content
+	.p-tree-toggler:focus {
+	outline: 0 none;
+	outline-offset: 0;
+	box-shadow: none;
+}
+
+.p-treenode-label {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
 }

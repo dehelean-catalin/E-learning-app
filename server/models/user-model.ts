@@ -1,3 +1,5 @@
+import { TreeNode } from "./lecture-model";
+
 export type UserModel = {
 	email: string;
 	firstName: string;
@@ -24,11 +26,18 @@ export type WatchingLectureModel = {
 	id: string;
 	items: WatchingLectureItem[];
 };
-export type WatchingLectureItem = {
-	title: string;
-	url: string;
-	page: string;
-	duration: number;
-	currentProgress: number;
-	confirmedProgress: number;
-};
+
+export interface WatchingLectureItem {
+	key: string | number;
+	label: string;
+	children: {
+		key: string;
+		label: string;
+		data?: {
+			url: string;
+			currentProgress: number;
+			duration: string;
+			confirmedProgress: number;
+		};
+	}[];
+}

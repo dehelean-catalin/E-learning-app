@@ -1,11 +1,12 @@
 import { Request, Response } from "express";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import db from "../firebase";
+import { TreeNode } from "../models/lecture-model";
 import { ValidatedRequest } from "../models/request";
 import {
 	UserDataModel,
 	UserModel,
-	WatchingLectureItem,
+	// WatchingLectureItem,
 	WatchingLectureModel,
 } from "../models/user-model";
 
@@ -120,22 +121,26 @@ export const updatetWatchingLectureCurrenTime = async (
 		if (!userSnap.exists()) {
 			throw new Error("This Lecture dont exist");
 		}
-		const { watchingLectures } = userSnap.data() as UserModel;
+		const watchingLectures = userSnap.get(
+			"watchingLectures"
+		) as WatchingLectureModel[];
 
-		watchingLectures.forEach((i: WatchingLectureModel) => {
+		watchingLectures.forEach((i) => {
 			if (i.id === req.params.id) {
-				i.items.forEach((p: WatchingLectureItem) => {
-					if (p.page == req.query.page) {
-						if (req.body.time > p.duration) {
-							req.body.time = p.duration;
+				i.items.forEach((p) => {
+					p.children?.forEach((c) => {
+						if (c.data && c.key === req.query.page) {
+							if (req.body.time > c.data.duration) {
+								req.body.time = c.data.duration;
+							}
+							if (req.body.time > c.data.confirmedProgress) {
+								c.data.confirmedProgress = req.body.time;
+								c.data.currentProgress = c.data.confirmedProgress;
+							} else {
+								c.data.currentProgress = req.body.time;
+							}
 						}
-						if (req.body.time > p.confirmedProgress) {
-							p.confirmedProgress = req.body.time;
-							p.currentProgress = p.confirmedProgress;
-						} else {
-							p.currentProgress = req.body.time;
-						}
-					}
+					});
 				});
 			}
 		});
@@ -148,17 +153,17 @@ export const updatetWatchingLectureCurrenTime = async (
 	}
 };
 
-export const getWatchingLectureUrl = async (req: Request, res: Response) => {
-	try {
-		const validatedReq = req as ValidatedRequest;
-		const userRef = doc(db, "users", validatedReq.userData.userId);
-		const userSnap = await getDoc(userRef);
-		if (!userSnap.exists()) {
-			throw new Error("This Lecture dont exist");
-		}
+// export const getWatchingLectureUrl = async (req: Request, res: Response) => {
+// 	try {
+// 		const validatedReq = req as ValidatedRequest;
+// 		const userRef = doc(db, "users", validatedReq.userData.userId);
+// 		const userSnap = await getDoc(userRef);
+// 		if (!userSnap.exists()) {
+// 			throw new Error("This Lecture dont exist");
+// 		}
 
-		res.status(200).json(userSnap);
-	} catch (err: any) {
-		res.status(400).json({ code: 400, message: err.message });
-	}
-};
+// 		res.status(200).json(userSnap);
+// 	} catch (err: any) {
+// 		res.status(400).json({ code: 400, message: err.message });
+// 	}
+// };

@@ -1,12 +1,17 @@
+@import "../../../resources/styles/variables.scss";
 .lecture-header {
 	flex: 1;
 	display: flex;
-	background: #272727;
+	background: $color-30;
 	padding: 15px 25px;
 	gap: 20px;
 	border-radius: 12px;
 	overflow: hidden;
-
+	.skeleton {
+		flex: 1;
+		background: $color-30;
+		min-height: 260px;
+	}
 	.left {
 		flex: 1;
 		display: flex;
@@ -19,9 +24,9 @@
 		border-radius: 8px;
 
 		img {
-			flex: 1;
 			max-height: 200px;
-			object-fit: cover;
+			min-width: 100%;
+			object-fit: contain;
 			border-radius: 8px;
 		}
 		.rows {

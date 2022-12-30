@@ -8,9 +8,9 @@
 	justify-content: center;
 
 	form {
-		max-width: 480px;
-		min-height: 610px;
-		max-height: 610px;
+		max-width: 500px;
+		// min-height: 610px;
+		// max-height: 610px;
 		display: flex;
 		flex-direction: column;
 		background-color: white;
@@ -55,8 +55,6 @@
 			color: white;
 			border: 0px;
 			background-color: $prime-green;
-			margin: 0px 10px;
-			margin-top: 10px;
 			font-size: 16px;
 			font-weight: 700;
 			border-radius: 25px;

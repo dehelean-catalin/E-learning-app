@@ -28,6 +28,7 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
 	const logoutHandler = () => {
 		setToken(null);
 		localStorage.clear();
+		window.location.replace("/login");
 	};
 
 	useEffect(() => {

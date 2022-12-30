@@ -1,12 +1,14 @@
 import { useParams } from "react-router";
 import LectureHeader from "../../components/Lecture/LectureHeader/LectureHeader";
+import LectureHeaderSkeleton from "../../components/Lecture/LectureHeader/LectureHeaderSkeleton";
 import LectureSectionList from "../../components/Lecture/LectureSectionCard/LectureSectionList";
+import LectureSectionSkeleton from "../../components/Lecture/LectureSectionCard/LectureSectionSkeleton";
 import useFetchQuery from "../../hooks/useFetchQuery";
-import { ICategory, ILecture } from "../../resources/models/lectures";
-import { Axios } from "../../resources/routes";
+import { ICategory, LectureModel } from "../../resources/models/lectureModel";
+import { useAxios } from "../../resources/axiosInstance";
 import styles from "./Lecture.module.scss";
 
-const INITIAL_DATA: ILecture = {
+const INITIAL_DATA: LectureModel = {
 	id: "",
 	title: "",
 	description: "",
@@ -19,18 +21,17 @@ const INITIAL_DATA: ILecture = {
 	rating: null,
 	numberOfRates: null,
 	numberOfUsers: null,
-	numberOfChapters: null,
-	totalHours: null,
 	language: "",
 	items: [],
 };
 
 const Lecture = () => {
 	const { id } = useParams();
-	const { data } = useFetchQuery(
+	const axiosInstance = useAxios();
+	const { data, isLoading, isError } = useFetchQuery(
 		"get-lecture",
 		() => {
-			return Axios.get(`/lecture/${id}`).then((res) => res.data);
+			return axiosInstance.get(`/lecture/${id}`).then((res) => res.data);
 		},
 		{
 			initialData: INITIAL_DATA,
@@ -38,6 +39,19 @@ const Lecture = () => {
 			onSuccess: () => console.log("succ"),
 		}
 	);
+	if (isLoading) {
+		return (
+			<div className={styles.lecture}>
+				<div className={styles.container}>
+					<LectureHeaderSkeleton />
+					<LectureSectionSkeleton />
+				</div>
+			</div>
+		);
+	}
+	if (isError) {
+		return <>Error</>;
+	}
 
 	return (
 		<div className={styles.lecture}>

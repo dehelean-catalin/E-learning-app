@@ -1,11 +1,10 @@
-import { useNavigate } from "react-router";
-import { FormActions } from "./../store/redux/formReducer";
-import { NotificationActions } from "../store/redux/notificationReducer";
 import { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
-import AuthContext from "../store/context/auth-context";
-import { Axios } from "../resources/routes";
 import { BannerNotificationType } from "../resources/models/usersModel";
+import axios from "axios";
+import AuthContext from "../store/context/auth-context";
+import { NotificationActions } from "../store/redux/notificationReducer";
+import { FormActions } from "./../store/redux/formReducer";
 
 export const useAuthentication = () => {
 	const dispatch = useDispatch();
@@ -19,12 +18,13 @@ export const useAuthentication = () => {
 	const handleRegister = (data: any) => {
 		setIsLoading(true);
 		const { firstName, lastName, email, password } = data;
-		Axios.post("/register", {
-			firstName,
-			lastName,
-			email,
-			password,
-		})
+		axios
+			.post("http://localhost:4000/register", {
+				firstName,
+				lastName,
+				email,
+				password,
+			})
 			.then((response) => {
 				const { uid, token } = response.data;
 				login(token, uid);
@@ -44,10 +44,11 @@ export const useAuthentication = () => {
 
 	const handleLogin = (email: string, password: string) => {
 		setIsLoading(true);
-		Axios.post("/login", {
-			email,
-			password,
-		})
+		axios
+			.post("http://localhost:4000/login", {
+				email,
+				password,
+			})
 			.then((response) => {
 				const { uid, token } = response.data;
 				login(token, uid);

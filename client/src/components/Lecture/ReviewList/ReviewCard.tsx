@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Review } from "../../../resources/models/lectures";
+import { Review } from "../../../resources/models/lectureModel";
 import { CustomRating } from "../../common/CustomRating/CustomRating";
 import ProfilePicture from "../../common/ProfilePicture/ProfilePicture";
 import styles from "./ReviewList.module.scss";

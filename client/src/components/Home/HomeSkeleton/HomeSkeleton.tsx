@@ -1,11 +1,11 @@
 import { Skeleton } from "primereact/skeleton";
 import { FC } from "react";
 import Divider from "../../common/Divider";
-import styles from "./LectureSkeleton.module.scss";
+import styles from "./HomeSkeleton.module.scss";
 
 const SKELETONLIST = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-const LectureSkeleton: FC = () => {
+const HomeSkeleton: FC = () => {
 	return (
 		<>
 			<div className={styles["filter-list"]}>
@@ -28,7 +28,7 @@ const LectureSkeleton: FC = () => {
 	);
 };
 
-export default LectureSkeleton;
+export default HomeSkeleton;
 
 const SkeletonCard: FC = () => {
 	return (
