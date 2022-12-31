@@ -1,25 +1,29 @@
 @import "../../../resources/styles/variables.scss";
+.skeleton {
+	flex: 1;
+	background: $color-30;
+	min-height: 260px;
+}
 .lecture-header {
 	flex: 1;
-	display: flex;
+	display: grid;
+	grid-template-areas:
+		"menu main"
+		"menu main";
+	grid-template-columns: 200px 1fr;
 	background: $color-30;
 	padding: 15px 25px;
 	gap: 20px;
 	border-radius: 12px;
-	overflow: hidden;
-	.skeleton {
-		flex: 1;
-		background: $color-30;
-		min-height: 260px;
-	}
+
 	.left {
-		flex: 1;
+		grid-area: menu;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
 		color: black;
-		background-color: white;
+		background: white;
 		padding: 10px;
 		border-radius: 8px;
 
@@ -43,41 +47,26 @@
 		}
 	}
 	.right {
-		flex: 3;
+		grid-area: main;
 		display: flex;
 		flex-direction: column;
-	}
-	.title {
-		display: flex;
-		align-items: center;
 		justify-content: space-between;
-		font-size: 32px;
-		font-weight: 700;
-		margin-bottom: 12px;
-		svg {
-			font-size: 28px;
-			position: relative;
-			right: -10px;
+		row-gap: 12px;
+
+		.title {
+			font-size: 32px;
+			font-weight: 700;
 		}
-	}
-	.description {
-		font-size: 20px;
-		font-weight: 600;
-		margin-bottom: 12px;
-		width: 90%;
-	}
-	.author {
-		margin-bottom: 12px;
-	}
-	.lastUpdate {
-		margin-bottom: 12px;
-	}
-	.btns {
-		margin-top: 12px;
-		display: flex;
-		justify-content: space-between;
-	}
-	span {
-		font-weight: 600;
+		.description {
+			font-weight: 600;
+		}
+
+		.btns {
+			display: flex;
+			justify-content: space-between;
+		}
+		span {
+			font-weight: 600;
+		}
 	}
 }

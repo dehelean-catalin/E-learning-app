@@ -66,6 +66,7 @@ const Home: FC = () => {
 			</div>
 		);
 	}
+	console.log(data);
 
 	return (
 		<div className={styles.home}>

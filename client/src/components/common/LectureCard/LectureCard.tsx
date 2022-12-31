@@ -21,6 +21,7 @@ type Props = {
 	bannerClassName?: string;
 	contentClassName?: string;
 	iconClassName?: string;
+	hoverInformation?: boolean;
 };
 
 const LectureCard: FC<Props> = ({
@@ -30,6 +31,7 @@ const LectureCard: FC<Props> = ({
 	contentClassName = styles.content,
 	iconClassName = styles.icon,
 	icon,
+	hoverInformation = false,
 }) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -37,6 +39,7 @@ const LectureCard: FC<Props> = ({
 	const queryClient = useQueryClient();
 	const op = useRef(null);
 	const { id, thumbnail, title, createdBy, rating, numberOfRates } = value;
+	console.log(value);
 	const axiosInstance = useAxios();
 	const { mutate } = useMutation(
 		() => axiosInstance.delete(`user/save-lecture/${id}`),
@@ -96,24 +99,6 @@ const LectureCard: FC<Props> = ({
 
 	return (
 		<div className={className}>
-			<OverlayPanel ref={op} className={"lecture-card"}>
-				{getPanelAction()}
-				<div
-					className={"item"}
-					onClick={(e) => {
-						op.current.toggle(e);
-						navigator.clipboard.writeText("lala");
-						dispatch(
-							NotificationActions.showBannerNotification({
-								type: BannerNotificationType.Info,
-								message: "Copied to clipboard",
-							})
-						);
-					}}
-				>
-					<BiLinkAlt fontSize="16px" /> Copy link
-				</div>
-			</OverlayPanel>
 			<div
 				className={bannerClassName}
 				onClick={() => navigate(`/lecture/${id}`)}
@@ -126,13 +111,51 @@ const LectureCard: FC<Props> = ({
 					<span>{title}</span>
 				</div>
 				<div className={styles.author}>{createdBy}</div>
-				<CustomRating rating={rating} numberOfRates={numberOfRates} />
+				<CustomRating
+					rating={rating}
+					numberOfRates={numberOfRates}
+					hideUsers={true}
+				/>
 			</div>
 			<div className={iconClassName} onClick={(e) => op.current.toggle(e)}>
 				{icon}
+				<OverlayPanel ref={op} className={"lecture-card"}>
+					{getPanelAction()}
+					<div
+						className={"item"}
+						onClick={(e) => {
+							op.current.toggle(e);
+							navigator.clipboard.writeText("lala");
+							dispatch(
+								NotificationActions.showBannerNotification({
+									type: BannerNotificationType.Info,
+									message: "Copied to clipboard",
+								})
+							);
+						}}
+					>
+						<BiLinkAlt fontSize="16px" /> Copy link
+					</div>
+				</OverlayPanel>
 			</div>
+			{hoverInformation && (
+				<>
+					<div className={styles.hover}>
+						<div>Chapter 4: Marii</div>
+						<span
+							style={{
+								background: "green",
+								width: `${50}%`,
+								height: "3px",
+							}}
+						></span>
+					</div>
+				</>
+			)}
 		</div>
 	);
 };
 
 export default LectureCard;
+
+const getProgress = (data) => {};

@@ -1,14 +1,14 @@
 .lecture {
-	height: 100%;
 	display: flex;
 	justify-content: center;
 	color: white;
-	padding: 20px;
+	padding-right: 60px;
 
 	.container {
 		display: flex;
 		flex-direction: column;
 		width: 50%;
+		min-width: 700px;
 
 		.lecture-list {
 			display: flex;

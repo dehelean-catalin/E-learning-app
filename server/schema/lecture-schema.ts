@@ -37,9 +37,6 @@ const items = Joi.object<LectureItem, true>().keys({
 });
 
 export const LectureSchema = Joi.object<LectureModel, true>({
-	id: Joi.string().required().messages({
-		"any.required": "Title is required",
-	}),
 	title: Joi.string().required().messages({
 		"any.required": "Title is required",
 	}),
@@ -70,7 +67,7 @@ export const LectureSchema = Joi.object<LectureModel, true>({
 	numberOfRates: Joi.number().required().messages({
 		"any.required": "Rating is required",
 	}),
-	numberOfUsers: Joi.number().required().messages({
+	numberOfUsers: Joi.array().required().messages({
 		"any.required": "numberOfUsers is required",
 	}),
 	language: Joi.string().required().messages({

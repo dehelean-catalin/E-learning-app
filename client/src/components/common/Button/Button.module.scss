@@ -1,5 +1,8 @@
 @import "../../../resources/styles/variables.scss";
 .button {
+	display: flex;
+	align-items: center;
+	gap: 4px;
 	color: white;
 	background-color: $prime-green;
 	padding: 6px 20px;

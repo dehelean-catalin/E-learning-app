@@ -19,9 +19,7 @@ const ReviewCard: FC<Props> = ({ item }) => {
 
 						<div>{lastName}</div>
 					</div>
-					<div>
-						<CustomRating rating={rating} showOnlyStars />
-					</div>
+					<div>{/* <CustomRating rating={rating} showOnlyStars /> */}</div>
 				</div>
 			</header>
 

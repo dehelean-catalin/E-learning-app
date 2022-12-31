@@ -1,7 +1,7 @@
 @import "../../resources/styles/variables.scss";
 .lecture-overview {
 	flex: 1;
-	padding: 20px 40px;
+	padding-right: 60px;
 	display: flex;
 	color: white;
 	font-size: 16px;
@@ -36,7 +36,6 @@
 		span {
 			font-size: 20px;
 			font-weight: 700;
-			margin-bottom: 10px;
 		}
 		.chapter {
 			display: flex;

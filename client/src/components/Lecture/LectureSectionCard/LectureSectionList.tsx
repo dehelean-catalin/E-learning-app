@@ -10,9 +10,10 @@ type Props = {
 const LectureSectionList: FC<Props> = ({ items, className }) => {
 	return (
 		<div className={className}>
-			{items.map((item) => (
-				<LectureSectionCard key={item.title} item={item} />
-			))}
+			{items &&
+				items.map((item) => (
+					<LectureSectionCard key={item.title} item={item} />
+				))}
 		</div>
 	);
 };

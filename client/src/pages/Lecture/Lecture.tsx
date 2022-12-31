@@ -4,8 +4,8 @@ import LectureHeaderSkeleton from "../../components/Lecture/LectureHeader/Lectur
 import LectureSectionList from "../../components/Lecture/LectureSectionCard/LectureSectionList";
 import LectureSectionSkeleton from "../../components/Lecture/LectureSectionCard/LectureSectionSkeleton";
 import useFetchQuery from "../../hooks/useFetchQuery";
-import { ICategory, LectureModel } from "../../resources/models/lectureModel";
 import { useAxios } from "../../resources/axiosInstance";
+import { ICategory, LectureModel } from "../../resources/models/lectureModel";
 import styles from "./Lecture.module.scss";
 
 const INITIAL_DATA: LectureModel = {
@@ -20,7 +20,7 @@ const INITIAL_DATA: LectureModel = {
 	lastUpdate: "",
 	rating: null,
 	numberOfRates: null,
-	numberOfUsers: null,
+	numberOfUsers: [],
 	language: "",
 	items: [],
 };
@@ -36,9 +36,10 @@ const Lecture = () => {
 		{
 			initialData: INITIAL_DATA,
 			onError: () => console.log("error"),
-			onSuccess: () => console.log("succ"),
+			onSuccess: () => {},
 		}
 	);
+
 	if (isLoading) {
 		return (
 			<div className={styles.lecture}>

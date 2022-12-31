@@ -36,7 +36,7 @@ const Header: FC = () => {
 				lastName: "",
 				profilePicture: "",
 			},
-			onSuccess: () => console.log("a"),
+			onSuccess: () => {},
 			onError: () => console.log("a"),
 		}
 	);

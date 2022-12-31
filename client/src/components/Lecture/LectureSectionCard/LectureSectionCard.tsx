@@ -2,6 +2,7 @@ import { Tree } from "primereact/tree";
 import TreeNode from "primereact/treenode";
 import { FC } from "react";
 import { BsPlayCircle } from "react-icons/bs";
+import { getDuration } from "../../../pages/LectureOverview/LectureOverviewTree";
 import { LectureItem } from "../../../resources/models/lectureModel";
 import ReviewList from "../ReviewList/ReviewList";
 import styles from "./LectureSectionCard.module.scss";
@@ -19,11 +20,7 @@ const LectureSectionCard: FC<Props> = ({ item }) => {
 				{label}
 				<div>
 					<BsPlayCircle />
-					{node?.children
-						? Math.round(
-								node.children.reduce((a, b) => a + b.data.duration, 0) / 60
-						  ) + " min"
-						: Math.round(node.data.duration / 60) + " min"}
+					{getDuration(node).value + getDuration(node).unit}
 				</div>
 			</div>
 		);

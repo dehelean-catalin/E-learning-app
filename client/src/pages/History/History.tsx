@@ -8,26 +8,27 @@ const History = () => {
 	const { data } = useFetchQuery(
 		"history",
 		async () => {
-			const res = await axiosInstance.get("user/watching-lectures");
+			const res = await axiosInstance.get("/user/watching-lectures");
 			return res.data;
 		},
 		{
 			initialData: [],
 			onSuccess: () => console.log("lala"),
-			onError: () => console.log("lal"),
+			onError: () => {},
 		}
 	);
 
 	return (
 		<div className={styles.history}>
-			<div className={styles.title}>
-				Recent watched
+			<div className={styles.title}>Recent watched</div>
+			<div className={styles.content}>
 				{!!data.length &&
 					data.map((lecture, key) => (
 						<LectureCard
 							key={key}
 							value={lecture}
 							icon={<BiDotsVerticalRounded size="24px" />}
+							hoverInformation={true}
 						/>
 					))}
 			</div>

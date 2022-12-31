@@ -1,5 +1,4 @@
 export type LectureModel = {
-	id: string;
 	title: string;
 	thumbnail: string;
 	createdBy: string;
@@ -10,7 +9,7 @@ export type LectureModel = {
 	subCategory: string;
 	createdAt: string;
 	lastUpdate: string;
-	numberOfUsers: number;
+	numberOfUsers: string[];
 	language: string;
 	items: LectureItem[];
 };

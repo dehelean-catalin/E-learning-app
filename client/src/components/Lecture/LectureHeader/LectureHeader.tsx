@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useCallback, useContext } from "react";
 import { BiBook, BiDotsVerticalRounded } from "react-icons/bi";
 import { BsPlayBtn } from "react-icons/bs";
 import { useDispatch } from "react-redux";
@@ -10,6 +10,8 @@ import { NotificationActions } from "../../../store/redux/notificationReducer";
 import Button from "../../common/Button/Button";
 import { CustomRating } from "../../common/CustomRating/CustomRating";
 import styles from "./LectureHeader.module.scss";
+import AuthContext from "../../../store/context/auth-context";
+import { AiFillPlayCircle, AiOutlinePlayCircle } from "react-icons/ai";
 type Props = { value: LectureModel };
 const LectureHeader: FC<Props> = ({ value }) => {
 	const {
@@ -26,9 +28,9 @@ const LectureHeader: FC<Props> = ({ value }) => {
 		numberOfUsers,
 		lastUpdate,
 	} = value;
+	const { userId } = useContext(AuthContext);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-
 	let a = value.items.find((i) => i.courseContent);
 	let b = a.courseContent.map((i) => i.children);
 	let sum = 0;
@@ -37,11 +39,11 @@ const LectureHeader: FC<Props> = ({ value }) => {
 		let c = b[key];
 
 		for (const yey in c) {
-			sum += c[yey].data.duration;
+			sum += Math.ceil(c[yey].data.duration);
 		}
 	}
 	const axiosInstance = useAxios();
-	const handleClick = () => {
+	const handleClick = useCallback(() => {
 		axiosInstance
 			.post(`/user/watching-lectures/${id}`)
 			.then(() => navigate(`/lecture/${id}/overview?page=0`))
@@ -53,6 +55,24 @@ const LectureHeader: FC<Props> = ({ value }) => {
 					})
 				)
 			);
+	}, [axiosInstance, dispatch, id, navigate]);
+	const getButton = () => {
+		if (numberOfUsers.includes(userId)) {
+			return (
+				<Button
+					disabled={false}
+					onClick={() => navigate(`/lecture/${id}/overview?page=0`)}
+				>
+					<AiFillPlayCircle size="18px" />
+					Continue
+				</Button>
+			);
+		}
+		return (
+			<Button disabled={false} onClick={handleClick}>
+				Start now
+			</Button>
+		);
 	};
 	return (
 		<div className={styles["lecture-header"]}>
@@ -61,7 +81,7 @@ const LectureHeader: FC<Props> = ({ value }) => {
 				<div className={styles.rows}>
 					<div className={styles.row}>
 						<BsPlayBtn />
-						{Math.round(sum / 360)}h of video
+						{Math.ceil(sum / 60)} min of video
 					</div>
 					<div className={styles.row}>
 						<BiBook />
@@ -71,18 +91,16 @@ const LectureHeader: FC<Props> = ({ value }) => {
 			</div>
 
 			<div className={styles.right}>
-				<div className={styles.title}>
-					<div>{title}</div> <BiDotsVerticalRounded />
-				</div>
+				<div className={styles.title}>{title}</div>
 				<div className={styles.description}>{description}</div>
-				<div className={styles.author}>
+				<div>
 					Author: <span>{createdBy}</span>, Fields: <span>{category}</span>
 					<span>{subCategory}</span>
 				</div>
-				<div className={styles.lastUpdate}>
+				<div>
 					Last update: <span>{lastUpdate}</span>
 				</div>
-				<div className={styles.lastUpdate}>
+				<div>
 					Language: <span>{language}</span>
 				</div>
 
@@ -90,11 +108,9 @@ const LectureHeader: FC<Props> = ({ value }) => {
 					<CustomRating
 						rating={rating}
 						numberOfRates={numberOfRates}
-						numberOfUsers={numberOfUsers}
+						numberOfUsers={numberOfUsers.length}
 					/>
-					<Button disabled={false} onClick={() => handleClick()}>
-						Start now
-					</Button>
+					{getButton()}
 				</div>
 			</div>
 		</div>

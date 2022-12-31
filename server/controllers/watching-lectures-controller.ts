@@ -32,7 +32,7 @@ export const getWatchingLectureList = async (req: Request, res: Response) => {
 			if (!lectureSnap.exists()) {
 				throw new Error("Try again! Something went wrong");
 			}
-			const { thumbnail, createdBy, title, numberOfRates, rating } =
+			const { thumbnail, createdBy, title, numberOfRates, rating, items } =
 				lectureSnap.data() as LectureModel;
 			loadedLectures.push({
 				thumbnail,
@@ -40,6 +40,7 @@ export const getWatchingLectureList = async (req: Request, res: Response) => {
 				title,
 				numberOfRates,
 				rating,
+				items,
 			});
 		}
 		res.status(200).json(loadedLectures);
@@ -72,15 +73,21 @@ export const addWatchingLecture = async (req: Request, res: Response) => {
 		if (!userSnap.exists()) {
 			throw new Error("Try again! Something went wrong");
 		}
-
 		let watchingLectures = userSnap.get("watchingLectures");
 
 		const lectureRef = doc(db, "lectures", req.params.id);
 		const lectureSnap = await getDoc(lectureRef);
+
 		if (!lectureSnap.exists()) {
 			throw new Error("Try again! Something went wrong");
 		}
-		const items = lectureSnap.get("items") as LectureItem[];
+		const { numberOfUsers, items } = lectureSnap.data() as LectureModel;
+		numberOfUsers.push(validatedReq.userData.userId);
+
+		await updateDoc(lectureRef, {
+			numberOfUsers,
+		});
+
 		const a = items.find((i) => i.courseContent);
 		a?.courseContent &&
 			a?.courseContent.forEach((c) => {

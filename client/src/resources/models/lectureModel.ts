@@ -12,7 +12,7 @@ export type LectureModel = {
 	subCategory: string;
 	createdAt: string;
 	lastUpdate: string;
-	numberOfUsers: number;
+	numberOfUsers: string[];
 	language: string;
 	items: LectureItem[];
 };
