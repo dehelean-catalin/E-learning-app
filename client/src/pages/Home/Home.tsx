@@ -6,13 +6,15 @@ import { useLocation, useNavigate } from "react-router";
 import FilterList from "../../components/Home/FilterList/FilterList";
 import LectureSkeleton from "../../components/Home/HomeSkeleton/HomeSkeleton";
 import useFetchQuery from "../../hooks/useFetchQuery";
+import { useAxios } from "../../resources/axiosInstance";
 import { LectureModel } from "../../resources/models/lectureModel";
 import { BannerNotificationType } from "../../resources/models/usersModel";
-import { useAxios } from "../../resources/axiosInstance";
 import { NotificationActions } from "../../store/redux/notificationReducer";
 import styles from "./Home.module.scss";
 import HomeSection from "./HomeSection";
-
+type AxiosResponse = {
+	data: LectureModel[];
+};
 const Home: FC = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -24,7 +26,7 @@ const Home: FC = () => {
 		["/lectures", category],
 		() => {
 			return axiosInstance
-				.get<any, { data: LectureModel[] }>("/lectures", {
+				.get<any, AxiosResponse>("/lectures", {
 					params: { category },
 				})
 				.then((res) => res.data);
@@ -66,7 +68,6 @@ const Home: FC = () => {
 			</div>
 		);
 	}
-	console.log(data);
 
 	return (
 		<div className={styles.home}>

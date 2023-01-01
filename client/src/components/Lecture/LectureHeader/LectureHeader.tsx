@@ -1,17 +1,19 @@
+import TreeNode from "primereact/treenode";
 import { FC, useCallback, useContext } from "react";
-import { BiBook, BiDotsVerticalRounded } from "react-icons/bi";
+import { AiFillPlayCircle } from "react-icons/ai";
+import { BiBook } from "react-icons/bi";
 import { BsPlayBtn } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import { getRatingValue } from "../../../helpers/lectureCardHelper";
+import { useAxios } from "../../../resources/axiosInstance";
 import { LectureModel } from "../../../resources/models/lectureModel";
 import { BannerNotificationType } from "../../../resources/models/usersModel";
-import { useAxios } from "../../../resources/axiosInstance";
+import AuthContext from "../../../store/context/auth-context";
 import { NotificationActions } from "../../../store/redux/notificationReducer";
 import Button from "../../common/Button/Button";
 import { CustomRating } from "../../common/CustomRating/CustomRating";
 import styles from "./LectureHeader.module.scss";
-import AuthContext from "../../../store/context/auth-context";
-import { AiFillPlayCircle, AiOutlinePlayCircle } from "react-icons/ai";
 type Props = { value: LectureModel };
 const LectureHeader: FC<Props> = ({ value }) => {
 	const {
@@ -19,29 +21,18 @@ const LectureHeader: FC<Props> = ({ value }) => {
 		title,
 		thumbnail,
 		createdBy,
-		numberOfRates,
 		category,
 		subCategory,
-		description,
-		rating,
+		details,
 		language,
 		numberOfUsers,
-		lastUpdate,
+		items,
+		reviewList,
 	} = value;
 	const { userId } = useContext(AuthContext);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	let a = value.items.find((i) => i.courseContent);
-	let b = a.courseContent.map((i) => i.children);
-	let sum = 0;
 
-	for (const key in b) {
-		let c = b[key];
-
-		for (const yey in c) {
-			sum += Math.ceil(c[yey].data.duration);
-		}
-	}
 	const axiosInstance = useAxios();
 	const handleClick = useCallback(() => {
 		axiosInstance
@@ -81,24 +72,24 @@ const LectureHeader: FC<Props> = ({ value }) => {
 				<div className={styles.rows}>
 					<div className={styles.row}>
 						<BsPlayBtn />
-						{Math.ceil(sum / 60)} min of video
+						{getLectureDuration(items.data)} of video
 					</div>
 					<div className={styles.row}>
 						<BiBook />
-						{a.courseContent.length} chapters
+						{items.data.length} chapters
 					</div>
 				</div>
 			</div>
 
 			<div className={styles.right}>
 				<div className={styles.title}>{title}</div>
-				<div className={styles.description}>{description}</div>
+				<div className={styles.description}>{details}</div>
 				<div>
 					Author: <span>{createdBy}</span>, Fields: <span>{category}</span>
 					<span>{subCategory}</span>
 				</div>
 				<div>
-					Last update: <span>{lastUpdate}</span>
+					Last update: <span>{getLastUpdateDate(items.data)}</span>
 				</div>
 				<div>
 					Language: <span>{language}</span>
@@ -106,8 +97,8 @@ const LectureHeader: FC<Props> = ({ value }) => {
 
 				<div className={styles.btns}>
 					<CustomRating
-						rating={rating}
-						numberOfRates={numberOfRates}
+						rating={getRatingValue(reviewList.data)}
+						numberOfRates={reviewList.data.length}
 						numberOfUsers={numberOfUsers.length}
 					/>
 					{getButton()}
@@ -118,3 +109,34 @@ const LectureHeader: FC<Props> = ({ value }) => {
 };
 
 export default LectureHeader;
+
+const getLastUpdateDate = (data: TreeNode[]) => {
+	let dateArray: string[] = [];
+	let maxDate = "";
+
+	data.forEach((i) =>
+		i.children.forEach((o) => dateArray.push(o.data.lastUpdate))
+	);
+
+	dateArray.forEach((i) => {
+		if (i > maxDate) {
+			maxDate = i;
+		}
+	});
+
+	return maxDate;
+};
+
+const getLectureDuration = (data: TreeNode[]) => {
+	let sum = 0;
+	data.forEach((i) =>
+		i.children.forEach((o) => {
+			sum += o.data.duration;
+		})
+	);
+	const valueInMin = sum / 60;
+	if (valueInMin > 60) {
+		return Math.ceil(valueInMin / 60) + " h";
+	}
+	return Math.ceil(sum / 60) + " min";
+};

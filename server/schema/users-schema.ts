@@ -1,10 +1,12 @@
-import Joi from "joi";
+import joiDate from "@joi/date";
+import coreJoi from "joi";
 import {
 	UserDataModel,
 	UserModel,
+	LastEntry,
 	WatchingLectureModel,
 } from "../models/user-model";
-
+const Joi = coreJoi.extend(joiDate) as typeof coreJoi;
 export const UserSchema = Joi.object<UserModel>({
 	email: Joi.string().required().messages({
 		"any.required": "email is required",
@@ -79,6 +81,10 @@ export const WatchingLectureSchema = Joi.object<WatchingLectureModel, true>({
 	id: Joi.string().required().messages({
 		"any.required": "id is required",
 	}),
+	lastEntry: Joi.object().keys({
+		page: Joi.string().required(),
+		date: Joi.date().format("YYYY-MM-DD").required,
+	}),
 	items: Joi.array()
 		.items({
 			page: Joi.string().required().messages({
@@ -105,6 +111,16 @@ export const WatchingLectureSchema = Joi.object<WatchingLectureModel, true>({
 
 export const WatchingLectureTimeSchema = Joi.object({
 	time: Joi.number().required().messages({
-		"any.required": "id is required",
+		"any.required": "time is required",
+	}),
+});
+
+export const WatchingLectureLastEntrySchema = Joi.object<LastEntry>({
+	date: Joi.date().format("YYY-MM-DD").required().messages({
+		"any.required": "date is required",
+	}),
+	time: Joi.date().format("HH:mm:ss").required(),
+	page: Joi.string().required().messages({
+		"any.required": "page is required",
 	}),
 });

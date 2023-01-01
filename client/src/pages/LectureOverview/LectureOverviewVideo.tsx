@@ -28,6 +28,7 @@ const LectureOverviewVideo: FC<Props> = ({ page }) => {
 				playerRef.current.seekTo(currentProgress, "seconds");
 			});
 	}, [page]);
+
 	return (
 		<ReactPlayer
 			ref={playerRef}

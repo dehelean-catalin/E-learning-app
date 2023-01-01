@@ -1,19 +1,29 @@
 export type LectureModel = {
+	id: string;
 	title: string;
+	details: string;
 	thumbnail: string;
-	createdBy: string;
-	rating: number;
-	numberOfRates: number;
-	description: string;
+	description: Description;
 	category: ICategory;
 	subCategory: string;
-	createdAt: string;
-	lastUpdate: string;
-	numberOfUsers: string[];
+	createdBy: string;
+	createdAt: Date;
 	language: string;
-	items: LectureItem[];
+	numberOfUsers: string[];
+	items: Item;
+	reviewList: ReviewList;
 };
-
+export type Description = {
+	data: string;
+};
+export type Item = {
+	description: string;
+	data: TreeNode[];
+};
+export type ReviewList = {
+	description: string;
+	data: ReviewItem[];
+};
 export enum ICategory {
 	ALL = "all",
 	UTCN = "utcn",
@@ -27,25 +37,37 @@ export enum ICategory {
 	Policy = "policy",
 }
 
-export type LectureItem = {
-	title: string;
-	description: string;
-	courseContent?: TreeNode[];
-	items?: Review[];
-};
-
 export interface TreeNode {
-	id?: string;
-	key?: string | number;
-	label?: string;
-	data?: any;
-	children?: TreeNode[];
+	key: string;
+	label: string;
+	children: TreeChild[];
 }
-
-export type Review = {
+export interface TreeChild {
+	key: string;
+	label: string;
+	data: {
+		url: string;
+		lastUpdate: Date;
+		duration: number;
+	};
+}
+export type ReviewItem = {
 	firstName: string;
 	lastName: string;
 	comment: string;
 	rating: number;
+	date: Date;
+};
+
+export type HistoryModel = {
+	id: string;
+	title: string;
+	thumbnail: string;
+	createdBy: string;
+	rating: number;
+	numberOfRates: number;
+	progress: number;
 	date: string;
+	page: string;
+	chapterName: string;
 };

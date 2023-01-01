@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import db from "../firebase";
-import { TreeNode } from "../models/lecture-model";
+import { HistoryModel, LectureModel, TreeNode } from "../models/lecture-model";
 import { ValidatedRequest } from "../models/request";
 import {
 	UserDataModel,
@@ -153,17 +153,105 @@ export const updatetWatchingLectureCurrenTime = async (
 	}
 };
 
-// export const getWatchingLectureUrl = async (req: Request, res: Response) => {
-// 	try {
-// 		const validatedReq = req as ValidatedRequest;
-// 		const userRef = doc(db, "users", validatedReq.userData.userId);
-// 		const userSnap = await getDoc(userRef);
-// 		if (!userSnap.exists()) {
-// 			throw new Error("This Lecture dont exist");
-// 		}
+export const updateWatchingLectureLastEntry = async (
+	req: Request,
+	res: Response
+) => {
+	try {
+		const validatedReq = req as ValidatedRequest;
+		const userRef = doc(db, "users", validatedReq.userData.userId);
+		const userSnap = await getDoc(userRef);
+		if (!userSnap.exists()) {
+			throw new Error("This Lecture dont exist");
+		}
+		const watchingLectures = userSnap.get(
+			"watchingLectures"
+		) as WatchingLectureModel[];
 
-// 		res.status(200).json(userSnap);
-// 	} catch (err: any) {
-// 		res.status(400).json({ code: 400, message: err.message });
-// 	}
-// };
+		watchingLectures.forEach((i) => {
+			if (i.id === req.params.id) {
+				i.lastEntry = req.body;
+			}
+		});
+
+		await updateDoc(userRef, { watchingLectures });
+
+		res.status(200).json({ code: 200, message: "Success" });
+	} catch (err: any) {
+		res.status(400).json({ code: 400, message: err.message });
+	}
+};
+
+export const getHistoryLectureList = async (req: Request, res: Response) => {
+	try {
+		const validatedReq = req as ValidatedRequest;
+		const userRef = doc(db, "users", validatedReq.userData.userId);
+		const userSnap = await getDoc(userRef);
+
+		if (!userSnap.exists()) {
+			throw new Error("Try again! Something went wrong");
+		}
+
+		let { watchingLectures } = userSnap.data() as UserModel;
+		let loadedIds: string[] = [];
+		watchingLectures.map((i: WatchingLectureModel) => loadedIds.push(i.id));
+
+		let loadedLectures: HistoryModel[] = [];
+		for (const key in loadedIds) {
+			const lectureRef = doc(db, "lectures", loadedIds[key]);
+			const lectureSnap = await getDoc(lectureRef);
+			if (!lectureSnap.exists()) {
+				throw new Error("Try again! Something went wrong");
+			}
+			const { id, thumbnail, createdBy, title, reviewList } =
+				lectureSnap.data() as LectureModel;
+			let page = "0";
+			let date = "";
+			let confirmedProgress = 0;
+			let duration = 0;
+			let chapterName = "";
+			watchingLectures.forEach((i) => {
+				if (loadedIds[key] === i.id) {
+					page = i.lastEntry.page;
+					date = `${i.lastEntry.date} ${i.lastEntry.time}`;
+
+					i.items.forEach((o) =>
+						o.children.forEach((s) => {
+							confirmedProgress += s.data.confirmedProgress;
+							duration += s.data.duration;
+							if (s.key === i.lastEntry.page) {
+								chapterName = s.label;
+							}
+						})
+					);
+				}
+			});
+			const progress = Math.round((confirmedProgress * 100) / duration);
+			const rating =
+				reviewList.data.reduce((a, b) => a + b.rating, 0) /
+				reviewList.data.length;
+			loadedLectures.push({
+				id,
+				thumbnail,
+				createdBy,
+				title,
+				rating,
+				numberOfRates: reviewList.data.length,
+				progress,
+				page,
+				date,
+				chapterName,
+			});
+		}
+
+		loadedLectures.sort(function (a, b): number {
+			const t1 = new Date(a.date);
+			const t2 = new Date(b.date);
+			return t2.getTime() - t1.getTime();
+		});
+
+		res.status(200).json(loadedLectures);
+	} catch (err: any) {
+		return res.status(400).json({ code: 400, message: err.message });
+	}
+};

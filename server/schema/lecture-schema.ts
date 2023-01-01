@@ -1,46 +1,63 @@
-import Joi from "joi";
+import coreJoi from "joi";
+import joiDate from "@joi/date";
+
 import {
-	LectureItem,
+	Item,
 	LectureModel,
-	Review,
+	ReviewItem,
+	ReviewList,
+	TreeChild,
 	TreeNode,
 } from "../models/lecture-model";
-
-const children = Joi.object<TreeNode, true>().keys({
+const Joi = coreJoi.extend(joiDate) as typeof coreJoi;
+const children = Joi.object<TreeChild, true>().keys({
 	key: Joi.string().required(),
 	label: Joi.string().required(),
 	data: Joi.object().keys({
 		url: Joi.string().required(),
-		duration: Joi.number().required(),
+		duration: Joi.custom((value) => {
+			if (typeof value !== "number") {
+				throw new Error("Not a number");
+			}
+			return value;
+		}).required(),
+		lastUpdate: Joi.date().format("YYYY-MM-DD").required(),
 	}),
 });
 
-const capitols = Joi.object<TreeNode, true>().keys({
-	key: Joi.string().required(),
-	label: Joi.string().required(),
-	children: Joi.array().items(children),
-});
-
-const reviews = Joi.object<Review, true>().keys({
+const reviewItem = Joi.object<ReviewItem, true>().keys({
 	firstName: Joi.string().required(),
 	lastName: Joi.string().required(),
 	comment: Joi.string().required(),
-	rating: Joi.number().required(),
-	date: Joi.string().required(),
+	rating: Joi.custom((value) => {
+		if (typeof value !== "number") {
+			throw new Error("Not a number");
+		}
+		return value;
+	}).required(),
+	date: Joi.date().format("YYYY-MM-DD").required(),
 });
 
-const items = Joi.object<LectureItem, true>().keys({
-	title: Joi.string().required(),
-	description: Joi.string().required(),
-	courseContent: Joi.array().items(capitols),
-	items: Joi.array().items(reviews),
+const items = Joi.object<TreeNode, true>().keys({
+	key: Joi.string().required().messages({
+		"any.required": "Key is required",
+	}),
+	label: Joi.string().required().messages({
+		"any.required": "label is required",
+	}),
+	children: Joi.array().items(children).required().messages({
+		"any.required": "children is required",
+	}),
 });
 
-export const LectureSchema = Joi.object<LectureModel, true>({
+export const LectureSchema = Joi.object<Omit<LectureModel, "id">, true>({
 	title: Joi.string().required().messages({
 		"any.required": "Title is required",
 	}),
-	description: Joi.string().required().messages({
+	details: Joi.string().required().messages({
+		"any.required": "details is required",
+	}),
+	description: Joi.object().required().messages({
 		"any.required": "Description is required",
 	}),
 	category: Joi.string().required().messages({
@@ -55,17 +72,8 @@ export const LectureSchema = Joi.object<LectureModel, true>({
 	createdBy: Joi.string().required().messages({
 		"any.required": "Createdby is required",
 	}),
-	createdAt: Joi.string().required().messages({
+	createdAt: Joi.date().format("YYYY-MM-DD").required().messages({
 		"any.required": "createdAt is required",
-	}),
-	lastUpdate: Joi.string().required().messages({
-		"any.required": "lastUpdate is required",
-	}),
-	rating: Joi.number().required().messages({
-		"any.required": "Rating is required",
-	}),
-	numberOfRates: Joi.number().required().messages({
-		"any.required": "Rating is required",
 	}),
 	numberOfUsers: Joi.array().required().messages({
 		"any.required": "numberOfUsers is required",
@@ -73,5 +81,16 @@ export const LectureSchema = Joi.object<LectureModel, true>({
 	language: Joi.string().required().messages({
 		"any.required": "language is required",
 	}),
-	items: Joi.array<LectureItem[]>().items(items).required(),
+	items: Joi.object<Item>()
+		.keys({
+			description: Joi.string().required(),
+			data: Joi.array<TreeNode[]>().items(items).required(),
+		})
+		.required(),
+	reviewList: Joi.object<ReviewList>()
+		.keys({
+			description: Joi.string().required(),
+			data: Joi.array<ReviewItem[]>().items(reviewItem).required(),
+		})
+		.required(),
 });

@@ -8,7 +8,7 @@ import {
 	where,
 } from "firebase/firestore";
 import db from "../firebase";
-import { LectureItem, LectureModel } from "../models/lecture-model";
+import { LectureModel } from "../models/lecture-model";
 import { ValidatedRequest } from "../models/request";
 import { UserModel, WatchingLectureModel } from "../models/user-model";
 
@@ -32,14 +32,13 @@ export const getWatchingLectureList = async (req: Request, res: Response) => {
 			if (!lectureSnap.exists()) {
 				throw new Error("Try again! Something went wrong");
 			}
-			const { thumbnail, createdBy, title, numberOfRates, rating, items } =
+			const { thumbnail, createdBy, title, reviewList, items } =
 				lectureSnap.data() as LectureModel;
 			loadedLectures.push({
 				thumbnail,
 				createdBy,
 				title,
-				numberOfRates,
-				rating,
+				reviewList,
 				items,
 			});
 		}
@@ -79,7 +78,7 @@ export const addWatchingLecture = async (req: Request, res: Response) => {
 		const lectureSnap = await getDoc(lectureRef);
 
 		if (!lectureSnap.exists()) {
-			throw new Error("Try again! Something went wrong");
+			throw new Error("Try again! Lecture don't exists");
 		}
 		const { numberOfUsers, items } = lectureSnap.data() as LectureModel;
 		numberOfUsers.push(validatedReq.userData.userId);
@@ -88,27 +87,36 @@ export const addWatchingLecture = async (req: Request, res: Response) => {
 			numberOfUsers,
 		});
 
-		const a = items.find((i) => i.courseContent);
-		a?.courseContent &&
-			a?.courseContent.forEach((c) => {
-				c.children?.forEach((z) => {
-					Object.assign(z.data, {
+		const a = items.data.forEach((c) => {
+			c.children?.forEach((z) => {
+				if (z.data) {
+					Object.assign(z?.data, {
 						currentProgress: 0,
 						confirmedProgress: 0,
 					});
-				});
+				}
 			});
-
+		});
 		const id = lectureSnap.get("id") as string;
 		if (watchingLectures.find((i: any) => i.id === id)) {
 			throw new Error("Lecture is already saved");
 		}
-		watchingLectures.push({ id, items: a?.courseContent });
+		watchingLectures.push({
+			id,
+			lastEntry: {
+				page: "0",
+				date: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
+			},
+			items: items.data,
+		});
 
 		await updateDoc(userRef, {
 			watchingLectures,
 		});
-		res.status(200).json({ code: 200, message: "Succes" });
+		res.status(200).json({
+			code: 200,
+			message: "Succes",
+		});
 	} catch (err: any) {
 		return res.status(400).json({ code: 400, message: err.message });
 	}

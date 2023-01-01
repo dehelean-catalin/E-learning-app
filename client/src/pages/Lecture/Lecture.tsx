@@ -1,8 +1,10 @@
 import { useParams } from "react-router";
+import LectureChapters from "../../components/Lecture/LectureChapters/LectureChapters";
+import LectureDescription from "../../components/Lecture/LectureDescription/LectureDescription";
 import LectureHeader from "../../components/Lecture/LectureHeader/LectureHeader";
 import LectureHeaderSkeleton from "../../components/Lecture/LectureHeader/LectureHeaderSkeleton";
-import LectureSectionList from "../../components/Lecture/LectureSectionCard/LectureSectionList";
 import LectureSectionSkeleton from "../../components/Lecture/LectureSectionCard/LectureSectionSkeleton";
+import LectureReviewList from "../../components/Lecture/LectureReviewList/LectureReviewList";
 import useFetchQuery from "../../hooks/useFetchQuery";
 import { useAxios } from "../../resources/axiosInstance";
 import { ICategory, LectureModel } from "../../resources/models/lectureModel";
@@ -11,18 +13,25 @@ import styles from "./Lecture.module.scss";
 const INITIAL_DATA: LectureModel = {
 	id: "",
 	title: "",
-	description: "",
+	details: "",
+	description: {
+		data: "",
+	},
 	thumbnail: "",
 	category: ICategory.ALL,
 	subCategory: "",
-	createdAt: "",
+	createdAt: null,
 	createdBy: "",
-	lastUpdate: "",
-	rating: null,
-	numberOfRates: null,
 	numberOfUsers: [],
 	language: "",
-	items: [],
+	items: {
+		data: [],
+		description: "",
+	},
+	reviewList: {
+		data: [],
+		description: "",
+	},
 };
 
 const Lecture = () => {
@@ -39,6 +48,7 @@ const Lecture = () => {
 			onSuccess: () => {},
 		}
 	);
+	const lectureData = data as LectureModel;
 
 	if (isLoading) {
 		return (
@@ -57,11 +67,10 @@ const Lecture = () => {
 	return (
 		<div className={styles.lecture}>
 			<div className={styles.container}>
-				<LectureHeader value={data} />
-				<LectureSectionList
-					items={data.items}
-					className={styles["lecture-list"]}
-				/>
+				<LectureHeader value={lectureData} />
+				<LectureDescription value={lectureData.description} />
+				<LectureChapters value={lectureData.items} />
+				<LectureReviewList value={lectureData.reviewList} />
 			</div>
 		</div>
 	);

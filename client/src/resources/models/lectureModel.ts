@@ -3,30 +3,29 @@ import TreeNode from "primereact/treenode";
 export type LectureModel = {
 	id: string;
 	title: string;
+	details: string;
 	thumbnail: string;
-	createdBy: string;
-	rating: number;
-	numberOfRates: number;
-	description: string;
+	description: Description;
 	category: ICategory;
 	subCategory: string;
-	createdAt: string;
-	lastUpdate: string;
-	numberOfUsers: string[];
+	createdBy: string;
+	createdAt: Date;
 	language: string;
-	items: LectureItem[];
+	numberOfUsers: string[];
+	items: Item;
+	reviewList: ReviewList;
 };
-// export interface ILecture extends BasicLecture {
-// 	description: string;
-// 	category: ICategory;
-// 	subCategory: string;
-// 	createdAt: string;
-// 	lastUpdate: string;
-// 	numberOfUsers: number;
-// 	language: string;
-// 	items: LectureItem[];
-// }
-
+export type Description = {
+	data: string;
+};
+export type Item = {
+	description: string;
+	data: TreeNode[];
+};
+export type ReviewList = {
+	description: string;
+	data: ReviewItem[];
+};
 export enum ICategory {
 	ALL = "all",
 	UTCN = "utcn",
@@ -40,17 +39,23 @@ export enum ICategory {
 	Policy = "policy",
 }
 
-export type LectureItem = {
-	title: string;
-	description: string;
-	courseContent?: TreeNode[];
-	items?: Review[];
-};
-
-export type Review = {
+export type ReviewItem = {
 	firstName: string;
 	lastName: string;
 	comment: string;
 	rating: number;
-	date: string;
+	date: Date;
+};
+
+export type HistoryModel = {
+	id: string;
+	title: string;
+	thumbnail: string;
+	createdBy: string;
+	rating: number;
+	numberOfRates: number;
+	progress: number;
+	page: string;
+	date: Date;
+	chapterName: string;
 };

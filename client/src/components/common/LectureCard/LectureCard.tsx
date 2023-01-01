@@ -6,9 +6,10 @@ import { IoTrashOutline } from "react-icons/io5";
 import { useMutation, useQueryClient } from "react-query";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router";
+import { getRatingValue } from "../../../helpers/lectureCardHelper";
+import { useAxios } from "../../../resources/axiosInstance";
 import { LectureModel } from "../../../resources/models/lectureModel";
 import { BannerNotificationType } from "../../../resources/models/usersModel";
-import { useAxios } from "../../../resources/axiosInstance";
 import { NotificationActions } from "../../../store/redux/notificationReducer";
 import { CustomRating } from "../CustomRating/CustomRating";
 import styles from "./LectureCard.module.scss";
@@ -21,7 +22,6 @@ type Props = {
 	bannerClassName?: string;
 	contentClassName?: string;
 	iconClassName?: string;
-	hoverInformation?: boolean;
 };
 
 const LectureCard: FC<Props> = ({
@@ -31,15 +31,13 @@ const LectureCard: FC<Props> = ({
 	contentClassName = styles.content,
 	iconClassName = styles.icon,
 	icon,
-	hoverInformation = false,
 }) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const { pathname } = useLocation();
 	const queryClient = useQueryClient();
 	const op = useRef(null);
-	const { id, thumbnail, title, createdBy, rating, numberOfRates } = value;
-	console.log(value);
+	const { id, thumbnail, title, createdBy, reviewList } = value;
 	const axiosInstance = useAxios();
 	const { mutate } = useMutation(
 		() => axiosInstance.delete(`user/save-lecture/${id}`),
@@ -96,7 +94,6 @@ const LectureCard: FC<Props> = ({
 			</div>
 		);
 	};
-
 	return (
 		<div className={className}>
 			<div
@@ -111,9 +108,10 @@ const LectureCard: FC<Props> = ({
 					<span>{title}</span>
 				</div>
 				<div className={styles.author}>{createdBy}</div>
+
 				<CustomRating
-					rating={rating}
-					numberOfRates={numberOfRates}
+					rating={getRatingValue(reviewList.data)}
+					numberOfRates={reviewList.data.length}
 					hideUsers={true}
 				/>
 			</div>
@@ -138,24 +136,8 @@ const LectureCard: FC<Props> = ({
 					</div>
 				</OverlayPanel>
 			</div>
-			{hoverInformation && (
-				<>
-					<div className={styles.hover}>
-						<div>Chapter 4: Marii</div>
-						<span
-							style={{
-								background: "green",
-								width: `${50}%`,
-								height: "3px",
-							}}
-						></span>
-					</div>
-				</>
-			)}
 		</div>
 	);
 };
 
 export default LectureCard;
-
-const getProgress = (data) => {};

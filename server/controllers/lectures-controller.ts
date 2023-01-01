@@ -14,30 +14,12 @@ import db from "../firebase";
 import { v4 as uuid } from "uuid";
 import { getDownloadURL, getStorage, ref } from "firebase/storage";
 import axios from "axios";
+import { ICategory, LectureModel } from "../models/lecture-model";
 
-interface Lecture {
-	id: string;
-	title: string;
-	thumbnail: string;
-	createdBy: string;
-	rating: number;
-	numberOfRates: number;
-}
 interface Params {
 	id: string;
 }
-enum ICategory {
-	ALL = "all",
-	UTCN = "utcn",
-	Design = "design",
-	DataSience = "dataSience",
-	Web = "web",
-	Arhitecture = "arhitecture",
-	Electronics = "electronics",
-	Psychology = "psychology",
-	History = "history",
-	Policy = "policy",
-}
+
 interface Query {
 	category: ICategory;
 }
@@ -82,16 +64,16 @@ export const getLectures = async (
 			lectures.push(doc.data());
 		});
 
-		let basicLectures: Lecture[] = [];
+		let basicLectures: any = [];
 		lectures.forEach(
-			({ id, thumbnail, title, createdBy, rating, numberOfRates }: Lecture) =>
+			({ id, thumbnail, title, createdBy, items, reviewList }: LectureModel) =>
 				basicLectures.push({
 					id,
 					thumbnail,
 					title,
 					createdBy,
-					rating,
-					numberOfRates,
+					items,
+					reviewList,
 				})
 		);
 		if (!basicLectures.length) {

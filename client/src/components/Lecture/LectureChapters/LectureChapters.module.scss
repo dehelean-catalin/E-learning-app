@@ -1,0 +1,30 @@
+@import "../../../resources/styles/variables.scss";
+.chapters {
+	flex: 1;
+	span {
+		font-size: 20px;
+		font-weight: 600;
+	}
+	.course-list {
+		display: flex;
+		gap: 10px;
+		margin-top: 10px;
+		background: $color-30;
+		border: 0px;
+		color: WHITE;
+		padding: 8px 0px;
+
+		ul {
+			flex: 1;
+		}
+
+		div {
+			display: flex;
+			align-items: center;
+
+			svg {
+				margin-right: 6px;
+			}
+		}
+	}
+}

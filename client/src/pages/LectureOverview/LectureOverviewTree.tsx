@@ -4,6 +4,7 @@ import { FC, useCallback } from "react";
 import { BsPlayCircle } from "react-icons/bs";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 import { useNavigate, useParams } from "react-router";
+import { useAxios } from "../../resources/axiosInstance";
 import styles from "./LectureOverview.module.scss";
 
 type Props = {
@@ -13,8 +14,9 @@ type Props = {
 const LectureOverviewTree: FC<Props> = ({ data, page }) => {
 	const navigate = useNavigate();
 	const { id } = useParams();
+	const axiosInstance = useAxios();
 
-	const getKey: () => TreeExpandedKeysType = useCallback(() => {
+	const getExpendedKey: () => TreeExpandedKeysType = useCallback(() => {
 		let currentKey: TreeExpandedKeysType = null;
 		data.forEach((i) =>
 			i.children.forEach((o) => {
@@ -25,14 +27,15 @@ const LectureOverviewTree: FC<Props> = ({ data, page }) => {
 		);
 		return currentKey;
 	}, [data, page]);
-	const expandedKeys = getKey();
+
+	const expandedKey = getExpendedKey();
 
 	const nodeTemplate = (node: TreeNode, options) => {
 		let label = <b>{node.label}</b>;
 
 		return (
 			<div className={options.className}>
-				<div>
+				<div style={node.data && node.key === page ? { color: "#16b87f" } : {}}>
 					{node.data &&
 					node.data.confirmedProgress >= node.data.duration - 8 ? (
 						<MdCheckBox />
@@ -42,17 +45,18 @@ const LectureOverviewTree: FC<Props> = ({ data, page }) => {
 					{label}
 				</div>
 
-				<div>
+				<div style={node.data && node.key === page ? { color: "#16b87f" } : {}}>
 					<BsPlayCircle />
-					{getDuration(node).value + getDuration(node).unit}
+					{getDuration(node)}
 				</div>
 			</div>
 		);
 	};
+	const d = new Date();
 	return (
 		<div className={styles.content}>
 			<span>Lecture content</span>
-			{!!expandedKeys && (
+			{!!expandedKey && (
 				<Tree
 					value={data}
 					nodeTemplate={nodeTemplate}
@@ -60,9 +64,14 @@ const LectureOverviewTree: FC<Props> = ({ data, page }) => {
 					onNodeClick={(e) => {
 						if (!e.node.children && page !== e.node.key) {
 							navigate(`/lecture/${id}/overview?page=${e.node.key}`);
+							axiosInstance.put(`/user/watching-lectures/${id}/last-entry`, {
+								date: new Date().toISOString().split("T")[0],
+								page: e.node.key,
+								time: d.toTimeString().split(" ")[0],
+							});
 						}
 					}}
-					expandedKeys={expandedKeys}
+					expandedKeys={expandedKey}
 				/>
 			)}
 		</div>
@@ -78,13 +87,13 @@ export const getDuration = (node) => {
 		);
 
 		if (valueInMin >= 60) {
-			return { value: valueInMin / 60, unit: " h" };
+			return valueInMin / 60 + " h";
 		}
-		return { value: valueInMin, unit: " min" };
+		return valueInMin + " min";
 	}
 	const value = Math.round(node.data.duration / 60);
 	if (value >= 60) {
-		return { value: value / 60, unit: " h" };
+		return value / 60 + " h";
 	}
-	return { value, unit: " min" };
+	return value + " min";
 };

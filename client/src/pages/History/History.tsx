@@ -3,12 +3,13 @@ import LectureCard from "../../components/common/LectureCard/LectureCard";
 import useFetchQuery from "../../hooks/useFetchQuery";
 import { useAxios } from "../../resources/axiosInstance";
 import styles from "./History.module.scss";
+import HistoryCard from "./HistoryCard";
 const History = () => {
 	const axiosInstance = useAxios();
 	const { data } = useFetchQuery(
 		"history",
 		async () => {
-			const res = await axiosInstance.get("/user/watching-lectures");
+			const res = await axiosInstance.get("/user/history");
 			return res.data;
 		},
 		{
@@ -23,14 +24,7 @@ const History = () => {
 			<div className={styles.title}>Recent watched</div>
 			<div className={styles.content}>
 				{!!data.length &&
-					data.map((lecture, key) => (
-						<LectureCard
-							key={key}
-							value={lecture}
-							icon={<BiDotsVerticalRounded size="24px" />}
-							hoverInformation={true}
-						/>
-					))}
+					data.map((value, key) => <HistoryCard key={key} value={value} />)}
 			</div>
 		</div>
 	);

@@ -24,7 +24,14 @@ export type AppInitModel = Omit<
 
 export type WatchingLectureModel = {
 	id: string;
+	lastEntry: LastEntry;
 	items: WatchingLectureItem[];
+};
+
+export type LastEntry = {
+	date: Date;
+	time: string;
+	page: string;
 };
 
 export interface WatchingLectureItem {
@@ -33,10 +40,10 @@ export interface WatchingLectureItem {
 	children: {
 		key: string;
 		label: string;
-		data?: {
+		data: {
 			url: string;
 			currentProgress: number;
-			duration: string;
+			duration: number;
 			confirmedProgress: number;
 		};
 	}[];

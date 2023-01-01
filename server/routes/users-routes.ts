@@ -1,3 +1,4 @@
+import { getHistoryLectureList } from "./../controllers/user-controller";
 import { getSavedLectures } from "./../controllers/lectures-controller";
 import { Router } from "express";
 import {
@@ -7,11 +8,13 @@ import {
 	saveLecture,
 	updateUserData,
 	updatetWatchingLectureCurrenTime,
+	updateWatchingLectureLastEntry,
 } from "../controllers/user-controller";
 import tokenAuth from "../middleware/tokenAuth-middleware";
 import validation from "../middleware/validation-middleware";
 import {
 	UserDataSchema,
+	WatchingLectureLastEntrySchema,
 	WatchingLectureTimeSchema,
 } from "./../schema/users-schema";
 import {
@@ -38,9 +41,12 @@ router.put(
 	validation(WatchingLectureTimeSchema),
 	updatetWatchingLectureCurrenTime
 );
+router.put(
+	"/user/watching-lectures/:id/last-entry",
+	validation(WatchingLectureLastEntrySchema),
+	updateWatchingLectureLastEntry
+);
 
-// router.put("/watching-lectures", tokenAuth, updateWatchingLectures);
-///aici ai ramas:
-// router.post("/user", validation(UserSchema), addUserData);
+router.get("/user/history", tokenAuth, getHistoryLectureList);
 
 export default router;
