@@ -52,7 +52,16 @@ const LectureOverviewTree: FC<Props> = ({ data, page }) => {
 			</div>
 		);
 	};
-	const d = new Date();
+	const onNodeClick = (e) => {
+		if (!e.node.children && page !== e.node.key) {
+			navigate(`/lecture/${id}/overview?page=${e.node.key}`);
+			axiosInstance.put(`/user/watching-lectures/${id}/last-entry`, {
+				date: new Date().toISOString().split("T")[0],
+				page: e.node.key,
+				time: new Date().toTimeString().split(" ")[0],
+			});
+		}
+	};
 	return (
 		<div className={styles.content}>
 			<span>Lecture content</span>
@@ -61,16 +70,7 @@ const LectureOverviewTree: FC<Props> = ({ data, page }) => {
 					value={data}
 					nodeTemplate={nodeTemplate}
 					className={styles["course-list"]}
-					onNodeClick={(e) => {
-						if (!e.node.children && page !== e.node.key) {
-							navigate(`/lecture/${id}/overview?page=${e.node.key}`);
-							axiosInstance.put(`/user/watching-lectures/${id}/last-entry`, {
-								date: new Date().toISOString().split("T")[0],
-								page: e.node.key,
-								time: d.toTimeString().split(" ")[0],
-							});
-						}
-					}}
+					onNodeClick={(e) => onNodeClick(e)}
 					expandedKeys={expandedKey}
 				/>
 			)}

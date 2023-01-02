@@ -15,7 +15,7 @@ const RootLayout = () => {
 		<div className="App">
 			<SideBar />
 			<Header />
-			{/* <Notification /> */}
+			<Notification />
 			<Outlet />
 			{/* <NewForm /> */}
 		</div>

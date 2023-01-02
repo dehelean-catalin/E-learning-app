@@ -123,7 +123,9 @@ const LectureCard: FC<Props> = ({
 						className={"item"}
 						onClick={(e) => {
 							op.current.toggle(e);
-							navigator.clipboard.writeText("lala");
+							navigator.clipboard.writeText(
+								`http://localhost:3000/lecture/${id}`
+							);
 							dispatch(
 								NotificationActions.showBannerNotification({
 									type: BannerNotificationType.Info,

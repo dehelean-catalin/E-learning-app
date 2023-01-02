@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { IoMdPlay } from "react-icons/io";
 import { useNavigate } from "react-router";
 import { CustomRating } from "../../components/common/CustomRating/CustomRating";
 import { HistoryModel } from "../../resources/models/lectureModel";
@@ -14,14 +15,11 @@ const HistoryCard: FC<Props> = ({ value }) => {
 
 	return (
 		<div className={styles["history-card"]}>
-			<div className={styles.thumbnail}>
-				<img src={thumbnail} alt="" />
-			</div>
+			<img src={thumbnail} alt="" />
 
 			<div className={styles.container}>
-				<div className={styles.title}>
-					<span>{title}</span>
-				</div>
+				<span>{title}</span>
+
 				<div className={styles.author}>{createdBy}</div>
 
 				<CustomRating
@@ -38,7 +36,7 @@ const HistoryCard: FC<Props> = ({ value }) => {
 				<div>{value.chapterName}</div>
 				<span
 					style={{
-						background: "green",
+						background: "red",
 						width: `${progress}%`,
 						height: "4px",
 					}}

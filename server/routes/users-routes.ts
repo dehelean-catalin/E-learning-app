@@ -1,4 +1,7 @@
-import { getHistoryLectureList } from "./../controllers/user-controller";
+import {
+	getCurrentPage,
+	getHistoryLectureList,
+} from "./../controllers/user-controller";
 import { getSavedLectures } from "./../controllers/lectures-controller";
 import { Router } from "express";
 import {
@@ -48,5 +51,6 @@ router.put(
 );
 
 router.get("/user/history", tokenAuth, getHistoryLectureList);
+router.get("/user/watching-lectures/:id/page", tokenAuth, getCurrentPage);
 
 export default router;

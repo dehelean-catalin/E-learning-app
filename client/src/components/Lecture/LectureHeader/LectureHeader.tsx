@@ -1,11 +1,12 @@
 import TreeNode from "primereact/treenode";
-import { FC, useCallback, useContext } from "react";
+import { FC, useCallback, useContext, useEffect, useState } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { BiBook } from "react-icons/bi";
 import { BsPlayBtn } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { getRatingValue } from "../../../helpers/lectureCardHelper";
+import useFetchQuery from "../../../hooks/useFetchQuery";
 import { useAxios } from "../../../resources/axiosInstance";
 import { LectureModel } from "../../../resources/models/lectureModel";
 import { BannerNotificationType } from "../../../resources/models/usersModel";
@@ -34,6 +35,14 @@ const LectureHeader: FC<Props> = ({ value }) => {
 	const dispatch = useDispatch();
 
 	const axiosInstance = useAxios();
+
+	const [page, setPage] = useState("0");
+	useEffect(() => {
+		axiosInstance
+			.get(`/user/watching-lectures/${id}/page`)
+			.then((res) => setPage(res.data));
+	}, []);
+
 	const handleClick = useCallback(() => {
 		axiosInstance
 			.post(`/user/watching-lectures/${id}`)
@@ -52,7 +61,7 @@ const LectureHeader: FC<Props> = ({ value }) => {
 			return (
 				<Button
 					disabled={false}
-					onClick={() => navigate(`/lecture/${id}/overview?page=0`)}
+					onClick={() => navigate(`/lecture/${id}/overview?page=${page}`)}
 				>
 					<AiFillPlayCircle size="18px" />
 					Continue

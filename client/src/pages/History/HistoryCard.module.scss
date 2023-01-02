@@ -9,46 +9,29 @@
 	grid-template-columns: 1fr 20px;
 	grid-template-rows: 180px 100px;
 	gap: 6px 0px;
-	.thumbnail {
+
+	img {
+		width: 100%;
 		grid-area: header;
 		min-height: 180px;
 		max-height: 180px;
-		position: relative;
-		background-color: $color-30;
 		border-radius: 8px;
-		cursor: pointer;
-
-		img {
-			min-height: 180px;
-			max-height: 180px;
-			border-radius: 8px;
-			object-fit: cover;
-			width: 100%;
-			max-height: 180px;
-		}
+		object-fit: cover;
 	}
-	.content {
+	.container {
 		grid-area: menu;
 		font-weight: 400;
 		color: white;
 
-		.title {
-			width: 100%;
-			display: flex;
-			align-items: baseline;
-			justify-content: space-between;
+		span {
 			font-weight: 600;
-			font-size: 20px;
-			margin-top: 4px;
+			font-size: 18px;
 			overflow: hidden;
 			text-overflow: ellipsis;
-
-			span {
-				width: 90%;
-			}
 		}
 		.author {
 			margin-top: 4px;
+			font-size: 16px;
 			overflow: hidden;
 			text-overflow: ellipsis;
 			color: #808080;
@@ -70,11 +53,14 @@
 		justify-content: flex-end;
 		align-items: flex-start;
 		background-color: $color-30;
+		border-radius: 8px;
 		opacity: 0.9;
+		cursor: pointer;
 
 		div {
-			padding: 6px 10px;
+			padding: 6px 12px;
 			font-weight: 600;
+			font-size: 18px;
 		}
 	}
 }

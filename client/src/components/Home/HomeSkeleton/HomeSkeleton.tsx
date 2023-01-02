@@ -1,6 +1,5 @@
 import { Skeleton } from "primereact/skeleton";
 import { FC } from "react";
-import Divider from "../../common/Divider";
 import styles from "./HomeSkeleton.module.scss";
 
 const SKELETONLIST = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -8,17 +7,6 @@ const SKELETONLIST = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 const HomeSkeleton: FC = () => {
 	return (
 		<>
-			<div className={styles["filter-list"]}>
-				{SKELETONLIST.map((i, k) => (
-					<Skeleton key={k} className={styles["filter-card"]} />
-				))}
-			</div>
-			<div className={styles["lecture-list"]}>
-				{SKELETONLIST.map((i, k) => (
-					<SkeletonCard key={k} />
-				))}
-			</div>
-			<Divider margin="20px" borderWidth="2px" color="#272727" />
 			<div className={styles["lecture-list"]}>
 				{SKELETONLIST.map((i, k) => (
 					<SkeletonCard key={k} />

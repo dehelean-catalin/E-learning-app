@@ -255,3 +255,27 @@ export const getHistoryLectureList = async (req: Request, res: Response) => {
 		return res.status(400).json({ code: 400, message: err.message });
 	}
 };
+
+export const getCurrentPage = async (req: Request, res: Response) => {
+	try {
+		const validatedReq = req as ValidatedRequest;
+		const userRef = doc(db, "users", validatedReq.userData.userId);
+		const userSnap = await getDoc(userRef);
+		if (!userSnap.exists()) {
+			throw new Error("This Lecture dont exist");
+		}
+		const watchingLectures = userSnap.get(
+			"watchingLectures"
+		) as WatchingLectureModel[];
+		let page = "0";
+		for (const key in watchingLectures) {
+			if (watchingLectures[key].id === req.params.id) {
+				page = watchingLectures[key].lastEntry.page;
+			}
+		}
+
+		res.status(200).json(page);
+	} catch (err: any) {
+		res.status(400).json({ code: 400, message: err.message });
+	}
+};

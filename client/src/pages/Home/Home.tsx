@@ -3,8 +3,10 @@ import { FC, useState } from "react";
 import { FaRegFrown } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router";
+import Divider from "../../components/common/Divider";
 import FilterList from "../../components/Home/FilterList/FilterList";
-import LectureSkeleton from "../../components/Home/HomeSkeleton/HomeSkeleton";
+import HomeFilterSkeleton from "../../components/Home/HomeSkeleton/HomeFilterSkeleton";
+import HomeSkeleton from "../../components/Home/HomeSkeleton/HomeSkeleton";
 import useFetchQuery from "../../hooks/useFetchQuery";
 import { useAxios } from "../../resources/axiosInstance";
 import { LectureModel } from "../../resources/models/lectureModel";
@@ -49,7 +51,10 @@ const Home: FC = () => {
 	if (isLoading) {
 		return (
 			<div className={styles.home}>
-				<LectureSkeleton />
+				<HomeFilterSkeleton />
+				<HomeSkeleton />
+				<Divider margin="20px" borderWidth="2px" color="#272727" />
+				<HomeSkeleton />
 			</div>
 		);
 	}
