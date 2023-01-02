@@ -70,8 +70,3 @@ export interface IProfilePicture {
 	initials: string;
 	size?: ProfileIconSize;
 }
-
-export enum BannerNotificationType {
-	Info = "info",
-	Warning = "warning",
-}

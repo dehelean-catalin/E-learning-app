@@ -6,7 +6,6 @@ import { ValidatedRequest } from "../models/request";
 import {
 	UserDataModel,
 	UserModel,
-	// WatchingLectureItem,
 	WatchingLectureModel,
 } from "../models/user-model";
 
@@ -42,16 +41,6 @@ export const getUserData = async (req: Request, res: Response) => {
 		res.status(400).json({ code: 400, message: err.message });
 	}
 };
-
-// export const addUserData = async (req: any, res: Response) => {
-// 	try {
-// 		const docRef = doc(db, "users", req.userData.userId);
-// 		await setDoc(docRef, req.body);
-// 		res.status(200).json("Succesfully saved");
-// 	} catch (err: any) {
-// 		res.status(400).json({ code: 400, message: err.message });
-// 	}
-// };
 
 export const updateUserData = async (req: Request, res: Response) => {
 	try {
@@ -277,5 +266,115 @@ export const getCurrentPage = async (req: Request, res: Response) => {
 		res.status(200).json(page);
 	} catch (err: any) {
 		res.status(400).json({ code: 400, message: err.message });
+	}
+};
+
+export const getWatchingLectureByID = async (req: Request, res: Response) => {
+	try {
+		const validatedReq = req as ValidatedRequest;
+		const userRef = doc(db, "users", validatedReq.userData.userId);
+		const userSnap = await getDoc(userRef);
+
+		if (!userSnap.exists()) {
+			throw new Error("Try again! Something went wrong");
+		}
+
+		let { watchingLectures } = userSnap.data();
+		const value = watchingLectures.find((i: any) => i.id == req.params.id);
+		res.status(200).json(value);
+	} catch (err: any) {
+		return res.status(400).json({ code: 400, message: err.message });
+	}
+};
+export const getWatchingLectureList = async (req: Request, res: Response) => {
+	try {
+		const validatedReq = req as ValidatedRequest;
+		const userRef = doc(db, "users", validatedReq.userData.userId);
+		const userSnap = await getDoc(userRef);
+
+		if (!userSnap.exists()) {
+			throw new Error("Try again! Something went wrong");
+		}
+
+		let { watchingLectures } = userSnap.data() as UserModel;
+		let loadedIds: string[] = [];
+		watchingLectures.map((i: WatchingLectureModel) => loadedIds.push(i.id));
+		let loadedLectures: any[] = [];
+		for (const key in loadedIds) {
+			const lectureRef = doc(db, "lectures", loadedIds[key]);
+			const lectureSnap = await getDoc(lectureRef);
+			if (!lectureSnap.exists()) {
+				throw new Error("Try again! Something went wrong");
+			}
+			const { thumbnail, createdBy, title, reviewList, items } =
+				lectureSnap.data() as LectureModel;
+			loadedLectures.push({
+				thumbnail,
+				createdBy,
+				title,
+				reviewList,
+				items,
+			});
+		}
+		res.status(200).json(loadedLectures);
+	} catch (err: any) {
+		return res.status(400).json({ code: 400, message: err.message });
+	}
+};
+export const addWatchingLecture = async (req: Request, res: Response) => {
+	try {
+		const validatedReq = req as ValidatedRequest;
+		const userRef = doc(db, "users", validatedReq.userData.userId);
+		const userSnap = await getDoc(userRef);
+		if (!userSnap.exists()) {
+			throw new Error("Try again! Something went wrong");
+		}
+		let watchingLectures = userSnap.get("watchingLectures");
+
+		const lectureRef = doc(db, "lectures", req.params.id);
+		const lectureSnap = await getDoc(lectureRef);
+
+		if (!lectureSnap.exists()) {
+			throw new Error("Try again! Lecture don't exists");
+		}
+		const { numberOfUsers, items } = lectureSnap.data() as LectureModel;
+		numberOfUsers.push(validatedReq.userData.userId);
+
+		await updateDoc(lectureRef, {
+			numberOfUsers,
+		});
+
+		const a = items.data.forEach((c) => {
+			c.children?.forEach((z) => {
+				if (z.data) {
+					Object.assign(z?.data, {
+						currentProgress: 0,
+						confirmedProgress: 0,
+					});
+				}
+			});
+		});
+		const id = lectureSnap.get("id") as string;
+		if (watchingLectures.find((i: any) => i.id === id)) {
+			throw new Error("Lecture is already saved");
+		}
+		watchingLectures.push({
+			id,
+			lastEntry: {
+				page: "0",
+				date: new Date().toJSON().slice(0, 10).replace(/-/g, "/"),
+			},
+			items: items.data,
+		});
+
+		await updateDoc(userRef, {
+			watchingLectures,
+		});
+		res.status(200).json({
+			code: 200,
+			message: "Succes",
+		});
+	} catch (err: any) {
+		return res.status(400).json({ code: 400, message: err.message });
 	}
 };

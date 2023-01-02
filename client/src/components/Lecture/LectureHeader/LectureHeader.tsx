@@ -6,10 +6,8 @@ import { BsPlayBtn } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { getRatingValue } from "../../../helpers/lectureCardHelper";
-import useFetchQuery from "../../../hooks/useFetchQuery";
 import { useAxios } from "../../../resources/axiosInstance";
 import { LectureModel } from "../../../resources/models/lectureModel";
-import { BannerNotificationType } from "../../../resources/models/usersModel";
 import AuthContext from "../../../store/context/auth-context";
 import { NotificationActions } from "../../../store/redux/notificationReducer";
 import Button from "../../common/Button/Button";
@@ -50,7 +48,7 @@ const LectureHeader: FC<Props> = ({ value }) => {
 			.catch((e) =>
 				dispatch(
 					NotificationActions.showBannerNotification({
-						type: BannerNotificationType.Warning,
+						type: "warning",
 						message: e.response.data.message,
 					})
 				)

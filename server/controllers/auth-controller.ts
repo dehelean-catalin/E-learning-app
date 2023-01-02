@@ -1,3 +1,4 @@
+import { UserModel } from "./../models/user-model";
 import jwt from "jsonwebtoken";
 import {
 	createUserWithEmailAndPassword,
@@ -54,12 +55,18 @@ export const register = async (req: Request, res: Response) => {
 		);
 		const { uid } = response.user;
 		const docRef = doc(db, "users", uid);
-		await setDoc(docRef, {
+		const data: UserModel = {
+			email,
 			firstName,
 			lastName,
-			email,
+			phoneNumber: "",
+			address: "",
+			aboutYou: "",
+			profilePicture: "",
 			savedLectures: [],
-		});
+			watchingLectures: [],
+		};
+		await setDoc(docRef, data);
 
 		const token = await jwt.sign({ userId: uid, email: email }, "code", {
 			expiresIn: "1h",

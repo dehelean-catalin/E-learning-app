@@ -41,7 +41,7 @@ const RegisterDetailsForm = () => {
 		<>
 			<div className={style.form}>
 				<div className={style.title}>Account</div>
-				<Steps activeIndex={activeIndex} />
+				{/* <Steps activeIndex={activeIndex} /> */}
 
 				{getCurrentPage()}
 			</div>

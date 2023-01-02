@@ -10,7 +10,6 @@ import HomeSkeleton from "../../components/Home/HomeSkeleton/HomeSkeleton";
 import useFetchQuery from "../../hooks/useFetchQuery";
 import { useAxios } from "../../resources/axiosInstance";
 import { LectureModel } from "../../resources/models/lectureModel";
-import { BannerNotificationType } from "../../resources/models/usersModel";
 import { NotificationActions } from "../../store/redux/notificationReducer";
 import styles from "./Home.module.scss";
 import HomeSection from "./HomeSection";
@@ -39,7 +38,7 @@ const Home: FC = () => {
 			onError: (err: AxiosError<{ code: string; message: string }>) => {
 				dispatch(
 					NotificationActions.showBannerNotification({
-						type: BannerNotificationType.Warning,
+						type: "warning",
 						message: err.response.data?.message,
 					})
 				);

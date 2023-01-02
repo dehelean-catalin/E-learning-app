@@ -1,5 +1,4 @@
-import { createAction, ActionType, getType, Reducer } from "typesafe-actions";
-import { BannerNotificationType } from "../../resources/models/usersModel";
+import { ActionType, createAction, getType, Reducer } from "typesafe-actions";
 
 const actions = {
 	showBannerNotification: createAction(
@@ -9,7 +8,7 @@ const actions = {
 	clearBannerMessage: createAction("clearBannerNotification")(),
 };
 export type BannerNotificationState = {
-	type: BannerNotificationType;
+	type: "info" | "warning";
 	message: string;
 	action?: string;
 	timeout?: number;

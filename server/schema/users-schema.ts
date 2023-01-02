@@ -60,21 +60,11 @@ export const UserSchema = Joi.object<UserModel>({
 });
 
 export const UserDataSchema = Joi.object<UserDataModel, true>({
-	firstName: Joi.string().required().messages({
-		"any.required": "firstName is required",
-	}),
-	lastName: Joi.string().required().messages({
-		"any.required": "lastName is required",
-	}),
-	phoneNumber: Joi.string().required().messages({
-		"any.required": "phoneNumber is required",
-	}),
-	address: Joi.string().required().messages({
-		"any.required": "address is required",
-	}),
-	aboutYou: Joi.string().required().messages({
-		"any.required": "aboutYou is required",
-	}),
+	firstName: Joi.string(),
+	lastName: Joi.string(),
+	phoneNumber: Joi.string().allow(""),
+	address: Joi.string().allow(""),
+	aboutYou: Joi.string().allow(""),
 });
 
 export const WatchingLectureSchema = Joi.object<WatchingLectureModel, true>({

@@ -1,7 +1,9 @@
+import { classNames } from "primereact/utils";
 import { FC } from "react";
 import styles from "./InputTextareaField.module.scss";
 
 type Props = {
+	overlay?: "black" | "gray";
 	placeholder?: string;
 	value: string;
 	label?: string;
@@ -11,6 +13,7 @@ type Props = {
 	onBlur?: () => void;
 };
 const InputTextareaField: FC<Props> = ({
+	overlay = "black",
 	value,
 	label,
 	placeholder,
@@ -20,7 +23,7 @@ const InputTextareaField: FC<Props> = ({
 	hasError,
 }) => {
 	return (
-		<div className={styles[`input-field`]}>
+		<div className={classNames(styles[`input-field`], styles[`${overlay}`])}>
 			{label}
 			<textarea
 				style={hasError ? { color: "#ef5350", borderColor: "#ef5350" } : {}}

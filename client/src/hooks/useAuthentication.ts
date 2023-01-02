@@ -1,9 +1,7 @@
+import axios from "axios";
 import { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
-import { BannerNotificationType } from "../resources/models/usersModel";
-import axios from "axios";
 import AuthContext from "../store/context/auth-context";
-import { NotificationActions } from "../store/redux/notificationReducer";
 import { FormActions } from "./../store/redux/formReducer";
 
 export const useAuthentication = () => {
@@ -28,12 +26,6 @@ export const useAuthentication = () => {
 			.then((response) => {
 				const { uid, token } = response.data;
 				login(token, uid);
-				dispatch(
-					NotificationActions.showBannerNotification({
-						type: BannerNotificationType.Info,
-						message: "Registration successfully",
-					})
-				);
 				dispatch(FormActions.openFormular({ type: "register" }));
 			})
 			.catch((err) => {

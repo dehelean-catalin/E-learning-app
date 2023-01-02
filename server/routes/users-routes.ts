@@ -1,30 +1,28 @@
-import {
-	getCurrentPage,
-	getHistoryLectureList,
-} from "./../controllers/user-controller";
-import { getSavedLectures } from "./../controllers/lectures-controller";
 import { Router } from "express";
 import {
+	addWatchingLecture,
 	deleteSavedLecture,
 	getUserByID,
 	getUserData,
+	getWatchingLectureByID,
+	getWatchingLectureList,
 	saveLecture,
-	updateUserData,
 	updatetWatchingLectureCurrenTime,
+	updateUserData,
 	updateWatchingLectureLastEntry,
 } from "../controllers/user-controller";
 import tokenAuth from "../middleware/tokenAuth-middleware";
 import validation from "../middleware/validation-middleware";
+import { getSavedLectures } from "./../controllers/lectures-controller";
+import {
+	getCurrentPage,
+	getHistoryLectureList,
+} from "./../controllers/user-controller";
 import {
 	UserDataSchema,
 	WatchingLectureLastEntrySchema,
 	WatchingLectureTimeSchema,
 } from "./../schema/users-schema";
-import {
-	addWatchingLecture,
-	getWatchingLectureByID,
-	getWatchingLectureList,
-} from "../controllers/watching-lectures-controller";
 
 const router = Router();
 

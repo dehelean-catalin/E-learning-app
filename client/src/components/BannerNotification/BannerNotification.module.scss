@@ -1,12 +1,11 @@
 @import "../../resources/styles/variables.scss";
-.info {
+.notification {
 	position: absolute;
 	bottom: 40px;
 	right: 40px;
 	gap: 20px;
 	min-width: 250px;
 	display: flex;
-	justify-content: space-between;
 	align-items: center;
 	color: black !important;
 	background: white;
@@ -14,46 +13,42 @@
 	padding: 12px;
 	font-size: 16px;
 	border-radius: 8px;
-	z-index: 10;
-	opacity: 1;
-	span {
-		margin-left: 8px;
-	}
-	.link {
-		color: rgb(57, 124, 201);
-		font-weight: 600;
-		text-decoration: none;
-		margin-right: 10px;
-	}
-}
-.warning {
-	position: absolute;
-	bottom: 30px;
-	right: 30px;
-	min-width: 260px;
-	display: flex;
-	align-items: center;
-	color: black !important;
-	background: white;
-	color: $color-10;
-	padding: 12px;
-	font-size: 16px;
-	border-radius: 8px;
-	z-index: 10;
+	z-index: 102;
 	opacity: 1;
 
-	span {
-		margin-left: 12px;
-	}
-	svg {
-		color: $error;
-		margin-top: 2px;
-		font-size: 22px;
-	}
-}
+	&.info {
+		align-items: center;
+		justify-content: space-between;
 
-.hidden {
-	height: 0px;
-	opacity: 0;
-	display: none;
+		span {
+			display: flex;
+			align-items: center;
+			gap: 6px;
+			line-height: 24px;
+			svg {
+				color: $blue-60;
+			}
+		}
+		.link {
+			color: $blue-60;
+			font-weight: 600;
+			text-decoration: none;
+			margin-right: 10px;
+		}
+	}
+
+	&.undefined {
+		display: none;
+	}
+
+	&.warning {
+		span {
+			margin-left: 12px;
+		}
+		svg {
+			color: $error;
+			margin-top: 2px;
+			font-size: 22px;
+		}
+	}
 }

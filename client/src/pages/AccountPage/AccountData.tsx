@@ -2,10 +2,7 @@ import { FormEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import InputTextareaField from "../../components/common/InputTextareaField/InputTextareaField";
 import InputTextField from "../../components/common/InputTextField/InputTextField";
-import {
-	AcountDataModel,
-	BannerNotificationType,
-} from "../../resources/models/usersModel";
+import { AcountDataModel } from "../../resources/models/usersModel";
 import { useAxios } from "../../resources/axiosInstance";
 import { NotificationActions } from "../../store/redux/notificationReducer";
 import styles from "./AccountData.module.scss";
@@ -27,7 +24,7 @@ const Account = () => {
 			.catch(() => {
 				dispatch(
 					NotificationActions.showBannerNotification({
-						type: BannerNotificationType.Warning,
+						type: "warning",
 						message: "Something went wrong",
 					})
 				);
@@ -56,7 +53,7 @@ const Account = () => {
 			.then((res) =>
 				dispatch(
 					NotificationActions.showBannerNotification({
-						type: BannerNotificationType.Info,
+						type: "info",
 						message: res.data,
 					})
 				)
@@ -64,7 +61,7 @@ const Account = () => {
 			.catch((err) => {
 				dispatch(
 					NotificationActions.showBannerNotification({
-						type: BannerNotificationType.Warning,
+						type: "warning",
 						message: "Something went wrong",
 					})
 				);

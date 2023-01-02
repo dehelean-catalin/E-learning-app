@@ -7,7 +7,15 @@
 	font-weight: 600;
 	font-size: 16px;
 	color: white;
-
+	&.gray {
+		textarea {
+			background-color: $color-10;
+			color: white;
+			&::placeholder {
+				color: white;
+			}
+		}
+	}
 	textarea {
 		max-height: 90px;
 		background-color: $color-30;

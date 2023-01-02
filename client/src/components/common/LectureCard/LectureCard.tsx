@@ -9,7 +9,6 @@ import { useLocation, useNavigate } from "react-router";
 import { getRatingValue } from "../../../helpers/lectureCardHelper";
 import { useAxios } from "../../../resources/axiosInstance";
 import { LectureModel } from "../../../resources/models/lectureModel";
-import { BannerNotificationType } from "../../../resources/models/usersModel";
 import { NotificationActions } from "../../../store/redux/notificationReducer";
 import { CustomRating } from "../CustomRating/CustomRating";
 import styles from "./LectureCard.module.scss";
@@ -51,7 +50,7 @@ const LectureCard: FC<Props> = ({
 			onSuccess: () => {
 				dispatch(
 					NotificationActions.showBannerNotification({
-						type: BannerNotificationType.Info,
+						type: "info",
 						action: "settings/saved-lectures",
 						message: "Added to Saved Lectures",
 					})
@@ -60,7 +59,7 @@ const LectureCard: FC<Props> = ({
 			onError: (err: any) => {
 				dispatch(
 					NotificationActions.showBannerNotification({
-						type: BannerNotificationType.Warning,
+						type: "warning",
 						message: err.response.data.message,
 					})
 				);
@@ -128,7 +127,7 @@ const LectureCard: FC<Props> = ({
 							);
 							dispatch(
 								NotificationActions.showBannerNotification({
-									type: BannerNotificationType.Info,
+									type: "info",
 									message: "Copied to clipboard",
 								})
 							);
