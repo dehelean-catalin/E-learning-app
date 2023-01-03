@@ -30,8 +30,6 @@ export const useAddComment = (id) => {
 
 		{
 			onSuccess: () => {
-				// ✅ refetch the comments list for our blog post
-
 				queryClient.invalidateQueries(["posts", id, "comments"]);
 			},
 		}

@@ -52,7 +52,7 @@ const LectureCard: FC<Props> = ({
 					NotificationActions.showBannerNotification({
 						type: "info",
 						action: "settings/saved-lectures",
-						message: "Added to Saved Lectures",
+						message: "Lecture Saved",
 					})
 				);
 			},
@@ -60,6 +60,7 @@ const LectureCard: FC<Props> = ({
 				dispatch(
 					NotificationActions.showBannerNotification({
 						type: "warning",
+						action: "settings/saved-lectures",
 						message: err.response.data.message,
 					})
 				);

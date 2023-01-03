@@ -6,7 +6,7 @@ import RegisterDetailsForm from "./RegisterDetails/RegisterDetailsForm";
 
 const NewForm = () => {
 	const form = useSelector<RootState, FormDataState>((s) => s.formReducer.form);
-	return <>{<RegisterDetailsForm />}</>;
+	return <>{form?.type === "register" && <RegisterDetailsForm />}</>;
 };
 
 export default NewForm;

@@ -2,6 +2,7 @@ import { FC, FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useAxios } from "../../../resources/axiosInstance";
 import { UserDataModel } from "../../../resources/models/usersModel";
+import { FormActions } from "../../../store/redux/formReducer";
 import { NotificationActions } from "../../../store/redux/notificationReducer";
 import InputTextareaField from "../../common/InputTextareaField/InputTextareaField";
 import InputTextField from "../../common/InputTextField/InputTextField";
@@ -29,12 +30,7 @@ const ProfileForm: FC<StepProps> = ({ onSelect, activeIndex }) => {
 					message: "Registration successfuly",
 				})
 			);
-			dispatch(
-				NotificationActions.showBannerNotification({
-					type: "info",
-					message: "Registration successfuly",
-				})
-			);
+			dispatch(FormActions.closeFormular());
 		});
 	};
 

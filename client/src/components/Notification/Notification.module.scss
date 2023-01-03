@@ -15,26 +15,25 @@
 	border-radius: 8px;
 	z-index: 102;
 	opacity: 1;
-
-	&.info {
+	align-items: center;
+	justify-content: space-between;
+	.link {
+		color: $blue-60;
+		font-weight: 600;
+		text-decoration: none;
+		margin-right: 10px;
+	}
+	span {
+		display: flex;
 		align-items: center;
-		justify-content: space-between;
-
-		span {
-			display: flex;
-			align-items: center;
-			gap: 6px;
-			line-height: 24px;
-			svg {
-				color: $blue-60;
-			}
-		}
-		.link {
+		gap: 6px;
+		line-height: 24px;
+		svg {
 			color: $blue-60;
-			font-weight: 600;
-			text-decoration: none;
-			margin-right: 10px;
+			margin-top: 1px;
 		}
+	}
+	&.info {
 	}
 
 	&.undefined {
@@ -42,13 +41,8 @@
 	}
 
 	&.warning {
-		span {
-			margin-left: 12px;
-		}
 		svg {
 			color: $error;
-			margin-top: 2px;
-			font-size: 22px;
 		}
 	}
 }

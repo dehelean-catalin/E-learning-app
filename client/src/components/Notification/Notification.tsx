@@ -9,7 +9,7 @@ import {
 	NotificationActions,
 } from "../../store/redux/notificationReducer";
 import { RootState } from "../../store/redux/reducers";
-import styles from "./BannerNotification.module.scss";
+import styles from "./Notification.module.scss";
 
 const Notification = () => {
 	const dispatch = useDispatch();
@@ -43,11 +43,12 @@ const Notification = () => {
 				styles[`${bannerNotification?.type}`]
 			)}
 		>
-			{bannerNotification?.type === "warning" && <RiErrorWarningFill />}
-
 			<span>
 				{bannerNotification?.type === "info" && (
 					<IoMdInformationCircle fontSize="22px" />
+				)}
+				{bannerNotification?.type === "warning" && (
+					<RiErrorWarningFill fontSize="22px" />
 				)}
 				{bannerNotification?.message}
 			</span>

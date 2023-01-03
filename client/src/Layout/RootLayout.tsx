@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Navigate, Outlet } from "react-router";
-import Notification from "../components/BannerNotification/Notification";
+import Notification from "../components/Notification/Notification";
 import NewForm from "../components/Forms/NewForm";
 import Header from "../components/Header/Header";
 import SideBar from "../components/SideBar/SideBar";
