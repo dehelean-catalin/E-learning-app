@@ -46,12 +46,6 @@ export interface IMessage {
 	};
 }
 
-export interface IOption {
-	name: string | null;
-	authorized: string;
-	isOpened: boolean;
-	id: string | null;
-}
 export interface IAuthContext {
 	userId: string;
 	token: string;
