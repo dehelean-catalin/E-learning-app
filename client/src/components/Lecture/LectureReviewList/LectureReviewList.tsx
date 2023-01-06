@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { ReviewList } from "../../../resources/models/lectureModel";
-import Divider from "../../common/Divider";
+import { ReviewList } from "../../../data/models/lectureModel";
+import Divider from "../../../common/Divider";
 import LectureReviewCard from "./LectureReviewCard";
 import styles from "./LectureReviewList.module.scss";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { FormDataState } from "../../store/redux/formReducer";
-import { RootState } from "../../store/redux/reducers";
+import { FormDataState } from "../../data/redux/formReducer";
+import { RootState } from "../../data/redux/reducers";
 import RegisterDetailsForm from "./RegisterDetails/RegisterDetailsForm";
 
 const NewForm = () => {

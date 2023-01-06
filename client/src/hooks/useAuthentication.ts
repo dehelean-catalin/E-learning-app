@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
-import AuthContext from "../store/context/auth-context";
-import { FormActions } from "./../store/redux/formReducer";
+import AuthContext from "../data/context/auth-context";
+import { FormActions } from "../data/redux/formReducer";
 
 export const useAuthentication = () => {
 	const dispatch = useDispatch();

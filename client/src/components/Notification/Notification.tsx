@@ -7,8 +7,8 @@ import { NavLink } from "react-router-dom";
 import {
 	BannerNotificationState,
 	NotificationActions,
-} from "../../store/redux/notificationReducer";
-import { RootState } from "../../store/redux/reducers";
+} from "../../data/redux/notificationReducer";
+import { RootState } from "../../data/redux/reducers";
 import styles from "./Notification.module.scss";
 
 const Notification = () => {

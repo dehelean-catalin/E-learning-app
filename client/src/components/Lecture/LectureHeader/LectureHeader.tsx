@@ -5,14 +5,14 @@ import { BiBook } from "react-icons/bi";
 import { BsPlayBtn } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import { getRatingValue } from "../../../helpers/lectureCardHelper";
-import { useAxios } from "../../../resources/axiosInstance";
-import { LectureModel } from "../../../resources/models/lectureModel";
-import AuthContext from "../../../store/context/auth-context";
-import { NotificationActions } from "../../../store/redux/notificationReducer";
-import Button from "../../common/Button/Button";
-import { CustomRating } from "../../common/CustomRating/CustomRating";
+import { getRatingValue } from "../../../utils/lectureCardHelper";
+import { useAxios } from "../../../config/axiosInstance";
+import { LectureModel } from "../../../data/models/lectureModel";
+import AuthContext from "../../../data/context/auth-context";
+import { NotificationActions } from "../../../data/redux/notificationReducer";
 import styles from "./LectureHeader.module.scss";
+import Button from "../../../common/Button/Button";
+import { CustomRating } from "../../../common/CustomRating/CustomRating";
 type Props = { value: LectureModel };
 const LectureHeader: FC<Props> = ({ value }) => {
 	const {

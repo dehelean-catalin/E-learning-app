@@ -1,4 +1,4 @@
-import { ICategory } from "../../../resources/models/lectureModel";
+import { ICategory } from "../../../data/models/lectureModel";
 
 const filterService = {
 	getContent: (category: ICategory | string) => {

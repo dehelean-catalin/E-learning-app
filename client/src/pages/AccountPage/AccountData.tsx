@@ -1,10 +1,10 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import InputTextareaField from "../../components/common/InputTextareaField/InputTextareaField";
-import InputTextField from "../../components/common/InputTextField/InputTextField";
-import { AcountDataModel } from "../../resources/models/usersModel";
-import { useAxios } from "../../resources/axiosInstance";
-import { NotificationActions } from "../../store/redux/notificationReducer";
+import InputTextareaField from "../../common/InputTextareaField/InputTextareaField";
+import InputTextField from "../../common/InputTextField/InputTextField";
+import { AcountDataModel } from "../../data/models/usersModel";
+import { useAxios } from "../../config/axiosInstance";
+import { NotificationActions } from "../../data/redux/notificationReducer";
 import styles from "./AccountData.module.scss";
 
 const Account = () => {

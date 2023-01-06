@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import styles from "./Login.module.scss";
 import { useAuthentication } from "../../hooks/useAuthentication";
 import image from "../../resources/images/PAINT.png";
-import InputTextField from "../../components/common/InputTextField/InputTextField";
-import InputPasswordField from "../../components/common/InputPasswordField/InputPasswordField";
+import InputTextField from "../../common/InputTextField/InputTextField";
+import InputPasswordField from "../../common/InputPasswordField/InputPasswordField";
 import { ProgressSpinner } from "primereact/progressspinner";
 
 const Register = () => {

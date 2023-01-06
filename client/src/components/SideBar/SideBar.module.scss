@@ -1,4 +1,4 @@
-@import "../../resources/styles/variables.scss";
+@import "../../layout/variables.scss";
 
 .navigation-header {
 	grid-area: menu;
@@ -20,8 +20,8 @@
 		border-left: 5px solid transparent;
 		border-right: 5px solid transparent;
 		&.active {
-			color: var(--mint-color);
-			border-left: 5px solid var(--mint-color);
+			color: $prime-green;
+			border-left: 5px solid $prime-green;
 			border-right: 5px solid transparent;
 		}
 	}

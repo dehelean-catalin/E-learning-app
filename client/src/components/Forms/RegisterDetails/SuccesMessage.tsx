@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { FormActions } from "../../../store/redux/formReducer";
+import { FormActions } from "../../../data/redux/formReducer";
 
 const SuccesMessage = () => {
 	const dispatch = useDispatch();

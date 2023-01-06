@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { ReviewItem } from "../../../resources/models/lectureModel";
-import { CustomRating } from "../../common/CustomRating/CustomRating";
-import ProfilePicture from "../../common/ProfilePicture/ProfilePicture";
+import { ReviewItem } from "../../../data/models/lectureModel";
+import { CustomRating } from "../../../common/CustomRating/CustomRating";
+import ProfilePicture from "../../../common/ProfilePicture/ProfilePicture";
 import styles from "./LectureReviewList.module.scss";
 type Props = {
 	value: ReviewItem;

@@ -1,21 +1,16 @@
 import { OverlayPanel } from "primereact/overlaypanel";
-import { useContext, useEffect, useRef, useState } from "react";
+import { FC, useContext, useRef } from "react";
 import { BsBookmark, BsPersonCircle } from "react-icons/bs";
 import { IoSettingsOutline } from "react-icons/io5";
 import { VscSignOut } from "react-icons/vsc";
-import { useQuery } from "@tanstack/react-query";
 import { NavLink } from "react-router-dom";
-import {
-	HeaderDataModel,
-	ProfileIconSize,
-} from "../../resources/models/usersModel";
-import { useAxios } from "../../resources/axiosInstance";
-import AuthContext from "../../store/context/auth-context";
-import Divider from "../common/Divider";
-import ProfilePicture from "../common/ProfilePicture/ProfilePicture";
-import styles from "./Header.module.scss";
-import { FC } from "react";
+import { useAxios } from "../../config/axiosInstance";
 import useFetchQuery from "../../hooks/useFetchQuery";
+import { HeaderDataModel, ProfileIconSize } from "../../data/models/usersModel";
+import AuthContext from "../../data/context/auth-context";
+import Divider from "../../common/Divider";
+import ProfilePicture from "../../common/ProfilePicture/ProfilePicture";
+import styles from "./Header.module.scss";
 
 const Header: FC = () => {
 	const op = useRef(null);

@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { useAxios } from "../resources/axiosInstance";
+import { useAxios } from "../config/axiosInstance";
 
 const useFetchQuery = (key, fetcher, { initialData, onSuccess, onError }) => {
 	const {

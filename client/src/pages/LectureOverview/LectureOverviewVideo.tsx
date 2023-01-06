@@ -3,7 +3,7 @@ import TreeNode from "primereact/treenode";
 import { FC, useEffect, useRef } from "react";
 import ReactPlayer from "react-player/lazy";
 import { useParams } from "react-router";
-import { useAxios } from "../../resources/axiosInstance";
+import { useAxios } from "../../config/axiosInstance";
 import video from "../../video.mp4";
 
 type Props = {

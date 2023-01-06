@@ -8,41 +8,39 @@ import {
 	RouterProvider,
 } from "react-router-dom";
 import "./App.scss";
-import SavedLectures from "./components/SettingsComp/SavedLectures";
+import SavedLectures from "./pages/SavedLecturesPage/SavedLectures";
 import Account from "./pages/AccountPage/AccountData";
 import Login from "./pages/AuthPage/Login";
 import Register from "./pages/AuthPage/Register";
-import History from "./pages/History/History";
+import History from "./pages/HistoryPage/History";
 import Home from "./pages/Home/Home";
-import LoginLayout from "./Layout/LoginLayout";
-import RootLayout from "./Layout/RootLayout";
+import LoginLayout from "./routes/LoginLayout";
+import RootLayout from "./routes/RootLayout";
 import Lecture from "./pages/Lecture/Lecture";
 import LectureOverview from "./pages/LectureOverview/LectureOverview";
 import NotFound from "./pages/NotFound/NotFound";
-import Settings from "./pages/Settings/Settings";
+import Settings from "./pages/SettingsPage/Settings";
 
 function App() {
 	const router = createBrowserRouter(
 		createRoutesFromElements(
 			<Route>
-				<Route element={<LoginLayout />}>
-					<Route index path="login" element={<Login />} />
+				<Route path="/*" element={<LoginLayout />}>
+					<Route index element={<Login />} />
+					<Route path="login" element={<Login />} />
 					<Route path="register" element={<Register />} />
 				</Route>
 				<Route path="/*" element={<RootLayout />}>
 					<Route index element={<Home />} />
 					<Route path="home" element={<Home />} />
-					<Route path="settings/*" element={<Settings />}>
-						<Route index path="account" element={<Account />} />
-						<Route index path="saved-lectures" element={<SavedLectures />} />
+					<Route path="settings/" element={<Settings />}>
+						<Route index element={<Account />} />
+						<Route path="account" element={<Account />} />
+						<Route path="saved-lectures" element={<SavedLectures />} />
 					</Route>
 					<Route path="lecture/:id" element={<Lecture />}></Route>
-					<Route
-						index
-						path="lecture/:id/overview"
-						element={<LectureOverview />}
-					/>
-					<Route index path="history" element={<History />} />
+					<Route path="lecture/:id/overview" element={<LectureOverview />} />
+					<Route path="history" element={<History />} />
 
 					<Route path="*" element={<NotFound />} />
 				</Route>

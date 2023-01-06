@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useLocation, useNavigate } from "react-router";
-import { ICategory } from "../../../resources/models/lectureModel";
+import { ICategory } from "../../../data/models/lectureModel";
 import styles from "./FilterList.module.scss";
 import filterService from "./filterService";
 

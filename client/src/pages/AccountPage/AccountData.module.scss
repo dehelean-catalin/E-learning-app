@@ -1,4 +1,4 @@
-@import "../../resources/styles/variables.scss";
+@import "../../layout/variables.scss";
 .settings-content {
 	flex: 1;
 	display: flex;
@@ -59,7 +59,7 @@
 	height: 40px;
 	display: flex;
 	text-align: left;
-	justify-content: end;
+	justify-content: flex-end;
 	circle {
 		stroke: white !important;
 	}

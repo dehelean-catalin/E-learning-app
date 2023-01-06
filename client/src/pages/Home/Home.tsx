@@ -3,14 +3,14 @@ import { FC, useState } from "react";
 import { FaRegFrown } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router";
-import Divider from "../../components/common/Divider";
+import Divider from "../../common/Divider";
 import FilterList from "../../components/Home/FilterList/FilterList";
 import HomeFilterSkeleton from "../../components/Home/HomeSkeleton/HomeFilterSkeleton";
 import HomeSkeleton from "../../components/Home/HomeSkeleton/HomeSkeleton";
 import useFetchQuery from "../../hooks/useFetchQuery";
-import { useAxios } from "../../resources/axiosInstance";
-import { LectureModel } from "../../resources/models/lectureModel";
-import { NotificationActions } from "../../store/redux/notificationReducer";
+import { useAxios } from "../../config/axiosInstance";
+import { LectureModel } from "../../data/models/lectureModel";
+import { NotificationActions } from "../../data/redux/notificationReducer";
 import styles from "./Home.module.scss";
 import HomeSection from "./HomeSection";
 type AxiosResponse = {
@@ -21,7 +21,8 @@ const Home: FC = () => {
 	const dispatch = useDispatch();
 	const search = useLocation().search;
 	const param = new URLSearchParams(search).get("category");
-	const [category, setCategory] = useState(param);
+	const initParam = !!param ? param : "all";
+	const [category, setCategory] = useState(initParam);
 	const axiosInstance = useAxios();
 	const { data, isError, isLoading } = useFetchQuery(
 		["/lectures", category],

@@ -1,10 +1,9 @@
-@import "../../resources/styles/variables.scss";
-
+@import "../../layout/variables.scss";
 .header {
 	position: sticky;
 	top: 0px;
 	display: flex;
-	justify-content: end;
+	justify-content: flex-end;
 	background-color: $color-60;
 	padding: 8px 20px;
 	z-index: 10;

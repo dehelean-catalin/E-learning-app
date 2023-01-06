@@ -4,7 +4,7 @@ import { FC, useCallback } from "react";
 import { BsPlayCircle } from "react-icons/bs";
 import { MdCheckBox, MdCheckBoxOutlineBlank } from "react-icons/md";
 import { useNavigate, useParams } from "react-router";
-import { useAxios } from "../../resources/axiosInstance";
+import { useAxios } from "../../config/axiosInstance";
 import styles from "./LectureOverview.module.scss";
 
 type Props = {

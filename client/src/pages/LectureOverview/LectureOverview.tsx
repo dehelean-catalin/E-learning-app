@@ -2,7 +2,7 @@ import { AxiosResponse } from "axios";
 import TreeNode from "primereact/treenode";
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router";
-import { useAxios } from "../../resources/axiosInstance";
+import { useAxios } from "../../config/axiosInstance";
 import styles from "./LectureOverview.module.scss";
 import LectureOverviewTree from "./LectureOverviewTree";
 import LectureOverviewVideo from "./LectureOverviewVideo";

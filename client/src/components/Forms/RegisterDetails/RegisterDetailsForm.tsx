@@ -5,7 +5,7 @@ import ProfileForm from "./ProfileForm";
 import EducationForm from "./EducationForm";
 import SettingsForm from "./SettingsForm";
 import SuccesMessage from "./SuccesMessage";
-import Backdrop from "../../Backdrop/Backdrop";
+import Backdrop from "../../../common/Backdrop/Backdrop";
 
 const RegisterDetailsForm = () => {
 	const [activeIndex, setActiveIndex] = useState(0);

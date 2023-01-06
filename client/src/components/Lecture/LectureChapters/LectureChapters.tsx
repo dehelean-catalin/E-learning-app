@@ -3,8 +3,8 @@ import TreeNode from "primereact/treenode";
 import { FC } from "react";
 import { BsPlayCircle } from "react-icons/bs";
 import { getDuration } from "../../../pages/LectureOverview/LectureOverviewTree";
-import { Item } from "../../../resources/models/lectureModel";
-import Divider from "../../common/Divider";
+import { Item } from "../../../data/models/lectureModel";
+import Divider from "../../../common/Divider";
 import styles from "./LectureChapters.module.scss";
 type Props = {
 	value: Item;
