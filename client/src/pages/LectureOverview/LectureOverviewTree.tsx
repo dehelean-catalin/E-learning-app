@@ -1,4 +1,8 @@
-import { Tree, TreeExpandedKeysType } from "primereact/tree";
+import {
+	Tree,
+	TreeExpandedKeysType,
+	TreeNodeClickParams,
+} from "primereact/tree";
 import TreeNode from "primereact/treenode";
 import { FC, useCallback } from "react";
 import { BsPlayCircle } from "react-icons/bs";
@@ -17,8 +21,8 @@ const LectureOverviewTree: FC<Props> = ({ data, page }) => {
 	const axiosInstance = useAxios();
 
 	const getExpendedKey: () => TreeExpandedKeysType = useCallback(() => {
-		let currentKey: TreeExpandedKeysType = null;
-		data.forEach((i) =>
+		let currentKey: TreeExpandedKeysType = {};
+		data.forEach((i: TreeNode) =>
 			i.children.forEach((o) => {
 				if (o.key === page) {
 					currentKey = { [i.key]: true };
@@ -52,7 +56,7 @@ const LectureOverviewTree: FC<Props> = ({ data, page }) => {
 			</div>
 		);
 	};
-	const onNodeClick = (e) => {
+	const onNodeClick = (e: TreeNodeClickParams) => {
 		if (!e.node.children && page !== e.node.key) {
 			navigate(`/lecture/${id}/overview?page=${e.node.key}`);
 			axiosInstance.put(`/user/watching-lectures/${id}/last-entry`, {
@@ -70,6 +74,7 @@ const LectureOverviewTree: FC<Props> = ({ data, page }) => {
 					value={data}
 					nodeTemplate={nodeTemplate}
 					className={styles["course-list"]}
+					contentClassName={styles.container}
 					onNodeClick={(e) => onNodeClick(e)}
 					expandedKeys={expandedKey}
 				/>
@@ -80,7 +85,7 @@ const LectureOverviewTree: FC<Props> = ({ data, page }) => {
 
 export default LectureOverviewTree;
 
-export const getDuration = (node) => {
+export const getDuration = (node: TreeNode) => {
 	if (node?.children) {
 		const valueInMin = Math.ceil(
 			node.children.reduce((a, b) => Math.round(a) + b.data.duration, 0) / 60

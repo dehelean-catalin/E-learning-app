@@ -5,6 +5,8 @@ import useFetchQuery from "../../hooks/useFetchQuery";
 import { useAxios } from "../../config/axiosInstance";
 import LectureCard from "../../common/LectureCard/LectureCard";
 import styles from "./SavedLectures.module.scss";
+import { LectureModel } from "../../data/models/lectureModel";
+import { AxiosError, AxiosResponse } from "axios";
 
 const SavedLectures = () => {
 	const navigate = useNavigate();
@@ -16,8 +18,8 @@ const SavedLectures = () => {
 		},
 		{
 			initialData: [],
-			onError: (e) => console.log(e),
-			onSuccess: (e) => console.log(e),
+			onError: (e: AxiosError) => console.log(e),
+			onSuccess: (e: AxiosResponse) => console.log(e),
 		}
 	);
 
@@ -33,7 +35,7 @@ const SavedLectures = () => {
 				</div>
 			);
 
-		return data?.map((lecture, key) => (
+		return data?.map((lecture: LectureModel, key: string) => (
 			<LectureCard
 				key={key}
 				value={lecture}

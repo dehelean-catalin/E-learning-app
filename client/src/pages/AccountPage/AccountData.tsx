@@ -58,7 +58,7 @@ const Account = () => {
 					})
 				)
 			)
-			.catch((err) => {
+			.catch(() => {
 				dispatch(
 					NotificationActions.showBannerNotification({
 						type: "warning",

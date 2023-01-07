@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import db from "../firebase";
-import { HistoryModel, LectureModel, TreeNode } from "../models/lecture-model";
+import { HistoryModel, LectureModel } from "../models/lecture-model";
 import { ValidatedRequest } from "../models/request";
 import {
 	UserDataModel,
@@ -190,7 +190,7 @@ export const getHistoryLectureList = async (req: Request, res: Response) => {
 			const lectureRef = doc(db, "lectures", loadedIds[key]);
 			const lectureSnap = await getDoc(lectureRef);
 			if (!lectureSnap.exists()) {
-				throw new Error("Try again! Something went wrong");
+				throw new Error("Try again! Something went wrongggg");
 			}
 			const { id, thumbnail, createdBy, title, reviewList } =
 				lectureSnap.data() as LectureModel;
@@ -343,8 +343,8 @@ export const addWatchingLecture = async (req: Request, res: Response) => {
 		await updateDoc(lectureRef, {
 			numberOfUsers,
 		});
-
-		const a = items.data.forEach((c) => {
+		// TODO: check logic
+		items.data.forEach((c) => {
 			c.children?.forEach((z) => {
 				if (z.data) {
 					Object.assign(z?.data, {

@@ -1,59 +1,53 @@
-import { AxiosResponse } from "axios";
-import TreeNode from "primereact/treenode";
 import { FC, useEffect, useRef } from "react";
+import { OnProgressProps } from "react-player/base";
 import ReactPlayer from "react-player/lazy";
-import { useParams } from "react-router";
+import { useLocation, useParams } from "react-router";
 import { useAxios } from "../../config/axiosInstance";
-import video from "../../video.mp4";
+import styles from "./LectureOverview.module.scss";
 
 type Props = {
-	page: string;
+	url: string;
+	progress: number;
 };
-const LectureOverviewVideo: FC<Props> = ({ page }) => {
+const LectureOverviewVideo: FC<Props> = ({ url, progress }) => {
 	const { id } = useParams();
 	const axiosInstance = useAxios();
 	const playerRef = useRef(null);
-	useEffect(() => {
-		axiosInstance
-			.get(`/user/watching-lectures/${id}`)
-			.then((res: AxiosResponse<any, TreeNode[]>) => {
-				let currentProgress = 0;
-				res.data.items.map((i: TreeNode) =>
-					i.children.map((i) => {
-						if (i.key === page) {
-							currentProgress = i.data.currentProgress;
-						}
-					})
-				);
-				playerRef.current.seekTo(currentProgress, "seconds");
-			});
-	}, [page]);
+	const search = useLocation().search;
+	const page = new URLSearchParams(search).get("page");
 
+	useEffect(() => {
+		playerRef.current.seekTo(progress);
+	}, [progress]);
+
+	const handleProgress = (e: OnProgressProps) => {
+		axiosInstance.put(
+			`/user/watching-lectures/${id}/time`,
+			{ time: e.playedSeconds },
+			{
+				params: {
+					page,
+				},
+			}
+		);
+	};
+	console.log(url);
 	return (
-		<ReactPlayer
-			ref={playerRef}
-			url={video}
-			controls={true}
-			style={{
-				display: "flex",
-				flex: "2",
-				background: "gray",
-			}}
-			height="auto"
-			width="70%"
-			onProgress={(e) => {
-				axiosInstance.put(
-					`/user/watching-lectures/${id}/time`,
-					{ time: e.playedSeconds },
-					{
-						params: {
-							page,
-						},
-					}
-				);
-			}}
-			playing={false}
-		/>
+		<div className={styles.video}>
+			<ReactPlayer
+				ref={playerRef}
+				url={url}
+				controls
+				style={{
+					flex: "1",
+				}}
+				muted={false}
+				height="600px"
+				onProgress={(e) => handleProgress(e)}
+				playing={url ? true : false}
+				loop
+			/>
+		</div>
 	);
 };
 

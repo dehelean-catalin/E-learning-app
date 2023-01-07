@@ -69,7 +69,7 @@ export const register = async (req: Request, res: Response) => {
 		await setDoc(docRef, data);
 
 		const token = await jwt.sign({ userId: uid, email: email }, "code", {
-			expiresIn: "1h",
+			expiresIn: "4h",
 		});
 		res.status(200).json({
 			userId: uid,

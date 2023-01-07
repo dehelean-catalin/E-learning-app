@@ -6,8 +6,8 @@ const items = [0, 1];
 const LectureSectionSkeleton = () => {
 	return (
 		<>
-			{items.map((i, key) => (
-				<div key={key} className={styles.skeleton}>
+			{items.map((i) => (
+				<div key={i} className={styles.skeleton}>
 					<Skeleton className={styles.title} />
 					<Divider margin="10px" />
 					<Skeleton className={styles.section} />

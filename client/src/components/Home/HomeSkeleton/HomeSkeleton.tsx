@@ -8,7 +8,7 @@ const HomeSkeleton: FC = () => {
 	return (
 		<>
 			<div className={styles["lecture-list"]}>
-				{SKELETONLIST.map((i, k) => (
+				{SKELETONLIST.map((k) => (
 					<SkeletonCard key={k} />
 				))}
 			</div>

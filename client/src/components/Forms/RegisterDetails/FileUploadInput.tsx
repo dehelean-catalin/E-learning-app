@@ -10,7 +10,7 @@ type Props = {
 	valid?: boolean;
 	onSelect: (e: any) => void;
 };
-const FileUploadInput: FC<Props> = ({ onSelect, valid }) => {
+const FileUploadInput: FC<Props> = ({ onSelect }) => {
 	const chooseOptions: FileUploadOptionsType = {
 		label: "Choose a picture",
 		icon: "pi pi-fw pi-paperclip",
@@ -23,7 +23,7 @@ const FileUploadInput: FC<Props> = ({ onSelect, valid }) => {
 		className: style.close,
 	};
 
-	const customItemTemplate = (file: object, options: ItemTemplateOptions) => {
+	const customItemTemplate = (options: ItemTemplateOptions) => {
 		return (
 			<div className={style["item-template"]}>
 				<i className="pi pi-image" />

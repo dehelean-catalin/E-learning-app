@@ -1,9 +1,9 @@
-import { NextFunction, Request, Response, Router } from "express";
+import { Request, Response, Router } from "express";
 import { doc, getDoc } from "firebase/firestore";
 import db from "../firebase";
 import tokenAuth from "../middleware/tokenAuth-middleware";
 import { ValidatedRequest } from "../models/request";
-import { AppInitModel, UserDataModel } from "../models/user-model";
+import { AppInitModel } from "../models/user-model";
 
 const router = Router();
 

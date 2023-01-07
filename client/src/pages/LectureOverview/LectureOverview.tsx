@@ -12,20 +12,29 @@ const LectureOverview = () => {
 	const axiosInstance = useAxios();
 	const search = useLocation().search;
 	const page = new URLSearchParams(search).get("page");
-
+	const [progress, setProgress] = useState({ index: 0, url: "" });
 	const [data, setData] = useState<TreeNode[]>([]);
-
 	useEffect(() => {
 		axiosInstance
 			.get(`/user/watching-lectures/${id}`)
 			.then((res: AxiosResponse<any, TreeNode[]>) => {
 				setData(res.data.items);
+				res.data.items.map((i: TreeNode) =>
+					i.children.map((o) => {
+						if (o.key === page) {
+							setProgress({
+								index: o.data.currentProgress,
+								url: o.data.url,
+							});
+						}
+					})
+				);
 			});
-	}, [id]);
+	}, [id, page]);
 
 	return (
 		<div className={styles["lecture-overview"]}>
-			<LectureOverviewVideo page={page} />
+			<LectureOverviewVideo url={progress.url} progress={progress.index} />
 			<LectureOverviewTree data={data} page={page} />
 		</div>
 	);

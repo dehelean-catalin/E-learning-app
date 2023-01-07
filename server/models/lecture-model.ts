@@ -13,6 +13,7 @@ export type LectureModel = {
 	items: Item;
 	reviewList: ReviewList;
 };
+
 export type Description = {
 	data: string;
 };
@@ -36,6 +37,18 @@ export enum ICategory {
 	History = "history",
 	Policy = "policy",
 }
+export const FILTERS = [
+	ICategory.ALL,
+	ICategory.UTCN,
+	ICategory.Design,
+	ICategory.DataSience,
+	ICategory.Web,
+	ICategory.Electronics,
+	ICategory.Arhitecture,
+	ICategory.History,
+	ICategory.Psychology,
+	ICategory.Policy,
+];
 
 export interface TreeNode {
 	key: string;

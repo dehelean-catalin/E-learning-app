@@ -15,19 +15,6 @@ import Button from "../../../common/Button/Button";
 import { CustomRating } from "../../../common/CustomRating/CustomRating";
 type Props = { value: LectureModel };
 const LectureHeader: FC<Props> = ({ value }) => {
-	const {
-		id,
-		title,
-		thumbnail,
-		createdBy,
-		category,
-		subCategory,
-		details,
-		language,
-		numberOfUsers,
-		items,
-		reviewList,
-	} = value;
 	const { userId } = useContext(AuthContext);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -37,14 +24,14 @@ const LectureHeader: FC<Props> = ({ value }) => {
 	const [page, setPage] = useState("0");
 	useEffect(() => {
 		axiosInstance
-			.get(`/user/watching-lectures/${id}/page`)
+			.get(`/user/watching-lectures/${value.id}/page`)
 			.then((res) => setPage(res.data));
 	}, []);
 
 	const handleClick = useCallback(() => {
 		axiosInstance
-			.post(`/user/watching-lectures/${id}`)
-			.then(() => navigate(`/lecture/${id}/overview?page=0`))
+			.post(`/user/watching-lectures/${value.id}`)
+			.then(() => navigate(`/lecture/${value.id}/overview?page=0`))
 			.catch((e) =>
 				dispatch(
 					NotificationActions.showBannerNotification({
@@ -53,13 +40,13 @@ const LectureHeader: FC<Props> = ({ value }) => {
 					})
 				)
 			);
-	}, [axiosInstance, dispatch, id, navigate]);
+	}, [axiosInstance, dispatch, navigate, value.id]);
 	const getButton = () => {
-		if (numberOfUsers.includes(userId)) {
+		if (value.numberOfUsers.includes(userId)) {
 			return (
 				<Button
 					disabled={false}
-					onClick={() => navigate(`/lecture/${id}/overview?page=${page}`)}
+					onClick={() => navigate(`/lecture/${value.id}/overview?page=${page}`)}
 				>
 					<AiFillPlayCircle size="18px" />
 					Continue
@@ -75,38 +62,39 @@ const LectureHeader: FC<Props> = ({ value }) => {
 	return (
 		<div className={styles["lecture-header"]}>
 			<div className={styles.left}>
-				<img src={thumbnail} alt="not found" />
+				<img src={value.thumbnail} alt="not found" />
 				<div className={styles.rows}>
 					<div className={styles.row}>
 						<BsPlayBtn />
-						{getLectureDuration(items.data)} of video
+						{getLectureDuration(value.items.data)}
 					</div>
 					<div className={styles.row}>
 						<BiBook />
-						{items.data.length} chapters
+						{value.items.data.length} chapters
 					</div>
 				</div>
 			</div>
 
 			<div className={styles.right}>
-				<div className={styles.title}>{title}</div>
-				<div className={styles.description}>{details}</div>
+				<div className={styles.title}>{value.title}</div>
+				<div className={styles.description}>{value.details}</div>
 				<div>
-					Author: <span>{createdBy}</span>, Fields: <span>{category}</span>
-					<span>{subCategory}</span>
+					Author: <span>{value.createdBy}</span>, Fields:
+					<span>{value.category}</span>
+					<span>{value.subCategory}</span>
 				</div>
 				<div>
-					Last update: <span>{getLastUpdateDate(items.data)}</span>
+					Last update: <span>{getLastUpdateDate(value.items.data)}</span>
 				</div>
 				<div>
-					Language: <span>{language}</span>
+					Language: <span>{value.language}</span>
 				</div>
 
 				<div className={styles.btns}>
 					<CustomRating
-						rating={getRatingValue(reviewList.data)}
-						numberOfRates={reviewList.data.length}
-						numberOfUsers={numberOfUsers.length}
+						rating={getRatingValue(value.reviewList.data)}
+						numberOfRates={value.reviewList.data.length}
+						numberOfUsers={value.numberOfUsers.length}
 					/>
 					{getButton()}
 				</div>

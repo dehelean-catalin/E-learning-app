@@ -1,11 +1,10 @@
 import { useState } from "react";
+import Backdrop from "../../../common/Backdrop/Backdrop";
 import style from "../NewForm.module.scss";
-import Steps from "./Steps";
-import ProfileForm from "./ProfileForm";
 import EducationForm from "./EducationForm";
+import ProfileForm from "./ProfileForm";
 import SettingsForm from "./SettingsForm";
 import SuccesMessage from "./SuccesMessage";
-import Backdrop from "../../../common/Backdrop/Backdrop";
 
 const RegisterDetailsForm = () => {
 	const [activeIndex, setActiveIndex] = useState(0);

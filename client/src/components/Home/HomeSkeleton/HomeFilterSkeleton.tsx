@@ -8,7 +8,7 @@ const HomeFilterSkeleton: FC = () => {
 	return (
 		<>
 			<div className={styles["filter-list"]}>
-				{SKELETONLIST.map((i, k) => (
+				{SKELETONLIST.map((k) => (
 					<Skeleton key={k} className={styles["filter-card"]} />
 				))}
 			</div>

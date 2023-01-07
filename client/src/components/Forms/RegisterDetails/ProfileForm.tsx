@@ -12,7 +12,7 @@ export type StepProps = {
 	activeIndex?: number;
 	onSelect?: (e: any) => void;
 };
-const ProfileForm: FC<StepProps> = ({ onSelect, activeIndex }) => {
+const ProfileForm: FC<StepProps> = ({}) => {
 	const axiosInstance = useAxios();
 	const dispatch = useDispatch();
 	const [values, setValues] = useState<Partial<UserDataModel>>({

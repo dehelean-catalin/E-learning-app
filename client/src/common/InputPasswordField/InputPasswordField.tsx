@@ -1,6 +1,5 @@
 import { Password } from "primereact/password";
 import { FC } from "react";
-import { AiOutlineEye } from "react-icons/ai";
 import styles from "./InputPasswordField.module.scss";
 
 type Props = {

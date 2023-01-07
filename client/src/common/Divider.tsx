@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 type Props = {
 	margin?: string;
 	color?: "#272727" | "#4b4b4b";

@@ -10,10 +10,8 @@ import {
 	setDoc,
 	where,
 } from "firebase/firestore";
-import db from "../firebase";
 import { v4 as uuid } from "uuid";
-import { getDownloadURL, getStorage, ref } from "firebase/storage";
-import axios from "axios";
+import db from "../firebase";
 import { ICategory, LectureModel } from "../models/lecture-model";
 
 interface Params {

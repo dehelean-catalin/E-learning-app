@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { BiLockOpenAlt } from "react-icons/bi";
 import { BsBookmark } from "react-icons/bs";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { VscSignOut } from "react-icons/vsc";

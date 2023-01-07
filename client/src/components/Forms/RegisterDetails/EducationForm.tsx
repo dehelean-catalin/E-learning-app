@@ -1,6 +1,6 @@
 import axios from "axios";
-import { Dropdown } from "primereact/dropdown";
-import { FC, FormEvent, useEffect, useState } from "react";
+// import { Dropdown } from "primereact/dropdown";
+import { FC, FormEvent, useEffect } from "react";
 // import InputText from "../../common/InputText";
 
 import style from "../NewForm.module.scss";
@@ -10,13 +10,13 @@ type Props = {
 };
 const EducationForm: FC<Props> = ({ onSelect, activeIndex }) => {
 	const userId = localStorage.getItem("userId");
-	const [values, setValues] = useState({
-		degree: "",
-		institution: "",
-		institutionKey: "",
-		jobTitle: "",
-	});
-	const [degreeOptions, setDegreeOptions] = useState(null);
+	// const [values, setValues] = useState({
+	// 	degree: "",
+	// 	institution: "",
+	// 	institutionKey: "",
+	// 	jobTitle: "",
+	// });
+	// const [degreeOptions, setDegreeOptions] = useState(null);
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
@@ -24,9 +24,9 @@ const EducationForm: FC<Props> = ({ onSelect, activeIndex }) => {
 			.put(`http://localhost:4000/users/${userId}`)
 			.then(() => onSelect(activeIndex + 1));
 	};
-	const itemTemplate = (options: any) => {
-		return <div className={style.item}>{options.label}</div>;
-	};
+	// const itemTemplate = (options: any) => {
+	// 	return <div className={style.item}>{options.label}</div>;
+	// };
 	useEffect(() => {
 		// axios.get(`${baseRoute}/degrees.json`).then((res) => {
 		// 	res.data.map((lala: any) => console.log(lala.name));

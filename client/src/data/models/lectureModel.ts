@@ -38,6 +38,18 @@ export enum ICategory {
 	History = "history",
 	Policy = "policy",
 }
+export const FILTERS = [
+	ICategory.ALL,
+	ICategory.UTCN,
+	ICategory.Design,
+	ICategory.DataSience,
+	ICategory.Web,
+	ICategory.Electronics,
+	ICategory.Arhitecture,
+	ICategory.History,
+	ICategory.Psychology,
+	ICategory.Policy,
+];
 
 export type ReviewItem = {
 	firstName: string;

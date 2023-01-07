@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { Description } from "../../../data/models/lectureModel";
 import Divider from "../../../common/Divider";
 import styles from "./LectureDescription.module.scss";

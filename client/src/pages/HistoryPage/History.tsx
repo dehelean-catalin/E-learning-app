@@ -25,7 +25,9 @@ const History = () => {
 			</div>
 		);
 	}
-
+	if (isError) {
+		return <>Error</>;
+	}
 	return (
 		<div className={styles.history}>
 			<div className={styles.title}>Recent watched</div>

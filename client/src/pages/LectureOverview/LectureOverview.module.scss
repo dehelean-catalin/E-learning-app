@@ -1,6 +1,11 @@
 @import "../../layout/variables.scss";
 .lecture-overview {
-	display: flex;
+	display: grid;
+	grid-template-areas:
+		"main menu "
+		"footer menu ";
+	grid-template-columns: 1fr 0.4fr;
+	grid-template-rows: 1fr auto;
 	padding-right: 60px;
 	margin-bottom: 30px;
 	color: white;
@@ -8,21 +13,16 @@
 	gap: 30px;
 
 	.content {
-		flex: 1;
+		grid-area: menu;
 		display: flex;
 		flex-direction: column;
 		.course-list {
 			display: flex;
-			gap: 10px;
 			margin-top: 8px;
 			background: $color-30;
 			border: 0px;
 			color: WHITE;
-			padding: 8px 0px;
-
-			ul {
-				flex: 1;
-			}
+			padding: 0px 0px;
 
 			div {
 				display: flex;
@@ -32,45 +32,35 @@
 					margin-right: 6px;
 				}
 			}
+			.container {
+				flex: auto;
+				width: 100%;
+				padding-right: 4px;
+
+				ul {
+					width: 100% !important;
+					padding: 0px !important;
+				}
+				li {
+					cursor: pointer;
+				}
+				b {
+					margin-right: 12px;
+				}
+			}
 		}
 		span {
 			font-size: 20px;
 			font-weight: 700;
 		}
-		.chapter {
-			display: flex;
-			flex-direction: row;
-			gap: 10px;
-			background-color: $color-30;
-			padding: 10px 12px;
-			border-radius: 8px;
-			cursor: pointer;
-			margin-bottom: 10px;
+	}
 
-			font-weight: 600;
-			font-size: 16px;
-			align-items: center;
-			svg {
-				font-size: 20px;
-			}
-			.details {
-				display: flex;
-				flex-direction: column;
-			}
-			.time {
-				display: flex;
-				align-items: center;
-				margin-top: 4px;
-				font-size: 14px;
-				font-weight: 400;
-
-				svg {
-					font-size: 15px;
-				}
-			}
-			&.active {
-				background-color: $color-10;
-			}
-		}
+	.video {
+		grid-area: main;
+		display: flex;
+		align-items: flex-start;
+	}
+	footer {
+		grid-area: footer;
 	}
 }

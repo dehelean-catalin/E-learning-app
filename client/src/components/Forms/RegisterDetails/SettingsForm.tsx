@@ -3,7 +3,7 @@ import { FC, FormEvent, useState } from "react";
 import style from "../NewForm.module.scss";
 import { StepProps } from "./ProfileForm";
 
-const SettingsForm: FC<StepProps> = ({ onSelect, activeIndex }) => {
+const SettingsForm: FC<StepProps> = ({ onSelect }) => {
 	// const { sendRequest } = useProfileDetails();
 	const [values, setValues] = useState({
 		favoriteTopics: "",

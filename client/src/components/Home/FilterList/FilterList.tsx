@@ -1,21 +1,8 @@
 import { FC } from "react";
-import { useLocation, useNavigate } from "react-router";
-import { ICategory } from "../../../data/models/lectureModel";
+import { useLocation } from "react-router";
+import { FILTERS, ICategory } from "../../../data/models/lectureModel";
 import styles from "./FilterList.module.scss";
 import filterService from "./filterService";
-
-const FILTERS = [
-	ICategory.ALL,
-	ICategory.UTCN,
-	ICategory.Design,
-	ICategory.DataSience,
-	ICategory.Web,
-	ICategory.Electronics,
-	ICategory.Arhitecture,
-	ICategory.History,
-	ICategory.Psychology,
-	ICategory.Policy,
-];
 
 type Props = {
 	onFilterChange: (filter: ICategory) => void;

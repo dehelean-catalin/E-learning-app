@@ -84,9 +84,9 @@ const Home: FC = () => {
 			{data.length && (
 				<>
 					<HomeSection title="Recomended Lectures" value={data} showDivider />
-					<HomeSection title="New Lectures" value={data} showDivider />
+					{/* <HomeSection title="New Lectures" value={data} showDivider />
 					<HomeSection title="Top Rated Lectures" value={data} showDivider />
-					<HomeSection title="Most Viewed Lectures" value={data} />
+					<HomeSection title="Most Viewed Lectures" value={data} /> */}
 				</>
 			)}
 		</div>
