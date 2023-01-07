@@ -22,7 +22,7 @@ const HistoryCard: FC<Props> = ({ value }) => {
 				<div className={styles.author}>{createdBy}</div>
 
 				<CustomRating
-					rating={value.rating}
+					rating={Math.round(value.rating)}
 					numberOfRates={value.numberOfRates}
 					hideUsers={true}
 				/>

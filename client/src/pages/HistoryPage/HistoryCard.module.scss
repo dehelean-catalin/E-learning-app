@@ -12,12 +12,12 @@
 	gap: 6px 0px;
 
 	img {
-		width: 100%;
 		grid-area: header;
-		min-height: 180px;
-		max-height: 180px;
 		border-radius: 8px;
 		object-fit: cover;
+		width: 100%;
+		max-height: 180px;
+		min-height: 180px;
 	}
 	.container {
 		grid-area: menu;

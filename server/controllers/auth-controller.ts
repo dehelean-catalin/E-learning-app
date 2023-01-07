@@ -15,7 +15,7 @@ export const login = async (req: Request, res: Response) => {
 		const response = await signInWithEmailAndPassword(auth, email, password);
 		const { uid } = response.user;
 		let token = jwt.sign({ userId: uid, email: email }, "code", {
-			expiresIn: `8h`,
+			expiresIn: `4h`,
 		});
 		res.status(200).json({
 			uid,
@@ -72,7 +72,7 @@ export const register = async (req: Request, res: Response) => {
 			expiresIn: "4h",
 		});
 		res.status(200).json({
-			userId: uid,
+			uid,
 			token,
 		});
 	} catch (err: any) {
