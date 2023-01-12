@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useCallback } from "react";
 import { OnProgressProps } from "react-player/base";
 import ReactPlayer from "react-player/lazy";
 import { useLocation, useParams } from "react-router";
@@ -12,13 +12,8 @@ type Props = {
 const LectureOverviewVideo: FC<Props> = ({ url, progress }) => {
 	const { id } = useParams();
 	const axiosInstance = useAxios();
-	const playerRef = useRef(null);
 	const search = useLocation().search;
 	const page = new URLSearchParams(search).get("page");
-
-	useEffect(() => {
-		playerRef.current.seekTo(progress);
-	}, [progress]);
 
 	const handleProgress = (e: OnProgressProps) => {
 		axiosInstance.put(
@@ -31,21 +26,29 @@ const LectureOverviewVideo: FC<Props> = ({ url, progress }) => {
 			}
 		);
 	};
-	console.log(url);
+	const ref = useCallback(
+		(node) => {
+			if (node) {
+				node.seekTo(progress, "seconds");
+				node.url = url;
+			}
+		},
+		[progress, url]
+	);
 	return (
 		<div className={styles.video}>
 			<ReactPlayer
-				ref={playerRef}
+				ref={ref}
 				url={url}
 				controls
+				muted={false}
 				style={{
 					flex: "1",
 				}}
-				muted={false}
+				playing={true}
 				height="600px"
+				progressInterval={3000}
 				onProgress={(e) => handleProgress(e)}
-				playing={url ? true : false}
-				loop
 			/>
 		</div>
 	);

@@ -1,6 +1,7 @@
 .home {
 	grid-area: main;
 	display: flex;
+	flex: 1;
 	flex-direction: column;
 	margin-right: 60px;
 	.lecture-list {

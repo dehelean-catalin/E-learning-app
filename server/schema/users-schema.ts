@@ -65,6 +65,8 @@ export const UserDataSchema = Joi.object<UserDataModel, true>({
 	phoneNumber: Joi.string().allow(""),
 	address: Joi.string().allow(""),
 	aboutYou: Joi.string().allow(""),
+	email: Joi.string().allow(""),
+	profilePicture: Joi.string().allow(""),
 });
 
 export const WatchingLectureSchema = Joi.object<WatchingLectureModel, true>({

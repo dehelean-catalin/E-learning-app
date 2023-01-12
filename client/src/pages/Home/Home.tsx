@@ -3,19 +3,20 @@ import { FC, useState } from "react";
 import { FaRegFrown } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router";
-import Divider from "../../common/Divider";
 import FilterList from "../../components/Home/FilterList/FilterList";
 import HomeFilterSkeleton from "../../components/Home/HomeSkeleton/HomeFilterSkeleton";
 import HomeSkeleton from "../../components/Home/HomeSkeleton/HomeSkeleton";
-import useFetchQuery from "../../hooks/useFetchQuery";
 import { useAxios } from "../../config/axiosInstance";
 import { LectureModel } from "../../data/models/lectureModel";
 import { NotificationActions } from "../../data/redux/notificationReducer";
+import useFetchQuery from "../../hooks/useFetchQuery";
 import styles from "./Home.module.scss";
 import HomeSection from "./HomeSection";
+
 type AxiosResponse = {
 	data: LectureModel[];
 };
+
 const Home: FC = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -52,8 +53,6 @@ const Home: FC = () => {
 		return (
 			<div className={styles.home}>
 				<HomeFilterSkeleton />
-				<HomeSkeleton />
-				<Divider margin="20px" borderWidth="2px" color="#272727" />
 				<HomeSkeleton />
 			</div>
 		);

@@ -1,5 +1,3 @@
-import { TreeNode } from "./lecture-model";
-
 export type UserModel = {
 	email: string;
 	firstName: string;
@@ -14,12 +12,7 @@ export type UserModel = {
 
 export type UserDataModel = Omit<
 	UserModel,
-	"savedLectures" | "watchingLectures" | "email" | "profilePicture"
->;
-
-export type AppInitModel = Omit<
-	UserModel,
-	"savedLectures" | "watchingLectures" | "phoneNumber" | "address" | "aboutYou"
+	"savedLectures" | "watchingLectures"
 >;
 
 export type WatchingLectureModel = {

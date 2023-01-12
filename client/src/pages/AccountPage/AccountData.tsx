@@ -2,11 +2,13 @@ import { FormEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import InputTextareaField from "../../common/InputTextareaField/InputTextareaField";
 import InputTextField from "../../common/InputTextField/InputTextField";
-import { AcountDataModel } from "../../data/models/usersModel";
+import { AcountDataModel, UserDataModel } from "../../data/models/usersModel";
 import { useAxios } from "../../config/axiosInstance";
 import { NotificationActions } from "../../data/redux/notificationReducer";
 import styles from "./AccountData.module.scss";
-
+import AppInitializationActions, {
+	UserDataActions,
+} from "../../data/redux/userDataReducer";
 const Account = () => {
 	const dispatch = useDispatch();
 	const axiosInstance = useAxios();
@@ -17,6 +19,16 @@ const Account = () => {
 		aboutYou: "",
 		phoneNumber: "",
 	});
+	const [isTouched, setIsTouched] = useState({
+		firstName: false,
+		lastName: false,
+		phoneNumber: false,
+	});
+	const disabled =
+		!values?.firstName.length ||
+		!values?.lastName.length ||
+		!values?.phoneNumber.length;
+
 	useEffect(() => {
 		axiosInstance
 			.get<AcountDataModel>("/user/data")
@@ -31,17 +43,6 @@ const Account = () => {
 			});
 	}, []);
 
-	const [isTouched, setIsTouched] = useState({
-		firstName: false,
-		lastName: false,
-		phoneNumber: false,
-	});
-
-	const disabled =
-		!values?.firstName.length ||
-		!values?.lastName.length ||
-		!values?.phoneNumber.length;
-
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
 
@@ -50,14 +51,27 @@ const Account = () => {
 		}
 		axiosInstance
 			.put("/user/data", values)
-			.then((res) =>
+			.then((res) => {
+				axiosInstance
+					.get<UserDataModel>("/user/data")
+					.then((res) => {
+						dispatch(UserDataActions.setUserData(res.data));
+					})
+					.catch(() => {
+						dispatch(
+							NotificationActions.showBannerNotification({
+								type: "warning",
+								message: "Something went wrong",
+							})
+						);
+					});
 				dispatch(
 					NotificationActions.showBannerNotification({
 						type: "info",
 						message: res.data,
 					})
-				)
-			)
+				);
+			})
 			.catch(() => {
 				dispatch(
 					NotificationActions.showBannerNotification({

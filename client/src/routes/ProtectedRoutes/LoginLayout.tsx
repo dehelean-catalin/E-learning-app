@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router";
 import { useContext } from "react";
-import AuthContext from "../data/context/auth-context";
+import AuthContext from "../../data/context/auth-context";
 
 const LoginLayout = () => {
 	const { isLogin } = useContext(AuthContext);

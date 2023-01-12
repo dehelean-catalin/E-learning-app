@@ -1,18 +1,25 @@
 import { Reducer } from "redux";
 import { ActionType, createAction, getType } from "typesafe-actions";
-import { UserDataModel } from "../models/usersModel";
 
 const actions = {
-	setAppInitData: createAction(
-		"getInitData",
-		(payload: UserDataModel) => payload
+	setUserData: createAction(
+		"setUserData",
+		(payload: UserDataState) => payload
 	)(),
 };
 
-export type AppInitAction = ActionType<typeof actions>;
-export const AppInitializationActions = actions;
-
-const INITIAL_STATE: UserDataModel = {
+export type UserDataAction = ActionType<typeof actions>;
+export const UserDataActions = actions;
+export type UserDataState = {
+	email: string;
+	firstName: string;
+	lastName: string;
+	phoneNumber: string;
+	address: string;
+	aboutYou: string;
+	profilePicture: string;
+};
+const INITIAL_STATE: UserDataState = {
 	firstName: "",
 	lastName: "",
 	phoneNumber: "",
@@ -22,12 +29,12 @@ const INITIAL_STATE: UserDataModel = {
 	email: null,
 };
 
-const appInitializationReducer: Reducer<UserDataModel, AppInitAction> = (
-	state: UserDataModel = INITIAL_STATE,
-	action: AppInitAction
+const userDataReducer: Reducer<UserDataState, UserDataAction> = (
+	state: UserDataState = INITIAL_STATE,
+	action: UserDataAction
 ) => {
 	switch (action.type) {
-		case getType(AppInitializationActions.setAppInitData):
+		case getType(UserDataActions.setUserData):
 			return {
 				...state,
 				email: action.payload.email,
@@ -43,4 +50,4 @@ const appInitializationReducer: Reducer<UserDataModel, AppInitAction> = (
 	}
 };
 
-export default appInitializationReducer;
+export default userDataReducer;

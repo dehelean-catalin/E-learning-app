@@ -33,10 +33,11 @@ export const getUserData = async (req: Request, res: Response) => {
 			throw new Error("This user don't exist");
 		}
 		const userData = userSnap.data() as UserDataModel;
-		const { firstName, lastName, phoneNumber, address, aboutYou } = userData;
+		const { firstName, lastName, phoneNumber, address, aboutYou, email } =
+			userData;
 		res
 			.status(200)
-			.json({ firstName, lastName, phoneNumber, address, aboutYou });
+			.json({ firstName, lastName, phoneNumber, address, aboutYou, email });
 	} catch (err: any) {
 		res.status(400).json({ code: 400, message: err.message });
 	}

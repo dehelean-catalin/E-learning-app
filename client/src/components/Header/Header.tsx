@@ -3,26 +3,42 @@ import { FC, useContext, useRef } from "react";
 import { BsBookmark, BsPersonCircle } from "react-icons/bs";
 import { IoSettingsOutline } from "react-icons/io5";
 import { VscSignOut } from "react-icons/vsc";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { useAxios } from "../../config/axiosInstance";
-import useFetchQuery from "../../hooks/useFetchQuery";
-import { HeaderDataModel, ProfileIconSize } from "../../data/models/usersModel";
-import AuthContext from "../../data/context/auth-context";
 import Divider from "../../common/Divider";
 import ProfilePicture from "../../common/ProfilePicture/ProfilePicture";
+import { useAxios } from "../../config/axiosInstance";
+import AuthContext from "../../data/context/auth-context";
+import { ProfileIconSize, UserDataModel } from "../../data/models/usersModel";
+import { NotificationActions } from "../../data/redux/notificationReducer";
+import { RootState } from "../../data/redux/reducers";
+import {
+	UserDataActions,
+	UserDataState,
+} from "../../data/redux/userDataReducer";
+import useFetchQuery from "../../hooks/useFetchQuery";
 import styles from "./Header.module.scss";
 
 const Header: FC = () => {
 	const op = useRef(null);
+	const dispatch = useDispatch();
 	const { logout } = useContext(AuthContext);
 	const axiosInstance = useAxios();
+	const userData = useSelector<RootState, UserDataState>(
+		(s) => s.userDataReducer
+	);
 
-	const { data, isError } = useFetchQuery(
-		"/app-initialization",
+	const { firstName, lastName, email } = userData;
+
+	const initials =
+		firstName.slice(0, 1).toUpperCase() + lastName.slice(0, 1).toUpperCase();
+
+	useFetchQuery(
+		"user-data",
 		() => {
 			return axiosInstance
-				.get<HeaderDataModel>("/app-initialization")
-				.then((res) => res.data);
+				.get<UserDataModel>("/user/data")
+				.then((res) => dispatch(UserDataActions.setUserData(res.data)));
 		},
 		{
 			initialData: {
@@ -32,17 +48,15 @@ const Header: FC = () => {
 				profilePicture: "",
 			},
 			onSuccess: () => {},
-			onError: () => console.log("a"),
+			onError: () =>
+				dispatch(
+					NotificationActions.showBannerNotification({
+						type: "warning",
+						message: "Something went wrong",
+					})
+				),
 		}
 	);
-	const { firstName, lastName, email } = data;
-
-	const initials =
-		firstName.slice(0, 1).toUpperCase() + lastName.slice(0, 1).toUpperCase();
-
-	if (isError) {
-		return <>error</>;
-	}
 	return (
 		<header className={styles.header}>
 			<div className={styles.toogleIcon} onClick={(e) => op.current.toggle(e)}>

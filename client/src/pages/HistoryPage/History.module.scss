@@ -2,6 +2,8 @@
 	flex: 1;
 	color: white;
 	padding-right: 60px;
+	display: flex;
+	flex-direction: column;
 
 	.title {
 		margin: 20px 0px;

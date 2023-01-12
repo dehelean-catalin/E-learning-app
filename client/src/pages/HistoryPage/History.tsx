@@ -3,6 +3,7 @@ import useFetchQuery from "../../hooks/useFetchQuery";
 import { useAxios } from "../../config/axiosInstance";
 import styles from "./History.module.scss";
 import HistoryCard from "./HistoryCard";
+import NotFound from "../NotFound/NotFound";
 const History = () => {
 	const axiosInstance = useAxios();
 	const { data, isLoading, isError } = useFetchQuery(
@@ -17,6 +18,19 @@ const History = () => {
 			onError: () => {},
 		}
 	);
+	const getContent = () => {
+		if (data.length) {
+			return (
+				<div className={styles.content}>
+					{data.map((value, key) => (
+						<HistoryCard key={key} value={value} />
+					))}
+				</div>
+			);
+		}
+		// return <NotFound />;
+		return;
+	};
 	if (isLoading) {
 		return (
 			<div className={styles.history}>
@@ -26,16 +40,12 @@ const History = () => {
 		);
 	}
 	if (isError) {
-		return <>Error</>;
+		return <NotFound message="" />;
 	}
 	return (
 		<div className={styles.history}>
 			<div className={styles.title}>Recent watched</div>
-			<div className={styles.content}>
-				{data.map((value, key) => (
-					<HistoryCard key={key} value={value} />
-				))}
-			</div>
+			{getContent()}
 		</div>
 	);
 };
