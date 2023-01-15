@@ -2,6 +2,7 @@ import { Reducer } from "redux";
 import { ActionType, createAction, getType } from "typesafe-actions";
 
 const actions = {
+	initializeUserData: createAction("initializeUserData")(),
 	setUserData: createAction(
 		"setUserData",
 		(payload: UserDataState) => payload
@@ -19,30 +20,35 @@ export type UserDataState = {
 	aboutYou: string;
 	profilePicture: string;
 };
-const INITIAL_STATE: UserDataState = {
-	firstName: "",
-	lastName: "",
-	phoneNumber: "",
-	address: "",
-	aboutYou: "",
-	profilePicture: null,
-	email: null,
+export type UserState = {
+	data: UserDataState;
+};
+const INITIAL_STATE: UserState = {
+	data: {
+		email: "",
+		firstName: "",
+		lastName: "",
+		phoneNumber: "",
+		address: "",
+		aboutYou: "",
+		profilePicture: "",
+	},
 };
 
-const userDataReducer: Reducer<UserDataState, UserDataAction> = (
-	state: UserDataState = INITIAL_STATE,
+const userDataReducer: Reducer<UserState, UserDataAction> = (
+	state: UserState = INITIAL_STATE,
 	action: UserDataAction
 ) => {
 	switch (action.type) {
+		case getType(UserDataActions.initializeUserData):
+			return {
+				...state,
+			};
+
 		case getType(UserDataActions.setUserData):
 			return {
 				...state,
-				email: action.payload.email,
-				firstName: action.payload.firstName,
-				lastName: action.payload.lastName,
-				address: action.payload.address,
-				aboutYou: action.payload.aboutYou,
-				profilePicture: action.payload.aboutYou,
+				data: action.payload,
 			};
 
 		default:

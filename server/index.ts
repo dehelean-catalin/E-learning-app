@@ -4,10 +4,12 @@ import http from "http";
 import authRoutes from "./routes/auth-routes";
 import lecturesRoutes from "./routes/lectures-routes";
 import userRoutes from "./routes/users-routes";
+import multer from "multer";
 
 const app = express();
 
 app.use(cors());
+app.use(multer().single("file"));
 app.use(json());
 
 app.use(authRoutes);

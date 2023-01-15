@@ -15,6 +15,7 @@ module.exports = {
 	},
 	resolve: {
 		extensions: [".tsx", ".ts", ".js"],
+		fallback: { console: require.resolve("console-browserify") },
 	},
 	output: {
 		filename: "bundle.js",

@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import "./App.scss";
 import SavedLectures from "./pages/SavedLecturesPage/SavedLectures";
-import Account from "./pages/AccountPage/AccountData";
+import Account from "./pages/AccountPage/AccountPage";
 import Login from "./pages/AuthPage/Login";
 import Register from "./pages/AuthPage/Register";
 import History from "./pages/HistoryPage/History";

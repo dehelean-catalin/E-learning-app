@@ -1,23 +1,25 @@
-import { IProfilePicture, ProfileIconSize } from "../../data/models/usersModel";
+import { FC } from "react";
 import styles from "./ProfilePicture.module.scss";
-const ProfilePicture = ({
-	picture,
-	initials,
-	size = ProfileIconSize.Small,
-}: IProfilePicture) => {
-	if (!picture) {
+
+type Props = {
+	picture?: string;
+	initials: string;
+	size?: "small" | "medium" | "large";
+};
+const ProfilePicture: FC<Props> = ({ picture, initials, size }) => {
+	if (picture) {
 		return (
-			<div className={`${styles["profile-icon"]} ${styles[size]}`}>
-				{initials}
-			</div>
+			<img
+				className={`${styles["profile-picture"]}  ${styles[size]}`}
+				src={picture}
+				alt=""
+			/>
 		);
 	}
 	return (
-		<img
-			className={`${styles["profile-picture"]}  ${styles[size]}`}
-			src={picture}
-			alt=""
-		/>
+		<div className={`${styles["profile-icon"]} ${styles[size]}`}>
+			{initials}
+		</div>
 	);
 };
 

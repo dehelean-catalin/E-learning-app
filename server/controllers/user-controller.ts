@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+// import { getStorage, ref } from "firebase/storage";
 import db from "../firebase";
 import { HistoryModel, LectureModel } from "../models/lecture-model";
 import { ValidatedRequest } from "../models/request";
@@ -33,11 +35,8 @@ export const getUserData = async (req: Request, res: Response) => {
 			throw new Error("This user don't exist");
 		}
 		const userData = userSnap.data() as UserDataModel;
-		const { firstName, lastName, phoneNumber, address, aboutYou, email } =
-			userData;
-		res
-			.status(200)
-			.json({ firstName, lastName, phoneNumber, address, aboutYou, email });
+
+		res.status(200).json(userData);
 	} catch (err: any) {
 		res.status(400).json({ code: 400, message: err.message });
 	}
@@ -49,6 +48,22 @@ export const updateUserData = async (req: Request, res: Response) => {
 		const docRef = doc(db, "users", validatedReq.userData.userId);
 		await updateDoc(docRef, req.body);
 		res.status(200).json("Succesfully saved");
+	} catch (err: any) {
+		res.status(400).json({ code: 400, message: err.message });
+	}
+};
+export const updateUserProfilePicture = async (req: any, res: Response) => {
+	const validatedReq = req as ValidatedRequest;
+	const storage = getStorage();
+	const storageRef = ref(storage, "users/" + validatedReq.userData.userId);
+	const docRef = doc(db, "users", validatedReq.userData.userId);
+	try {
+		await uploadBytes(storageRef, req.file.buffer, {
+			contentType: "image/jpg",
+		});
+		const profilePicture = await getDownloadURL(storageRef);
+		await updateDoc(docRef, { profilePicture });
+		res.status(200).json("succes");
 	} catch (err: any) {
 		res.status(400).json({ code: 400, message: err.message });
 	}

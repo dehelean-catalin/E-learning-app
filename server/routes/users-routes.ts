@@ -9,6 +9,7 @@ import {
 	saveLecture,
 	updatetWatchingLectureCurrenTime,
 	updateUserData,
+	updateUserProfilePicture,
 	updateWatchingLectureLastEntry,
 } from "../controllers/user-controller";
 import tokenAuth from "../middleware/tokenAuth-middleware";
@@ -25,10 +26,11 @@ import {
 } from "./../schema/users-schema";
 
 const router = Router();
-
 router.get("/user", tokenAuth, getUserByID);
 router.get("/user/data", tokenAuth, getUserData);
 router.put("/user/data", validation(UserDataSchema), updateUserData);
+
+router.post("/user/profile-picture", tokenAuth, updateUserProfilePicture);
 
 router.get("/user/save-lecture", tokenAuth, getSavedLectures);
 router.post("/user/save-lecture/:id", tokenAuth, saveLecture);

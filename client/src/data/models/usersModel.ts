@@ -53,14 +53,3 @@ export interface IAuthContext {
 	login: (token: string, userId: string, expirationDate?: Date) => void;
 	logout: () => void;
 }
-
-export enum ProfileIconSize {
-	Small = "small",
-	Medium = "medium",
-	Large = "large",
-}
-export interface IProfilePicture {
-	picture?: string;
-	initials: string;
-	size?: ProfileIconSize;
-}
