@@ -2,6 +2,7 @@ import { UserModel } from "./../models/user-model";
 import jwt from "jsonwebtoken";
 import {
 	createUserWithEmailAndPassword,
+	sendPasswordResetEmail,
 	signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../firebase";
@@ -63,6 +64,9 @@ export const register = async (req: Request, res: Response) => {
 			address: "",
 			aboutYou: "",
 			profilePicture: "",
+			bannerPicture: "",
+			links: [],
+			favoriteTopics: [],
 			savedLectures: [],
 			watchingLectures: [],
 		};
@@ -90,5 +94,19 @@ export const register = async (req: Request, res: Response) => {
 				.json({ code: 400, message: "Email already in use" });
 		}
 		res.status(400).json({ code: 400, message: err });
+	}
+};
+
+export const forgotPassword = async (req: Request, res: Response) => {
+	try {
+		const response = await sendPasswordResetEmail(auth, req.body.email);
+
+		res.status(200).json({
+			response,
+		});
+	} catch (err) {
+		res
+			.status(400)
+			.json({ code: 400, message: "Try again! Something went wrong" });
 	}
 };

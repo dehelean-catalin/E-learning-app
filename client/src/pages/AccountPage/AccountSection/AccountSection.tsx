@@ -1,24 +1,24 @@
 import { FormEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import InputTextareaField from "../../common/InputTextareaField/InputTextareaField";
-import InputTextField from "../../common/InputTextField/InputTextField";
-import { useAxios } from "../../config/axiosInstance";
-import { UserDataModel } from "../../data/models/usersModel";
-import { NotificationActions } from "../../data/redux/notificationReducer";
-import { RootState } from "../../data/redux/reducers";
+import InputTextareaField from "../../../common/InputTextareaField/InputTextareaField";
+import InputTextField from "../../../common/InputTextField/InputTextField";
+import { useAxios } from "../../../config/axiosInstance";
+import { UserDataModel } from "../../../data/models/usersModel";
+import { NotificationActions } from "../../../data/redux/notificationReducer";
+import { RootState } from "../../../data/redux/reducers";
 import {
-	UserDataActions,
-	UserDataState,
-} from "../../data/redux/userDataReducer";
-import styles from "./AccountData.module.scss";
+	AccountDataActions,
+	AccountDataState,
+} from "../../../data/redux/account/AccountReducer";
+import styles from "./AccountSection.module.scss";
 
 const AccountSection = () => {
 	const dispatch = useDispatch();
 	const axiosInstance = useAxios();
-	const userData = useSelector<RootState, UserDataState>(
-		(s) => s.userDataReducer.data
+	const userData = useSelector<RootState, AccountDataState>(
+		(s) => s.accountReducer.data
 	);
-	const [values, setValues] = useState<UserDataModel>();
+	const [values, setValues] = useState<AccountDataState>();
 
 	useEffect(() => {
 		setValues(userData);
@@ -43,9 +43,9 @@ const AccountSection = () => {
 			.put("/user/data", values)
 			.then((res) => {
 				axiosInstance
-					.get<UserDataModel>("/user/data")
+					.get<AccountDataState>("/user/data")
 					.then((res) => {
-						dispatch(UserDataActions.setUserData(res.data));
+						dispatch(AccountDataActions.getAccountDataSuccess(res.data));
 					})
 					.catch(() => {
 						dispatch(
@@ -72,7 +72,7 @@ const AccountSection = () => {
 			});
 	};
 	return (
-		<>
+		<div className={styles["account-section"]}>
 			<h1> Basic information</h1>
 			{values && (
 				<form onSubmit={handleSubmit}>
@@ -119,7 +119,7 @@ const AccountSection = () => {
 					</div>
 				</form>
 			)}
-		</>
+		</div>
 	);
 };
 

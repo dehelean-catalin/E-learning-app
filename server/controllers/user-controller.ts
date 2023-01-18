@@ -35,8 +35,41 @@ export const getUserData = async (req: Request, res: Response) => {
 			throw new Error("This user don't exist");
 		}
 		const userData = userSnap.data() as UserDataModel;
+		const {
+			profilePicture,
+			firstName,
+			lastName,
+			email,
+			phoneNumber,
+			aboutYou,
+			address,
+			bannerPicture,
+		} = userData;
+		res.status(200).json({
+			profilePicture,
+			aboutYou,
+			email,
+			phoneNumber,
+			address,
+			firstName,
+			lastName,
+			bannerPicture,
+		});
+	} catch (err: any) {
+		res.status(400).json({ code: 400, message: err.message });
+	}
+};
+export const getProfilePicture = async (req: Request, res: Response) => {
+	try {
+		const validatedReq = req as ValidatedRequest;
+		const userRef = doc(db, "users", validatedReq.userData.userId);
+		const userSnap = await getDoc(userRef);
+		if (!userSnap.exists()) {
+			throw new Error("This user don't exist");
+		}
+		const profilePicture = userSnap.get("profilePicture") as UserDataModel;
 
-		res.status(200).json(userData);
+		res.status(200).json(profilePicture);
 	} catch (err: any) {
 		res.status(400).json({ code: 400, message: err.message });
 	}

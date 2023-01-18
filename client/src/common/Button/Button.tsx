@@ -3,7 +3,7 @@ import styles from "./Button.module.scss";
 
 type Props = {
 	children: React.ReactNode;
-	disabled: boolean;
+	disabled?: boolean;
 	onClick?: () => void;
 	color?: string;
 };

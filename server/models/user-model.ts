@@ -5,7 +5,10 @@ export type UserModel = {
 	phoneNumber: string;
 	address: string;
 	aboutYou: string;
+	bannerPicture: string;
 	profilePicture: string;
+	links: LinkModel[] | [];
+	favoriteTopics: string[];
 	savedLectures: string[];
 	watchingLectures: WatchingLectureModel[] | [];
 };
@@ -14,7 +17,10 @@ export type UserDataModel = Omit<
 	UserModel,
 	"savedLectures" | "watchingLectures"
 >;
-
+export type LinkModel = {
+	name: string;
+	link: string;
+};
 export type WatchingLectureModel = {
 	id: string;
 	lastEntry: LastEntry;

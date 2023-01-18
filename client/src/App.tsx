@@ -20,6 +20,7 @@ import Lecture from "./pages/Lecture/Lecture";
 import LectureOverview from "./pages/LectureOverview/LectureOverview";
 import NotFound from "./pages/NotFound/NotFound";
 import Settings from "./pages/SettingsPage/Settings";
+import ForgotPassword from "./pages/AuthPage/ForgotPassoword/ForgotPassword";
 
 function App() {
 	const router = createBrowserRouter(
@@ -29,6 +30,7 @@ function App() {
 					<Route index element={<Login />} />
 					<Route path="login" element={<Login />} />
 					<Route path="register" element={<Register />} />
+					<Route path="forgot-password" element={<ForgotPassword />} />
 				</Route>
 				<Route path="/*" element={<RootLayout />}>
 					<Route index element={<Home />} />

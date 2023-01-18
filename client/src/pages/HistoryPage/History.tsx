@@ -4,6 +4,7 @@ import { useAxios } from "../../config/axiosInstance";
 import styles from "./History.module.scss";
 import HistoryCard from "./HistoryCard";
 import NotFound from "../NotFound/NotFound";
+import image from "../../resources/images/Pasted-20230118-164708_preview_rev_1.png";
 const History = () => {
 	const axiosInstance = useAxios();
 	const { data, isLoading, isError } = useFetchQuery(
@@ -41,6 +42,11 @@ const History = () => {
 	}
 	if (isError) {
 		return <NotFound message="" />;
+	}
+	if (!data.length) {
+		return (
+			<NotFound icon={<img src={image} alt="not found" />} message={"add"} />
+		);
 	}
 	return (
 		<div className={styles.history}>

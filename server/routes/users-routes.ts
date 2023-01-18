@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
 	addWatchingLecture,
 	deleteSavedLecture,
+	getProfilePicture,
 	getUserByID,
 	getUserData,
 	getWatchingLectureByID,
@@ -30,6 +31,7 @@ router.get("/user", tokenAuth, getUserByID);
 router.get("/user/data", tokenAuth, getUserData);
 router.put("/user/data", validation(UserDataSchema), updateUserData);
 
+router.get("/user/profile-picture", tokenAuth, getProfilePicture);
 router.post("/user/profile-picture", tokenAuth, updateUserProfilePicture);
 
 router.get("/user/save-lecture", tokenAuth, getSavedLectures);

@@ -1,19 +1,22 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import styles from "./Login.module.scss";
 import { useAuthentication } from "../../hooks/useAuthentication";
 import LoginImg from "../../resources/images/login.jpg";
 import InputTextField from "../../common/InputTextField/InputTextField";
 import InputPasswordField from "../../common/InputPasswordField/InputPasswordField";
 import { ProgressSpinner } from "primereact/progressspinner";
+import { useAxios } from "../../config/axiosInstance";
 
 const Login = () => {
+	const navigate = useNavigate();
 	const { isLoading, handleLogin, error } = useAuthentication();
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [emailTouched, setEmailTouched] = useState(false);
 	const [passwordTouched, setPasswordTouched] = useState(false);
+
 	const getEmailErrorMessage = () => {
 		if (email.trim().length === 0 && emailTouched) {
 			return "Email is required";
@@ -78,7 +81,9 @@ const Login = () => {
 					errorMessage={getPasswordErrorMessage()}
 					hasError={hasErrorPassword}
 				/>
-
+				<NavLink to="/forgot-password" className={styles.password}>
+					Forget password?
+				</NavLink>
 				{getSignInBtn()}
 			</form>
 

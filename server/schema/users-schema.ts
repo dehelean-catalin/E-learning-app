@@ -7,6 +7,7 @@ import {
 	WatchingLectureModel,
 } from "../models/user-model";
 const Joi = coreJoi.extend(joiDate) as typeof coreJoi;
+
 export const UserSchema = Joi.object<UserModel>({
 	email: Joi.string().required().messages({
 		"any.required": "email is required",
@@ -23,33 +24,17 @@ export const UserSchema = Joi.object<UserModel>({
 	address: Joi.string().required().messages({
 		"any.required": "address is required",
 	}),
+	aboutYou: Joi.string().required().messages({
+		"any.required": "aboutYou is required",
+	}),
 	profilePicture: Joi.string().required().messages({
 		"any.required": "profilePicture is required",
 	}),
-	// favoriteTopics: Joi.string().required().messages({
-	// 	"any.required": "favoriteTopics is required",
-	// }),
-
-	// degree: Joi.string().required().messages({
-	// 	"any.required": "degree is required",
-	// }),
-	// institution: Joi.string().required().messages({
-	// 	"any.required": "institution is required",
-	// }),
-	// institutionKey: Joi.string().required().messages({
-	// 	"any.required": "institutionKey is required",
-	// }),
-	// aboutYou: Joi.string().required().messages({
-	// 	"any.required": "aboutYou is required",
-	// }),
-	// links: Joi.string().required().messages({
-	// 	"any.required": "links is required",
-	// }),
-	// role: Joi.string().required().messages({
-	// 	"any.required": "role is required",
-	// }),
-	aboutYou: Joi.string().required().messages({
-		"any.required": "aboutYou is required",
+	bannerPicture: Joi.string().required().messages({
+		"any.required": "bannerPicture is required",
+	}),
+	favoriteTopics: Joi.string().required().messages({
+		"any.required": "favoriteTopics is required",
 	}),
 	savedLectures: Joi.array<string[]>().required().messages({
 		"any.required": "savedLectures is required",
@@ -67,6 +52,9 @@ export const UserDataSchema = Joi.object<UserDataModel, true>({
 	aboutYou: Joi.string().allow(""),
 	email: Joi.string().allow(""),
 	profilePicture: Joi.string().allow(""),
+	bannerPicture: Joi.string().allow(""),
+	favoriteTopics: Joi.array(),
+	links: Joi.alternatives(),
 });
 
 export const WatchingLectureSchema = Joi.object<WatchingLectureModel, true>({

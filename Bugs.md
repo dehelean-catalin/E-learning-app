@@ -13,16 +13,21 @@ Articole licenta:
 - backend validare categorie;
 - home data model from backend;
 - lecture card enhanced;
+- refactorizare unde e cazul pentru saga requests
+- saga logout auto;
+
+# Prio:
+
+- security page where you can change email and password;
+- add review;
+- search page;
+- redesign login and register
 
 # !!Feature:
 
-- forgot password page;
-- security page where you can change email and password;
-- profile picture;
+- stop watching lecture option;
 - add notes for a lecture chapter;
-- search page;
 - notification icon;
-- add review;
 - add lecture: yup;
 
 If time:

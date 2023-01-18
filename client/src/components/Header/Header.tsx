@@ -8,63 +8,42 @@ import { NavLink } from "react-router-dom";
 import Divider from "../../common/Divider";
 import ProfilePicture from "../../common/ProfilePicture/ProfilePicture";
 import AuthContext from "../../data/context/auth-context";
-import { RootState } from "../../data/redux/reducers";
 import {
-	UserDataActions,
-	UserDataState,
-} from "../../data/redux/userDataReducer";
+	AccountDataActions,
+	AccountDataState,
+} from "../../data/redux/account/AccountReducer";
+import { RootState } from "../../data/redux/reducers";
+
 import styles from "./Header.module.scss";
 
 const Header: FC = () => {
 	const op = useRef(null);
 	const dispatch = useDispatch();
 	const { logout } = useContext(AuthContext);
-	const userData = useSelector<RootState, UserDataState>(
-		(s) => s.userDataReducer.data
+	const userData = useSelector<RootState, AccountDataState>(
+		(s) => s.accountReducer.data
 	);
 	useEffect(() => {
-		dispatch(UserDataActions.initializeUserData());
+		dispatch(AccountDataActions.getAccountDataRequest());
 	}, []);
 
-	// useFetchQuery(
-	// 	"user-data",
-	// 	() => {
-	// 		return axiosInstance
-	// 			.get<UserDataModel>("/user/data")
-	// 			.then((res) => dispatch(UserDataActions.setUserData(res.data)));
-	// 	},
-	// 	{
-	// 		initialData: {
-	// 			email: "",
-	// 			firstName: "",
-	// 			lastName: "",
-	// 			profilePicture: "",
-	// 		},
-	// 		onSuccess: () => {},
-	// 		onError: () =>
-	// 			dispatch(
-	// 				NotificationActions.showBannerNotification({
-	// 					type: "warning",
-	// 					message: "Something went wrong",
-	// 				})
-	// 			),
-	// 	}
-	// );
-	if (!userData) {
-		return;
-	}
 	const { firstName, lastName, email } = userData;
 
 	const initials =
 		firstName.slice(0, 1).toUpperCase() + lastName.slice(0, 1).toUpperCase();
+
 	return (
 		<header className={styles.header}>
 			<div className={styles.toogleIcon} onClick={(e) => op.current.toggle(e)}>
-				<ProfilePicture picture={""} initials={initials} />
+				<ProfilePicture picture={userData.profilePicture} initials={initials} />
 			</div>
 			<OverlayPanel ref={op} className={styles["profile-overlay"]}>
 				<header>
-					<ProfilePicture picture={""} initials={initials} size={"small"} />
+					<ProfilePicture
+						picture={userData.profilePicture}
+						initials={initials}
+						size={"medium"}
+					/>
 
 					<div className={styles["profile-details"]}>
 						<div>

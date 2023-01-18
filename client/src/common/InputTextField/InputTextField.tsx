@@ -18,7 +18,7 @@ const InputTextField: FC<Props> = ({
 	label,
 	placeholder,
 	onChange: setValue,
-	onBlur: setTouched,
+	onBlur = () => {},
 	errorMessage,
 	hasError,
 }) => {
@@ -33,7 +33,7 @@ const InputTextField: FC<Props> = ({
 				onChange={(e) => {
 					setValue(e.target.value);
 				}}
-				onBlur={() => setTouched()}
+				onBlur={() => onBlur()}
 			/>
 			<div className={styles.error}>{hasError ? errorMessage : ""}</div>
 		</div>

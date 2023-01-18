@@ -7,12 +7,7 @@
 	header {
 		font-size: 24px;
 	}
-	section {
-		flex: 1;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
+
 	form {
 		flex: 1;
 		display: flex;
@@ -24,24 +19,6 @@
 		border-bottom: 1px solid white;
 		padding-bottom: 4px;
 		margin-bottom: 15px;
-	}
-
-	.btns {
-		display: flex;
-		justify-content: flex-end;
-		margin-top: 15px;
-
-		button {
-			background-color: $second-green;
-			border: none;
-			color: white;
-			font-size: 16px;
-			font-weight: 600;
-			line-height: 35px;
-			border-radius: 6px;
-			width: 90px;
-			cursor: pointer;
-		}
 	}
 
 	.invalid {

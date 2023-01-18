@@ -1,13 +1,18 @@
-import { UserDataActions } from "./../../redux/userDataReducer";
+import { AccountDataActions } from "../../redux/account/AccountReducer";
 import { takeLatest } from "redux-saga/effects";
 import { getType } from "typesafe-actions";
-import { initializeUserDaraSaga } from "../userSaga";
+import { initializeAccountSaga } from "./accountSaga";
+import { setProfilePictureSaga } from "./setProfilePictureSaga";
 
 export const acountSagas = () => {
 	return [
 		takeLatest(
-			getType(UserDataActions.initializeUserData),
-			initializeUserDaraSaga
+			getType(AccountDataActions.getAccountDataRequest),
+			initializeAccountSaga
+		),
+		takeLatest(
+			getType(AccountDataActions.setProfilePictureRequest),
+			setProfilePictureSaga
 		),
 	];
 };

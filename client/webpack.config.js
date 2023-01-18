@@ -10,6 +10,12 @@ module.exports = {
 				exclude: /(node_modules)/,
 				test: /\.([cm]?ts|tsx)$/,
 				loader: "ts-loader",
+				options: {
+					additionalData: '@import "variables.scss";',
+					sassOptions: {
+						includePaths: ["src/layout/variables.scss"],
+					},
+				},
 			},
 		],
 	},

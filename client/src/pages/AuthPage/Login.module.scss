@@ -87,4 +87,13 @@
 			color: $prime-green;
 		}
 	}
+	.password {
+		text-align: end;
+		font-size: 14px;
+		margin-top: -10px;
+		margin-bottom: 10px;
+		color: rgb(78, 78, 78);
+		text-decoration: none;
+		font-weight: 600;
+	}
 }
