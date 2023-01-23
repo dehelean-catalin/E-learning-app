@@ -1,20 +1,9 @@
-import { FC } from "react";
-import { IoSadOutline } from "react-icons/io5";
 import styles from "./NotFound.module.scss";
 type Props = {
-	message?: string;
-	icon?: JSX.Element;
+	children: React.ReactNode;
 };
-const NotFound: FC<Props> = ({
-	message = "Not Found",
-	icon = <IoSadOutline />,
-}) => {
-	return (
-		<div className={styles["not-found"]}>
-			{icon}
-			{message}
-		</div>
-	);
+const NotFound = ({ children }: Props) => {
+	return <div className={styles["not-found"]}>{children}</div>;
 };
 
 export default NotFound;

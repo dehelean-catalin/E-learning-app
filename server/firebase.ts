@@ -1,6 +1,6 @@
-import { getFirestore } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged, initializeAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 const firebaseConfig = {
 	apiKey: "AIzaSyAMCfsGozkpBxF4I32Xq5gqj5RaxNHu37g",
@@ -17,6 +17,7 @@ export const application = initializeApp(firebaseConfig);
 
 const database = getFirestore(application);
 export const auth = getAuth(application);
+
 export const storage = getStorage(application);
 
 export const loginRoute = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${firebaseConfig.apiKey}`;

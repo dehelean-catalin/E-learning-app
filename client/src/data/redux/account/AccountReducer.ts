@@ -7,6 +7,11 @@ const actions = {
 		"getAccountDataSuccess",
 		(payload: AccountDataState) => payload
 	)(),
+	getAccountDataFail: createAction("getAccountDataFail")(),
+	setAccountDataRequest: createAction(
+		"setAccountDataRequest",
+		(payload: any) => payload
+	)(),
 	setProfilePictureRequest: createAction(
 		"setProfilePictureRequest",
 		(payload: FormData) => payload
@@ -33,6 +38,7 @@ export type AccountDataState = {
 export type AccountState = {
 	data: AccountDataState;
 	loading: boolean;
+	error: boolean;
 };
 const INITIAL_STATE: AccountState = {
 	data: {
@@ -46,6 +52,7 @@ const INITIAL_STATE: AccountState = {
 		bannerPicture: "",
 	},
 	loading: false,
+	error: false,
 };
 
 const accountDataReducer: Reducer<AccountState, AccountDataAction> = (
@@ -63,10 +70,14 @@ const accountDataReducer: Reducer<AccountState, AccountDataAction> = (
 				...state,
 				data: action.payload,
 			};
+		case getType(AccountDataActions.getAccountDataFail):
+			return {
+				...state,
+				error: true,
+			};
 		case getType(AccountDataActions.setProfilePictureRequest):
 			return {
 				...state,
-				loading: true,
 			};
 		case getType(AccountDataActions.setProfilePictureSucces):
 			return {

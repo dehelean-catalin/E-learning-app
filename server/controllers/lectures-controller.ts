@@ -74,9 +74,7 @@ export const getLectures = async (
 					reviewList,
 				})
 		);
-		if (!basicLectures.length) {
-			throw new Error("Something went wrong");
-		}
+
 		res.status(200).json(basicLectures);
 	} catch (err: any) {
 		res.status(400).json({ code: 400, message: err.message });

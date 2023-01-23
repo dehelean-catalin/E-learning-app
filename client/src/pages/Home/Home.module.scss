@@ -4,17 +4,6 @@
 	flex: 1;
 	flex-direction: column;
 	margin-right: 60px;
-	.lecture-list {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-		gap: 20px;
-	}
-	.section-title {
-		margin: 20px 0px;
-		font-weight: 600;
-		color: white;
-		font-size: 22px;
-	}
 }
 .empty {
 	flex: 1;

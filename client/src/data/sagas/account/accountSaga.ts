@@ -9,6 +9,6 @@ export function* initializeAccountSaga(): SagaIterator {
 			yield put(AccountDataActions.getAccountDataSuccess(result.data));
 		}
 	} catch (error) {
-		console.log(error);
+		yield put(AccountDataActions.getAccountDataFail());
 	}
 }

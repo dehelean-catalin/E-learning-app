@@ -1,8 +1,8 @@
 import { AxiosError } from "axios";
 import { FC, useState } from "react";
-import { FaRegFrown } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router";
+import { NavLink } from "react-router-dom";
 import FilterList from "../../components/Home/FilterList/FilterList";
 import HomeFilterSkeleton from "../../components/Home/HomeSkeleton/HomeFilterSkeleton";
 import HomeSkeleton from "../../components/Home/HomeSkeleton/HomeSkeleton";
@@ -10,8 +10,12 @@ import { useAxios } from "../../config/axiosInstance";
 import { LectureModel } from "../../data/models/lectureModel";
 import { NotificationActions } from "../../data/redux/notificationReducer";
 import useFetchQuery from "../../hooks/useFetchQuery";
+import image from "../../resources/images/empty.png";
+import NotFound from "../NotFound/NotFound";
+import notFoundImage from "../../resources/images/no-results.png";
 import styles from "./Home.module.scss";
-import HomeSection from "./HomeSection";
+import HomeSection from "../../components/Home/HomeSection/HomeSection";
+import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
 
 type AxiosResponse = {
 	data: LectureModel[];
@@ -58,21 +62,26 @@ const Home: FC = () => {
 		);
 	}
 	if (isError) {
-		return (
-			<div className={styles.home}>
-				<FilterList
-					onFilterChange={(f) => {
-						setCategory(f);
-					}}
-				/>
-				<div className={styles.empty}>
-					<FaRegFrown />
-					<span>This category doesn't have any lectures!</span>
-				</div>
-			</div>
-		);
+		return <NotFoundError />;
 	}
 
+	const getContent = () => {
+		if (!data.length) {
+			return (
+				<NotFound>
+					<img src={image} alt="not found" />
+					<strong>No lecture found</strong>
+					<div>
+						Looks like this category don't have any lectures yet
+						<br />
+						Press bellow button and create one
+					</div>
+					<NavLink to="/home?category=all">Create lecture</NavLink>
+				</NotFound>
+			);
+		}
+		return <HomeSection title="Recomended Lectures" value={data} />;
+	};
 	return (
 		<div className={styles.home}>
 			<FilterList
@@ -80,14 +89,10 @@ const Home: FC = () => {
 					setCategory(f);
 				}}
 			/>
-			{data.length && (
-				<>
-					<HomeSection title="Recomended Lectures" value={data} />
-					{/* <HomeSection title="New Lectures" value={data} showDivider />
+			{getContent()}
+			{/* <HomeSection title="New Lectures" value={data} showDivider />
 					<HomeSection title="Top Rated Lectures" value={data} showDivider />
 					<HomeSection title="Most Viewed Lectures" value={data} /> */}
-				</>
-			)}
 		</div>
 	);
 };

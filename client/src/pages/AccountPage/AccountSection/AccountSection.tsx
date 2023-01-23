@@ -14,7 +14,6 @@ import styles from "./AccountSection.module.scss";
 
 const AccountSection = () => {
 	const dispatch = useDispatch();
-	const axiosInstance = useAxios();
 	const userData = useSelector<RootState, AccountDataState>(
 		(s) => s.accountReducer.data
 	);
@@ -39,37 +38,38 @@ const AccountSection = () => {
 		if (disabled) {
 			return;
 		}
-		axiosInstance
-			.put("/user/data", values)
-			.then((res) => {
-				axiosInstance
-					.get<AccountDataState>("/user/data")
-					.then((res) => {
-						dispatch(AccountDataActions.getAccountDataSuccess(res.data));
-					})
-					.catch(() => {
-						dispatch(
-							NotificationActions.showBannerNotification({
-								type: "warning",
-								message: "Something went wrong",
-							})
-						);
-					});
-				dispatch(
-					NotificationActions.showBannerNotification({
-						type: "info",
-						message: res.data,
-					})
-				);
-			})
-			.catch(() => {
-				dispatch(
-					NotificationActions.showBannerNotification({
-						type: "warning",
-						message: "Something went wrong",
-					})
-				);
-			});
+		dispatch(AccountDataActions.setAccountDataRequest(values));
+		// axiosInstance
+		// 	.put("/user/data", values)
+		// 	.then((res) => {
+		// 		axiosInstance
+		// 			.get<AccountDataState>("/user/data")
+		// 			.then((res) => {
+		// 				dispatch(AccountDataActions.getAccountDataSuccess(res.data));
+		// 			})
+		// 			.catch(() => {
+		// 				dispatch(
+		// 					NotificationActions.showBannerNotification({
+		// 						type: "warning",
+		// 						message: "Something went wrong",
+		// 					})
+		// 				);
+		// 			});
+		// 		dispatch(
+		// 			NotificationActions.showBannerNotification({
+		// 				type: "info",
+		// 				message: res.data,
+		// 			})
+		// 		);
+		// 	})
+		// 	.catch(() => {
+		// 		dispatch(
+		// 			NotificationActions.showBannerNotification({
+		// 				type: "warning",
+		// 				message: "Something went wrong",
+		// 			})
+		// 		);
+		// 	});
 	};
 	return (
 		<div className={styles["account-section"]}>

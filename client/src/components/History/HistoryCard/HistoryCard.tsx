@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useNavigate } from "react-router";
-import { CustomRating } from "../../common/CustomRating/CustomRating";
-import { HistoryModel } from "../../data/models/lectureModel";
+import { CustomRating } from "../../../common/CustomRating/CustomRating";
+import { HistoryModel } from "../../../data/models/lectureModel";
 import styles from "./HistoryCard.module.scss";
 
 type Props = {

@@ -2,6 +2,7 @@ import { UserModel } from "./../models/user-model";
 import jwt from "jsonwebtoken";
 import {
 	createUserWithEmailAndPassword,
+	onAuthStateChanged,
 	sendPasswordResetEmail,
 	signInWithEmailAndPassword,
 } from "firebase/auth";
@@ -54,6 +55,7 @@ export const register = async (req: Request, res: Response) => {
 			email,
 			password
 		);
+
 		const { uid } = response.user;
 		const docRef = doc(db, "users", uid);
 		const data: UserModel = {
@@ -71,7 +73,13 @@ export const register = async (req: Request, res: Response) => {
 			watchingLectures: [],
 		};
 		await setDoc(docRef, data);
-
+		await onAuthStateChanged(auth, (user) => {
+			if (user) {
+				console.log(user);
+			} else {
+				console.log("No user found");
+			}
+		});
 		const token = await jwt.sign({ userId: uid, email: email }, "code", {
 			expiresIn: "4h",
 		});

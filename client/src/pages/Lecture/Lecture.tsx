@@ -9,6 +9,7 @@ import useFetchQuery from "../../hooks/useFetchQuery";
 import { useAxios } from "../../config/axiosInstance";
 import { ICategory, LectureModel } from "../../data/models/lectureModel";
 import styles from "./Lecture.module.scss";
+import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
 
 const INITIAL_DATA: LectureModel = {
 	id: "",
@@ -61,7 +62,7 @@ const Lecture = () => {
 		);
 	}
 	if (isError) {
-		return <>Error</>;
+		return <NotFoundError />;
 	}
 
 	return (

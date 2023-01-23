@@ -12,7 +12,6 @@ import {
 } from "../../../data/redux/account/AccountReducer";
 import { RootState } from "../../../data/redux/reducers";
 import styles from "./AccountHeaderSection.module.scss";
-import gmail from "../../../resources/icons/gmail.png";
 
 const AccountHeaderSection = () => {
 	const dispatch = useDispatch();
@@ -27,6 +26,7 @@ const AccountHeaderSection = () => {
 			const file = e.files[0];
 			const formData = new FormData();
 			formData.append("file", file);
+			dispatch(AccountDataActions.setLoading(true));
 			dispatch(AccountDataActions.setProfilePictureRequest(formData));
 		}
 	};

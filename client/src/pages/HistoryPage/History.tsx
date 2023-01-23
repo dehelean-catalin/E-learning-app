@@ -2,9 +2,11 @@ import HomeSkeleton from "../../components/Home/HomeSkeleton/HomeSkeleton";
 import useFetchQuery from "../../hooks/useFetchQuery";
 import { useAxios } from "../../config/axiosInstance";
 import styles from "./History.module.scss";
-import HistoryCard from "./HistoryCard";
+import HistoryCard from "../../components/History/HistoryCard/HistoryCard";
 import NotFound from "../NotFound/NotFound";
-import image from "../../resources/images/Pasted-20230118-164708_preview_rev_1.png";
+import image from "../../resources/images/empty.png";
+import { NavLink } from "react-router-dom";
+import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
 const History = () => {
 	const axiosInstance = useAxios();
 	const { data, isLoading, isError } = useFetchQuery(
@@ -19,19 +21,6 @@ const History = () => {
 			onError: () => {},
 		}
 	);
-	const getContent = () => {
-		if (data.length) {
-			return (
-				<div className={styles.content}>
-					{data.map((value, key) => (
-						<HistoryCard key={key} value={value} />
-					))}
-				</div>
-			);
-		}
-		// return <NotFound />;
-		return;
-	};
 	if (isLoading) {
 		return (
 			<div className={styles.history}>
@@ -41,13 +30,32 @@ const History = () => {
 		);
 	}
 	if (isError) {
-		return <NotFound message="" />;
+		return <NotFoundError />;
 	}
-	if (!data.length) {
+	const getContent = () => {
+		if (!data.length) {
+			return (
+				<NotFound>
+					<img src={image} alt="not found" />
+					<strong>No lecture found</strong>
+					<div>
+						Looks like you didn't watch any lecture yet
+						<br />
+						Go back to your home page and start watching
+					</div>
+					<NavLink to="/home?category=all">Start watching</NavLink>
+				</NotFound>
+			);
+		}
 		return (
-			<NotFound icon={<img src={image} alt="not found" />} message={"add"} />
+			<div className={styles.content}>
+				{data.map((value, key) => (
+					<HistoryCard key={key} value={value} />
+				))}
+			</div>
 		);
-	}
+	};
+
 	return (
 		<div className={styles.history}>
 			<div className={styles.title}>Recent watched</div>

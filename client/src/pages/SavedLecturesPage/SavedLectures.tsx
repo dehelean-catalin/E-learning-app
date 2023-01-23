@@ -1,17 +1,19 @@
-import { BiDotsVerticalRounded } from "react-icons/bi";
-import { RiAddCircleLine } from "react-icons/ri";
-import { useNavigate } from "react-router";
-import useFetchQuery from "../../hooks/useFetchQuery";
-import { useAxios } from "../../config/axiosInstance";
-import LectureCard from "../../common/LectureCard/LectureCard";
-import styles from "./SavedLectures.module.scss";
-import { LectureModel } from "../../data/models/lectureModel";
 import { AxiosError, AxiosResponse } from "axios";
+import { BiDotsVerticalRounded } from "react-icons/bi";
+import { NavLink } from "react-router-dom";
+import LectureCard from "../../common/LectureCard/LectureCard";
+import { useAxios } from "../../config/axiosInstance";
+import { LectureModel } from "../../data/models/lectureModel";
+import useFetchQuery from "../../hooks/useFetchQuery";
+import image from "../../resources/images/no-results.png";
+import NotFound from "../NotFound/NotFound";
+import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
+import styles from "./SavedLectures.module.scss";
+import SavedLecturesSkeleton from "../../components/SavedLecturesSkeleton/SavedLecturesSkeleton";
 
 const SavedLectures = () => {
-	const navigate = useNavigate();
 	const axiosInstance = useAxios();
-	const { data } = useFetchQuery(
+	const { data, isLoading, isError } = useFetchQuery(
 		"save-lecture",
 		() => {
 			return axiosInstance.get("/user/save-lecture").then((res) => res.data);
@@ -22,34 +24,42 @@ const SavedLectures = () => {
 			onSuccess: (e: AxiosResponse) => console.log(e),
 		}
 	);
-
-	const getLectures = () => {
-		if (!data.length)
-			return (
-				<div
-					className={styles.empty}
-					onClick={() => navigate("/home?category=all")}
-				>
-					<RiAddCircleLine fontSize="40px" />
-					<div>Add new lectures</div>
+	if (isLoading) {
+		return <SavedLecturesSkeleton />;
+	}
+	if (isError) {
+		return <NotFoundError />;
+	}
+	if (!data.length) {
+		return (
+			<NotFound>
+				<img src={image} alt="not found" />
+				<strong>No lecture found</strong>
+				<div>
+					Looks like you didn't saved any lecture yet
+					<br />
+					Press bellow button and try to save a lecture
 				</div>
-			);
+				<NavLink to="/home?category=all">Save a lecture</NavLink>
+			</NotFound>
+		);
+	}
 
-		return data?.map((lecture: LectureModel, key: string) => (
-			<LectureCard
-				key={key}
-				value={lecture}
-				className={styles.card}
-				bannerClassName={styles.banner}
-				contentClassName={styles.content}
-				icon={<BiDotsVerticalRounded size="26px" />}
-			/>
-		));
-	};
 	return (
 		<div className={styles["saved-lectures"]}>
 			<div className={styles.title}>Saved Lectures</div>
-			<div className={styles.container}>{getLectures()}</div>
+			<div className={styles.container}>
+				{data?.map((lecture: LectureModel, key: string) => (
+					<LectureCard
+						key={key}
+						value={lecture}
+						className={styles.card}
+						bannerClassName={styles.banner}
+						contentClassName={styles.content}
+						icon={<BiDotsVerticalRounded size="26px" />}
+					/>
+				))}
+			</div>
 		</div>
 	);
 };

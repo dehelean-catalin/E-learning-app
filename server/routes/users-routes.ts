@@ -10,6 +10,7 @@ import {
 	saveLecture,
 	updatetWatchingLectureCurrenTime,
 	updateUserData,
+	updateUserEmail,
 	updateUserProfilePicture,
 	updateWatchingLectureLastEntry,
 } from "../controllers/user-controller";
@@ -33,6 +34,7 @@ router.put("/user/data", validation(UserDataSchema), updateUserData);
 
 router.get("/user/profile-picture", tokenAuth, getProfilePicture);
 router.post("/user/profile-picture", tokenAuth, updateUserProfilePicture);
+router.post("/user/email", tokenAuth, updateUserEmail);
 
 router.get("/user/save-lecture", tokenAuth, getSavedLectures);
 router.post("/user/save-lecture/:id", tokenAuth, saveLecture);

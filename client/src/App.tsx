@@ -21,6 +21,7 @@ import LectureOverview from "./pages/LectureOverview/LectureOverview";
 import NotFound from "./pages/NotFound/NotFound";
 import Settings from "./pages/SettingsPage/Settings";
 import ForgotPassword from "./pages/AuthPage/ForgotPassoword/ForgotPassword";
+import SecurityPage from "./pages/SecurityPage/SecurityPage";
 
 function App() {
 	const router = createBrowserRouter(
@@ -39,12 +40,13 @@ function App() {
 						<Route index element={<Account />} />
 						<Route path="account" element={<Account />} />
 						<Route path="saved-lectures" element={<SavedLectures />} />
+						<Route path="security" element={<SecurityPage />} />
 					</Route>
 					<Route path="lecture/:id" element={<Lecture />}></Route>
 					<Route path="lecture/:id/overview" element={<LectureOverview />} />
 					<Route path="history" element={<History />} />
 
-					<Route path="*" element={<NotFound />} />
+					<Route path="*" element={<NotFound>Not found</NotFound>} />
 				</Route>
 			</Route>
 		)

@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
+import { sendEmailVerification } from "firebase/auth";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-// import { getStorage, ref } from "firebase/storage";
-import db from "../firebase";
+import db, { auth } from "../firebase";
 import { HistoryModel, LectureModel } from "../models/lecture-model";
 import { ValidatedRequest } from "../models/request";
 import {
@@ -59,6 +59,7 @@ export const getUserData = async (req: Request, res: Response) => {
 		res.status(400).json({ code: 400, message: err.message });
 	}
 };
+
 export const getProfilePicture = async (req: Request, res: Response) => {
 	try {
 		const validatedReq = req as ValidatedRequest;
@@ -97,6 +98,21 @@ export const updateUserProfilePicture = async (req: any, res: Response) => {
 		const profilePicture = await getDownloadURL(storageRef);
 		await updateDoc(docRef, { profilePicture });
 		res.status(200).json("succes");
+	} catch (err: any) {
+		res.status(400).json({ code: 400, message: err.message });
+	}
+};
+export const updateUserEmail = async (req: any, res: Response) => {
+	const validatedReq = req as ValidatedRequest;
+	
+	
+	try {
+		if (!auth.currentUser) {
+			throw new Error("User not found");
+		}
+		const response = sendEmailVerification(auth.currentUser);
+
+		res.status(200).json(response);
 	} catch (err: any) {
 		res.status(400).json({ code: 400, message: err.message });
 	}
