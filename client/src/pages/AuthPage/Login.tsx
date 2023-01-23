@@ -1,12 +1,11 @@
+import { ProgressSpinner } from "primereact/progressspinner";
 import React, { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import styles from "./Login.module.scss";
+import InputPasswordField from "../../common/InputPasswordField/InputPasswordField";
+import InputTextField from "../../common/InputTextField/InputTextField";
 import { useAuthentication } from "../../hooks/useAuthentication";
 import LoginImg from "../../resources/images/login.jpg";
-import InputTextField from "../../common/InputTextField/InputTextField";
-import InputPasswordField from "../../common/InputPasswordField/InputPasswordField";
-import { ProgressSpinner } from "primereact/progressspinner";
-import { useAxios } from "../../config/axiosInstance";
+import styles from "./Login.module.scss";
 
 const Login = () => {
 	const navigate = useNavigate();
@@ -75,6 +74,7 @@ const Login = () => {
 					hasError={hasErrorEmail}
 				/>
 				<InputPasswordField
+					overlay="white"
 					value={password}
 					onChange={(e) => setPassword(e)}
 					onBlur={() => setPasswordTouched(true)}

@@ -1,15 +1,15 @@
-import { UserModel } from "./../models/user-model";
-import jwt from "jsonwebtoken";
+import { Request, Response } from "express";
 import {
 	createUserWithEmailAndPassword,
-	onAuthStateChanged,
 	sendPasswordResetEmail,
 	signInWithEmailAndPassword,
+	updatePassword,
 } from "firebase/auth";
-import { auth } from "../firebase";
-import { Request, Response } from "express";
-import db from "../firebase";
 import { doc, setDoc } from "firebase/firestore";
+import jwt from "jsonwebtoken";
+import db, { auth } from "../firebase";
+import { ValidatedRequest } from "../models/request";
+import { UserModel } from "./../models/user-model";
 
 export const login = async (req: Request, res: Response) => {
 	try {
@@ -73,13 +73,7 @@ export const register = async (req: Request, res: Response) => {
 			watchingLectures: [],
 		};
 		await setDoc(docRef, data);
-		await onAuthStateChanged(auth, (user) => {
-			if (user) {
-				console.log(user);
-			} else {
-				console.log("No user found");
-			}
-		});
+
 		const token = await jwt.sign({ userId: uid, email: email }, "code", {
 			expiresIn: "4h",
 		});
@@ -116,5 +110,20 @@ export const forgotPassword = async (req: Request, res: Response) => {
 		res
 			.status(400)
 			.json({ code: 400, message: "Try again! Something went wrong" });
+	}
+};
+
+export const changePassword = async (req: any, res: Response) => {
+	const validatedReq = req as ValidatedRequest;
+
+	try {
+		if (!auth.currentUser) {
+			throw new Error("User not found");
+		}
+		await updatePassword(auth.currentUser, req.body.newPassword);
+
+		res.status(200).json("Success");
+	} catch (err: any) {
+		res.status(400).json({ code: 400, message: err.message });
 	}
 };

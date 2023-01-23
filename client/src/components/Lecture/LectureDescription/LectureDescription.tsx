@@ -1,6 +1,6 @@
 import { FC } from "react";
+import Divider from "../../../common/Divider/Divider";
 import { Description } from "../../../data/models/lectureModel";
-import Divider from "../../../common/Divider";
 import styles from "./LectureDescription.module.scss";
 type Props = {
 	value: Description;

@@ -102,21 +102,6 @@ export const updateUserProfilePicture = async (req: any, res: Response) => {
 		res.status(400).json({ code: 400, message: err.message });
 	}
 };
-export const updateUserEmail = async (req: any, res: Response) => {
-	const validatedReq = req as ValidatedRequest;
-	
-	
-	try {
-		if (!auth.currentUser) {
-			throw new Error("User not found");
-		}
-		const response = sendEmailVerification(auth.currentUser);
-
-		res.status(200).json(response);
-	} catch (err: any) {
-		res.status(400).json({ code: 400, message: err.message });
-	}
-};
 
 export const saveLecture = async (req: Request, res: Response) => {
 	try {

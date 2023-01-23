@@ -8,20 +8,20 @@ import {
 	RouterProvider,
 } from "react-router-dom";
 import "./App.scss";
-import SavedLectures from "./pages/SavedLecturesPage/SavedLectures";
 import Account from "./pages/AccountPage/AccountPage";
+import ForgotPassword from "./pages/AuthPage/ForgotPassoword/ForgotPassword";
 import Login from "./pages/AuthPage/Login";
 import Register from "./pages/AuthPage/Register";
+import ChangePasswordPage from "./pages/ChangePasswordPage/ChangePasswordPage";
 import History from "./pages/HistoryPage/History";
 import Home from "./pages/Home/Home";
-import LoginLayout from "./routes/ProtectedRoutes/LoginLayout";
-import RootLayout from "./routes/ProtectedRoutes/RootLayout";
 import Lecture from "./pages/Lecture/Lecture";
 import LectureOverview from "./pages/LectureOverview/LectureOverview";
 import NotFound from "./pages/NotFound/NotFound";
+import SavedLectures from "./pages/SavedLecturesPage/SavedLectures";
 import Settings from "./pages/SettingsPage/Settings";
-import ForgotPassword from "./pages/AuthPage/ForgotPassoword/ForgotPassword";
-import SecurityPage from "./pages/SecurityPage/SecurityPage";
+import LoginLayout from "./routes/ProtectedRoutes/LoginLayout";
+import RootLayout from "./routes/ProtectedRoutes/RootLayout";
 
 function App() {
 	const router = createBrowserRouter(
@@ -40,7 +40,7 @@ function App() {
 						<Route index element={<Account />} />
 						<Route path="account" element={<Account />} />
 						<Route path="saved-lectures" element={<SavedLectures />} />
-						<Route path="security" element={<SecurityPage />} />
+						<Route path="change-password" element={<ChangePasswordPage />} />
 					</Route>
 					<Route path="lecture/:id" element={<Lecture />}></Route>
 					<Route path="lecture/:id/overview" element={<LectureOverview />} />

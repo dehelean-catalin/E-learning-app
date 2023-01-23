@@ -2,6 +2,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 import LectureCard from "../../common/LectureCard/LectureCard";
+import SavedLecturesSkeleton from "../../components/SavedLecturesSkeleton/SavedLecturesSkeleton";
 import { useAxios } from "../../config/axiosInstance";
 import { LectureModel } from "../../data/models/lectureModel";
 import useFetchQuery from "../../hooks/useFetchQuery";
@@ -9,7 +10,6 @@ import image from "../../resources/images/no-results.png";
 import NotFound from "../NotFound/NotFound";
 import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
 import styles from "./SavedLectures.module.scss";
-import SavedLecturesSkeleton from "../../components/SavedLecturesSkeleton/SavedLecturesSkeleton";
 
 const SavedLectures = () => {
 	const axiosInstance = useAxios();

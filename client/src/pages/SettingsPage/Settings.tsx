@@ -1,5 +1,5 @@
-import SettingsNavigationTabs from "../../components/SettingsNavigationTabs/SettingsNavigationTabs";
 import { Outlet } from "react-router";
+import SettingsNavigationTabs from "../../components/SettingsNavigationTabs/SettingsNavigationTabs";
 import styles from "./Settings.module.scss";
 
 const Settings = () => {

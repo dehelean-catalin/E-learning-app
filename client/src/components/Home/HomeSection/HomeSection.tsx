@@ -1,7 +1,7 @@
 import { FC } from "react";
-import Divider from "../../../common/Divider";
-import LectureList from "../LectureList";
+import Divider from "../../../common/Divider/Divider";
 import { LectureModel } from "../../../data/models/lectureModel";
+import LectureList from "../LectureList";
 import styles from "./HomeSection.module.scss";
 
 type Props = {

@@ -5,7 +5,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { VscSignOut } from "react-icons/vsc";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import Divider from "../../common/Divider";
+import Divider from "../../common/Divider/Divider";
 import ProfilePicture from "../../common/ProfilePicture/ProfilePicture";
 import AuthContext from "../../data/context/auth-context";
 import {
