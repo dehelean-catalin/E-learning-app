@@ -4,7 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import InputTextField from "../../../common/InputTextField/InputTextField";
 import { AuthActions, AuthState } from "../../../data/redux/auth/authReducer";
 import { RootState } from "../../../data/redux/reducers";
-import emailImage from "../../../resources/images/email.png";
+import emailImage from "../../../layout/images/email.png";
 import styles from "./ForgotPassword.module.scss";
 const ForgotPassword = () => {
 	const navigate = useNavigate();
@@ -56,7 +56,6 @@ const ForgotPassword = () => {
 					onChange={(e) => {
 						dispatch(AuthActions.setInputValue(e));
 					}}
-					hasError={state.hasError}
 					errorMessage={"Not found"}
 					overlay="white"
 				/>

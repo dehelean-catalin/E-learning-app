@@ -1,12 +1,12 @@
-import HomeSkeleton from "../../components/Home/HomeSkeleton/HomeSkeleton";
-import useFetchQuery from "../../hooks/useFetchQuery";
-import { useAxios } from "../../config/axiosInstance";
-import styles from "./History.module.scss";
-import HistoryCard from "../../components/History/HistoryCard/HistoryCard";
-import NotFound from "../NotFound/NotFound";
-import image from "../../resources/images/empty.png";
 import { NavLink } from "react-router-dom";
+import HistoryCard from "../../components/History/HistoryCard/HistoryCard";
+import HomeSkeleton from "../../components/Home/HomeSkeleton/HomeSkeleton";
+import { useAxios } from "../../config/axiosInstance";
+import useFetchQuery from "../../hooks/useFetchQuery";
+import image from "../../layout/images/empty.png";
+import NotFound from "../NotFound/NotFound";
 import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
+import styles from "./History.module.scss";
 const History = () => {
 	const axiosInstance = useAxios();
 	const { data, isLoading, isError } = useFetchQuery(

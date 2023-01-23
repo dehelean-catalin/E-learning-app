@@ -10,7 +10,6 @@ type Props = {
 	onChange: (s: string) => void;
 	onBlur?: () => void;
 	errorMessage?: string;
-	hasError?: boolean;
 };
 const InputPasswordField: FC<Props> = ({
 	overlay = "black",
@@ -19,7 +18,6 @@ const InputPasswordField: FC<Props> = ({
 	onChange: setValue,
 	onBlur = () => {},
 	errorMessage,
-	hasError,
 }) => {
 	return (
 		<div
@@ -37,7 +35,9 @@ const InputPasswordField: FC<Props> = ({
 				feedback={false}
 				panelStyle={{ boxShadow: "0px" }}
 				inputClassName={
-					hasError ? `${styles["input-error"]} ${styles.input}` : styles.input
+					!!errorMessage
+						? `${styles["input-error"]} ${styles.input}`
+						: styles.input
 				}
 				onBlur={() => onBlur()}
 			/>

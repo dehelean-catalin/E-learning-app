@@ -17,7 +17,7 @@ export const useAuthentication = () => {
 		setIsLoading(true);
 		const { firstName, lastName, email, password } = data;
 		axios
-			.post("http://localhost:4000/register", {
+			.post("http://192.168.1.11:4000/register", {
 				firstName,
 				lastName,
 				email,
@@ -37,7 +37,7 @@ export const useAuthentication = () => {
 	const handleLogin = (email: string, password: string) => {
 		setIsLoading(true);
 		axios
-			.post("http://localhost:4000/login", {
+			.post("http://192.168.1.11:4000/login", {
 				email,
 				password,
 			})

@@ -1,15 +1,15 @@
+import { ProgressSpinner } from "primereact/progressspinner";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import styles from "./Login.module.scss";
-import { useAuthentication } from "../../hooks/useAuthentication";
-import image from "../../resources/images/PAINT.png";
-import InputTextField from "../../common/InputTextField/InputTextField";
 import InputPasswordField from "../../common/InputPasswordField/InputPasswordField";
-import { ProgressSpinner } from "primereact/progressspinner";
+import InputTextField from "../../common/InputTextField/InputTextField";
+import { useAuthentication } from "../../hooks/useAuthentication";
+import image from "../../layout/images/PAINT.png";
+import { passwordReggex } from "../../utils/inputPasswordHelper";
+import styles from "./Login.module.scss";
 
 const Register = () => {
 	const { isLoading, handleRegister, error } = useAuthentication();
-
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
@@ -30,12 +30,7 @@ const Register = () => {
 		if (password.trim().length < 6 && passwordTouched) {
 			return "Password is too short";
 		}
-		if (
-			password
-				.trim()
-				.search("^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,20}$") &&
-			passwordTouched
-		) {
+		if (passwordReggex(password) && passwordTouched) {
 			return "Password is invalid";
 		}
 
@@ -124,7 +119,6 @@ const Register = () => {
 									firstNameTouched,
 									"First name"
 								)}
-								hasError={hasErrorsFirstName}
 							/>
 							<InputTextField
 								overlay="white"
@@ -138,7 +132,6 @@ const Register = () => {
 									lastNameTouched,
 									"Last name"
 								)}
-								hasError={hasErrorsLastName}
 							/>
 						</div>
 						<InputTextField
@@ -149,14 +142,13 @@ const Register = () => {
 							onChange={(s) => setEmail(s)}
 							onBlur={() => setEmailTouched(true)}
 							errorMessage={getErrorMessage(email, emailTouched, "Email")}
-							hasError={hasErrorsEmail}
 						/>
 						<InputPasswordField
+							overlay="white"
 							value={password}
 							onChange={(s) => setPassword(s)}
 							onBlur={() => setPasswordTouched(true)}
 							errorMessage={getPasswordErrorMessage()}
-							hasError={hasErrorPassword}
 						/>
 					</div>
 				</div>

@@ -2,14 +2,11 @@ import { FormEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import InputTextareaField from "../../../common/InputTextareaField/InputTextareaField";
 import InputTextField from "../../../common/InputTextField/InputTextField";
-import { useAxios } from "../../../config/axiosInstance";
-import { UserDataModel } from "../../../data/models/usersModel";
-import { NotificationActions } from "../../../data/redux/notificationReducer";
-import { RootState } from "../../../data/redux/reducers";
 import {
 	AccountDataActions,
 	AccountDataState,
 } from "../../../data/redux/account/AccountReducer";
+import { RootState } from "../../../data/redux/reducers";
 import styles from "./AccountSection.module.scss";
 
 const AccountSection = () => {
@@ -82,7 +79,6 @@ const AccountSection = () => {
 							value={values?.firstName}
 							onChange={(e) => setValues({ ...values, firstName: e })}
 							onBlur={() => setIsTouched({ ...isTouched, firstName: true })}
-							hasError={!values.firstName.length && isTouched.firstName}
 							errorMessage={"First name is required"}
 						/>
 
@@ -91,7 +87,6 @@ const AccountSection = () => {
 							value={values?.lastName}
 							onChange={(e) => setValues({ ...values, lastName: e })}
 							onBlur={() => setIsTouched({ ...isTouched, lastName: true })}
-							hasError={!values.lastName.length && isTouched.lastName}
 							errorMessage={"Last name is required"}
 						/>
 
@@ -100,7 +95,6 @@ const AccountSection = () => {
 							value={values?.phoneNumber}
 							onChange={(e) => setValues({ ...values, phoneNumber: e })}
 							onBlur={() => setIsTouched({ ...isTouched, phoneNumber: true })}
-							hasError={!values.phoneNumber?.length && isTouched.phoneNumber}
 							errorMessage={"Phone number is required"}
 						/>
 						<InputTextField

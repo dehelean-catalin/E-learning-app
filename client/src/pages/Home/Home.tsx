@@ -4,18 +4,17 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router";
 import { NavLink } from "react-router-dom";
 import FilterList from "../../components/Home/FilterList/FilterList";
+import HomeSection from "../../components/Home/HomeSection/HomeSection";
 import HomeFilterSkeleton from "../../components/Home/HomeSkeleton/HomeFilterSkeleton";
 import HomeSkeleton from "../../components/Home/HomeSkeleton/HomeSkeleton";
 import { useAxios } from "../../config/axiosInstance";
 import { LectureModel } from "../../data/models/lectureModel";
 import { NotificationActions } from "../../data/redux/notificationReducer";
 import useFetchQuery from "../../hooks/useFetchQuery";
-import image from "../../resources/images/empty.png";
+import image from "../../layout/images/empty.png";
 import NotFound from "../NotFound/NotFound";
-import notFoundImage from "../../resources/images/no-results.png";
-import styles from "./Home.module.scss";
-import HomeSection from "../../components/Home/HomeSection/HomeSection";
 import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
+import styles from "./Home.module.scss";
 
 type AxiosResponse = {
 	data: LectureModel[];

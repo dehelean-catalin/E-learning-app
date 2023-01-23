@@ -6,7 +6,7 @@ import SavedLecturesSkeleton from "../../components/SavedLecturesSkeleton/SavedL
 import { useAxios } from "../../config/axiosInstance";
 import { LectureModel } from "../../data/models/lectureModel";
 import useFetchQuery from "../../hooks/useFetchQuery";
-import image from "../../resources/images/no-results.png";
+import image from "../../layout/images/no-results.png";
 import NotFound from "../NotFound/NotFound";
 import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
 import styles from "./SavedLectures.module.scss";

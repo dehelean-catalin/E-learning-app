@@ -8,7 +8,6 @@ type Props = {
 	value: string;
 	label?: string;
 	errorMessage?: string;
-	hasError?: boolean;
 	onChange: (s: string) => void;
 	onBlur?: () => void;
 };
@@ -20,13 +19,14 @@ const InputTextField: FC<Props> = ({
 	onChange: setValue,
 	onBlur = () => {},
 	errorMessage,
-	hasError,
 }) => {
 	return (
 		<div className={classNames(styles["input-field"], styles[`${overlay}`])}>
 			{label}
 			<input
-				style={hasError ? { color: "#ef5350", borderColor: "#ef5350" } : {}}
+				style={
+					!!errorMessage ? { color: "#ef5350", borderColor: "#ef5350" } : {}
+				}
 				type="text"
 				placeholder={placeholder}
 				value={value}
@@ -35,7 +35,7 @@ const InputTextField: FC<Props> = ({
 				}}
 				onBlur={() => onBlur()}
 			/>
-			<div className={styles.error}>{hasError ? errorMessage : ""}</div>
+			<div className={styles.error}>{errorMessage}</div>
 		</div>
 	);
 };

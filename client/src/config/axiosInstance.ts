@@ -1,6 +1,6 @@
-import { useContext } from "react";
 import axios from "axios";
 import { decodeJwt } from "jose";
+import { useContext } from "react";
 import AuthContext from "../data/context/auth-context";
 
 export const useAxios = () => {
@@ -8,7 +8,7 @@ export const useAxios = () => {
 	const { logout } = useContext(AuthContext);
 
 	const axiosInstance = axios.create({
-		baseURL: "http://localhost:4000",
+		baseURL: "http://192.168.1.11:4000",
 		headers: {
 			authorization: `Bearer ${token}`,
 		},

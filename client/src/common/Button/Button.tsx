@@ -6,7 +6,7 @@ type Props = {
 	disabled?: boolean;
 	onClick?: () => void;
 };
-const Button: FC<Props> = ({ children, disabled, onClick }) => {
+const Button: FC<Props> = ({ children, disabled, onClick = () => {} }) => {
 	return (
 		<button
 			className={styles.button}

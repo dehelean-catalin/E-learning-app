@@ -115,12 +115,13 @@ export const forgotPassword = async (req: Request, res: Response) => {
 
 export const changePassword = async (req: any, res: Response) => {
 	const validatedReq = req as ValidatedRequest;
-
+	console.log(auth.currentUser);
 	try {
 		if (!auth.currentUser) {
 			throw new Error("User not found");
 		}
-		await updatePassword(auth.currentUser, req.body.newPassword);
+
+		await updatePassword(auth.currentUser, validatedReq.body.newPassword);
 
 		res.status(200).json("Success");
 	} catch (err: any) {

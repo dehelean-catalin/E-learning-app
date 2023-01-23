@@ -1,6 +1,5 @@
-import React from "react";
+import image from "../../../layout/images/no-results.png";
 import NotFound from "../NotFound";
-import image from "../../../resources/images/no-results.png";
 const NotFoundError = () => {
 	return (
 		<NotFound>

@@ -1,14 +1,13 @@
 import { ProgressSpinner } from "primereact/progressspinner";
 import React, { useState } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import InputPasswordField from "../../common/InputPasswordField/InputPasswordField";
 import InputTextField from "../../common/InputTextField/InputTextField";
 import { useAuthentication } from "../../hooks/useAuthentication";
-import LoginImg from "../../resources/images/login.jpg";
+import LoginImg from "../../layout/images/login.jpg";
 import styles from "./Login.module.scss";
 
 const Login = () => {
-	const navigate = useNavigate();
 	const { isLoading, handleLogin, error } = useAuthentication();
 
 	const [email, setEmail] = useState("");
@@ -23,9 +22,9 @@ const Login = () => {
 		return "";
 	};
 	const getPasswordErrorMessage = () => {
-		if (error.message !== null && !passwordTouched && !isLoading) {
-			return error.message;
-		}
+		// if (error.message !== null && !passwordTouched && !isLoading) {
+		// 	return error.message;
+		// }
 		if (password.trim().length === 0 && passwordTouched) {
 			return "Password is required";
 		}
@@ -33,8 +32,6 @@ const Login = () => {
 		return "";
 	};
 
-	const hasErrorPassword = getPasswordErrorMessage() !== "";
-	const hasErrorEmail = getEmailErrorMessage() !== "";
 	const hasValue = !!email && !!password;
 	const getSignInBtn = () => {
 		if (isLoading) {
@@ -71,7 +68,6 @@ const Login = () => {
 					onChange={(e) => setEmail(e)}
 					onBlur={() => setEmailTouched(true)}
 					errorMessage={getEmailErrorMessage()}
-					hasError={hasErrorEmail}
 				/>
 				<InputPasswordField
 					overlay="white"
@@ -79,7 +75,6 @@ const Login = () => {
 					onChange={(e) => setPassword(e)}
 					onBlur={() => setPasswordTouched(true)}
 					errorMessage={getPasswordErrorMessage()}
-					hasError={hasErrorPassword}
 				/>
 				<NavLink to="/forgot-password" className={styles.password}>
 					Forget password?
