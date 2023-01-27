@@ -7,6 +7,10 @@ import { useAuthentication } from "../../hooks/useAuthentication";
 import image from "../../layout/images/PAINT.png";
 import { passwordReggex } from "../../utils/inputPasswordHelper";
 import styles from "./Login.module.scss";
+import {
+	getErrorMessage,
+	getPasswordErrorMessage,
+} from "./services/formService";
 
 const Register = () => {
 	const { isLoading, handleRegister, error } = useAuthentication();
@@ -20,46 +24,8 @@ const Register = () => {
 	const [emailTouched, setEmailTouched] = useState(false);
 	const [passwordTouched, setPasswordTouched] = useState(false);
 
-	const getPasswordErrorMessage = () => {
-		if (error.message?.includes("Password") && !passwordTouched && !isLoading) {
-			return error.message;
-		}
-		if (password.trim().length === 0 && passwordTouched) {
-			return "Password cannot be empty";
-		}
-		if (password.trim().length < 6 && passwordTouched) {
-			return "Password is too short";
-		}
-		if (passwordReggex(password) && passwordTouched) {
-			return "Password is invalid";
-		}
-
-		return "";
-	};
-	const getErrorMessage = (value, valueTouched, field) => {
-		if (error.message?.includes(field) && !valueTouched && !isLoading) {
-			return error.message;
-		}
-		if (value.trim().length === 0 && valueTouched) {
-			return `${field} cannot be empty`;
-		}
-		return "";
-	};
-
-	const hasErrorPassword = getPasswordErrorMessage() !== "";
-	const hasErrorsFirstName =
-		getErrorMessage(firstName, firstNameTouched, "First name") !== "";
-	const hasErrorsLastName =
-		getErrorMessage(lastName, lastNameTouched, "Last name") !== "";
-	const hasErrorsEmail = getErrorMessage(email, emailTouched, "Email") !== "";
-
-	const hasErrors =
-		hasErrorsEmail ||
-		hasErrorPassword ||
-		hasErrorsFirstName ||
-		hasErrorsLastName;
 	const hasValue = !!email && !!password && !!firstName && !!lastName;
-
+	const disabled = !hasValue || passwordReggex(password);
 	const getSignUpBtn = () => {
 		if (isLoading) {
 			return (
@@ -69,10 +35,7 @@ const Register = () => {
 			);
 		}
 		return (
-			<button
-				className={styles["sign-up-btn"]}
-				disabled={!hasValue || hasErrors}
-			>
+			<button className={styles["sign-up-btn"]} disabled={disabled}>
 				Sign up
 			</button>
 		);
@@ -80,7 +43,7 @@ const Register = () => {
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		if (!hasValue || hasErrors) {
+		if (disabled) {
 			return;
 		}
 		const data = {
@@ -114,11 +77,7 @@ const Register = () => {
 								label="First Name"
 								onChange={(s) => setFirstName(s.replace(/[^a-z]/gi, ""))}
 								onBlur={() => setFirstNameTouched(true)}
-								errorMessage={getErrorMessage(
-									firstName,
-									firstNameTouched,
-									"First name"
-								)}
+								errorMessage={getErrorMessage(firstName, firstNameTouched)}
 							/>
 							<InputTextField
 								overlay="white"
@@ -127,11 +86,7 @@ const Register = () => {
 								label="Last Name"
 								onChange={(s) => setLastName(s.replace(/[^a-z]/gi, ""))}
 								onBlur={() => setLastNameTouched(true)}
-								errorMessage={getErrorMessage(
-									lastName,
-									lastNameTouched,
-									"Last name"
-								)}
+								errorMessage={getErrorMessage(lastName, lastNameTouched)}
 							/>
 						</div>
 						<InputTextField
@@ -141,14 +96,18 @@ const Register = () => {
 							label="Email"
 							onChange={(s) => setEmail(s)}
 							onBlur={() => setEmailTouched(true)}
-							errorMessage={getErrorMessage(email, emailTouched, "Email")}
+							errorMessage={getErrorMessage(email, emailTouched, error)}
 						/>
 						<InputPasswordField
 							overlay="white"
 							value={password}
 							onChange={(s) => setPassword(s)}
 							onBlur={() => setPasswordTouched(true)}
-							errorMessage={getPasswordErrorMessage()}
+							errorMessage={getPasswordErrorMessage(
+								password,
+								passwordTouched,
+								error
+							)}
 						/>
 					</div>
 				</div>

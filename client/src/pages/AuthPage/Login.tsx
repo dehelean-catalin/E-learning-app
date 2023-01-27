@@ -4,27 +4,22 @@ import { Link, NavLink } from "react-router-dom";
 import InputPasswordField from "../../common/InputPasswordField/InputPasswordField";
 import InputTextField from "../../common/InputTextField/InputTextField";
 import { useAuthentication } from "../../hooks/useAuthentication";
-import LoginImg from "../../layout/images/login.jpg";
 import styles from "./Login.module.scss";
+import { getErrorMessage } from "./services/formService";
 
 const Login = () => {
-	const { isLoading, handleLogin, error } = useAuthentication();
+	const { isLoading, handleLogin, error, handleLoginWithGoogle } =
+		useAuthentication();
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [emailTouched, setEmailTouched] = useState(false);
 	const [passwordTouched, setPasswordTouched] = useState(false);
 
-	const getEmailErrorMessage = () => {
-		if (email.trim().length === 0 && emailTouched) {
-			return "Email is required";
-		}
-		return "";
-	};
 	const getPasswordErrorMessage = () => {
-		// if (error.message !== null && !passwordTouched && !isLoading) {
-		// 	return error.message;
-		// }
+		if (error && error.message !== null && !passwordTouched && !isLoading) {
+			return error.message;
+		}
 		if (password.trim().length === 0 && passwordTouched) {
 			return "Password is required";
 		}
@@ -33,6 +28,7 @@ const Login = () => {
 	};
 
 	const hasValue = !!email && !!password;
+	const disabled = !hasValue || getPasswordErrorMessage();
 	const getSignInBtn = () => {
 		if (isLoading) {
 			return (
@@ -41,12 +37,12 @@ const Login = () => {
 				</button>
 			);
 		}
-		return <button disabled={!hasValue}>Sign in</button>;
+		return <button disabled={disabled}>Sign in</button>;
 	};
 
 	const submitHandler = (e: React.FormEvent) => {
 		e.preventDefault();
-		if (!hasValue) {
+		if (disabled) {
 			return;
 		}
 		setPasswordTouched(false);
@@ -55,11 +51,9 @@ const Login = () => {
 	};
 
 	return (
-		<div className={styles["auth-page"]}>
-			<form onSubmit={submitHandler}>
-				<img src={LoginImg} alt="not found" />
+		<div>
+			<form className={styles["auth-form"]} onSubmit={submitHandler}>
 				<div className={styles.title}>Sign in</div>
-
 				<InputTextField
 					overlay="white"
 					value={email}
@@ -67,7 +61,7 @@ const Login = () => {
 					label="Email"
 					onChange={(e) => setEmail(e)}
 					onBlur={() => setEmailTouched(true)}
-					errorMessage={getEmailErrorMessage()}
+					errorMessage={getErrorMessage(email, emailTouched)}
 				/>
 				<InputPasswordField
 					overlay="white"
@@ -80,8 +74,19 @@ const Login = () => {
 					Forget password?
 				</NavLink>
 				{getSignInBtn()}
+				<div className={styles["google-sign-in"]}>
+					<div className={styles.or}>
+						<span>or</span>
+					</div>
+					<button type="button" onClick={handleLoginWithGoogle}>
+						<img
+							src="https://img.icons8.com/color/48/null/google-logo.png"
+							alt=""
+						/>
+						Sign in with Google
+					</button>
+				</div>
 			</form>
-
 			<div className={styles["sign-up-info"]}>
 				You are new here? Join us
 				<Link to={"/register"} className={styles.link}>

@@ -5,11 +5,12 @@
 	flex-direction: column;
 	margin-bottom: 8px;
 	font-weight: 600;
-	font-size: 18px;
 	color: $color-10;
 	&.white {
+		color: gray;
 		input {
-			background-color: #f2f2f2;
+			color: white;
+			background-color: $color-60;
 		}
 	}
 	&.black {
@@ -34,7 +35,7 @@
 	input {
 		padding: 10px 12px;
 		font-size: 16px;
-		margin-top: 2px;
+		margin-top: 6px;
 		border: 0px;
 		border-bottom: 2px solid transparent;
 		border-radius: 4px;
