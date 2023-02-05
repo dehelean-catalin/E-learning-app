@@ -4,12 +4,12 @@ import { Link, NavLink } from "react-router-dom";
 import InputPasswordField from "../../common/InputPasswordField/InputPasswordField";
 import InputTextField from "../../common/InputTextField/InputTextField";
 import { useAuthentication } from "../../hooks/useAuthentication";
+import LoginProviderSection from "./components/LoginProviderSection/LoginProviderSection";
 import styles from "./Login.module.scss";
 import { getErrorMessage } from "./services/formService";
 
 const Login = () => {
-	const { isLoading, handleLogin, error, handleLoginWithGoogle } =
-		useAuthentication();
+	const { isLoading, handleLogin, error } = useAuthentication();
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
@@ -74,18 +74,7 @@ const Login = () => {
 					Forget password?
 				</NavLink>
 				{getSignInBtn()}
-				<div className={styles["google-sign-in"]}>
-					<div className={styles.or}>
-						<span>or</span>
-					</div>
-					<button type="button" onClick={handleLoginWithGoogle}>
-						<img
-							src="https://img.icons8.com/color/48/null/google-logo.png"
-							alt=""
-						/>
-						Sign in with Google
-					</button>
-				</div>
+				<LoginProviderSection />
 			</form>
 			<div className={styles["sign-up-info"]}>
 				You are new here? Join us

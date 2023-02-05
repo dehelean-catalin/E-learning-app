@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import db from "../firebase";
+import db from "../config/firebase";
 import { HistoryModel, LectureModel } from "../models/lecture-model";
 import { ValidatedRequest } from "../models/request";
 import {

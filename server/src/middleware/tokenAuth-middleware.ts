@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
+import { adminAuth } from "../config/firebase-admin";
 import { ValidatedRequest } from "./../models/request";
 
-export default (req: Request, res: Response, next: NextFunction) => {
+export default async (req: Request, res: Response, next: NextFunction) => {
 	const validatedReq = req as ValidatedRequest;
 	if (req.method === "OPTIONS") {
 		return next();
@@ -15,8 +16,9 @@ export default (req: Request, res: Response, next: NextFunction) => {
 		if (!token) {
 			throw new Error("Authentication failed!");
 		}
-		const decodedData: any = jwt.verify(token, "code");
-		validatedReq.userData = { userId: decodedData.userId };
+
+		const decodedData = await adminAuth.verifyIdToken(token);
+		validatedReq.userData = { userId: decodedData.uid };
 
 		next();
 	} catch (err: any) {

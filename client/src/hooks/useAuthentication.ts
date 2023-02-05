@@ -1,5 +1,9 @@
 import axios from "axios";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import {
+	GithubAuthProvider,
+	GoogleAuthProvider,
+	signInWithPopup,
+} from "firebase/auth";
 import platform from "platform";
 import { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -22,6 +26,7 @@ export const useAuthentication = () => {
 		return platform.name;
 	};
 	const device = getDevice();
+
 	const handleRegister = (data: any) => {
 		setIsLoading(true);
 		const { firstName, lastName, email, password } = data;
@@ -72,11 +77,24 @@ export const useAuthentication = () => {
 			console.log(err);
 		}
 	};
+	const handleLoginWithGitHub = async () => {
+		const provider = new GithubAuthProvider();
+
+		try {
+			const result = await signInWithPopup(auth, provider);
+			const credential = GithubAuthProvider.credentialFromResult(result);
+			console.log(credential);
+			login(credential.idToken, result.user.displayName);
+		} catch (err: any) {
+			console.log(err);
+		}
+	};
 	return {
 		error,
 		isLoading,
 		handleRegister,
 		handleLogin,
 		handleLoginWithGoogle,
+		handleLoginWithGitHub,
 	};
 };

@@ -27,7 +27,7 @@ Articole licenta:
 - search page;
 - redesign login and register
 
-# !!Feature:
+# Feature:
 
 - stop watching lecture option;
 - add notes for a lecture chapter;

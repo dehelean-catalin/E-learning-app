@@ -10,7 +10,7 @@ import {
 } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import jwt from "jsonwebtoken";
-import db, { auth } from "../firebase";
+import db, { auth } from "../config/firebase";
 import { ValidatedRequest } from "../models/request";
 import { ConnectionItem, UserModel } from "../models/user-model";
 
@@ -18,14 +18,18 @@ export const login = async (req: Request, res: Response) => {
 	try {
 		const { email, password, device } = req.body;
 		const response = await signInWithEmailAndPassword(auth, email, password);
-		const { uid } = response.user;
+		const token = await response.user.getIdToken();
 
+		const { uid } = response.user;
 		const docRef = doc(db, "users", uid);
 		const userSnap = await getDoc(docRef);
+
 		if (!userSnap.exists()) {
 			throw new Error("User not found");
 		}
+
 		const connections = userSnap.get("connections") as ConnectionItem[];
+
 		const loc = await axios.get("https://ipapi.co/json/");
 		const location = loc.data.city;
 		const filter = connections.filter(
@@ -46,14 +50,13 @@ export const login = async (req: Request, res: Response) => {
 			});
 		}
 		updateDoc(docRef, { connections });
-		let token = jwt.sign({ userId: uid, email: email }, "code", {
-			expiresIn: `4h`,
-		});
+
 		res.status(200).json({
 			uid,
 			token,
 		});
 	} catch (err: any) {
+		console.log(err);
 		const { code } = err;
 		if (
 			code === "auth/wrong-password" ||
