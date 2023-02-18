@@ -1,26 +1,19 @@
 import axios from "axios";
 import { Request, Response } from "express";
-import {
-	createUserWithEmailAndPassword,
-	GoogleAuthProvider,
-	sendPasswordResetEmail,
-	signInWithEmailAndPassword,
-	signInWithPopup,
-	updatePassword,
-} from "firebase/auth";
+import { sendPasswordResetEmail, updatePassword } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import jwt from "jsonwebtoken";
 import db, { auth } from "../config/firebase";
+import { LoginWithCutsomProvider } from "../interfaces/auth-interface";
 import { ValidatedRequest } from "../models/request";
 import { ConnectionItem, UserModel } from "../models/user-model";
+import { signToken } from "./../helpers/signToken";
 
 export const login = async (req: Request, res: Response) => {
 	try {
-		const { email, password, device } = req.body;
-		const response = await signInWithEmailAndPassword(auth, email, password);
-		const token = await response.user.getIdToken();
+		const { email, device, uid } = req.body;
 
-		const { uid } = response.user;
+		const token = signToken(uid, email);
+
 		const docRef = doc(db, "users", uid);
 		const userSnap = await getDoc(docRef);
 
@@ -32,6 +25,7 @@ export const login = async (req: Request, res: Response) => {
 
 		const loc = await axios.get("https://ipapi.co/json/");
 		const location = loc.data.city;
+
 		const filter = connections.filter(
 			(con) => con.location === location && con.device === device
 		);
@@ -52,47 +46,21 @@ export const login = async (req: Request, res: Response) => {
 		updateDoc(docRef, { connections });
 
 		res.status(200).json({
-			uid,
 			token,
 		});
-	} catch (err: any) {
+	} catch (err) {
 		console.log(err);
-		const { code } = err;
-		if (
-			code === "auth/wrong-password" ||
-			code === "auth/invalid-email" ||
-			code === "auth/user-not-found"
-		) {
-			console.log(code);
-			return res
-				.status(400)
-				.json({ code: 400, message: "Invalid email or password" });
-		}
-		if (code === "auth/too-many-requests") {
-			return res.status(400).json({
-				code: 400,
-				message:
-					"Access to this account has been temporarily disabled due to many failed login attempts",
-			});
-		}
 		res
 			.status(400)
 			.json({ code: 400, message: "Try again something went wrong" });
 	}
 };
 
-export const register = async (req: Request, res: Response) => {
+export const register: LoginWithCutsomProvider = async (req, res) => {
 	try {
-		const { email, password, firstName, lastName, device } = req.body;
-		const response = await createUserWithEmailAndPassword(
-			auth,
-			email,
-			password
-		);
-		const loc = await axios.get("https://ipapi.co/json/");
+		const { email, uid, displayName, device } = req.body;
 
-		const { uid } = response.user;
-		const docRef = doc(db, "users", uid);
+		const loc = await axios.get("https://ipapi.co/json/");
 		const connections = [
 			{
 				location: loc.data.city,
@@ -102,8 +70,7 @@ export const register = async (req: Request, res: Response) => {
 		];
 		const data: UserModel = {
 			email,
-			firstName,
-			lastName,
+			displayName,
 			phoneNumber: "",
 			address: "",
 			aboutYou: "",
@@ -115,30 +82,16 @@ export const register = async (req: Request, res: Response) => {
 			savedLectures: [],
 			watchingLectures: [],
 		};
+		const token = signToken(uid, email);
+
+		const docRef = doc(db, "users", uid);
 		await setDoc(docRef, data);
 
-		const token = await jwt.sign({ userId: uid, email: email }, "code", {
-			expiresIn: "4h",
-		});
-		res.status(200).json({
-			uid,
-			token,
-		});
+		res.status(200).json(token);
 	} catch (err: any) {
-		if (err.code === "auth/weak-password") {
-			return res
-				.status(400)
-				.json({ code: 400, message: "Password is too weak" });
-		}
-		if (err.code === "auth/invalid-email") {
-			return res.status(400).json({ code: 400, message: "Invalid email" });
-		}
-		if (err.code === "auth/email-already-in-use") {
-			return res
-				.status(400)
-				.json({ code: 400, message: "Email already in use" });
-		}
-		res.status(400).json({ code: 400, message: err });
+		res
+			.status(400)
+			.json({ code: 400, message: "Try again something went wrong" });
 	}
 };
 
@@ -186,21 +139,67 @@ export const getConnectionsList = async (req: Request, res: Response) => {
 	}
 };
 
-export const loginWithGoogle = async (req: Request, res: Response) => {
-	const provider = new GoogleAuthProvider();
+export const loginWithProvider: LoginWithCutsomProvider = async (req, res) => {
 	try {
-		console.log("salut");
-		const result = await signInWithPopup(auth, provider);
-		const credential = GoogleAuthProvider.credentialFromResult(result);
-		if (!credential) {
-			return;
-		}
-		console.log(credential);
-		const token = credential.accessToken;
-		const user = result.user;
+		const { email, device, uid, displayName, photoURL } = req.body;
 
-		res.status(200).json("succes");
-	} catch (err: any) {
-		res.status(400).json({ code: 400, message: err.message });
+		const token = signToken(uid, email);
+
+		const docRef = doc(db, "users", uid);
+		const userSnap = await getDoc(docRef);
+		const location = await axios.get("https://ipapi.co/json/");
+		const { city } = location.data;
+		if (!userSnap.exists()) {
+			const connections = [
+				{
+					location: city,
+					date: new Date().toISOString(),
+					device,
+				},
+			];
+			const data: UserModel = {
+				email,
+				displayName,
+				phoneNumber: "",
+				address: "",
+				aboutYou: "",
+				profilePicture: photoURL ?? "",
+				bannerPicture: "",
+				links: [],
+				favoriteTopics: [],
+				connections,
+				savedLectures: [],
+				watchingLectures: [],
+			};
+			await setDoc(docRef, data);
+		} else {
+			const connections = userSnap.get("connections") as ConnectionItem[];
+
+			const filter = connections.filter(
+				(con) => city === location && con.device === device
+			);
+
+			if (!filter.length) {
+				connections.push({
+					device,
+					date: new Date().toISOString(),
+					location: city,
+				});
+			} else {
+				connections.forEach((data) => {
+					if (data.device === device && city === location) {
+						data.date = new Date().toISOString();
+					}
+				});
+			}
+			updateDoc(docRef, { connections });
+		}
+
+		res.status(200).json(token);
+	} catch (err) {
+		console.log(err);
+		res
+			.status(400)
+			.json({ code: 400, message: "Try again something went wrong" });
 	}
 };

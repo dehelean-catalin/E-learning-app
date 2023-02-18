@@ -1,17 +1,18 @@
-import jwt from "jsonwebtoken";
 import { NextFunction, Request, Response } from "express";
 import { ObjectSchema } from "joi";
+import jwt from "jsonwebtoken";
 import { ValidatedRequest } from "../models/request";
 
 export default function authorization(model: ObjectSchema) {
-	return (req: Request, res: Response, next: NextFunction) => {
+	return async (req: Request, res: Response, next: NextFunction) => {
 		if (req.method === "OPTIONS") {
 			return next();
 		}
-		if (!req.headers?.authorization) {
-			throw new Error("Missing token");
-		}
+
 		try {
+			if (!req.headers?.authorization) {
+				throw new Error("Missing token");
+			}
 			const validatedReq = req as ValidatedRequest;
 
 			const token = req.headers?.authorization.split(" ")[1];

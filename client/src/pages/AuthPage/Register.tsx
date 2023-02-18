@@ -1,3 +1,4 @@
+import { GoogleAuthProvider } from "firebase/auth";
 import { ProgressSpinner } from "primereact/progressspinner";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -13,7 +14,8 @@ import {
 } from "./services/formService";
 
 const Register = () => {
-	const { isLoading, handleRegister, error } = useAuthentication();
+	const { isLoading, handleRegister, error, registerWithProvider } =
+		useAuthentication();
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [email, setEmail] = useState("");
@@ -110,6 +112,9 @@ const Register = () => {
 							)}
 						/>
 					</div>
+					<button
+						onClick={() => registerWithProvider(new GoogleAuthProvider())}
+					></button>
 				</div>
 				{getSignUpBtn()}
 			</form>

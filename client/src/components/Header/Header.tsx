@@ -27,10 +27,11 @@ const Header: FC = () => {
 		dispatch(AccountDataActions.getAccountDataRequest());
 	}, []);
 
-	const { firstName, lastName, email } = userData;
+	const { displayName, email } = userData;
 
 	const initials =
-		firstName.slice(0, 1).toUpperCase() + lastName.slice(0, 1).toUpperCase();
+		displayName.split(" ")[0].slice(0, 1).toUpperCase() +
+		displayName.split(" ")[1].slice(0, 1).toUpperCase();
 
 	return (
 		<header className={styles.header}>
@@ -46,10 +47,7 @@ const Header: FC = () => {
 					/>
 
 					<div className={styles["profile-details"]}>
-						<div>
-							<span>{lastName}</span>
-							<span>{firstName}</span>
-						</div>
+						<span>{displayName}</span>
 						{email}
 					</div>
 				</header>

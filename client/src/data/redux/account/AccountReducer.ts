@@ -27,8 +27,7 @@ export type AccountDataAction = ActionType<typeof actions>;
 export const AccountDataActions = actions;
 export type AccountDataState = {
 	email?: string;
-	firstName?: string;
-	lastName?: string;
+	displayName?: string;
 	phoneNumber?: string;
 	address?: string;
 	aboutYou?: string;
@@ -43,8 +42,7 @@ export type AccountState = {
 const INITIAL_STATE: AccountState = {
 	data: {
 		email: "",
-		firstName: "",
-		lastName: "",
+		displayName: "",
 		phoneNumber: "",
 		address: "",
 		aboutYou: "",

@@ -1,13 +1,13 @@
 export type LoginModel = {
 	email: string;
-	password: string;
+	uid: string;
 	device: string;
 };
 
-export type RegisterModel = {
-	firstName: string;
-	lastName: string;
+export type ProviderAuthModel = {
+	displayName: string;
 	email: string;
-	password: string;
+	photoURL?: string;
 	device: string;
+	uid: string;
 };

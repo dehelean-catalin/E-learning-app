@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { adminAuth } from "../config/firebase-admin";
 import { ValidatedRequest } from "./../models/request";
-
+export type DecodedToken = {
+	userId: string;
+	email: string;
+};
 export default async (req: Request, res: Response, next: NextFunction) => {
 	const validatedReq = req as ValidatedRequest;
 	if (req.method === "OPTIONS") {
@@ -12,13 +14,15 @@ export default async (req: Request, res: Response, next: NextFunction) => {
 		if (!req.headers?.authorization) {
 			throw new Error("Missing token!");
 		}
+
 		const token = req.headers?.authorization.split(" ")[1];
+
 		if (!token) {
 			throw new Error("Authentication failed!");
 		}
 
-		const decodedData = await adminAuth.verifyIdToken(token);
-		validatedReq.userData = { userId: decodedData.uid };
+		const decodedData = jwt.verify(token, "code") as DecodedToken;
+		validatedReq.userData = { userId: decodedData.userId };
 
 		next();
 	} catch (err: any) {

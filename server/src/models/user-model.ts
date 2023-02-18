@@ -1,7 +1,6 @@
 export type UserModel = {
 	email: string;
-	firstName: string;
-	lastName: string;
+	displayName: string;
 	phoneNumber: string;
 	address: string;
 	aboutYou: string;

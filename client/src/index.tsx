@@ -1,6 +1,6 @@
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import ReactDOM from "react-dom/client";
-import { QueryClient } from "react-query";
-import { QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
 import App from "./App";
 import { AuthContextProvider } from "./data/context/auth-context";
@@ -16,3 +16,6 @@ root.render(
 		</Provider>
 	</AuthContextProvider>
 );
+onAuthStateChanged(getAuth(), (user) => {
+	console.log(user);
+});
