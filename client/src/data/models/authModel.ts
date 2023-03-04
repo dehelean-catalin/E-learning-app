@@ -14,6 +14,5 @@ export type ProviderAuthModel = {
 export type RegisterModel = {
 	email: string;
 	password: string;
-	lastName: string;
-	firstName: string;
+	displayName: string;
 };

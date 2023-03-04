@@ -1,0 +1,30 @@
+@import "../../layout/variables.scss";
+
+.info-box-email {
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 10px;
+	background: $color-10;
+	border-radius: 4px;
+	color: white;
+	.title {
+		font-size: 20px;
+		margin-bottom: 10px;
+	}
+	a {
+		text-decoration: none;
+		color: white;
+		background: $prime-green;
+		padding: 10px 20px;
+		border-radius: 4px;
+		margin: 10px 0px;
+	}
+	svg {
+		font-size: 8rem;
+	}
+	div {
+		text-align: center;
+	}
+}

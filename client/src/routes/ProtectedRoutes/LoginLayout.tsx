@@ -3,9 +3,9 @@ import { Navigate, Outlet } from "react-router";
 import AuthContext from "../../data/context/auth-context";
 
 const LoginLayout = () => {
-	const { isLogin } = useContext(AuthContext);
+	const { token } = useContext(AuthContext);
 
-	if (isLogin) {
+	if (token) {
 		return <Navigate to="/home?category=all" replace={true} />;
 	}
 	return (

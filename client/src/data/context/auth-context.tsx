@@ -1,4 +1,4 @@
-import { createContext, useEffect, FC, useState } from "react";
+import { createContext, FC, useState } from "react";
 import { IAuthContext } from "../models/usersModel";
 
 type Props = {
@@ -8,15 +8,18 @@ type Props = {
 const AuthContext = createContext<IAuthContext>({
 	userId: "",
 	token: "",
-	isLogin: false,
+	emailVerified: false,
+	handleEmailVerified: () => {},
 	login: () => {},
 	logout: () => {},
 });
 
 export const AuthContextProvider: FC<Props> = ({ children }) => {
 	const initialToken = localStorage.getItem("token");
+	const initialEmailVerified = localStorage.getItem("emailVerified");
 	const [token, setToken] = useState(initialToken);
 	const [userId, setUserId] = useState("");
+	const [emailVerified, setEmailVerified] = useState(initialEmailVerified);
 
 	const loginHandler = (token: string, userId: string) => {
 		setToken(token);
@@ -25,26 +28,22 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
 		localStorage.setItem("token", token);
 	};
 
+	const handleEmailVerified = () => {
+		setEmailVerified("true");
+		localStorage.setItem("emailVerified", "true");
+	};
 	const logoutHandler = () => {
 		setToken(null);
 		localStorage.clear();
 		window.location.replace("/login");
 	};
 
-	useEffect(() => {
-		const userId = localStorage.getItem("userId");
-		const token = localStorage.getItem("token");
-
-		if (token && userId) {
-			loginHandler(token, userId);
-		}
-	}, []);
-
 	const contexValue = {
-		userId: userId,
-		token: token,
-		isLogin: !!token,
+		userId,
+		token,
+		emailVerified: !!emailVerified?.length,
 		login: loginHandler,
+		handleEmailVerified,
 		logout: logoutHandler,
 	};
 	return (

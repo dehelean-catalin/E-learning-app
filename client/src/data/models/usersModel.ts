@@ -48,7 +48,8 @@ export interface IMessage {
 export interface IAuthContext {
 	userId: string;
 	token: string;
-	isLogin: boolean;
-	login: (token: string, userId: string, expirationDate?: Date) => void;
+	emailVerified: boolean;
+	login: (token: string, userId: string) => void;
+	handleEmailVerified: () => void;
 	logout: () => void;
 }

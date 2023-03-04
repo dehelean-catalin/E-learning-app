@@ -7,6 +7,7 @@ export type LoginModel = {
 export type ProviderAuthModel = {
 	displayName: string;
 	email: string;
+	emailVerified?: string;
 	photoURL?: string;
 	device: string;
 	uid: string;

@@ -18,7 +18,6 @@ const authenticationErrorService = () => {
 		return err.response.data;
 	};
 	const getRegisterError = (err) => {
-		const { code } = err;
 		if (err.code === "auth/weak-password") {
 			return { code: 400, message: "Password is too weak" };
 		}

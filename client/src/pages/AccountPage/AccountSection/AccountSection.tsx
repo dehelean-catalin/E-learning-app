@@ -21,13 +21,11 @@ const AccountSection = () => {
 	}, [userData]);
 
 	const [isTouched, setIsTouched] = useState({
-		firstName: false,
-		lastName: false,
+		displayName: false,
 		phoneNumber: false,
 	});
 	const disabled =
-		!values?.firstName.length ||
-		!values?.lastName.length ||
+		!values?.displayName.length ||
 		!values?.phoneNumber.length;
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
@@ -76,18 +74,10 @@ const AccountSection = () => {
 					<div>
 						<InputTextField
 							label="First name"
-							value={values?.firstName}
-							onChange={(e) => setValues({ ...values, firstName: e })}
-							onBlur={() => setIsTouched({ ...isTouched, firstName: true })}
+							value={values?.displayName}
+							onChange={(e) => setValues({ ...values, displayName: e })}
+							onBlur={() => setIsTouched({ ...isTouched, displayName: true })}
 							errorMessage={"First name is required"}
-						/>
-
-						<InputTextField
-							label="Last name"
-							value={values?.lastName}
-							onChange={(e) => setValues({ ...values, lastName: e })}
-							onBlur={() => setIsTouched({ ...isTouched, lastName: true })}
-							errorMessage={"Last name is required"}
 						/>
 
 						<InputTextField

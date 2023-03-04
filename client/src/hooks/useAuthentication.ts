@@ -15,14 +15,13 @@ import { ProviderAuthModel, RegisterModel } from "../data/models/authModel";
 import { FormActions } from "../data/redux/formReducer";
 import authenticationErrorService from "./services/authenticationErrorService";
 
+type ErrorState = { code: string; message: string } | undefined;
+
 export const useAuthentication = () => {
 	const dispatch = useDispatch();
 	const { login } = useContext(AuthContext);
 	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState({
-		code: null,
-		message: null,
-	});
+	const [error, setError] = useState<ErrorState>();
 
 	const getDevice: () => string = () => {
 		if (platform.product) {
@@ -37,7 +36,7 @@ export const useAuthentication = () => {
 		try {
 			const response = await signInWithEmailAndPassword(auth, email, password);
 			const { uid } = response.user;
-			const axiosResponse = await axios.post("http://192.168.1.11:4000/login", {
+			const axiosResponse = await axios.post("http://localhost:4000/login", {
 				email,
 				uid,
 				device,
@@ -55,7 +54,7 @@ export const useAuthentication = () => {
 
 	const handleRegister = async (data: RegisterModel) => {
 		setIsLoading(true);
-		const { firstName, lastName, email, password } = data;
+		const { displayName, email, password } = data;
 		try {
 			const response = await createUserWithEmailAndPassword(
 				auth,
@@ -68,8 +67,8 @@ export const useAuthentication = () => {
 				any,
 				AxiosResponse<string>,
 				ProviderAuthModel
-			>("http://192.168.1.11:4000/register", {
-				displayName: firstName + " " + lastName,
+			>("http://localhost:4000/register", {
+				displayName,
 				email,
 				uid,
 				device,
@@ -97,7 +96,7 @@ export const useAuthentication = () => {
 				any,
 				AxiosResponse<string>,
 				ProviderAuthModel
-			>("http://192.168.1.11:4000/login-provider", {
+			>("http://localhost:4000/login-provider", {
 				displayName,
 				email,
 				uid,
@@ -115,42 +114,13 @@ export const useAuthentication = () => {
 			setError(error);
 		}
 	};
-	const registerWithProvider = async (
-		provider: GoogleAuthProvider | GithubAuthProvider
-	) => {
-		try {
-			provider.addScope("email");
-			const result = await signInWithPopup(auth, provider);
-			const { uid } = result.user;
-			const { email, displayName } = result.user.providerData[0];
-
-			const axiosResponse = await axios.post(
-				"http://192.168.1.11:4000/register",
-				{
-					firstName: displayName.split(" ")[0],
-					lastName: displayName.split(" ")[1],
-					email,
-					uid,
-					device,
-				}
-			);
-			const { token } = axiosResponse.data;
-			login(token, uid);
-			dispatch(FormActions.openFormular({ type: "register" }));
-		} catch (err) {
-			setIsLoading(false);
-			const { getRegisterError } = authenticationErrorService();
-			const error = getRegisterError(err);
-			setError(error);
-		}
-	};
 
 	return {
 		error,
 		isLoading,
+		setError,
 		handleRegister,
 		handleLogin,
 		loginWithProvider,
-		registerWithProvider,
 	};
 };

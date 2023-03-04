@@ -45,7 +45,6 @@ const authReducer: Reducer<AuthState, AuthAction> = (
 		case getType(AuthActions.forgotPasswordSuccess):
 			return {
 				...state,
-
 				isValid: true,
 			};
 		case getType(AuthActions.forgotPasswordFail):

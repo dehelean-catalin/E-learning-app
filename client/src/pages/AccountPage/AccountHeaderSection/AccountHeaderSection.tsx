@@ -65,7 +65,7 @@ const AccountHeaderSection = () => {
 			<div className={styles.details}>
 				<div>
 					<div className={styles.name}>
-						{data.firstName} {data.lastName}
+						{data.displayName} 
 					</div>
 					<div className={styles.row}>
 						<HiOutlineMail />

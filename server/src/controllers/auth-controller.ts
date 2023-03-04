@@ -149,6 +149,7 @@ export const loginWithProvider: LoginWithCutsomProvider = async (req, res) => {
 		const userSnap = await getDoc(docRef);
 		const location = await axios.get("https://ipapi.co/json/");
 		const { city } = location.data;
+
 		if (!userSnap.exists()) {
 			const connections = [
 				{

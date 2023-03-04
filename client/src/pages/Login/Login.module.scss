@@ -1,0 +1,22 @@
+@import "../../layout/variables.scss";
+
+.password {
+	display: flex;
+	justify-content: flex-end;
+	a {
+		font-size: 14px;
+		margin-top: -10px;
+		margin-bottom: 10px;
+		color: $prime-green;
+		font-weight: 600;
+	}
+}
+.sign-up-info {
+	color: white;
+	margin-top: 15px;
+	text-align: center;
+	.link {
+		margin-left: 4px;
+		color: $prime-green;
+	}
+}

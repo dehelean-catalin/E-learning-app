@@ -23,11 +23,13 @@ type AxiosResponse = {
 const Home: FC = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+	const axiosInstance = useAxios();
 	const search = useLocation().search;
 	const param = new URLSearchParams(search).get("category");
 	const initParam = !!param ? param : "all";
+
 	const [category, setCategory] = useState(initParam);
-	const axiosInstance = useAxios();
+
 	const { data, isError, isLoading } = useFetchQuery(
 		["/lectures", category],
 		() => {

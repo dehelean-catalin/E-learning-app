@@ -1,0 +1,16 @@
+@import "../../layout/variables.scss";
+.login-provider-section {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	font-size: 20px;
+	.or {
+		border-bottom: 1px solid gray;
+		line-height: 0.1em;
+		margin: 30px 10px;
+		span {
+			padding: 0px 10px;
+			background: $color-30;
+		}
+	}
+}

@@ -1,8 +1,13 @@
-import { GithubAuthProvider, linkWithPopup } from "firebase/auth";
+import {
+	GithubAuthProvider,
+	GoogleAuthProvider,
+	linkWithPopup,
+} from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useAxios } from "../../config/axiosInstance";
 import { auth } from "../../config/firebaseConfig";
 import ChangePasswordPage from "./ChangePassword/ChangePassword";
+import LinkedButton from "./components/LinkedButton";
 import { ConnectionItem } from "./ConnectionCard/ConnectionCard";
 import ConnectionSection from "./ConnectionsSection/ConnectionsSection";
 import styles from "./SecurityPage.module.scss";
@@ -14,10 +19,20 @@ const SecurityPage = () => {
 			setConnectionsList(res.data);
 		});
 	}, []);
-	const handleLinkUp = async () => {
+
+	const handleGithubLinkUp = async () => {
 		const provider = new GithubAuthProvider();
 		provider.addScope("email");
-		linkWithPopup(auth.currentUser, provider);
+		try {
+			linkWithPopup(auth.currentUser, provider);
+		} catch {}
+	};
+	const handleGoogleLinkUp = async () => {
+		const provider = new GoogleAuthProvider();
+		provider.addScope("email");
+		try {
+			linkWithPopup(auth.currentUser, provider);
+		} catch {}
 	};
 
 	return (
@@ -25,7 +40,8 @@ const SecurityPage = () => {
 			<div className={styles.title}>Activity log</div>
 			<ConnectionSection value={connectionsList} />
 			<ChangePasswordPage />
-			<button onClick={handleLinkUp}>salut</button>
+			<LinkedButton type="Google" onChange={handleGoogleLinkUp} />
+			<LinkedButton type="Github" onChange={handleGithubLinkUp} />
 		</div>
 	);
 };

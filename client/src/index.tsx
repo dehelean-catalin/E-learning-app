@@ -1,4 +1,3 @@
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { Provider } from "react-redux";
@@ -16,6 +15,3 @@ root.render(
 		</Provider>
 	</AuthContextProvider>
 );
-onAuthStateChanged(getAuth(), (user) => {
-	console.log(user);
-});

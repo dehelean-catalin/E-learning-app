@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { initialsHelper } from "../../helper/initialsHelper";
 import styles from "./ProfilePicture.module.scss";
 
 type Props = {
@@ -16,9 +17,10 @@ const ProfilePicture: FC<Props> = ({ picture, initials, size }) => {
 			/>
 		);
 	}
+
 	return (
 		<div className={`${styles["profile-icon"]} ${styles[size]}`}>
-			{initials}
+			{initialsHelper(initials)}
 		</div>
 	);
 };

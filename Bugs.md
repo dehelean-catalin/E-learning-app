@@ -2,8 +2,6 @@ Articole licenta:
 
 "https://digitalcommons.kennesaw.edu/cgi/viewcontent.cgi?article=4443&context=facpubs",
 
-###### SCHIMBA NUMELE TEMEI
-
 # Bugs:
 
 - Lecture Overview updating check mark;
@@ -25,7 +23,6 @@ Articole licenta:
 - lecture overview display title and author info;
 - add review;
 - search page;
-- redesign login and register
 
 # Feature:
 

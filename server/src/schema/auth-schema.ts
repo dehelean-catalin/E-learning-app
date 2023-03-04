@@ -20,6 +20,7 @@ export const registerSchema = Joi.object<ProviderAuthModel, true>({
 		"string.empty": "Device cannot be empty",
 	}),
 	photoURL: Joi.string(),
+	emailVerified: Joi.string(),
 });
 
 export const loginSchema = Joi.object<LoginModel, true>({

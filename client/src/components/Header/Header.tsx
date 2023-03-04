@@ -1,53 +1,45 @@
 import { OverlayPanel } from "primereact/overlaypanel";
-import { FC, useContext, useEffect, useRef } from "react";
+import { FC, useContext, useRef } from "react";
 import { BsBookmark, BsPersonCircle } from "react-icons/bs";
 import { IoSettingsOutline } from "react-icons/io5";
 import { VscSignOut } from "react-icons/vsc";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import Divider from "../../common/Divider/Divider";
 import ProfilePicture from "../../common/ProfilePicture/ProfilePicture";
 import AuthContext from "../../data/context/auth-context";
-import {
-	AccountDataActions,
-	AccountDataState,
-} from "../../data/redux/account/AccountReducer";
+import { AccountDataState } from "../../data/redux/account/AccountReducer";
 import { RootState } from "../../data/redux/reducers";
 
 import styles from "./Header.module.scss";
 
 const Header: FC = () => {
 	const op = useRef(null);
-	const dispatch = useDispatch();
 	const { logout } = useContext(AuthContext);
 	const userData = useSelector<RootState, AccountDataState>(
 		(s) => s.accountReducer.data
 	);
-	useEffect(() => {
-		dispatch(AccountDataActions.getAccountDataRequest());
-	}, []);
 
 	const { displayName, email } = userData;
-
-	const initials =
-		displayName.split(" ")[0].slice(0, 1).toUpperCase() +
-		displayName.split(" ")[1].slice(0, 1).toUpperCase();
 
 	return (
 		<header className={styles.header}>
 			<div className={styles.toogleIcon} onClick={(e) => op.current.toggle(e)}>
-				<ProfilePicture picture={userData.profilePicture} initials={initials} />
+				<ProfilePicture
+					picture={userData.profilePicture}
+					initials={displayName}
+				/>
 			</div>
 			<OverlayPanel ref={op} className={styles["profile-overlay"]}>
 				<header>
 					<ProfilePicture
 						picture={userData.profilePicture}
-						initials={initials}
+						initials={displayName}
 						size={"medium"}
 					/>
 
 					<div className={styles["profile-details"]}>
-						<span>{displayName}</span>
+						<span>{userData?.displayName}</span>
 						{email}
 					</div>
 				</header>

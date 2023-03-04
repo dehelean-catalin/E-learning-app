@@ -5,7 +5,7 @@ import { useAxios } from "../../../config/axiosInstance";
 import {
 	errorMessageSchema,
 	passwordReggex,
-} from "../../../utils/inputPasswordHelper";
+} from "../../../helper/inputPasswordHelper";
 import styles from "./ChangePassword.module.scss";
 
 const ChangePassword = () => {

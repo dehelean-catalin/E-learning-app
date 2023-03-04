@@ -12,12 +12,10 @@ export const UserSchema = Joi.object<UserModel>({
 	email: Joi.string().required().messages({
 		"any.required": "email is required",
 	}),
-	firstName: Joi.string().required().messages({
+	displayName: Joi.string().required().messages({
 		"any.required": "firstName is required",
 	}),
-	lastName: Joi.string().required().messages({
-		"any.required": "lastName is required",
-	}),
+
 	phoneNumber: Joi.string().required().messages({
 		"any.required": "phoneNumber is required",
 	}),
@@ -45,8 +43,7 @@ export const UserSchema = Joi.object<UserModel>({
 });
 
 export const UserDataSchema = Joi.object<UserDataModel, true>({
-	firstName: Joi.string(),
-	lastName: Joi.string(),
+	displayName: Joi.string(),
 	phoneNumber: Joi.string().allow(""),
 	address: Joi.string().allow(""),
 	aboutYou: Joi.string().allow(""),
