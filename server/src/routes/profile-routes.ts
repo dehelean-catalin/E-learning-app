@@ -24,4 +24,5 @@ router.put("/profile-picture", tokenAuth, putProfilePicture);
 
 router.get("/profile-banner", tokenAuth, getProfileBanner);
 router.put("/profile-banner", tokenAuth, putProfileBanner);
+
 export default router;

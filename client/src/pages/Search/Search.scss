@@ -1,0 +1,40 @@
+@import "../../layout/variables.scss";
+.search {
+	margin-right: 7rem;
+	font-size: 1.6rem;
+	color: white;
+	display: flex;
+	justify-content: center;
+
+	.wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		max-width: 80%;
+		min-width: 80%;
+	}
+
+	.search-card {
+		display: flex;
+		align-items: center;
+		gap: 20px;
+		cursor: pointer;
+	}
+	.banner {
+		display: flex;
+		background: $color-30 !important;
+		border-radius: 8px;
+		cursor: pointer;
+
+		img {
+			max-width: 320px;
+			aspect-ratio: 16/9;
+			object-fit: cover;
+			border-radius: 8px;
+		}
+	}
+	.content {
+		flex: 1;
+		min-height: 120px;
+	}
+}

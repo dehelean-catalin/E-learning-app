@@ -1,3 +1,5 @@
+import Divider from "common/Divider/Divider";
+import InputTextSearch from "common/InputTextSearch";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { FC, useContext, useRef } from "react";
 import { BsBookmark, BsPersonCircle } from "react-icons/bs";
@@ -5,7 +7,6 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { VscSignOut } from "react-icons/vsc";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import Divider from "../../common/Divider/Divider";
 import ProfilePicture from "../../common/ProfilePicture/ProfilePicture";
 import AuthContext from "../../data/context/auth-context";
 import { AccountDataState } from "../../data/redux/account/AccountReducer";
@@ -24,6 +25,8 @@ const Header: FC = () => {
 
 	return (
 		<header className={styles.header}>
+			<div>name</div>
+			<InputTextSearch />
 			<div className={styles.toogleIcon} onClick={(e) => op.current.toggle(e)}>
 				<ProfilePicture
 					picture={userData.profilePicture}

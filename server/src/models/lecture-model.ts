@@ -14,6 +14,11 @@ export type LectureModel = {
 	reviewList: ReviewList;
 };
 
+export type LectureCardModel = Pick<
+	LectureModel,
+	"title" | "thumbnail" | "createdBy" | "createdAt" | "reviewList"
+>;
+
 export type Description = {
 	data: string;
 };

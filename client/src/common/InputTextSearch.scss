@@ -1,0 +1,13 @@
+@import "../layout/variables.scss";
+.input-search {
+	border: none;
+	background: $color-30;
+	min-width: 30vw;
+	color: white;
+	border: 1px solid gray !important;
+
+	&::placeholder {
+		color: white;
+		opacity: 0.8;
+	}
+}

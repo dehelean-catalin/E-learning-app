@@ -1,6 +1,6 @@
 import { OverlayPanel } from "primereact/overlaypanel";
 import { FC, useRef } from "react";
-import { BiLinkAlt } from "react-icons/bi";
+import { BiDotsVerticalRounded, BiLinkAlt } from "react-icons/bi";
 import { BsBookmark } from "react-icons/bs";
 import { IoTrashOutline } from "react-icons/io5";
 import { useMutation, useQueryClient } from "react-query";
@@ -16,7 +16,7 @@ import "./LectureCard.scss";
 
 type Props = {
 	value: LectureModel;
-	icon: JSX.Element;
+	icon?: JSX.Element;
 	className?: string;
 	bannerClassName?: string;
 	contentClassName?: string;
@@ -29,7 +29,7 @@ const LectureCard: FC<Props> = ({
 	bannerClassName = styles.banner,
 	contentClassName = styles.content,
 	iconClassName = styles.icon,
-	icon,
+	icon = <BiDotsVerticalRounded size="26px" />,
 }) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();

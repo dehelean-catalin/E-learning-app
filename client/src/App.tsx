@@ -5,6 +5,7 @@ import {
 	sendEmailVerification,
 } from "firebase/auth";
 import EmailVerified from "pages/EmailVerified/EmailVerified";
+import Search from "pages/Search/Search";
 import "primeicons/primeicons.css";
 import "primereact/resources/primereact.min.css";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
@@ -67,6 +68,7 @@ function App() {
 					<Route path="lecture/:id" element={<Lecture />}></Route>
 					<Route path="lecture/:id/overview" element={<LectureOverview />} />
 					<Route path="history" element={<History />} />
+					<Route path="search" element={<Search />} />
 					<Route path="*" element={<NotFound>Not found</NotFound>} />
 				</Route>
 			</Route>

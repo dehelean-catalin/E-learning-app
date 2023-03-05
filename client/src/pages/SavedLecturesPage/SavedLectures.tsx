@@ -1,5 +1,4 @@
 import { AxiosError, AxiosResponse } from "axios";
-import { BiDotsVerticalRounded } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 import LectureCard from "../../common/LectureCard/LectureCard";
 import SavedLecturesSkeleton from "../../components/SavedLecturesSkeleton/SavedLecturesSkeleton";
@@ -56,7 +55,6 @@ const SavedLectures = () => {
 						className={styles.card}
 						bannerClassName={styles.banner}
 						contentClassName={styles.content}
-						icon={<BiDotsVerticalRounded size="26px" />}
 					/>
 				))}
 			</div>
