@@ -1,9 +1,8 @@
+import { ChangeEvent } from "react";
 import { BiPlusMedical } from "react-icons/bi";
-import { FaPlusCircle } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import { IoLocationOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import Button from "../../../common/Button/Button";
 import ProfilePicture from "../../../common/ProfilePicture/ProfilePicture";
 import Spinner from "../../../common/Spinner/Spinner";
 import {
@@ -18,72 +17,89 @@ const AccountHeaderSection = () => {
 	const data = useSelector<RootState, AccountDataState>(
 		(s) => s.accountReducer.data
 	);
-	const loading = useSelector<RootState, boolean>(
-		(s) => s.accountReducer.loading
+	const profileLoading = useSelector<RootState, boolean>(
+		(s) => s.accountReducer.profileLoading
 	);
-	const handleChange = (e) => {
-		if (e?.files?.length) {
-			const file = e.files[0];
+	const bannerLoading = useSelector<RootState, boolean>(
+		(s) => s.accountReducer.bannerLoading
+	);
+
+	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+		e.preventDefault();
+		if (e.target.files?.length) {
+			const file = e.target.files[0];
 			const formData = new FormData();
 			formData.append("file", file);
-			dispatch(AccountDataActions.setLoading(true));
 			dispatch(AccountDataActions.setProfilePictureRequest(formData));
 		}
 	};
-	const getContent = () => {
-		if (loading) {
-			return <Spinner />;
+
+	const uploadProfileBanner = (e: ChangeEvent<HTMLInputElement>) => {
+		e.preventDefault();
+		if (e.target.files?.length) {
+			const file = e.target.files[0];
+			const formData = new FormData();
+			formData.append("file", file);
+			dispatch(AccountDataActions.setProfileBannerRequest(formData));
 		}
-		return (
-			<>
-				<ProfilePicture
-					initials="cd"
-					size="large"
-					picture={data.profilePicture}
-				/>
-				<input
-					id="take-photo"
-					onChange={(event) => {
-						event.preventDefault();
-						handleChange(event.target);
-					}}
-					type="file"
-				/>
-				<BiPlusMedical className={styles.edit} />
-			</>
-		);
 	};
 
-	return (
-		<div className={styles["account-header-section"]}>
+	const profilePicture = profileLoading ? (
+		<Spinner />
+	) : (
+		<>
+			<ProfilePicture
+				initials="cd"
+				size="large"
+				picture={data.profilePicture}
+			/>
+			<input
+				id="take-photo"
+				className={styles["profile-picture"]}
+				type="file"
+				onChange={handleChange}
+			/>
+			<BiPlusMedical className={styles.edit} />
+		</>
+	);
+
+	const profileBanner = bannerLoading ? (
+		<Spinner />
+	) : (
+		<>
 			<img
 				className={styles["banner-picture"]}
 				src={data.bannerPicture}
 				alt="ups"
 			/>
-			<main>{getContent()}</main>
+			<input
+				id="take-photo"
+				className={styles["profile-banner"]}
+				type="file"
+				onChange={uploadProfileBanner}
+			/>
+		</>
+	);
+
+	return (
+		<div className={styles["account-header-section"]}>
+			{profileBanner}
+			<main>{profilePicture}</main>
 			<div className={styles.details}>
 				<div>
-					<div className={styles.name}>
-						{data.displayName} 
-					</div>
+					<div className={styles.name}>{data.displayName}</div>
 					<div className={styles.row}>
 						<HiOutlineMail />
 						<span>{data.email}</span>
-						<div className={styles.address}>
-							<IoLocationOutline />
-							{data.address}
-						</div>
+						{data.address && (
+							<div className={styles.address}>
+								<IoLocationOutline />
+								{data.address}
+							</div>
+						)}
 					</div>
 				</div>
-				<div className={styles.btns}>
-					<Button>Share</Button>
-					{/* <Button> Edit Profile</Button> */}
-				</div>
 			</div>
-			{/* <div className={styles.links}>
-				<img src={gmail} alt="not found" />
-			</div> */}
 		</div>
 	);
 };

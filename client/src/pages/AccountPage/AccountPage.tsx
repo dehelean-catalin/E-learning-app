@@ -1,8 +1,6 @@
 import { useSelector } from "react-redux";
 import { AccountState } from "../../data/redux/account/AccountReducer";
 import { RootState } from "../../data/redux/reducers";
-import notFoundImage from "../../resources/images/no-results.png";
-import NotFound from "../NotFound/NotFound";
 import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
 import AccountHeaderSection from "./AccountHeaderSection/AccountHeaderSection";
 import styles from "./AccountPage.module.scss";

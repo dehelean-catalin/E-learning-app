@@ -1,11 +1,11 @@
 import { FC, FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
+import InputTextareaField from "../../../common/InputTextareaField/InputTextareaField";
+import InputTextField from "../../../common/InputTextField/InputTextField";
 import { useAxios } from "../../../config/axiosInstance";
 import { UserDataModel } from "../../../data/models/usersModel";
 import { FormActions } from "../../../data/redux/formReducer";
 import { NotificationActions } from "../../../data/redux/notificationReducer";
-import InputTextareaField from "../../../common/InputTextareaField/InputTextareaField";
-import InputTextField from "../../../common/InputTextField/InputTextField";
 import style from "../NewForm.module.scss";
 
 export type StepProps = {
@@ -23,7 +23,7 @@ const ProfileForm: FC<StepProps> = ({}) => {
 
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
-		axiosInstance.put("/user/data", values).then(() => {
+		axiosInstance.put("/profile-data", values).then(() => {
 			dispatch(
 				NotificationActions.showBannerNotification({
 					type: "info",

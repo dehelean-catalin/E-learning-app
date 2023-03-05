@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import { useAxios } from "../../config/axiosInstance";
 import { auth } from "../../config/firebaseConfig";
 import ChangePasswordPage from "./ChangePassword/ChangePassword";
-import LinkedButton from "./components/LinkedButton";
 import { ConnectionItem } from "./ConnectionCard/ConnectionCard";
 import ConnectionSection from "./ConnectionsSection/ConnectionsSection";
 import styles from "./SecurityPage.module.scss";
@@ -40,8 +39,8 @@ const SecurityPage = () => {
 			<div className={styles.title}>Activity log</div>
 			<ConnectionSection value={connectionsList} />
 			<ChangePasswordPage />
-			<LinkedButton type="Google" onChange={handleGoogleLinkUp} />
-			<LinkedButton type="Github" onChange={handleGithubLinkUp} />
+			{/* <LinkedButton type="Google" onChange={handleGoogleLinkUp} />
+			<LinkedButton type="Github" onChange={handleGithubLinkUp} /> */}
 		</div>
 	);
 };

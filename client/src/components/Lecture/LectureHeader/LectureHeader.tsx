@@ -22,6 +22,7 @@ const LectureHeader: FC<Props> = ({ value }) => {
 	const axiosInstance = useAxios();
 
 	const [page, setPage] = useState("0");
+
 	useEffect(() => {
 		axiosInstance
 			.get(`/user/watching-lectures/${value.id}/page`)
@@ -41,6 +42,7 @@ const LectureHeader: FC<Props> = ({ value }) => {
 				)
 			);
 	}, [axiosInstance, dispatch, navigate, value.id]);
+
 	const getButton = () => {
 		if (value.numberOfUsers.includes(userId)) {
 			return (

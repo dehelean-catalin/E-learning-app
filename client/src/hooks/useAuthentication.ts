@@ -29,6 +29,7 @@ export const useAuthentication = () => {
 		}
 		return platform.name;
 	};
+
 	const device = getDevice();
 
 	const handleLogin = async (email: string, password: string) => {

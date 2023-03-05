@@ -54,7 +54,12 @@ export const UserDataSchema = Joi.object<UserDataModel, true>({
 	connections: Joi.array(),
 	links: Joi.alternatives(),
 });
-
+export const ProfileSchema = Joi.object({
+	displayName: Joi.string(),
+	phoneNumber: Joi.string().allow(""),
+	address: Joi.string().allow(""),
+	aboutYou: Joi.string().allow(""),
+});
 export const WatchingLectureSchema = Joi.object<WatchingLectureModel, true>({
 	id: Joi.string().required().messages({
 		"any.required": "id is required",

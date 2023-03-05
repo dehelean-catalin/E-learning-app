@@ -1,3 +1,4 @@
+import { getGenericErrorMessage } from "helper/formHelpers";
 import { FormEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import InputTextareaField from "../../../common/InputTextareaField/InputTextareaField";
@@ -24,9 +25,9 @@ const AccountSection = () => {
 		displayName: false,
 		phoneNumber: false,
 	});
-	const disabled =
-		!values?.displayName.length ||
-		!values?.phoneNumber.length;
+
+	const disabled = !values?.displayName.length || !values?.phoneNumber.length;
+
 	const handleSubmit = (e: FormEvent) => {
 		e.preventDefault();
 
@@ -34,38 +35,8 @@ const AccountSection = () => {
 			return;
 		}
 		dispatch(AccountDataActions.setAccountDataRequest(values));
-		// axiosInstance
-		// 	.put("/user/data", values)
-		// 	.then((res) => {
-		// 		axiosInstance
-		// 			.get<AccountDataState>("/user/data")
-		// 			.then((res) => {
-		// 				dispatch(AccountDataActions.getAccountDataSuccess(res.data));
-		// 			})
-		// 			.catch(() => {
-		// 				dispatch(
-		// 					NotificationActions.showBannerNotification({
-		// 						type: "warning",
-		// 						message: "Something went wrong",
-		// 					})
-		// 				);
-		// 			});
-		// 		dispatch(
-		// 			NotificationActions.showBannerNotification({
-		// 				type: "info",
-		// 				message: res.data,
-		// 			})
-		// 		);
-		// 	})
-		// 	.catch(() => {
-		// 		dispatch(
-		// 			NotificationActions.showBannerNotification({
-		// 				type: "warning",
-		// 				message: "Something went wrong",
-		// 			})
-		// 		);
-		// 	});
 	};
+
 	return (
 		<div className={styles["account-section"]}>
 			<h1> Basic information</h1>
@@ -73,27 +44,39 @@ const AccountSection = () => {
 				<form onSubmit={handleSubmit}>
 					<div>
 						<InputTextField
-							label="First name"
+							label="Display name"
 							value={values?.displayName}
+							placeholder="Enter display name"
 							onChange={(e) => setValues({ ...values, displayName: e })}
 							onBlur={() => setIsTouched({ ...isTouched, displayName: true })}
-							errorMessage={"First name is required"}
+							errorMessage={getGenericErrorMessage(
+								values.displayName,
+								isTouched.displayName,
+								"First name is required"
+							)}
 						/>
 
 						<InputTextField
 							label="Phone number"
 							value={values?.phoneNumber}
+							placeholder="Enter phone number"
 							onChange={(e) => setValues({ ...values, phoneNumber: e })}
 							onBlur={() => setIsTouched({ ...isTouched, phoneNumber: true })}
-							errorMessage={"Phone number is required"}
+							errorMessage={getGenericErrorMessage(
+								values.phoneNumber,
+								isTouched.phoneNumber,
+								"Phone number is required"
+							)}
 						/>
 						<InputTextField
 							label="Address"
+							placeholder="Enter address"
 							value={values?.address}
 							onChange={(e) => setValues({ ...values, address: e })}
 						/>
 						<InputTextareaField
 							label="About you"
+							placeholder="Enter something about you"
 							value={values?.aboutYou}
 							onChange={(e) => setValues({ ...values, aboutYou: e })}
 						/>

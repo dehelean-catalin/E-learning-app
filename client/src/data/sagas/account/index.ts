@@ -1,9 +1,10 @@
-import { AccountDataActions } from "../../redux/account/AccountReducer";
 import { takeLatest } from "redux-saga/effects";
 import { getType } from "typesafe-actions";
+import { AccountDataActions } from "../../redux/account/AccountReducer";
 import { initializeAccountSaga } from "./accountSaga";
-import { setProfilePictureSaga } from "./setProfilePictureSaga";
 import { setAccountDataSaga } from "./setAccountDataSaga";
+import { setProfileBannerSaga } from "./setProfileBannerSaga";
+import { setProfilePictureSaga } from "./setProfilePictureSaga";
 
 export const acountSagas = () => {
 	return [
@@ -18,6 +19,10 @@ export const acountSagas = () => {
 		takeLatest(
 			getType(AccountDataActions.setProfilePictureRequest),
 			setProfilePictureSaga
+		),
+		takeLatest(
+			getType(AccountDataActions.setProfileBannerRequest),
+			setProfileBannerSaga
 		),
 	];
 };

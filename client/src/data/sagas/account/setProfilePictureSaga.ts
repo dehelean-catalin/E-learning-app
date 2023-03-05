@@ -1,10 +1,10 @@
 import { SagaIterator } from "redux-saga";
-import { put, call } from "redux-saga/effects";
+import { call, put } from "redux-saga/effects";
 import { ActionType } from "typesafe-actions";
 import { AccountDataActions } from "../../redux/account/AccountReducer";
 import {
-	postProfilePicture,
 	getProfilePicture,
+	putProfilePicture,
 } from "../../services/userServices";
 
 export function* setProfilePictureSaga({
@@ -12,8 +12,9 @@ export function* setProfilePictureSaga({
 }: ActionType<
 	typeof AccountDataActions.setProfilePictureRequest
 >): SagaIterator {
+	yield put(AccountDataActions.setProfilePictureLoading(true));
 	try {
-		const result = yield call(postProfilePicture, payload);
+		const result = yield call(putProfilePicture, payload);
 
 		if (result?.status == 200) {
 			const res = yield call(getProfilePicture);
@@ -22,6 +23,6 @@ export function* setProfilePictureSaga({
 	} catch (error) {
 		console.log(error);
 	} finally {
-		yield put(AccountDataActions.setLoading(false));
+		yield put(AccountDataActions.setProfilePictureLoading(false));
 	}
 }

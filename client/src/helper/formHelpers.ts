@@ -1,7 +1,16 @@
 import { passwordReggex } from "./inputPasswordHelper";
 type GetErrorMessage = (value: string, touched: boolean, error?: any) => string;
 
-export const getErrorMessage: GetErrorMessage = (value, touched, error) => {
+export const getGenericErrorMessage = (value, touched, message) => {
+	if (value.trim().length === 0 && touched) {
+		return message;
+	}
+};
+export const getEmailErrorMessage: GetErrorMessage = (
+	value,
+	touched,
+	error
+) => {
 	if (error && error.message?.includes("Email") && !touched) {
 		return error.message;
 	}
