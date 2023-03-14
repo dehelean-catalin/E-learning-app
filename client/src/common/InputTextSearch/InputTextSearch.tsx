@@ -21,7 +21,7 @@ const InputTextSearch = () => {
 	};
 
 	return (
-		<span className="p-input-icon-left">
+		<span className="p-input-icon-left m-auto">
 			<i className="pi pi-search" />
 			<InputText
 				className="input-search"

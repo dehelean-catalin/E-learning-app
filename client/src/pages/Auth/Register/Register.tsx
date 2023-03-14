@@ -6,10 +6,10 @@ import {
 } from "helper/registerHelper";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import InputTextField from "../../common/InputTextField/InputTextField";
-import AuthForm from "../../components/AuthForm/AuthForm";
-import { passwordReggex } from "../../helper/inputPasswordHelper";
-import { useAuthentication } from "../../hooks/useAuthentication";
+import InputTextField from "../../../common/InputTextField/InputTextField";
+import AuthForm from "../../../components/AuthForm/AuthForm";
+import { passwordReggex } from "../../../helper/inputPasswordHelper";
+import { useAuthentication } from "../../../hooks/useAuthentication";
 import styles from "./Register.module.scss";
 
 const Register = () => {

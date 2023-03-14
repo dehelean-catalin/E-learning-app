@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import InputPasswordField from "../../common/InputPasswordField/InputPasswordField";
-import InputTextField from "../../common/InputTextField/InputTextField";
-import AuthForm from "../../components/AuthForm/AuthForm";
+import InputPasswordField from "../../../common/InputPasswordField/InputPasswordField";
+import InputTextField from "../../../common/InputTextField/InputTextField";
+import AuthForm from "../../../components/AuthForm/AuthForm";
 import {
 	formatEmailError,
 	formatPasswordError,
-} from "../../helper/loginHelper";
-import { useAuthentication } from "../../hooks/useAuthentication";
+} from "../../../helper/loginHelper";
+import { useAuthentication } from "../../../hooks/useAuthentication";
 import styles from "./Login.module.scss";
 
 const Login = () => {

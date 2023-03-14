@@ -2,8 +2,10 @@ import AuthContext from "data/context/auth-context";
 import {
 	getAuth,
 	onAuthStateChanged,
-	sendEmailVerification,
+	sendEmailVerification
 } from "firebase/auth";
+import Course from "pages/Creator/Course/Course";
+import Create from "pages/Creator/Create/Create";
 import EmailVerified from "pages/EmailVerified/EmailVerified";
 import Search from "pages/Search/Search";
 import "primeicons/primeicons.css";
@@ -14,27 +16,28 @@ import {
 	createBrowserRouter,
 	createRoutesFromElements,
 	Route,
-	RouterProvider,
+	RouterProvider
 } from "react-router-dom";
 import "./App.scss";
 import Account from "./pages/AccountPage/AccountPage";
-import ForgotPassword from "./pages/ForgotPassoword/ForgotPassword";
+import AuthLayout from "./pages/Auth/AuthLayout/AuthLayout";
+import ForgotPassword from "./pages/Auth/ForgotPassoword/ForgotPassword";
+import Login from "./pages/Auth/Login/Login";
+import Register from "./pages/Auth/Register/Register";
 import History from "./pages/HistoryPage/History";
 import Home from "./pages/Home/Home";
 import Lecture from "./pages/Lecture/Lecture";
 import LectureOverview from "./pages/LectureOverview/LectureOverview";
-import Login from "./pages/Login/Login";
 import NotFound from "./pages/NotFound/NotFound";
-import Register from "./pages/Register/Register";
 import SavedLectures from "./pages/SavedLecturesPage/SavedLectures";
 import SecurityPage from "./pages/SecurityPage/SecurityPage";
 import Settings from "./pages/SettingsPage/Settings";
-import LoginLayout from "./routes/ProtectedRoutes/LoginLayout";
 import RootLayout from "./routes/ProtectedRoutes/RootLayout";
 import VerifyEmailLayout from "./routes/ProtectedRoutes/VerifyEmailLayout";
 
 function App() {
 	const { handleEmailVerified } = useContext(AuthContext);
+	
 	onAuthStateChanged(getAuth(), (user) => {
 		const storedEmailVerified = localStorage.getItem("emailVerified");
 		if (!user?.emailVerified) {
@@ -44,10 +47,11 @@ function App() {
 			handleEmailVerified();
 		}
 	});
+
 	const router = createBrowserRouter(
 		createRoutesFromElements(
 			<Route>
-				<Route path="/*" element={<LoginLayout />}>
+				<Route path="/*" element={<AuthLayout />}>
 					<Route index element={<Login />} />
 					<Route path="login" element={<Login />} />
 					<Route path="register" element={<Register />} />
@@ -69,6 +73,13 @@ function App() {
 					<Route path="lecture/:id/overview" element={<LectureOverview />} />
 					<Route path="history" element={<History />} />
 					<Route path="search" element={<Search />} />
+					<Route path="create" element={<Create />} />
+					<Route path={"course/:id"} element={<Course />} />
+					{/* <Route path="creator" element={<></>}>
+						<Route index element={<></>} />
+						<Route path="drafts" element={<></>} />
+						<Route path={"course/:id"}></Route>
+					</Route> */}
 					<Route path="*" element={<NotFound>Not found</NotFound>} />
 				</Route>
 			</Route>
