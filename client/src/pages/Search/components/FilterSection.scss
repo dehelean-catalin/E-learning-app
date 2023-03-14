@@ -1,0 +1,30 @@
+.search-filter-section {
+	button {
+		background: #282828;
+	}
+	section {
+		margin-top: 0.25rem;
+	}
+	ul {
+		list-style-type: none !important;
+		:nth-child(1) {
+			font-size: 1.25rem;
+			color: white;
+		}
+	}
+	li {
+		font-size: 1.125rem;
+		color: gray;
+		padding: 0.3rem 0.5rem;
+		border-radius: 4px;
+		cursor: pointer;
+
+		&.active {
+			background: #282828;
+			width: fit-content;
+			display: flex;
+			align-items: center;
+			gap: 4px;
+		}
+	}
+}

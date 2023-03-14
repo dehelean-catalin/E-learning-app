@@ -1,11 +1,14 @@
 import { InputText } from "primereact/inputtext";
 import { ChangeEvent, KeyboardEvent, useState } from "react";
 import { useNavigate } from "react-router";
+import { useSearchParams } from "react-router-dom";
 import "./InputTextSearch.scss";
 
 const InputTextSearch = () => {
 	const navigate = useNavigate();
-	const [value, setValue] = useState<string>("");
+	const [searchParams] = useSearchParams();
+	const searchQuery = searchParams.get("searchQuery");
+	const [value, setValue] = useState<string>(searchQuery ?? "");
 
 	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
 		setValue(e.target.value);
@@ -13,7 +16,7 @@ const InputTextSearch = () => {
 
 	const handlekeydown = (e: KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === "Enter" && !!value.length) {
-			navigate(`/search?search_query=${value}`);
+			navigate(`/search?searchQuery=${value}`);
 		}
 	};
 

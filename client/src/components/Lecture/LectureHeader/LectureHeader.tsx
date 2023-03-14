@@ -124,7 +124,7 @@ const getLastUpdateDate = (data: TreeNode[]) => {
 	return maxDate;
 };
 
-const getLectureDuration = (data: TreeNode[]) => {
+export const getLectureDuration = (data: TreeNode[]) => {
 	let sum = 0;
 	data.forEach((i) =>
 		i.children.forEach((o) => {

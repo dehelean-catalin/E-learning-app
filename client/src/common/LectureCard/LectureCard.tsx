@@ -1,3 +1,5 @@
+import { CustomRating } from "common/CustomRating/CustomRating";
+import { getRatingValue } from "helper/lectureCardHelper";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { FC, useRef } from "react";
 import { BiDotsVerticalRounded, BiLinkAlt } from "react-icons/bi";
@@ -9,8 +11,6 @@ import { useLocation, useNavigate } from "react-router";
 import { useAxios } from "../../config/axiosInstance";
 import { LectureModel } from "../../data/models/lectureModel";
 import { NotificationActions } from "../../data/redux/notificationReducer";
-import { getRatingValue } from "../../helper/lectureCardHelper";
-import { CustomRating } from "../CustomRating/CustomRating";
 import styles from "./LectureCard.module.scss";
 import "./LectureCard.scss";
 
@@ -108,12 +108,14 @@ const LectureCard: FC<Props> = ({
 					<span>{title}</span>
 				</div>
 				<div className={styles.author}>{createdBy}</div>
-
+				{/* <div>{getLectureDuration(value.items.data)}</div>
+				<div>{value.language}</div> */}
 				<CustomRating
 					rating={getRatingValue(reviewList.data)}
 					numberOfRates={reviewList.data.length}
 					hideUsers={true}
 				/>
+				{/* {value.createdAt?.split("T")[0]} */}
 			</div>
 			<div className={iconClassName} onClick={(e) => op.current.toggle(e)}>
 				{icon}

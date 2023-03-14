@@ -8,15 +8,17 @@ export type LectureModel = {
 	subCategory: string;
 	createdBy: string;
 	createdAt: Date;
-	language: string;
+	language: Language;
 	numberOfUsers: string[];
 	items: Item;
 	reviewList: ReviewList;
 };
 
+export type Language = "english" | "french" | "romanian";
+
 export type LectureCardModel = Pick<
 	LectureModel,
-	"title" | "thumbnail" | "createdBy" | "createdAt" | "reviewList"
+	"title" | "thumbnail" | "createdBy" | "createdAt" | "id" | "reviewList"
 >;
 
 export type Description = {

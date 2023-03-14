@@ -3,13 +3,13 @@ import LectureChapters from "../../components/Lecture/LectureChapters/LectureCha
 import LectureDescription from "../../components/Lecture/LectureDescription/LectureDescription";
 import LectureHeader from "../../components/Lecture/LectureHeader/LectureHeader";
 import LectureHeaderSkeleton from "../../components/Lecture/LectureHeader/LectureHeaderSkeleton";
-import LectureSectionSkeleton from "../../components/Lecture/LectureSectionCard/LectureSectionSkeleton";
 import LectureReviewList from "../../components/Lecture/LectureReviewList/LectureReviewList";
-import useFetchQuery from "../../hooks/useFetchQuery";
+import LectureSectionSkeleton from "../../components/Lecture/LectureSectionCard/LectureSectionSkeleton";
 import { useAxios } from "../../config/axiosInstance";
 import { ICategory, LectureModel } from "../../data/models/lectureModel";
-import styles from "./Lecture.module.scss";
+import useFetchQuery from "../../hooks/useFetchQuery";
 import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
+import styles from "./Lecture.module.scss";
 
 const INITIAL_DATA: LectureModel = {
 	id: "",

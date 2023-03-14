@@ -9,7 +9,7 @@ export type LectureModel = {
 	category: ICategory;
 	subCategory: string;
 	createdBy: string;
-	createdAt: Date;
+	createdAt: string;
 	language: string;
 	numberOfUsers: string[];
 	items: Item;
