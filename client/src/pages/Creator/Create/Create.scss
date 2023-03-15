@@ -1,9 +1,14 @@
 .create-page {
 	grid-area: main;
-	margin: auto;
+	margin: 1rem auto;
 	color: white;
 
 	form {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+	}
+	.field {
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;

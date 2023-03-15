@@ -2,6 +2,10 @@ Articole licenta:
 
 "https://digitalcommons.kennesaw.edu/cgi/viewcontent.cgi?article=4443&context=facpubs",
 
+# Development:
+
+- Create Page;
+
 # Bugs:
 
 - Enhance update lecture history time ;
@@ -11,16 +15,12 @@ Articole licenta:
 
 # Prio 0:
 
-- lecture overview display title, author and image;
+- Creator Dashboard;
 - saga logout auto;
 - lecture card enhanced;
 - backend validare categorie;
-- Create Page;
-- Creator Dashboard;
 - Lectures Page;
-
-# Salo:
-
+- lecture overview display title, author and image;
 - history bar add high;
 - update colors;
 - Review functionality and review list;
