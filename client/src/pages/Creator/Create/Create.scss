@@ -1,0 +1,11 @@
+.create-page {
+	grid-area: main;
+	margin: auto;
+	color: white;
+
+	form {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+}

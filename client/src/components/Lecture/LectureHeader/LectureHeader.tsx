@@ -14,6 +14,7 @@ import { NotificationActions } from "../../../data/redux/notificationReducer";
 import { getRatingValue } from "../../../helper/lectureCardHelper";
 import styles from "./LectureHeader.module.scss";
 type Props = { value: LectureModel };
+
 const LectureHeader: FC<Props> = ({ value }) => {
 	const { userId } = useContext(AuthContext);
 	const navigate = useNavigate();
@@ -42,8 +43,7 @@ const LectureHeader: FC<Props> = ({ value }) => {
 				)
 			);
 	}, [axiosInstance, dispatch, navigate, value.id]);
-	console.log(value.numberOfUsers);
-	console.log(userId);
+
 	const getButton = () => {
 		if (value.numberOfUsers.includes(userId)) {
 			return (

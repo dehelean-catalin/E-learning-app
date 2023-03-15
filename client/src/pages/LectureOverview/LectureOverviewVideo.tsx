@@ -35,6 +35,7 @@ const LectureOverviewVideo: FC<Props> = ({ url, progress }) => {
 		},
 		[progress, url]
 	);
+
 	return (
 		<div className={styles.video}>
 			<ReactPlayer
@@ -50,6 +51,7 @@ const LectureOverviewVideo: FC<Props> = ({ url, progress }) => {
 				progressInterval={3000}
 				onProgress={(e) => handleProgress(e)}
 			/>
+			<div className={styles.banner}></div>
 		</div>
 	);
 };

@@ -2,7 +2,7 @@ import AuthContext from "data/context/auth-context";
 import {
 	getAuth,
 	onAuthStateChanged,
-	sendEmailVerification
+	sendEmailVerification,
 } from "firebase/auth";
 import Course from "pages/Creator/Course/Course";
 import Create from "pages/Creator/Create/Create";
@@ -16,7 +16,7 @@ import {
 	createBrowserRouter,
 	createRoutesFromElements,
 	Route,
-	RouterProvider
+	RouterProvider,
 } from "react-router-dom";
 import "./App.scss";
 import Account from "./pages/AccountPage/AccountPage";
@@ -37,7 +37,7 @@ import VerifyEmailLayout from "./routes/ProtectedRoutes/VerifyEmailLayout";
 
 function App() {
 	const { handleEmailVerified } = useContext(AuthContext);
-	
+
 	onAuthStateChanged(getAuth(), (user) => {
 		const storedEmailVerified = localStorage.getItem("emailVerified");
 		if (!user?.emailVerified) {
@@ -74,6 +74,7 @@ function App() {
 					<Route path="history" element={<History />} />
 					<Route path="search" element={<Search />} />
 					<Route path="create" element={<Create />} />
+					<Route path="courses" element={<>Courses</>} />
 					<Route path={"course/:id"} element={<Course />} />
 					{/* <Route path="creator" element={<></>}>
 						<Route index element={<></>} />

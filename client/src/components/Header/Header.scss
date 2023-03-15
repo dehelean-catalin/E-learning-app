@@ -1,4 +1,4 @@
-@import "../../layout/variables.scss";
+@import "src/layout/variables.scss";
 .app-header {
 	grid-area: header;
 	position: sticky;
@@ -9,46 +9,4 @@
 	padding: 0px 1rem;
 	color: white;
 	z-index: 2;
-}
-.app-title {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	span {
-		font-size: 1.5rem;
-	}
-	h1 {
-		color: $second-green;
-	}
-}
-.triangle {
-	position: relative;
-	background-color: white;
-	text-align: left;
-	margin-right: 0.75rem;
-	box-shadow: 0.5rem 0.25rem $second-green;
-}
-.triangle:before,
-.triangle:after {
-	content: "";
-	position: absolute;
-	background-color: inherit;
-}
-.triangle,
-.triangle:before,
-.triangle:after {
-	width: 1rem;
-	height: 1rem;
-	border-top-right-radius: 60%;
-}
-
-.triangle {
-	transform: rotate(30deg) skewX(-30deg) scale(1, 0.866);
-}
-.triangle:before {
-	transform: rotate(-135deg) skewX(-45deg) scale(1.414, 0.707)
-		translate(0, -50%);
-}
-.triangle:after {
-	transform: rotate(135deg) skewY(-45deg) scale(0.709, 1.414) translate(50%);
 }

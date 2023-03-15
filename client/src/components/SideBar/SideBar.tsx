@@ -1,9 +1,15 @@
 import { AiFillHome } from "react-icons/ai";
 import { MdOutlineHistory } from "react-icons/md";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import styles from "./SideBar.module.scss";
 
 const NavigationHeader = () => {
+	const { pathname } = useLocation();
+
+	if (pathname === "/create") {
+		return <></>;
+	}
+
 	return (
 		<nav className={styles["navigation-header"]}>
 			<NavLink
