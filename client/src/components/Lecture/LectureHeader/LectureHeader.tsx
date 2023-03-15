@@ -42,7 +42,8 @@ const LectureHeader: FC<Props> = ({ value }) => {
 				)
 			);
 	}, [axiosInstance, dispatch, navigate, value.id]);
-
+	console.log(value.numberOfUsers);
+	console.log(userId);
 	const getButton = () => {
 		if (value.numberOfUsers.includes(userId)) {
 			return (

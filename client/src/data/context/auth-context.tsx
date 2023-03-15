@@ -16,9 +16,10 @@ const AuthContext = createContext<IAuthContext>({
 
 export const AuthContextProvider: FC<Props> = ({ children }) => {
 	const initialToken = localStorage.getItem("token");
+	const initialUserId = localStorage.getItem("userId");
 	const initialEmailVerified = localStorage.getItem("emailVerified");
 	const [token, setToken] = useState(initialToken);
-	const [userId, setUserId] = useState("");
+	const [userId, setUserId] = useState(initialUserId);
 	const [emailVerified, setEmailVerified] = useState(initialEmailVerified);
 
 	const loginHandler = (token: string, userId: string) => {

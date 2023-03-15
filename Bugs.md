@@ -11,13 +11,13 @@ Articole licenta:
 
 # Prio 0:
 
+- lecture overview display title, author and image;
 - saga logout auto;
 - lecture card enhanced;
 - backend validare categorie;
 - Create Page;
 - Creator Dashboard;
 - Lectures Page;
-- lecture overview display title, author and image;
 
 # Salo:
 
