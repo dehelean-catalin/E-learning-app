@@ -18,7 +18,7 @@ type Props = {
 const LectureOverviewTree: FC<Props> = ({ data, page }) => {
 	const navigate = useNavigate();
 	const { id } = useParams();
-	const axiosInstance = useAxios();
+	const axios = useAxios();
 
 	const getExpendedKey: () => TreeExpandedKeysType = useCallback(() => {
 		let currentKey: TreeExpandedKeysType = {};
@@ -59,13 +59,14 @@ const LectureOverviewTree: FC<Props> = ({ data, page }) => {
 	const onNodeClick = (e: TreeNodeClickParams) => {
 		if (!e.node.children && page !== e.node.key) {
 			navigate(`/lecture/${id}/overview?page=${e.node.key}`);
-			axiosInstance.put(`/user/watching-lectures/${id}/last-entry`, {
+			axios.put(`/user/watching-lectures/${id}/last-entry`, {
 				date: new Date().toISOString().split("T")[0],
 				page: e.node.key,
 				time: new Date().toTimeString().split(" ")[0],
 			});
 		}
 	};
+
 	return (
 		<div className={styles.content}>
 			<span>Lecture content</span>

@@ -4,34 +4,34 @@ Articole licenta:
 
 # Bugs:
 
-- Lecture Overview updating check mark;
-- saga logout auto;
 - Enhance update lecture history time ;
 - History: 12PM order wrong;
-- backend validare categorie;
 - home data model from backend;
-- lecture card enhanced;
-- refactorizare unde e cazul pentru saga requests (!optional)
-- add error page for Lecture Overview
-- home page navigation sucks;
-- change color name;
-- update colors;
+- Update Lecture Overview logic + updating check mark;
 
 # Prio 0:
 
-- security page where you can change email and password;
-- lecture overview display title and author info;
-- add review;
-- search page;
+- saga logout auto;
+- lecture card enhanced;
+- backend validare categorie;
+- Create Page;
+- Creator Dashboard;
+- Lectures Page;
+- lecture overview display title, author and image;
 
-# Feature:
+# Salo:
 
-- stop watching lecture option;
-- add notes for a lecture chapter;
-- notification icon;
-- add lecture: yup;
+- history bar add high;
+- update colors;
+- Review functionality and review list;
 
-If time:
--Lecture Overview: ask question functionality;
--Lecture Overview: take a test functionality;
--multi language support;
+# Nice to have:
+
+- link email with provider;
+- multifactor authentication;
+- refactor useFetchQuery;
+- Add Notes for a lecture chapter;
+- Ask question functionality
+- Lecture Overview: take a test functionality;
+- Multi language support;
+- Multi notification support;

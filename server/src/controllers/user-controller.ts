@@ -240,6 +240,7 @@ export const getCurrentPage = async (req: Request, res: Response) => {
 export const getWatchingLectureByID = async (req: Request, res: Response) => {
 	try {
 		const validatedReq = req as ValidatedRequest;
+
 		const userRef = doc(db, "users", validatedReq.userData.userId);
 		const userSnap = await getDoc(userRef);
 
@@ -248,7 +249,7 @@ export const getWatchingLectureByID = async (req: Request, res: Response) => {
 		}
 
 		let { watchingLectures } = userSnap.data();
-		const value = watchingLectures.find((i: any) => i.id == req.params.id);
+		const value = watchingLectures.find((i: any) => i.id === req.params.id);
 		res.status(200).json(value);
 	} catch (err: any) {
 		return res.status(400).json({ code: 400, message: err.message });

@@ -7,7 +7,6 @@ import { OverlayPanel } from "primereact/overlaypanel";
 import { useContext, useRef } from "react";
 import { BiVideoPlus } from "react-icons/bi";
 import { BsBookmark, BsPersonCircle } from "react-icons/bs";
-import { HiOutlineBookOpen } from "react-icons/hi";
 import { IoSettingsOutline } from "react-icons/io5";
 import { VscSignOut } from "react-icons/vsc";
 import { useSelector } from "react-redux";
@@ -29,7 +28,8 @@ const HeaderButtons = () => {
 		<div className="header-buttons">
 			{checkCreatorPath ? (
 				<NavLink title="Continue learning" to={"/home"}>
-					<HiOutlineBookOpen color="white" fontSize="2rem" />
+					invatare
+					{/* <HiOutlineBookOpen color="white" fontSize="2rem" /> */}
 				</NavLink>
 			) : (
 				<NavLink to={"/create"}>

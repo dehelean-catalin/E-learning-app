@@ -1,56 +1,50 @@
 import { AxiosError } from "axios";
+import { NotificationActions } from "data/redux/notificationReducer";
+import { getLectures } from "data/services/home/_getLectures";
+import { useFetchData } from "hooks/useFetchData";
 import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router";
-import { NavLink } from "react-router-dom";
+import { useNavigate } from "react-router";
+import { NavLink, useSearchParams } from "react-router-dom";
 import FilterList from "../../components/Home/FilterList/FilterList";
 import HomeSection from "../../components/Home/HomeSection/HomeSection";
 import HomeFilterSkeleton from "../../components/Home/HomeSkeleton/HomeFilterSkeleton";
 import HomeSkeleton from "../../components/Home/HomeSkeleton/HomeSkeleton";
 import { useAxios } from "../../config/axiosInstance";
-import { LectureModel } from "../../data/models/lectureModel";
-import { NotificationActions } from "../../data/redux/notificationReducer";
-import useFetchQuery from "../../hooks/useFetchQuery";
 import image from "../../layout/images/empty.png";
 import NotFound from "../NotFound/NotFound";
 import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
 import styles from "./Home.module.scss";
 
-type AxiosResponse = {
-	data: LectureModel[];
-};
-
 const Home: FC = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const axiosInstance = useAxios();
-	const search = useLocation().search;
-	const param = new URLSearchParams(search).get("category");
-	const initParam = !!param ? param : "all";
+	const axios = useAxios();
+	const [searchParams] = useSearchParams();
+	const categoryParam = searchParams.get("category");
+	const initialParam = !!categoryParam ? categoryParam : "all";
 
-	const [category, setCategory] = useState(initParam);
+	const [category, setCategory] = useState(initialParam);
 
-	const { data, isError, isLoading } = useFetchQuery(
+	const onSuccess = () => {
+		navigate(`/home?category=${category}`);
+	};
+	const onError = (err: AxiosError<{ message: string }>) => {
+		dispatch(
+			NotificationActions.showBannerNotification({
+				type: "warning",
+				message: err.response.data?.message,
+			})
+		);
+		navigate(`/home?category=${category}`);
+	};
+
+	const { data, isError, isLoading } = useFetchData(
 		["/lectures", category],
-		() => {
-			return axiosInstance
-				.get<any, AxiosResponse>("/lectures", {
-					params: { category },
-				})
-				.then((res) => res.data);
-		},
+		() => getLectures(axios, { category }),
 		{
-			initialData: [],
-			onSuccess: () => navigate(`/home?category=${category}`),
-			onError: (err: AxiosError<{ code: string; message: string }>) => {
-				dispatch(
-					NotificationActions.showBannerNotification({
-						type: "warning",
-						message: err.response.data?.message,
-					})
-				);
-				navigate(`/home?category=${category}`);
-			},
+			onSuccess,
+			onError,
 		}
 	);
 
@@ -77,7 +71,7 @@ const Home: FC = () => {
 						<br />
 						Press bellow button and create one
 					</div>
-					<NavLink to="/home?category=all">Create lecture</NavLink>
+					<NavLink to="/create">Create lecture</NavLink>
 				</NotFound>
 			);
 		}

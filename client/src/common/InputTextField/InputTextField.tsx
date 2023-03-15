@@ -5,10 +5,10 @@ import styles from "./InputTextField.module.scss";
 type Props = {
 	overlay?: "white" | "black" | "gray";
 	placeholder?: string;
-	value: string;
+	value?: string;
 	label?: string;
 	errorMessage?: string;
-	onChange: (s: string) => void;
+	onChange?: (s: string) => void;
 	onBlur?: () => void;
 };
 const InputTextField: FC<Props> = ({
