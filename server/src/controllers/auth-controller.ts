@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Request, Response } from "express";
+import { FirebaseError } from "firebase/app";
 import { sendPasswordResetEmail, updatePassword } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import db, { auth } from "../config/firebase";
@@ -97,12 +98,15 @@ export const register: LoginWithCutsomProvider = async (req, res) => {
 
 export const forgotPassword = async (req: Request, res: Response) => {
 	try {
-		const response = await sendPasswordResetEmail(auth, req.body.email);
-
-		res.status(200).json({
-			response,
-		});
+		if (!req.body?.email) {
+			throw new Error("Email is required");
+		}
+		await sendPasswordResetEmail(auth, req.body.email);
+		res.status(200).json("Success");
 	} catch (err) {
+		if (err instanceof FirebaseError) {
+			return res.status(400).json({ code: 400, message: "User not found" });
+		}
 		res
 			.status(400)
 			.json({ code: 400, message: "Try again! Something went wrong" });

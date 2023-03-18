@@ -1,5 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { useAxios } from "../config/axiosInstance";
+import { useAxios } from "./useAxios";
+
+//TODO: REMOVE THIS LOGIC
 
 const useFetchQuery = (key, fetcher, { initialData, onSuccess, onError }) => {
 	const {

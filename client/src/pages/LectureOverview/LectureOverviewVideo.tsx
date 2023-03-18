@@ -2,7 +2,7 @@ import { FC, useCallback } from "react";
 import { OnProgressProps } from "react-player/base";
 import ReactPlayer from "react-player/lazy";
 import { useLocation, useParams } from "react-router";
-import { useAxios } from "../../config/axiosInstance";
+import { useAxios } from "../../hooks/useAxios";
 import styles from "./LectureOverview.module.scss";
 
 type Props = {

@@ -1,0 +1,37 @@
+@import "src/layout/variables.scss";
+
+.auth-form {
+	min-width: 410px;
+	display: flex;
+	flex-direction: column;
+	background: $color-30;
+	color: white;
+	padding: 26px 30px;
+	padding-bottom: 40px;
+	border-radius: 8px;
+	box-shadow: 0px 4px 10px -2px black;
+
+	.title {
+		font-size: 28px;
+		text-align: center;
+		font-weight: 700;
+		color: rgb(223, 223, 223);
+		margin-bottom: 26px;
+	}
+
+	.error {
+		height: 10px;
+		color: $error;
+		font-size: 12px;
+		font-weight: 600;
+	}
+	.loading {
+		height: 100%;
+		circle {
+			stroke: white !important;
+		}
+		svg {
+			height: 30px;
+		}
+	}
+}

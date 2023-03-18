@@ -1,8 +1,9 @@
+import { SubmitButton } from "components/Forms";
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import InputPasswordField from "../../../common/InputPasswordField/InputPasswordField";
-import InputTextField from "../../../common/InputTextField/InputTextField";
-import AuthForm from "../../../components/AuthForm/AuthForm";
+import AuthForm from "../../../components/auth/AuthForm/AuthForm";
+import InputPasswordField from "../../../components/Forms/Inputs/InputPasswordField/InputPasswordField";
+import InputTextField from "../../../components/Forms/Inputs/InputTextField/InputTextField";
 import {
 	formatEmailError,
 	formatPasswordError,
@@ -38,8 +39,13 @@ const Login = () => {
 			<AuthForm
 				title="Sign in"
 				onSubmit={submitHandler}
-				isLoading={isLoading}
-				button={<button disabled={!!disabled}>Sign in</button>}
+				button={
+					<SubmitButton
+						label="Sign In"
+						disabled={!!disabled}
+						loading={isLoading}
+					/>
+				}
 			>
 				<InputTextField
 					overlay="white"

@@ -1,11 +1,11 @@
+import { GenericButton } from "components/Forms";
 import { useState } from "react";
-import Button from "../../../common/Button/Button";
-import InputPasswordField from "../../../common/InputPasswordField/InputPasswordField";
-import { useAxios } from "../../../config/axiosInstance";
+import InputPasswordField from "../../../components/Forms/Inputs/InputPasswordField/InputPasswordField";
 import {
 	errorMessageSchema,
 	passwordReggex,
 } from "../../../helper/inputPasswordHelper";
+import { useAxios } from "../../../hooks/useAxios";
 import styles from "./ChangePassword.module.scss";
 
 const ChangePassword = () => {
@@ -63,7 +63,7 @@ const ChangePassword = () => {
 					onBlur={() => setTouched({ ...touched, confirmedValue: true })}
 				/>
 				<div className={styles.btns}>
-					<Button disabled={disabled}>Change password</Button>
+					<GenericButton disabled={disabled}>Change password</GenericButton>
 				</div>
 			</form>
 		</div>

@@ -1,8 +1,8 @@
 import { getGenericErrorMessage } from "helper/formHelpers";
 import { FormEvent, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import InputTextareaField from "../../../common/InputTextareaField/InputTextareaField";
-import InputTextField from "../../../common/InputTextField/InputTextField";
+import InputTextareaField from "../../../components/Forms/Inputs/InputTextareaField/InputTextareaField";
+import InputTextField from "../../../components/Forms/Inputs/InputTextField/InputTextField";
 import {
 	AccountDataActions,
 	AccountDataState,

@@ -4,8 +4,8 @@ import {
 	linkWithPopup,
 } from "firebase/auth";
 import { useEffect, useState } from "react";
-import { useAxios } from "../../config/axiosInstance";
-import { auth } from "../../config/firebaseConfig";
+import { auth } from "../../config/firebase.config";
+import { useAxios } from "../../hooks/useAxios";
 import ChangePasswordPage from "./ChangePassword/ChangePassword";
 import { ConnectionItem } from "./ConnectionCard/ConnectionCard";
 import ConnectionSection from "./ConnectionsSection/ConnectionsSection";

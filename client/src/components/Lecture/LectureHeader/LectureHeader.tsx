@@ -1,3 +1,4 @@
+import { GenericButton } from "components/Forms";
 import TreeNode from "primereact/treenode";
 import { FC, useCallback, useContext, useEffect, useState } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
@@ -5,13 +6,12 @@ import { BiBook } from "react-icons/bi";
 import { BsPlayBtn } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import Button from "../../../common/Button/Button";
 import { CustomRating } from "../../../common/CustomRating/CustomRating";
-import { useAxios } from "../../../config/axiosInstance";
 import AuthContext from "../../../data/context/auth-context";
 import { LectureModel } from "../../../data/models/lectureModel";
 import { NotificationActions } from "../../../data/redux/notificationReducer";
 import { getRatingValue } from "../../../helper/lectureCardHelper";
+import { useAxios } from "../../../hooks/useAxios";
 import styles from "./LectureHeader.module.scss";
 type Props = { value: LectureModel };
 
@@ -47,19 +47,19 @@ const LectureHeader: FC<Props> = ({ value }) => {
 	const getButton = () => {
 		if (value.numberOfUsers.includes(userId)) {
 			return (
-				<Button
+				<GenericButton
 					disabled={false}
 					onClick={() => navigate(`/lecture/${value.id}/overview?page=${page}`)}
 				>
 					<AiFillPlayCircle size="18px" />
 					Continue
-				</Button>
+				</GenericButton>
 			);
 		}
 		return (
-			<Button disabled={false} onClick={handleClick}>
+			<GenericButton disabled={false} onClick={handleClick}>
 				Start now
-			</Button>
+			</GenericButton>
 		);
 	};
 	return (

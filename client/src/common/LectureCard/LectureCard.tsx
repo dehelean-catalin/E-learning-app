@@ -8,9 +8,9 @@ import { IoTrashOutline } from "react-icons/io5";
 import { useMutation, useQueryClient } from "react-query";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router";
-import { useAxios } from "../../config/axiosInstance";
 import { LectureModel } from "../../data/models/lectureModel";
 import { NotificationActions } from "../../data/redux/notificationReducer";
+import { useAxios } from "../../hooks/useAxios";
 import styles from "./LectureCard.module.scss";
 import "./LectureCard.scss";
 

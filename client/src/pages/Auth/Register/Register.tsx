@@ -1,4 +1,5 @@
-import InputPasswordField from "common/InputPasswordField/InputPasswordField";
+import { SubmitButton } from "components/Forms";
+import InputPasswordField from "components/Forms/Inputs/InputPasswordField/InputPasswordField";
 import {
 	formatDisplayNameError,
 	formatEmailError,
@@ -6,8 +7,8 @@ import {
 } from "helper/registerHelper";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import InputTextField from "../../../common/InputTextField/InputTextField";
-import AuthForm from "../../../components/AuthForm/AuthForm";
+import AuthForm from "../../../components/auth/AuthForm/AuthForm";
+import InputTextField from "../../../components/Forms/Inputs/InputTextField/InputTextField";
 import { passwordReggex } from "../../../helper/inputPasswordHelper";
 import { useAuthentication } from "../../../hooks/useAuthentication";
 import styles from "./Register.module.scss";
@@ -47,8 +48,13 @@ const Register = () => {
 			<AuthForm
 				title="Create account"
 				onSubmit={handleSubmit}
-				isLoading={isLoading}
-				button={<button disabled={disabled}>Sign Up</button>}
+				button={
+					<SubmitButton
+						label={"Sign Up"}
+						disabled={disabled}
+						loading={!isLoading}
+					/>
+				}
 			>
 				<InputTextField
 					overlay="white"

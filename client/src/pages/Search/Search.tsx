@@ -1,6 +1,5 @@
 import LectureCard from "common/LectureCard/LectureCard";
 import Spinner from "common/Spinner/Spinner";
-import { useAxios } from "config/axiosInstance";
 import { LectureModel } from "data/models/lectureModel";
 import {
 	DateParams,
@@ -9,7 +8,8 @@ import {
 	QueryFilterParams,
 	RatingParams,
 } from "data/models/search/searchFilterModel";
-import { getSearchLectures } from "data/services/search/_getSearchLectures";
+import { getSearchLectures } from "data/services/search/_getSearchLectures.service";
+import { useAxios } from "hooks/useAxios";
 import { useFetchData } from "hooks/useFetchData";
 import NotFoundError from "pages/NotFound/NotFoundError/NotFoundError";
 import { useSearchParams } from "react-router-dom";

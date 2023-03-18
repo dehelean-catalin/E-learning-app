@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import HistoryCard from "../../components/History/HistoryCard/HistoryCard";
 import HomeSkeleton from "../../components/Home/HomeSkeleton/HomeSkeleton";
-import { useAxios } from "../../config/axiosInstance";
+import { useAxios } from "../../hooks/useAxios";
 import useFetchQuery from "../../hooks/useFetchQuery";
 import image from "../../layout/images/empty.png";
 import NotFound from "../NotFound/NotFound";

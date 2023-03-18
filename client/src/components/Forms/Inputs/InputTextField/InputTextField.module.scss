@@ -1,0 +1,58 @@
+@import "src/layout/variables.scss";
+
+.input-field {
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 8px;
+	font-weight: 600;
+	color: $color-10;
+	&.white {
+		color: gray;
+		input {
+			color: white;
+			background-color: $color-60;
+		}
+	}
+	&.black {
+		color: white;
+		input {
+			background-color: $color-30;
+			margin-top: 4px;
+			color: white;
+		}
+	}
+	&.gray {
+		color: white;
+		input {
+			background-color: $color-10;
+			color: white;
+
+			&::placeholder {
+				color: white;
+			}
+		}
+	}
+	input {
+		padding: 10px 12px;
+		font-size: 16px;
+		margin-top: 6px;
+		border: 0px;
+		border-bottom: 2px solid transparent;
+		border-radius: 4px;
+		transition: 0.3s all;
+
+		&:focus {
+			outline: 0;
+			border-bottom: 2px solid $prime-green;
+			border-bottom-right-radius: 0px;
+			border-bottom-left-radius: 0px;
+		}
+	}
+
+	.error {
+		height: 10px;
+		color: $error;
+		font-size: 12px;
+		font-weight: 600;
+	}
+}

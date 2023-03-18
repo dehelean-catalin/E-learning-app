@@ -1,0 +1,13 @@
+@import "src/layout/variables.scss";
+
+.submit-button {
+	background-color: $prime-green;
+	margin-top: 10px;
+	border: 0;
+
+	&:disabled {
+		background: rgb(109, 109, 109);
+		color: rgb(205, 205, 205);
+		cursor: default;
+	}
+}

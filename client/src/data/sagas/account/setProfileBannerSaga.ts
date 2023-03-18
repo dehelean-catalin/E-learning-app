@@ -5,7 +5,7 @@ import { AccountDataActions } from "../../redux/account/AccountReducer";
 import {
 	getProfileBanner,
 	putProfileBanner,
-} from "../../services/userServices";
+} from "../../services/_user.service";
 
 export function* setProfileBannerSaga({
 	payload,

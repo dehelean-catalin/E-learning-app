@@ -1,11 +1,11 @@
 import { FC, FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
-import InputTextareaField from "../../../common/InputTextareaField/InputTextareaField";
-import InputTextField from "../../../common/InputTextField/InputTextField";
-import { useAxios } from "../../../config/axiosInstance";
 import { UserDataModel } from "../../../data/models/usersModel";
 import { FormActions } from "../../../data/redux/formReducer";
 import { NotificationActions } from "../../../data/redux/notificationReducer";
+import { useAxios } from "../../../hooks/useAxios";
+import InputTextareaField from "../Inputs/InputTextareaField/InputTextareaField";
+import InputTextField from "../Inputs/InputTextField/InputTextField";
 import style from "../NewForm.module.scss";
 
 export type StepProps = {

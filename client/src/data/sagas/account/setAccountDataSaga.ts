@@ -3,7 +3,10 @@ import { call, put } from "redux-saga/effects";
 import { ActionType } from "typesafe-actions";
 import { AccountDataActions } from "../../redux/account/AccountReducer";
 import { NotificationActions } from "../../redux/notificationReducer";
-import { getAccountData, updateAccountData } from "../../services/userServices";
+import {
+	getAccountData,
+	updateAccountData,
+} from "../../services/_user.service";
 
 export function* setAccountDataSaga({
 	payload,

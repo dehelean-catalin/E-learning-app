@@ -1,7 +1,7 @@
-import { AccountDataActions } from "../../redux/account/AccountReducer";
 import { SagaIterator } from "redux-saga";
-import { put, call } from "redux-saga/effects";
-import { getAccountData } from "../../services/userServices";
+import { call, put } from "redux-saga/effects";
+import { AccountDataActions } from "../../redux/account/AccountReducer";
+import { getAccountData } from "../../services/_user.service";
 export function* initializeAccountSaga(): SagaIterator {
 	try {
 		const result = yield call(getAccountData);

@@ -1,4 +1,4 @@
-import Button from "common/Button/Button";
+import { GenericButton } from "components/Forms";
 import { QueryFilterParams } from "data/models/search/searchFilterModel";
 import qs from "query-string";
 import { useState } from "react";
@@ -37,9 +37,9 @@ const SearchFilterSection = () => {
 
 	return (
 		<div className="search-filter-section">
-			<Button onClick={() => toogleSection(!isOpen)}>
+			<GenericButton onClick={() => toogleSection(!isOpen)}>
 				Filter <HiFilter />
-			</Button>
+			</GenericButton>
 
 			{isOpen && (
 				<>
@@ -50,8 +50,8 @@ const SearchFilterSection = () => {
 						<LanguageColumn values={values} setValues={handleChange} />
 					</section>
 					<div className="flex justify-content-end gap-2">
-						<Button onClick={handleClear}>Clear</Button>
-						<Button onClick={handleApply}>Apply</Button>
+						<GenericButton onClick={handleClear}>Clear</GenericButton>
+						<GenericButton onClick={handleApply}>Apply</GenericButton>
 					</div>
 				</>
 			)}

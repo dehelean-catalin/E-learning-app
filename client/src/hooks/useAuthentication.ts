@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import { postLogin, postLoginProvider, postRegister } from "data/services";
 import {
 	createUserWithEmailAndPassword,
 	GithubAuthProvider,
@@ -9,10 +9,11 @@ import {
 import platform from "platform";
 import { useContext, useState } from "react";
 import { useDispatch } from "react-redux";
-import { auth } from "../config/firebaseConfig";
+import { auth } from "../config/firebase.config";
 import AuthContext from "../data/context/auth-context";
-import { ProviderAuthModel, RegisterModel } from "../data/models/authModel";
+import { RegisterModel } from "../data/models/_auth.model";
 import { FormActions } from "../data/redux/formReducer";
+import { findTypeOfDevice } from "./../helper/_findTypeOfDevice.helper";
 import authenticationErrorService from "./services/authenticationErrorService";
 
 type ErrorState = { code: string; message: string } | undefined;
@@ -23,27 +24,20 @@ export const useAuthentication = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<ErrorState>();
 
-	const getDevice: () => string = () => {
-		if (platform.product) {
-			return platform.product;
-		}
-		return platform.name;
-	};
-
-	const device = getDevice();
+	const device = findTypeOfDevice(platform);
 
 	const handleLogin = async (email: string, password: string) => {
 		setIsLoading(true);
 		try {
 			const response = await signInWithEmailAndPassword(auth, email, password);
 			const { uid } = response.user;
-			const axiosResponse = await axios.post("http://localhost:4000/login", {
+			const token = await postLogin({
 				email,
 				uid,
 				device,
 			});
+
 			setIsLoading(false);
-			const { token } = axiosResponse.data;
 			login(token, uid);
 		} catch (err) {
 			setIsLoading(false);
@@ -64,17 +58,14 @@ export const useAuthentication = () => {
 			);
 			const { uid } = response.user;
 
-			const axiosResponse = await axios.post<
-				any,
-				AxiosResponse<string>,
-				ProviderAuthModel
-			>("http://localhost:4000/register", {
+			const token = await postRegister({
 				displayName,
 				email,
 				uid,
 				device,
 			});
-			login(axiosResponse.data, uid);
+
+			login(token, uid);
 			dispatch(FormActions.openFormular({ type: "register" }));
 		} catch (err) {
 			setIsLoading(false);
@@ -93,20 +84,16 @@ export const useAuthentication = () => {
 			const { uid } = result.user;
 			const { email, displayName, photoURL } = result.user.providerData[0];
 
-			const axiosResponse = await axios.post<
-				any,
-				AxiosResponse<string>,
-				ProviderAuthModel
-			>("http://localhost:4000/login-provider", {
-				displayName,
+			const axiosResponse = await postLoginProvider({
 				email,
+				displayName,
+				photoURL,
 				uid,
 				device,
-				photoURL,
 			});
-
+			console.log(axiosResponse);
 			setIsLoading(false);
-			login(axiosResponse.data, uid);
+			login(axiosResponse, uid);
 		} catch (err) {
 			console.log(err);
 			setIsLoading(false);

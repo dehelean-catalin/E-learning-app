@@ -1,4 +1,4 @@
-import Button from "common/Button/Button";
+import { SubmitButton } from "components/Forms";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import "./Create.scss";
@@ -34,7 +34,7 @@ const Create = () => {
 					<InputText placeholder="Chose the panguage" />
 				</div>
 
-				<Button>Finish</Button>
+				<SubmitButton label="Finish" />
 			</form>
 		</div>
 	);

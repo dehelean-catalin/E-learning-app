@@ -1,11 +1,15 @@
+import { SubmitButton } from "components/Forms";
 import InfoBoxEmail from "components/InfoBoxEmail/InfoBoxEmail";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import InputTextField from "../../../common/InputTextField/InputTextField";
+import InputTextField from "../../../components/Forms/Inputs/InputTextField/InputTextField";
 import { AuthActions, AuthState } from "../../../data/redux/auth/authReducer";
 import { RootState } from "../../../data/redux/reducers";
 import styles from "./ForgotPassword.module.scss";
+
+// TODO: ERROR AND REMOVING SAGA;
+
 const ForgotPassword = () => {
 	const dispatch = useDispatch();
 	const state = useSelector<RootState, AuthState>((s) => s.authReducer);
@@ -25,6 +29,7 @@ const ForgotPassword = () => {
 		if (state.isValid) {
 			return <InfoBoxEmail link="reset password link" email={state.value} />;
 		}
+
 		return (
 			<form onSubmit={handleSubmit}>
 				<div className={styles.title}>Forget password</div>
@@ -41,7 +46,7 @@ const ForgotPassword = () => {
 					placeholder="Enter email"
 					overlay="white"
 				/>
-				<button disabled={!state.value?.length}>Continue</button>
+				<SubmitButton label="Continue" disabled={!state.value?.length} />
 				<div className={styles.link}>
 					<span>Are you new here? Join us</span>
 					<NavLink to={"/register"} className={styles.link}>

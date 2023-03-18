@@ -5,8 +5,8 @@ import LectureHeader from "../../components/Lecture/LectureHeader/LectureHeader"
 import LectureHeaderSkeleton from "../../components/Lecture/LectureHeader/LectureHeaderSkeleton";
 import LectureReviewList from "../../components/Lecture/LectureReviewList/LectureReviewList";
 import LectureSectionSkeleton from "../../components/Lecture/LectureSectionCard/LectureSectionSkeleton";
-import { useAxios } from "../../config/axiosInstance";
 import { ICategory, LectureModel } from "../../data/models/lectureModel";
+import { useAxios } from "../../hooks/useAxios";
 import useFetchQuery from "../../hooks/useFetchQuery";
 import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
 import styles from "./Lecture.module.scss";

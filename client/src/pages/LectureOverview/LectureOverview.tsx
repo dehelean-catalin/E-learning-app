@@ -1,11 +1,11 @@
 import Spinner from "common/Spinner/Spinner";
-import { _getWatchingLectures } from "data/services/lectureOverview/_getWatchingLectures";
+import { getWatchingLectures } from "data/services";
 import { useFetchData } from "hooks/useFetchData";
 import NotFoundError from "pages/NotFound/NotFoundError/NotFoundError";
 import TreeNode from "primereact/treenode";
 import { useState } from "react";
 import { useLocation, useParams } from "react-router";
-import { useAxios } from "../../config/axiosInstance";
+import { useAxios } from "../../hooks/useAxios";
 import styles from "./LectureOverview.module.scss";
 import LectureOverviewTree from "./LectureOverviewTree";
 import LectureOverviewVideo from "./LectureOverviewVideo";
@@ -32,7 +32,7 @@ const LectureOverview = () => {
 
 	const { data, isLoading, isError } = useFetchData<TreeNode[]>(
 		["watching-lectures", id, page],
-		() => _getWatchingLectures(axios, id),
+		() => getWatchingLectures(axios, id),
 		{
 			onSuccess,
 		}

@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import { NotificationActions } from "data/redux/notificationReducer";
-import { getLectures } from "data/services/home/_getLectures";
+import { getLectures } from "data/services";
 import { useFetchData } from "hooks/useFetchData";
 import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -10,7 +10,7 @@ import FilterList from "../../components/Home/FilterList/FilterList";
 import HomeSection from "../../components/Home/HomeSection/HomeSection";
 import HomeFilterSkeleton from "../../components/Home/HomeSkeleton/HomeFilterSkeleton";
 import HomeSkeleton from "../../components/Home/HomeSkeleton/HomeSkeleton";
-import { useAxios } from "../../config/axiosInstance";
+import { useAxios } from "../../hooks/useAxios";
 import image from "../../layout/images/empty.png";
 import NotFound from "../NotFound/NotFound";
 import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
@@ -29,6 +29,7 @@ const Home: FC = () => {
 	const onSuccess = () => {
 		navigate(`/home?category=${category}`);
 	};
+
 	const onError = (err: AxiosError<{ message: string }>) => {
 		dispatch(
 			NotificationActions.showBannerNotification({
