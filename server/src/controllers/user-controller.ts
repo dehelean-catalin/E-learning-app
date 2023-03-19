@@ -4,6 +4,7 @@ import db from "../config/firebase";
 import { HistoryModel, LectureModel } from "../models/lecture-model";
 import { ValidatedRequest } from "../models/request";
 import { UserModel, WatchingLectureModel } from "../models/user-model";
+import { tryAgainError } from "./../constant";
 
 export const getUserByID = async (req: Request, res: Response) => {
 	try {
@@ -27,7 +28,7 @@ export const saveLecture = async (req: Request, res: Response) => {
 		const docSnap = await getDoc(docRef);
 
 		if (!docSnap.exists()) {
-			throw new Error("Try again! Something went wrong");
+			throw new Error(tryAgainError);
 		}
 		const { savedLectures } = docSnap.data();
 		if (savedLectures?.includes(req.params.id)) {

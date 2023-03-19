@@ -91,7 +91,6 @@ export const useAuthentication = () => {
 				uid,
 				device,
 			});
-			console.log(axiosResponse);
 			setIsLoading(false);
 			login(axiosResponse, uid);
 		} catch (err) {

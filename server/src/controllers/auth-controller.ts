@@ -7,6 +7,7 @@ import db, { auth } from "../config/firebase";
 import { LoginWithCutsomProvider } from "../interfaces/auth-interface";
 import { ValidatedRequest } from "../models/request";
 import { ConnectionItem, UserModel } from "../models/user-model";
+import { tryAgainError } from "./../constant";
 import { signToken } from "./../helpers/signToken";
 
 export const login = async (req: Request, res: Response) => {
@@ -82,6 +83,7 @@ export const register: LoginWithCutsomProvider = async (req, res) => {
 			connections,
 			savedLectures: [],
 			watchingLectures: [],
+			createdLectures: [],
 		};
 		const token = signToken(uid, email);
 
@@ -107,9 +109,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
 		if (err instanceof FirebaseError) {
 			return res.status(400).json({ code: 400, message: "User not found" });
 		}
-		res
-			.status(400)
-			.json({ code: 400, message: "Try again! Something went wrong" });
+		res.status(400).json({ code: 400, message: tryAgainError });
 	}
 };
 
@@ -175,6 +175,7 @@ export const loginWithProvider: LoginWithCutsomProvider = async (req, res) => {
 				connections,
 				savedLectures: [],
 				watchingLectures: [],
+				createdLectures: [],
 			};
 			await setDoc(docRef, data);
 		} else {

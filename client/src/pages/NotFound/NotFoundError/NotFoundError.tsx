@@ -1,5 +1,6 @@
 import image from "../../../layout/images/no-results.png";
 import NotFound from "../NotFound";
+
 const NotFoundError = () => {
 	return (
 		<NotFound>

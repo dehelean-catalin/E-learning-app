@@ -53,6 +53,7 @@ export const UserDataSchema = Joi.object<UserDataModel, true>({
 	favoriteTopics: Joi.array(),
 	connections: Joi.array(),
 	links: Joi.alternatives(),
+	createdLectures: Joi.array(),
 });
 export const ProfileSchema = Joi.object({
 	displayName: Joi.string(),

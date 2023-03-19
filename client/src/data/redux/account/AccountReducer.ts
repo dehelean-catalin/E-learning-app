@@ -2,12 +2,10 @@ import { Reducer } from "redux";
 import { ActionType, createAction, getType } from "typesafe-actions";
 
 const actions = {
-	getAccountDataRequest: createAction("getAccountDataRequest")(),
-	getAccountDataSuccess: createAction(
-		"getAccountDataSuccess",
+	getAccountData: createAction(
+		"getAccountData",
 		(payload: AccountDataState) => payload
 	)(),
-	getAccountDataFail: createAction("getAccountDataFail")(),
 	setAccountDataRequest: createAction(
 		"setAccountDataRequest",
 		(payload: any) => payload
@@ -79,22 +77,11 @@ const accountDataReducer: Reducer<AccountState, AccountDataAction> = (
 	action: AccountDataAction
 ) => {
 	switch (action.type) {
-		case getType(AccountDataActions.getAccountDataRequest):
-			return {
-				...state,
-			};
-
-		case getType(AccountDataActions.getAccountDataSuccess):
+		case getType(AccountDataActions.getAccountData):
 			return {
 				...state,
 				data: action.payload,
 			};
-		case getType(AccountDataActions.getAccountDataFail):
-			return {
-				...state,
-				error: true,
-			};
-
 		case getType(AccountDataActions.setProfilePictureSucces):
 			return {
 				...state,

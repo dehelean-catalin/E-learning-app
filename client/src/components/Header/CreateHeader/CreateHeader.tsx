@@ -8,7 +8,11 @@ const CreateHeader = () => {
 		<div className="create-header">
 			<HeaderLogo />
 			<div className="page-number">Create a course</div>
-			<NavLink className="close-create-page" to={"/courses"}>
+			<NavLink
+				className="close-create-page"
+				to={"/creator/created-lectures"}
+				replace={true}
+			>
 				Close
 			</NavLink>
 		</div>

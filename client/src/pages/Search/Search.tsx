@@ -1,6 +1,5 @@
-import LectureCard from "common/LectureCard/LectureCard";
 import Spinner from "common/Spinner/Spinner";
-import { LectureModel } from "data/models/lectureModel";
+import LectureCard from "components/Cards/LectureCard/LectureCard";
 import {
 	DateParams,
 	DurationParams,
@@ -25,7 +24,7 @@ const Search = () => {
 	const duration = searchParams.get("duration") as DurationParams;
 	const date = searchParams.get("date") as DateParams;
 
-	const { data, isError, isLoading } = useFetchData<LectureModel[]>(
+	const { data, isError, isLoading } = useFetchData(
 		["search", [searchQuery, rating, language, duration, date]],
 		() => getSearchLectures(axios, searchParams as QueryFilterParams)
 	);

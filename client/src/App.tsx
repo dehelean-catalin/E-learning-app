@@ -6,6 +6,7 @@ import {
 } from "firebase/auth";
 import Course from "pages/Creator/Course/Course";
 import Create from "pages/Creator/Create/Create";
+import CreatedLectures from "pages/Creator/CreatedLectures/CreatedLectures";
 import EmailVerified from "pages/EmailVerified/EmailVerified";
 import Search from "pages/Search/Search";
 import "primeicons/primeicons.css";
@@ -69,18 +70,20 @@ function App() {
 						<Route path="saved-lectures" element={<SavedLectures />} />
 						<Route path="change-password" element={<SecurityPage />} />
 					</Route>
+
 					<Route path="lecture/:id" element={<Lecture />}></Route>
 					<Route path="lecture/:id/overview" element={<LectureOverview />} />
+
 					<Route path="history" element={<History />} />
 					<Route path="search" element={<Search />} />
+
 					<Route path="create" element={<Create />} />
-					<Route path="courses" element={<>Courses</>} />
+					<Route
+						path="creator/created-lectures"
+						element={<CreatedLectures />}
+					/>
 					<Route path={"course/:id"} element={<Course />} />
-					{/* <Route path="creator" element={<></>}>
-						<Route index element={<></>} />
-						<Route path="drafts" element={<></>} />
-						<Route path={"course/:id"}></Route>
-					</Route> */}
+
 					<Route path="*" element={<NotFound>Not found</NotFound>} />
 				</Route>
 			</Route>

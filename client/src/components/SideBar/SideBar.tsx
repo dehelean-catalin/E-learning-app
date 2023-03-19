@@ -1,17 +1,18 @@
 import { AiFillHome } from "react-icons/ai";
 import { MdOutlineHistory } from "react-icons/md";
 import { NavLink, useLocation } from "react-router-dom";
-import styles from "./SideBar.module.scss";
+import CreatorSideBar from "./CreatorSideBar/CreatorSideBar";
+import styles from "./SideBar.scss";
 
 const NavigationHeader = () => {
 	const { pathname } = useLocation();
 
-	if (pathname === "/create") {
-		return <></>;
-	}
+	if (pathname === "/create") return <></>;
+
+	if (pathname === "/creator/created-lectures") return <CreatorSideBar />;
 
 	return (
-		<nav className={styles["navigation-header"]}>
+		<nav className="side-bar">
 			<NavLink
 				to="home?category=all"
 				className={({ isActive }) => (isActive ? styles.active : "")}

@@ -37,8 +37,9 @@ export enum ICategory {
 	Psychology = "psychology",
 	History = "history",
 	Policy = "policy",
+	None = "",
 }
-export const FILTERS = [
+export const filters = [
 	ICategory.ALL,
 	ICategory.UTCN,
 	ICategory.Design,

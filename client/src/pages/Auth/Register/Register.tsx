@@ -52,7 +52,7 @@ const Register = () => {
 					<SubmitButton
 						label={"Sign Up"}
 						disabled={disabled}
-						loading={!isLoading}
+						loading={isLoading}
 					/>
 				}
 			>

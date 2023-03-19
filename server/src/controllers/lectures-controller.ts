@@ -93,6 +93,7 @@ export const getLectureById = async (req: Request, res: Response) => {
 		res.status(400).json({ code: 400, message: err.message });
 	}
 };
+
 export const getLectureChapterUrl = async (
 	req: Request<Params, any, any, any>,
 	res: Response

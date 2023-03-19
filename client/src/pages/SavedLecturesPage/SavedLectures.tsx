@@ -1,6 +1,6 @@
 import { AxiosError, AxiosResponse } from "axios";
 import { NavLink } from "react-router-dom";
-import LectureCard from "../../common/LectureCard/LectureCard";
+import LectureCard from "../../components/Cards/LectureCard/LectureCard";
 import SavedLecturesSkeleton from "../../components/SavedLecturesSkeleton/SavedLecturesSkeleton";
 import { LectureModel } from "../../data/models/lectureModel";
 import { useAxios } from "../../hooks/useAxios";

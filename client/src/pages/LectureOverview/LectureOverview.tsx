@@ -30,7 +30,7 @@ const LectureOverview = () => {
 		);
 	};
 
-	const { data, isLoading, isError } = useFetchData<TreeNode[]>(
+	const { data, isLoading, isError } = useFetchData(
 		["watching-lectures", id, page],
 		() => getWatchingLectures(axios, id),
 		{

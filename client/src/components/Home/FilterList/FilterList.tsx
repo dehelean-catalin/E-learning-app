@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useLocation } from "react-router";
-import { FILTERS, ICategory } from "../../../data/models/lectureModel";
+import { filters, ICategory } from "../../../data/models/lectureModel";
 import styles from "./FilterList.module.scss";
 import filterService from "./filterService";
 
@@ -20,7 +20,7 @@ const FilterList: FC<Props> = ({ onFilterChange }) => {
 
 	return (
 		<div className={styles["filer-section"]}>
-			{FILTERS.map((filter, key) => (
+			{filters.map((filter, key) => (
 				<div
 					key={key}
 					className={getClassName(filter)}

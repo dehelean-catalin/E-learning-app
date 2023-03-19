@@ -1,0 +1,12 @@
+.created-lecture-card {
+	flex: 1;
+	color: white;
+	border: 1px solid gray;
+
+	img {
+		height: 6rem;
+		margin: 0.75rem;
+		filter: invert(25%) sepia(0%) saturate(926%) hue-rotate(136deg)
+			brightness(101%) contrast(50%);
+	}
+}

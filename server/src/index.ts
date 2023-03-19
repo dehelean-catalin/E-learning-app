@@ -3,6 +3,7 @@ import express, { json } from "express";
 import http from "http";
 import multer from "multer";
 import authRoutes from "./routes/auth-routes";
+import creatorRoutes from "./routes/creator.routes";
 import lecturesRoutes from "./routes/lectures-routes";
 import profileRoutes from "./routes/profile-routes";
 import searchRotes from "./routes/search-routes";
@@ -18,6 +19,7 @@ app.use(authRoutes);
 app.use(userRoutes);
 app.use(profileRoutes);
 app.use(searchRotes);
+app.use(creatorRoutes);
 app.use(lecturesRoutes);
 
 app.all("*", (req, res) => {

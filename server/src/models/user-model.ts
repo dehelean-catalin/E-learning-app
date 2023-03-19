@@ -11,6 +11,7 @@ export type UserModel = {
 	connections: ConnectionItem[];
 	savedLectures: string[];
 	watchingLectures: WatchingLectureModel[] | [];
+	createdLectures: [];
 };
 
 export type UserDataModel = Omit<
