@@ -2,11 +2,13 @@ import { Request, Response } from "express";
 import { doc, setDoc } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
 import db from "../../config/firebase";
+import { CreatedLecturesModel } from "../../models/creator/createdLectures.model";
+import { CreateLecture } from "../../models/creator/createLecture.model";
 import { ValidatedRequest } from "../../models/request";
 import { tryAgainError } from "./../../constant";
 
 export const postCreateLecture = async (
-	req: Request,
+	req: Request<any, any, CreateLecture>,
 	res: Response<string>
 ) => {
 	try {
@@ -16,12 +18,14 @@ export const postCreateLecture = async (
 			db,
 			`users/${validatedReq.userData.userId}/createdLectures/${id}`
 		);
-
-		await setDoc(lectureRef, {
+		const lectureData: CreatedLecturesModel = {
 			...req.body,
 			id,
-			lastUpdate: new Date(),
-		});
+			lastUpdate: new Date().getTime(),
+			status: "Draft",
+		};
+
+		await setDoc(lectureRef, lectureData);
 
 		res.status(200).json("Successfully created");
 	} catch (err) {

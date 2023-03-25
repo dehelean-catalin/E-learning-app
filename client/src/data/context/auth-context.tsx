@@ -33,6 +33,7 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
 		setEmailVerified("true");
 		localStorage.setItem("emailVerified", "true");
 	};
+
 	const logoutHandler = () => {
 		setToken(null);
 		localStorage.clear();

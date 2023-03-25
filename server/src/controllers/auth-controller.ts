@@ -47,9 +47,7 @@ export const login = async (req: Request, res: Response) => {
 		}
 		updateDoc(docRef, { connections });
 
-		res.status(200).json({
-			token,
-		});
+		res.status(200).json(token);
 	} catch (err) {
 		console.log(err);
 		res

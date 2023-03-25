@@ -1,0 +1,13 @@
+.edit-lecture {
+	grid-area: main;
+	margin: 0 auto;
+	display: flex;
+	width: 50%;
+	min-width: 500px;
+	color: white;
+	gap: 2rem;
+
+	main {
+		flex: 1;
+	}
+}

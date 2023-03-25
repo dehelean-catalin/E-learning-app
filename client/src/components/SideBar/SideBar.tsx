@@ -9,7 +9,8 @@ const NavigationHeader = () => {
 
 	if (pathname === "/create") return <></>;
 
-	if (pathname === "/creator/created-lectures") return <CreatorSideBar />;
+	if (pathname === "creator/created-lectures") return <CreatorSideBar />;
+	if (pathname.includes("creator/created-lectures/")) return <></>;
 
 	return (
 		<nav className="side-bar">

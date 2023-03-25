@@ -8,6 +8,7 @@ import { useContext, useRef } from "react";
 import { BiVideoPlus } from "react-icons/bi";
 import { BsBookmark, BsPersonCircle } from "react-icons/bs";
 import { IoSettingsOutline } from "react-icons/io5";
+import { RxDashboard } from "react-icons/rx";
 import { VscSignOut } from "react-icons/vsc";
 import { useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
@@ -27,10 +28,7 @@ const HeaderButtons = () => {
 	return (
 		<div className="header-buttons">
 			{checkCreatorPath ? (
-				<NavLink title="Continue learning" to={"/home"}>
-					invatare
-					{/* <HiOutlineBookOpen color="white" fontSize="2rem" /> */}
-				</NavLink>
+				<></>
 			) : (
 				<NavLink to={"/create"}>
 					<BiVideoPlus color="white" fontSize="2rem" />
@@ -62,6 +60,13 @@ const HeaderButtons = () => {
 						onClick={(e) => op.current.toggle(e)}
 					>
 						<BsPersonCircle fontSize="20px" /> My Account
+					</NavLink>
+					<NavLink
+						to={"/creator/created-lectures"}
+						className={"row"}
+						onClick={(e) => op.current.toggle(e)}
+					>
+						<RxDashboard fontSize="20px" /> Creator Dashboard
 					</NavLink>
 					<NavLink
 						to={"/settings/account"}

@@ -1,12 +1,21 @@
+@import "src/layout/variables.scss";
 .created-lecture-card {
+	max-height: 25%;
 	flex: 1;
+	display: flex;
+	gap: 1rem;
 	color: white;
 	border: 1px solid gray;
-
+	cursor: pointer;
 	img {
 		height: 6rem;
 		margin: 0.75rem;
 		filter: invert(25%) sepia(0%) saturate(926%) hue-rotate(136deg)
 			brightness(101%) contrast(50%);
+	}
+
+	.status-chip {
+		background: $color-30;
+		color: gray;
 	}
 }

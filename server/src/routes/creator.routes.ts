@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+	getCreatedLecturesLength,
 	getCreateLectures,
 	postCreateLecture,
 } from "../controllers/creator-controller";
@@ -11,5 +12,10 @@ const router = Router();
 
 router.post("/create", validation(createLectureSchema), postCreateLecture);
 router.get("/created-lectures", tokenAuthMiddleware, getCreateLectures);
+router.get(
+	"/created-lectures-length",
+	tokenAuthMiddleware,
+	getCreatedLecturesLength
+);
 
 export default router;

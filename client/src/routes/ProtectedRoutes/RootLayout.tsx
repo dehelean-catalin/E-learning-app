@@ -36,9 +36,9 @@ const RootLayout = () => {
 		return <NotFoundError />;
 	}
 
-	if (!emailVerified) {
-		return <Navigate to="/email-verified" replace />;
-	}
+	// if (!emailVerified) {
+	// 	return <Navigate to="/email-verified" replace />;
+	// }
 
 	if (!token) {
 		return <Navigate to="/login" replace />;

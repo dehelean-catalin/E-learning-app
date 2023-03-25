@@ -3,8 +3,8 @@ import { LoginModel, ProviderAuthModel } from "../models/auth-model";
 
 export const registerSchema = Joi.object<ProviderAuthModel, true>({
 	displayName: Joi.string().required().messages({
-		"any.required": "Last name is required",
-		"string.empty": "Last name cannot be empty",
+		"any.required": "displayName is required",
+		"string.empty": "displayName cannot be empty",
 	}),
 	email: Joi.string().email().required().messages({
 		"any.required": "Email is required",

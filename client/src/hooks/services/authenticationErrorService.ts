@@ -15,7 +15,7 @@ const authenticationErrorService = () => {
 					"Access to this account has been temporarily disabled due to many failed login attempts",
 			};
 		}
-		return err.response.data;
+		return err;
 	};
 	const getRegisterError = (err) => {
 		if (err.code === "auth/weak-password") {

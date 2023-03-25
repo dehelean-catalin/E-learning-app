@@ -36,20 +36,21 @@ export const useAuthentication = () => {
 				uid,
 				device,
 			});
-
-			setIsLoading(false);
 			login(token, uid);
 		} catch (err) {
-			setIsLoading(false);
+			console.log(err);
 			const { getLoginError } = authenticationErrorService();
 			const error = getLoginError(err);
 			setError(error);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
 	const handleRegister = async (data: RegisterModel) => {
 		setIsLoading(true);
 		const { displayName, email, password } = data;
+
 		try {
 			const response = await createUserWithEmailAndPassword(
 				auth,
@@ -64,14 +65,15 @@ export const useAuthentication = () => {
 				uid,
 				device,
 			});
-
 			login(token, uid);
 			dispatch(FormActions.openFormular({ type: "register" }));
 		} catch (err) {
-			setIsLoading(false);
+			console.log(err);
 			const { getRegisterError } = authenticationErrorService();
 			const error = getRegisterError(err);
 			setError(error);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -91,14 +93,15 @@ export const useAuthentication = () => {
 				uid,
 				device,
 			});
-			setIsLoading(false);
 			login(axiosResponse, uid);
 		} catch (err) {
 			console.log(err);
-			setIsLoading(false);
+
 			const { getLoginError } = authenticationErrorService();
 			const error = getLoginError(err);
 			setError(error);
+		} finally {
+			setIsLoading(false);
 		}
 	};
 

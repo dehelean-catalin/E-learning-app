@@ -4,10 +4,9 @@ import {
 	onAuthStateChanged,
 	sendEmailVerification,
 } from "firebase/auth";
-import Course from "pages/Creator/Course/Course";
 import Create from "pages/Creator/Create/Create";
-import CreatedLectures from "pages/Creator/CreatedLectures/CreatedLectures";
-import EmailVerified from "pages/EmailVerified/EmailVerified";
+import CreatedLectures from "pages/Creator/Dashboard/Dashboard";
+import Course from "pages/Creator/EditLecture/EditLecture";
 import Search from "pages/Search/Search";
 import "primeicons/primeicons.css";
 import "primereact/resources/primereact.min.css";
@@ -25,6 +24,7 @@ import AuthLayout from "./pages/Auth/AuthLayout/AuthLayout";
 import ForgotPassword from "./pages/Auth/ForgotPassoword/ForgotPassword";
 import Login from "./pages/Auth/Login/Login";
 import Register from "./pages/Auth/Register/Register";
+import EmailVerified from "./pages/EmailVerified/EmailVerified";
 import History from "./pages/HistoryPage/History";
 import Home from "./pages/Home/Home";
 import Lecture from "./pages/Lecture/Lecture";
@@ -41,12 +41,10 @@ function App() {
 
 	onAuthStateChanged(getAuth(), (user) => {
 		const storedEmailVerified = localStorage.getItem("emailVerified");
-		if (!user?.emailVerified) {
-			sendEmailVerification(user);
-		}
-		if (user.emailVerified && !storedEmailVerified) {
-			handleEmailVerified();
-		}
+
+		if (!user) return;
+		if (!!user && !user.emailVerified) sendEmailVerification(user);
+		if (user.emailVerified && !storedEmailVerified) handleEmailVerified();
 	});
 
 	const router = createBrowserRouter(
@@ -76,13 +74,13 @@ function App() {
 
 					<Route path="history" element={<History />} />
 					<Route path="search" element={<Search />} />
-
 					<Route path="create" element={<Create />} />
+
 					<Route
 						path="creator/created-lectures"
 						element={<CreatedLectures />}
 					/>
-					<Route path={"course/:id"} element={<Course />} />
+					<Route path={"creator/created-lectures/:id"} element={<Course />} />
 
 					<Route path="*" element={<NotFound>Not found</NotFound>} />
 				</Route>

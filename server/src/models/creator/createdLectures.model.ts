@@ -1,4 +1,4 @@
-import { ICategory } from "../lectureModel";
+import { ICategory } from "../lecture-model";
 
 export type CreatedLecturesModel = {
 	id: string;
