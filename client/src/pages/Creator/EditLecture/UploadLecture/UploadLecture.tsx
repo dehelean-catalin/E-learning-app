@@ -4,7 +4,7 @@ import TreeNode from "primereact/treenode";
 import { useState } from "react";
 import InputTextField from "../../../../components/Forms/Inputs/InputTextField/InputTextField";
 
-const StructureLecture = () => {
+const UploadLecture = () => {
 	const [nodes, setNodes] = useState<TreeNode[]>([
 		{
 			key: "0",
@@ -46,4 +46,4 @@ const StructureLecture = () => {
 	);
 };
 
-export default StructureLecture;
+export default UploadLecture;

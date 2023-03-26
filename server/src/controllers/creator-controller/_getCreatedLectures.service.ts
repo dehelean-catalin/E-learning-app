@@ -12,10 +12,10 @@ import {
 	startAfter,
 } from "firebase/firestore";
 import db from "../../config/firebase";
+import { tryAgainError } from "../../constant";
 import { ValidatedRequest } from "../../models/request";
-import { tryAgainError } from "./../../constant";
 
-export const getCreateLectures = async (req: Request, res: Response) => {
+export const getCreatedLectures = async (req: Request, res: Response) => {
 	const validatedReq = req as ValidatedRequest;
 	const lectureRef = collection(
 		db,

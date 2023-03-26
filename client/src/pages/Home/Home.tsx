@@ -41,7 +41,7 @@ const Home: FC = () => {
 	};
 
 	const { data, isError, isLoading } = useFetchData(
-		["/lectures", category],
+		["home", category],
 		() => getLectures(axios, { category }),
 		{
 			onSuccess,

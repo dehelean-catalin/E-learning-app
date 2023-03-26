@@ -12,7 +12,6 @@ export const getCreatedLecturesLength = async (req: Request, res: Response) => {
 	);
 	try {
 		const snapshot = await getCountFromServer(lectureRef);
-		console.log("count: ", snapshot.data().count);
 
 		res.status(200).json(snapshot.data().count);
 	} catch {

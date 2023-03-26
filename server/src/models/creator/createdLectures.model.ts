@@ -7,6 +7,10 @@ export type CreatedLecturesModel = {
 	category: ICategory;
 	lastUpdate: number;
 	status: LectureStatus;
+	plan: {
+		goals: any[];
+		requirements: any[];
+	};
 };
 
 export type LectureStatus = "Draft" | "Public" | "Private" | "Unlisted";

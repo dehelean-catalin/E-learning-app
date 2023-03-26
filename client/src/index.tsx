@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(document.getElementById("root")!);
 root.render(
 	<AuthContextProvider>
 		<Provider store={store}>
-			<QueryClientProvider client={queryClient}>
+			<QueryClientProvider client={queryClient} contextSharing={true}>
 				<App />
 			</QueryClientProvider>
 		</Provider>

@@ -2,10 +2,10 @@ import { Request, Response } from "express";
 import { doc, setDoc } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
 import db from "../../config/firebase";
+import { tryAgainError } from "../../constant";
 import { CreatedLecturesModel } from "../../models/creator/createdLectures.model";
 import { CreateLecture } from "../../models/creator/createLecture.model";
 import { ValidatedRequest } from "../../models/request";
-import { tryAgainError } from "./../../constant";
 
 export const postCreateLecture = async (
 	req: Request<any, any, CreateLecture>,
@@ -23,6 +23,10 @@ export const postCreateLecture = async (
 			id,
 			lastUpdate: new Date().getTime(),
 			status: "Draft",
+			plan: {
+				goals: [],
+				requirements: [],
+			},
 		};
 
 		await setDoc(lectureRef, lectureData);

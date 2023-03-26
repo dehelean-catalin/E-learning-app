@@ -24,6 +24,9 @@ import AuthLayout from "./pages/Auth/AuthLayout/AuthLayout";
 import ForgotPassword from "./pages/Auth/ForgotPassoword/ForgotPassword";
 import Login from "./pages/Auth/Login/Login";
 import Register from "./pages/Auth/Register/Register";
+import PlanningLecture from "./pages/Creator/EditLecture/PlanningLecture/PlanningLecture";
+import PublishLecture from "./pages/Creator/EditLecture/PublishLecture/PublishLecture";
+import UploadLecture from "./pages/Creator/EditLecture/UploadLecture/UploadLecture";
 import EmailVerified from "./pages/EmailVerified/EmailVerified";
 import History from "./pages/HistoryPage/History";
 import Home from "./pages/Home/Home";
@@ -80,7 +83,12 @@ function App() {
 						path="creator/created-lectures"
 						element={<CreatedLectures />}
 					/>
-					<Route path={"creator/created-lectures/:id"} element={<Course />} />
+					<Route path={"creator/created-lectures/:id/"} element={<Course />}>
+						<Route index element={<PublishLecture />} />
+						<Route path="planning" element={<PlanningLecture />} />
+						<Route path="upload" element={<UploadLecture />} />
+						<Route path="publish" element={<PublishLecture />} />
+					</Route>
 
 					<Route path="*" element={<NotFound>Not found</NotFound>} />
 				</Route>
