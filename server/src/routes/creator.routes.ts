@@ -21,7 +21,7 @@ router.get(
 );
 router.post("/create", validation(createLectureSchema), postCreateLecture);
 router.post(
-	"/created-lectures/:id/planning",
+	"/created-lectures/:id/plan",
 	tokenAuthMiddleware,
 	updateCreatedLecturePlan
 );

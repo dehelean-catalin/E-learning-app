@@ -16,12 +16,12 @@ const Dashboard = () => {
 	const [page, setPage] = useState(0);
 	const [direction, setDirection] = useState("initial");
 
-	const { data: createdLecturesLength } = useFetchData(["items", axios], () =>
+	const { data: createdLecturesLength } = useFetchData("items", () =>
 		getCreatedLecturesLength(axios)
 	);
 
 	const { data, isLoading, isError } = useFetchData(
-		["dashboard", lectureId, direction, createdLecturesLength],
+		["dashboard", createdLecturesLength, page, direction],
 		() => getCreatedLectures(axios, lectureId, direction, createdLecturesLength)
 	);
 
@@ -46,7 +46,7 @@ const Dashboard = () => {
 	};
 
 	if (isLoading) return <Spinner />;
-	if (!data.length) return <>Empty</>;
+	if (!data.length) return <NotFoundError />;
 	if (isError) return <NotFoundError />;
 
 	return (
@@ -59,7 +59,7 @@ const Dashboard = () => {
 			<Paginator
 				first={page}
 				rows={4}
-				className="mt-3"
+				className="mt-3 justify-content-center"
 				totalRecords={createdLecturesLength}
 				onPageChange={onPageChange}
 				template="FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"

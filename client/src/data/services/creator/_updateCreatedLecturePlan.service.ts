@@ -9,6 +9,6 @@ export const updateCreatedLecturePlan = (
 	}
 ): Promise<string> => {
 	return axios
-		.post(`created-lectures/${id}/planning`, plan)
+		.post(`created-lectures/${id}/plan`, plan)
 		.then((res) => res.data);
 };

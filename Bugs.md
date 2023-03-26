@@ -12,10 +12,12 @@ Articole licenta:
 - History: 12PM order wrong;
 - home data model from backend;
 - Update Lecture Overview logic + updating check mark;
+- Search : Not found component;
 
 # Prio 0:
 
-- Creator Dashboard;
+- Dashboard;
+- Plan, Upload, Publish;
 - saga logout auto;
 - lecture card enhanced;
 - backend validare categorie;
@@ -35,3 +37,4 @@ Articole licenta:
 - Lecture Overview: take a test functionality;
 - Multi language support;
 - Multi notification support;
+- Moving to react-query;

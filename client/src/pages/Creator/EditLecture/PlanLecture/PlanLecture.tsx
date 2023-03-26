@@ -13,9 +13,9 @@ import {
 import { useAxios } from "../../../../hooks/useAxios";
 import { useFetchData } from "../../../../hooks/useFetchData";
 import NotFoundError from "../../../NotFound/NotFoundError/NotFoundError";
-import "./PlanningLecture.scss";
+import "./PlanLecture.scss";
 
-const PlanningLecture = () => {
+const PlanLecture = () => {
 	const axios = useAxios();
 	const { id } = useParams();
 	const dispatch = useDispatch();
@@ -183,4 +183,4 @@ const PlanningLecture = () => {
 	);
 };
 
-export default PlanningLecture;
+export default PlanLecture;

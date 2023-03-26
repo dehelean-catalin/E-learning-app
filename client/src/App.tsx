@@ -24,7 +24,7 @@ import AuthLayout from "./pages/Auth/AuthLayout/AuthLayout";
 import ForgotPassword from "./pages/Auth/ForgotPassoword/ForgotPassword";
 import Login from "./pages/Auth/Login/Login";
 import Register from "./pages/Auth/Register/Register";
-import PlanningLecture from "./pages/Creator/EditLecture/PlanLecture/PlanningLecture";
+import PlanLecture from "./pages/Creator/EditLecture/PlanLecture/PlanLecture";
 import PublishLecture from "./pages/Creator/EditLecture/PublishLecture/PublishLecture";
 import UploadLecture from "./pages/Creator/EditLecture/UploadLecture/UploadLecture";
 import EmailVerified from "./pages/EmailVerified/EmailVerified";
@@ -84,8 +84,8 @@ function App() {
 						element={<CreatedLectures />}
 					/>
 					<Route path={"creator/created-lectures/:id/"} element={<Course />}>
-						<Route index element={<PublishLecture />} />
-						<Route path="planning" element={<PlanningLecture />} />
+						<Route index element={<PlanLecture />} />
+						<Route path="plan" element={<PlanLecture />} />
 						<Route path="upload" element={<UploadLecture />} />
 						<Route path="publish" element={<PublishLecture />} />
 					</Route>
