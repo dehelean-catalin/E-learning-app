@@ -1,0 +1,17 @@
+.planning-form {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	// border: 1px solid gray;
+	// padding: 1.5rem;
+
+	.planning-field {
+		display: flex;
+		gap: 1rem;
+
+		button {
+			margin-bottom: 8px;
+			margin-top: 4px;
+		}
+	}
+}

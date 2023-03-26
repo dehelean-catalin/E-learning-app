@@ -10,7 +10,7 @@ import Course from "pages/Creator/EditLecture/EditLecture";
 import Search from "pages/Search/Search";
 import "primeicons/primeicons.css";
 import "primereact/resources/primereact.min.css";
-import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "primereact/resources/themes/md-dark-indigo/theme.css";
 import { useContext } from "react";
 import {
 	createBrowserRouter,

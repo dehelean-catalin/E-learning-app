@@ -38,12 +38,14 @@ const LectureCard: FC<Props> = ({
 	const op = useRef(null);
 	const { id, thumbnail, title, createdBy, reviewList } = value;
 	const axiosInstance = useAxios();
+
 	const { mutate } = useMutation(
 		() => axiosInstance.delete(`user/save-lecture/${id}`),
 		{
 			onSuccess: () => queryClient.invalidateQueries("save-lecture"),
 		}
 	);
+
 	const { mutate: saveLecture } = useMutation(
 		() => axiosInstance.post(`user/save-lecture/${id}`),
 		{
