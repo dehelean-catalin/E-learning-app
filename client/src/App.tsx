@@ -24,7 +24,7 @@ import AuthLayout from "./pages/Auth/AuthLayout/AuthLayout";
 import ForgotPassword from "./pages/Auth/ForgotPassoword/ForgotPassword";
 import Login from "./pages/Auth/Login/Login";
 import Register from "./pages/Auth/Register/Register";
-import PlanningLecture from "./pages/Creator/EditLecture/PlanningLecture/PlanningLecture";
+import PlanningLecture from "./pages/Creator/EditLecture/PlanLecture/PlanningLecture";
 import PublishLecture from "./pages/Creator/EditLecture/PublishLecture/PublishLecture";
 import UploadLecture from "./pages/Creator/EditLecture/UploadLecture/UploadLecture";
 import EmailVerified from "./pages/EmailVerified/EmailVerified";
