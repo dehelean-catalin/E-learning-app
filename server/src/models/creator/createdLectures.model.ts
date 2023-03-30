@@ -8,8 +8,8 @@ export type CreatedLecturesModel = {
 	lastUpdate: number;
 	status: LectureStatus;
 	plan: {
-		goals: any[];
-		requirements: any[];
+		goals: {};
+		requirements: {};
 	};
 };
 

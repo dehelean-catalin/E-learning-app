@@ -32,8 +32,10 @@ const PlanLecture = () => {
 	});
 
 	const onSuccess = (data) => {
-		if (!!data.goals) setGoals(data.goals);
-		if (!!data.requirements) setRequirements(data.requirements);
+		console.log(Object.values(data.goals).length);
+		if (!!Object.values(data.goals).length) setGoals(data.goals);
+		if (!!Object.values(data.requirements).length)
+			setRequirements(data.requirements);
 	};
 
 	const onMutateSuccess = () => {
@@ -93,6 +95,7 @@ const PlanLecture = () => {
 			setGoals({ ...goals });
 		}
 	};
+
 	const onRequirementsDelete = (key) => {
 		if (Object.values(requirements).length >= 4) {
 			delete requirements[key];

@@ -24,8 +24,8 @@ export const postCreateLecture = async (
 			lastUpdate: new Date().getTime(),
 			status: "Draft",
 			plan: {
-				goals: [],
-				requirements: [],
+				goals: {},
+				requirements: {},
 			},
 		};
 
