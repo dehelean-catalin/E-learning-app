@@ -1,0 +1,14 @@
+.uplaod-lecture-tree {
+	flex: 1;
+	background-color: transparent;
+
+	.p-treenode {
+		background-color: var(--color-30);
+		margin: 2px 0px;
+	}
+	.p-treenode-label {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+}

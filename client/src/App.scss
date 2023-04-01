@@ -11,6 +11,18 @@
 body {
 	background: $color-60;
 }
+:root {
+	--color-60: #0f0f0f;
+	--color-30: #282828;
+	--color-10: #4b4b4b;
+	--form-color: #1b2026;
+	--input-color: #30363d;
+	--prime-green: #5269d6;
+	--second-green: #5269d6;
+	--blue-60: #2196f3;
+	--error: #e06565;
+	--border: 1px solid rgba(255, 255, 255, 0.12);
+}
 
 .Auth {
 	width: 100vw;

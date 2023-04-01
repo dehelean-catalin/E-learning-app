@@ -125,7 +125,7 @@ const PlanLecture = () => {
 				You must enter at least 4 learning objectives or outcomes that learners
 				can expect to achieve after completing your course.
 			</span>
-			<div>
+			<div className="plan-lecture-inputs">
 				{Object.entries(goals).map(([key, item]) => (
 					<div key={key} className="planning-field">
 						<InputTextField

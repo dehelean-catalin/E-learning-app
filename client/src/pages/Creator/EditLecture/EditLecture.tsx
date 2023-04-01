@@ -5,14 +5,14 @@ import NavMenu from "./NavMenu/NavMenu";
 
 const EditLecture = () => {
 	return (
-		<div className="edit-lecture">
-			<NavMenu />
-			<UploadLectureProvider>
+		<UploadLectureProvider>
+			<div className="edit-lecture">
+				<NavMenu />
 				<main>
 					<Outlet />
 				</main>
-			</UploadLectureProvider>
-		</div>
+			</div>
+		</UploadLectureProvider>
 	);
 };
 
