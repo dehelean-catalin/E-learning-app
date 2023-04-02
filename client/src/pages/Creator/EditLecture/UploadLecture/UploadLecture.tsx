@@ -1,15 +1,23 @@
+import { RootState } from "data/redux/reducers";
+import {
+	UploadLectureActions,
+	UploadLectureState,
+} from "data/redux/uploadLecture/uploadLectureReducer";
+import { Button } from "primereact/button";
 import { FileUpload } from "primereact/fileupload";
 import { Tree, TreeNodeTemplateOptions } from "primereact/tree";
 import TreeNode from "primereact/treenode";
-import { useContext, useState } from "react";
-import { UploadLectureContext } from "../../../../data/context/uploadLecture";
+import { useDispatch, useSelector } from "react-redux";
+import EditLectureDialog from "./EditLectureDialog";
 import "./UploadLecture.scss";
 import UploadLectureFooter from "./UploadLectureFooter";
 import UploadLectureHeader from "./UploadLectureHeader";
 
 const UploadLecture = () => {
-	const { nodes, onDeleteSection } = useContext(UploadLectureContext);
-	const [selectedNodeKey, setSelectedNodeKey] = useState(null);
+	const dispatch = useDispatch();
+	const { data, selectedNodeKey } = useSelector<RootState, UploadLectureState>(
+		(s) => s.uploadLectureReducer
+	);
 
 	const nodeTemplate = (node: TreeNode, options: TreeNodeTemplateOptions) => {
 		if (node?.children)
@@ -19,7 +27,6 @@ const UploadLecture = () => {
 						<strong className="mr-2">Section {node.key}:</strong>
 						{node.label}
 					</p>
-					<div onClick={() => onDeleteSection(node.key)}>X</div>
 				</div>
 			);
 
@@ -33,20 +40,34 @@ const UploadLecture = () => {
 			</div>
 		);
 	};
+	const onSelectionChange = (e) => {
+		dispatch(UploadLectureActions.setSelectedNodeKey(e.value));
+		dispatch(UploadLectureActions.toggleHeaderVisibility(true));
+	};
+
+	const onUnselect = () => {
+		dispatch(UploadLectureActions.setSelectedNodeKey(null));
+		dispatch(UploadLectureActions.toggleHeaderVisibility(false));
+	};
 
 	return (
-		<Tree
-			value={nodes}
-			className="uplaod-lecture-tree"
-			header={<UploadLectureHeader />}
-			footer={<UploadLectureFooter />}
-			nodeTemplate={nodeTemplate}
-			dragdropScope="demo"
-			selectionMode="single"
-			selectionKeys={selectedNodeKey}
-			onSelectionChange={(e) => setSelectedNodeKey(e.value)}
-			onDragDrop={({ value }) => console.log(value)}
-		/>
+		<>
+			<Tree
+				value={data}
+				className="uplaod-lecture-tree"
+				header={<UploadLectureHeader />}
+				footer={<UploadLectureFooter />}
+				nodeTemplate={nodeTemplate}
+				dragdropScope="demo"
+				selectionMode="single"
+				selectionKeys={selectedNodeKey}
+				onSelectionChange={onSelectionChange}
+				onUnselect={onUnselect}
+				onDragDrop={({ value }) => console.log(value)}
+			/>
+			<Button label="Save" type="button" />
+			<EditLectureDialog />
+		</>
 	);
 };
 

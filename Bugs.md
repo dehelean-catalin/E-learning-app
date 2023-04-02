@@ -4,7 +4,10 @@ Articole licenta:
 
 # Development:
 
-- Create Page;
+- plan lecture design improvemnet + input lenght validation;
+- create a header for creator;
+- create endpoint for upload;
+- delete item, edit item;
 
 # Bugs:
 
