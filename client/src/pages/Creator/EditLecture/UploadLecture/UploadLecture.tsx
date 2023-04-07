@@ -1,71 +1,73 @@
+import { RootState } from "data/redux/reducers";
+import {
+	UploadLectureActions,
+	UploadLectureState,
+} from "data/redux/uploadLecture/uploadLectureReducer";
 import { Button } from "primereact/button";
 import { FileUpload } from "primereact/fileupload";
-import { Tree } from "primereact/tree";
-import { FormEvent, useContext, useState } from "react";
-import InputTextField from "../../../../components/Forms/Inputs/InputTextField/InputTextField";
-import { UploadLectureContext } from "../../../../data/context/uploadLecture";
+import { Tree, TreeNodeTemplateOptions } from "primereact/tree";
+import TreeNode from "primereact/treenode";
+import { useDispatch, useSelector } from "react-redux";
+import EditLectureDialog from "./EditLectureDialog";
+import "./UploadLecture.scss";
+import UploadLectureFooter from "./UploadLectureFooter";
+import UploadLectureHeader from "./UploadLectureHeader";
 
 const UploadLecture = () => {
-	const { nodes, onAddSection } = useContext(UploadLectureContext);
-	const [isVisible, toggleVisibility] = useState(false);
-	const [title, setTitle] = useState("");
-	console.debug(title);
-	const nodeTemplate = (node, options) => {
+	const dispatch = useDispatch();
+	const { data, selectedNodeKey } = useSelector<RootState, UploadLectureState>(
+		(s) => s.uploadLectureReducer
+	);
+
+	const nodeTemplate = (node: TreeNode, options: TreeNodeTemplateOptions) => {
 		if (node?.children)
 			return (
 				<div className={options.className}>
-					<strong>Section {node.key}:</strong>
-					{node.label}
-					<Button label="Add Section Item" icon="pi pi-plus-circle" />
+					<p>
+						<strong className="mr-2">Section {node.key}:</strong>
+						{node.label}
+					</p>
 				</div>
 			);
+
 		return (
 			<div className={options.className}>
-				<strong>Lecture {node.key}:</strong>
-				{node.label}
-				<FileUpload mode="basic" />
+				<p>
+					<strong className="mr-2">Lecture {node.key}:</strong>
+					{node.label}
+				</p>
+				<FileUpload mode="basic" chooseLabel="Content" />
 			</div>
 		);
 	};
+	const onSelectionChange = (e) => {
+		dispatch(UploadLectureActions.setSelectedNodeKey(e.value));
+		dispatch(UploadLectureActions.toggleHeaderVisibility(true));
+	};
 
-	const onSubmit = (e: FormEvent) => {
-		e.preventDefault();
-		const key = nodes.length + 1;
-
-		onAddSection({
-			key,
-			label: title,
-			children: [],
-		});
+	const onUnselect = () => {
+		dispatch(UploadLectureActions.setSelectedNodeKey(null));
+		dispatch(UploadLectureActions.toggleHeaderVisibility(false));
 	};
 
 	return (
-		<div className="flex-1">
-			Structura Cursului
+		<>
 			<Tree
-				value={nodes}
-				dragdropScope="demo"
-				onDragDrop={({ value }) => console.log(value)}
+				value={data}
+				className="uplaod-lecture-tree"
+				header={<UploadLectureHeader />}
+				footer={<UploadLectureFooter />}
 				nodeTemplate={nodeTemplate}
+				dragdropScope="demo"
+				selectionMode="single"
+				selectionKeys={selectedNodeKey}
+				onSelectionChange={onSelectionChange}
+				onUnselect={onUnselect}
+				onDragDrop={({ value }) => console.log(value)}
 			/>
-			{isVisible ? (
-				<form onSubmit={onSubmit}>
-					<InputTextField
-						placeholder="Title"
-						value={title}
-						onChange={(e) => setTitle(e)}
-					/>
-
-					<Button label="Save" />
-				</form>
-			) : (
-				<Button
-					label="Add Section"
-					icon="pi pi-plus-circle"
-					onClick={() => toggleVisibility(true)}
-				/>
-			)}
-		</div>
+			<Button label="Save" type="button" />
+			<EditLectureDialog />
+		</>
 	);
 };
 

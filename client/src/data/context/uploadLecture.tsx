@@ -3,34 +3,40 @@ import { createContext, FC, useState } from "react";
 
 type UploadLectureContextState = {
 	nodes: TreeNode[];
-	onAddSection: (value: any) => void;
+	onAddSectionItem: (value: TreeNode, key: string | number) => void;
 };
+
 type UploadLectureProviderProps = {
 	children: JSX.Element;
 };
 
+const INITIAL_STATE = [];
+
 export const UploadLectureContext = createContext<UploadLectureContextState>({
 	nodes: [],
-	onAddSection: () => {},
+	onAddSectionItem: () => {},
 });
 
 export const UploadLectureProvider: FC<UploadLectureProviderProps> = ({
 	children,
 }) => {
-	const [nodes, setNodes] = useState([]);
+	const [nodes, setNodes] = useState<TreeNode[]>(INITIAL_STATE);
 
-	const onAddSection = (value: TreeNode) => {
-		console.log(value);
-		setNodes([...nodes, value]);
+	const onAddSectionItem = (value, key) => {
+		nodes.forEach((node) => {
+			if (node.key === key && node?.children) node.children.push(value);
+		});
+
+		setNodes(nodes);
 	};
 
-	const value: UploadLectureContextState = {
+	const constextValue: UploadLectureContextState = {
 		nodes,
-		onAddSection,
+		onAddSectionItem,
 	};
 
 	return (
-		<UploadLectureContext.Provider value={value}>
+		<UploadLectureContext.Provider value={constextValue}>
 			{children}
 		</UploadLectureContext.Provider>
 	);
