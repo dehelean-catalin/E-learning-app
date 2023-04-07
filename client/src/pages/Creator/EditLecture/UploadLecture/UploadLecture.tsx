@@ -8,9 +8,8 @@ import { UploadLectureContext } from "../../../../data/context/uploadLecture";
 const UploadLecture = () => {
 	const { nodes, onAddSection } = useContext(UploadLectureContext);
 	const [isVisible, toggleVisibility] = useState(false);
-
 	const [title, setTitle] = useState("");
-
+	console.debug(title);
 	const nodeTemplate = (node, options) => {
 		if (node?.children)
 			return (
