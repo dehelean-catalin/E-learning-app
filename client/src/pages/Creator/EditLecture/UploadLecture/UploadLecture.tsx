@@ -40,14 +40,15 @@ const UploadLecture = () => {
 			</div>
 		);
 	};
-	const onSelectionChange = (e) => {
-		dispatch(UploadLectureActions.setSelectedNodeKey(e.value));
-		dispatch(UploadLectureActions.toggleHeaderVisibility(true));
-	};
 
-	const onUnselect = () => {
-		dispatch(UploadLectureActions.setSelectedNodeKey(null));
-		dispatch(UploadLectureActions.toggleHeaderVisibility(false));
+	const onSelectionChange = (e) => {
+		if (selectedNodeKey === e.value) {
+			dispatch(UploadLectureActions.setSelectedNodeKey(null));
+			dispatch(UploadLectureActions.toggleHeaderVisibility(false));
+		} else {
+			dispatch(UploadLectureActions.setSelectedNodeKey(e.value));
+			dispatch(UploadLectureActions.toggleHeaderVisibility(true));
+		}
 	};
 
 	return (
@@ -62,7 +63,6 @@ const UploadLecture = () => {
 				selectionMode="single"
 				selectionKeys={selectedNodeKey}
 				onSelectionChange={onSelectionChange}
-				onUnselect={onUnselect}
 				onDragDrop={({ value }) => console.log(value)}
 			/>
 			<Button label="Save" type="button" />

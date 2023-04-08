@@ -2,20 +2,19 @@ Articole licenta:
 
 "https://digitalcommons.kennesaw.edu/cgi/viewcontent.cgi?article=4443&context=facpubs",
 
-# Development:
+# In Development:
 
-- plan lecture design improvemnet + input lenght validation;
 - create a header for creator;
 - create endpoint for upload;
 - delete item, edit item;
 
 # Bugs:
 
+- Search : Not found component;
 - Enhance update lecture history time ;
 - History: 12PM order wrong;
 - home data model from backend;
 - Update Lecture Overview logic + updating check mark;
-- Search : Not found component;
 
 # Prio 0:
 
