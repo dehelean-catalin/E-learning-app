@@ -4,13 +4,15 @@ Articole licenta:
 
 # In Development:
 
-- create a header for creator;
-- create endpoint for upload;
-- delete item, edit item;
+- app style;
+- header progress;
+- mapping all gata to the publish lecture;
+- delete item, edit item upload section;
+- Search : Not found component;
+- unify models
 
 # Bugs:
 
-- Search : Not found component;
 - Enhance update lecture history time ;
 - History: 12PM order wrong;
 - home data model from backend;
@@ -18,8 +20,6 @@ Articole licenta:
 
 # Prio 0:
 
-- Dashboard;
-- Plan, Upload, Publish;
 - saga logout auto;
 - lecture card enhanced;
 - backend validare categorie;
