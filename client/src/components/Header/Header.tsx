@@ -12,6 +12,9 @@ const Header: FC = () => {
 	if (pathname === "/create") {
 		return <CreateHeader />;
 	}
+	if (pathname.includes("/creator/created-lectures/")) {
+		return <></>;
+	}
 
 	return (
 		<header className={"app-header"}>

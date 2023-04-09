@@ -1,9 +1,9 @@
 import GenericDialog from "components/Dialog/GenericDialog";
-import { RootState } from "data/redux/reducers";
 import {
 	UploadLectureActions,
 	UploadLectureState,
-} from "data/redux/uploadLecture/uploadLectureReducer";
+} from "data/redux/creator/uploadLectureReducer";
+import { RootState } from "data/redux/reducers";
 import { Button } from "primereact/button";
 import { FileUpload } from "primereact/fileupload";
 import { InputText } from "primereact/inputtext";

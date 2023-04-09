@@ -6,17 +6,17 @@ import {
 } from "firebase/auth";
 import Create from "pages/Creator/Create/Create";
 import CreatedLectures from "pages/Creator/Dashboard/Dashboard";
-import Course from "pages/Creator/EditLecture/EditLecture";
+import EditLecture from "pages/Creator/EditLecture/EditLecture";
 import Search from "pages/Search/Search";
 import "primeicons/primeicons.css";
 import "primereact/resources/primereact.min.css";
 import "primereact/resources/themes/md-dark-indigo/theme.css";
 import { useContext } from "react";
 import {
-	createBrowserRouter,
-	createRoutesFromElements,
 	Route,
 	RouterProvider,
+	createBrowserRouter,
+	createRoutesFromElements,
 } from "react-router-dom";
 import "./App.scss";
 import Account from "./pages/AccountPage/AccountPage";
@@ -59,9 +59,11 @@ function App() {
 					<Route path="register" element={<Register />} />
 					<Route path="forgot-password" element={<ForgotPassword />} />
 				</Route>
+
 				<Route path="/email-verified" element={<VerifyEmailLayout />}>
 					<Route index element={<EmailVerified />} />
 				</Route>
+
 				<Route path="/*" element={<RootLayout />}>
 					<Route index element={<Home />} />
 					<Route path="home" element={<Home />} />
@@ -83,7 +85,10 @@ function App() {
 						path="creator/created-lectures"
 						element={<CreatedLectures />}
 					/>
-					<Route path={"creator/created-lectures/:id/"} element={<Course />}>
+					<Route
+						path={"creator/created-lectures/:id/"}
+						element={<EditLecture />}
+					>
 						<Route index element={<PlanLecture />} />
 						<Route path="plan" element={<PlanLecture />} />
 						<Route path="upload" element={<UploadLecture />} />

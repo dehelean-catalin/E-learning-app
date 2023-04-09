@@ -1,5 +1,5 @@
+import { UploadLectureActions } from "data/redux/creator/uploadLectureReducer";
 import { RootState } from "data/redux/reducers";
-import { UploadLectureActions } from "data/redux/uploadLecture/uploadLectureReducer";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import TreeNode from "primereact/treenode";

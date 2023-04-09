@@ -1,34 +1,26 @@
-import { AxiosError, AxiosResponse } from "axios";
 import { NavLink } from "react-router-dom";
 import LectureCard from "../../components/Cards/LectureCard/LectureCard";
 import SavedLecturesSkeleton from "../../components/SavedLecturesSkeleton/SavedLecturesSkeleton";
 import { LectureModel } from "../../data/models/lectureModel";
+import { getSavedLectures } from "../../data/services/saved-lectures/savedLectures.service";
 import { useAxios } from "../../hooks/useAxios";
-import useFetchQuery from "../../hooks/useFetchQuery";
+import { useFetchData } from "../../hooks/useFetchData";
 import image from "../../layout/images/no-results.png";
 import NotFound from "../NotFound/NotFound";
 import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
 import styles from "./SavedLectures.module.scss";
 
 const SavedLectures = () => {
-	const axiosInstance = useAxios();
-	const { data, isLoading, isError } = useFetchQuery(
-		"save-lecture",
-		() => {
-			return axiosInstance.get("/user/save-lecture").then((res) => res.data);
-		},
-		{
-			initialData: [],
-			onError: (e: AxiosError) => console.log(e),
-			onSuccess: (e: AxiosResponse) => console.log(e),
-		}
+	const axios = useAxios();
+
+	const { data, isLoading, isError } = useFetchData("save-lecture", () =>
+		getSavedLectures(axios)
 	);
-	if (isLoading) {
-		return <SavedLecturesSkeleton />;
-	}
-	if (isError) {
-		return <NotFoundError />;
-	}
+
+	if (isLoading) return <SavedLecturesSkeleton />;
+
+	if (isError) return <NotFoundError />;
+
 	if (!data.length) {
 		return (
 			<NotFound>

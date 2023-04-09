@@ -5,7 +5,7 @@ import "./CreateHeader.scss";
 
 const CreateHeader = () => {
 	return (
-		<div className="create-header">
+		<header className="create-header">
 			<HeaderLogo />
 			<div className="page-number">Create a course</div>
 			<NavLink
@@ -15,7 +15,7 @@ const CreateHeader = () => {
 			>
 				Close
 			</NavLink>
-		</div>
+		</header>
 	);
 };
 

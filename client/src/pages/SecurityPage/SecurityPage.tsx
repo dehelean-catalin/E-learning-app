@@ -10,6 +10,7 @@ import ChangePasswordPage from "./ChangePassword/ChangePassword";
 import { ConnectionItem } from "./ConnectionCard/ConnectionCard";
 import ConnectionSection from "./ConnectionsSection/ConnectionsSection";
 import styles from "./SecurityPage.module.scss";
+
 const SecurityPage = () => {
 	const axiosInstance = useAxios();
 	const [connectionsList, setConnectionsList] = useState<ConnectionItem[]>([]);

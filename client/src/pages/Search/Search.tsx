@@ -12,8 +12,8 @@ import { useAxios } from "hooks/useAxios";
 import { useFetchData } from "hooks/useFetchData";
 import NotFoundError from "pages/NotFound/NotFoundError/NotFoundError";
 import { useSearchParams } from "react-router-dom";
-import SearchFilterSection from "./components/SearchFilterSection";
 import "./Search.scss";
+import SearchFilterSection from "./components/SearchFilterSection";
 
 const Search = () => {
 	const axios = useAxios();
@@ -29,12 +29,9 @@ const Search = () => {
 		() => getSearchLectures(axios, searchParams as QueryFilterParams)
 	);
 
-	if (isLoading) {
-		return <Spinner />;
-	}
-	if (isError) {
-		return <NotFoundError />;
-	}
+	if (isLoading) return <Spinner />;
+
+	if (isError) return <NotFoundError />;
 
 	return (
 		<div className="search">

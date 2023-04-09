@@ -7,10 +7,12 @@ export type CreatedLecturesModel = {
 	category: ICategory;
 	lastUpdate: number;
 	status: LectureStatus;
-	plan: {
-		goals: {};
-		requirements: {};
-	};
+	goals: InputModel[];
+	requirements: InputModel[];
 };
 
 export type LectureStatus = "Draft" | "Public" | "Private" | "Unlisted";
+export type InputModel = {
+	value: string;
+	placeholder: string;
+};

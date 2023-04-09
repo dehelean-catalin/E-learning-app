@@ -5,11 +5,12 @@ Articole licenta:
 # In Development:
 
 - app style;
-- header progress;
 - mapping all gata to the publish lecture;
+- updateCreatedLecturePlan - rename and map entire data
 - delete item, edit item upload section;
-- Search : Not found component;
 - unify models
+- header progress;
+- Search : Not found component;
 
 # Bugs:
 
@@ -20,6 +21,7 @@ Articole licenta:
 
 # Prio 0:
 
+- Moving to react-query;
 - saga logout auto;
 - lecture card enhanced;
 - backend validare categorie;
@@ -33,10 +35,9 @@ Articole licenta:
 
 - link email with provider;
 - multifactor authentication;
-- refactor useFetchQuery;
+
 - Add Notes for a lecture chapter;
 - Ask question functionality
 - Lecture Overview: take a test functionality;
 - Multi language support;
 - Multi notification support;
-- Moving to react-query;

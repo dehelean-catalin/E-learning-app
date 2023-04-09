@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import {
-	collection,
-	getDocs,
 	QueryDocumentSnapshot,
 	QuerySnapshot,
+	collection,
+	getDocs,
 } from "firebase/firestore";
 import db from "../../config/firebase";
 import {
@@ -135,6 +135,8 @@ export const getSearchLectures = async (
 				lastYearCheck(createdAt)
 			);
 		}
+
+		if (!searchedLectures.length) throw new Error("No lecture found");
 
 		res.status(200).json(searchedLectures);
 	} catch (err: any) {

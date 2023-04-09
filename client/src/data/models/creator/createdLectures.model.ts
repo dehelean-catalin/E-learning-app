@@ -7,12 +7,13 @@ export type CreatedLecturesModel = {
 	category: ICategory;
 	lastUpdate: number;
 	status: LectureStatus;
-	plan: {
-		goals: {};
-		requirements: {};
-	};
+	goals: PlanFieldModel[];
+	requirements: PlanFieldModel[];
 };
 
 export type LectureStatus = "Draft" | "Public" | "Private" | "Unlisted";
 
-export type Plan = { goals: {}; requirements: {} };
+export type PlanFieldModel = {
+	value: string;
+	placeholder: string;
+};

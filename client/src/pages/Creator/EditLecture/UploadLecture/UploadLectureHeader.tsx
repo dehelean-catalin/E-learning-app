@@ -1,8 +1,8 @@
-import { RootState } from "data/redux/reducers";
 import {
 	UploadLectureActions,
 	UploadLectureState,
-} from "data/redux/uploadLecture/uploadLectureReducer";
+} from "data/redux/creator/uploadLectureReducer";
+import { RootState } from "data/redux/reducers";
 import { Button } from "primereact/button";
 import { useDispatch, useSelector } from "react-redux";
 

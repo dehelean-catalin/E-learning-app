@@ -5,51 +5,18 @@ import LectureHeader from "../../components/Lecture/LectureHeader/LectureHeader"
 import LectureHeaderSkeleton from "../../components/Lecture/LectureHeader/LectureHeaderSkeleton";
 import LectureReviewList from "../../components/Lecture/LectureReviewList/LectureReviewList";
 import LectureSectionSkeleton from "../../components/Lecture/LectureSectionCard/LectureSectionSkeleton";
-import { ICategory, LectureModel } from "../../data/models/lectureModel";
+import { getLecture } from "../../data/services/lecture/lecture.service";
 import { useAxios } from "../../hooks/useAxios";
-import useFetchQuery from "../../hooks/useFetchQuery";
+import { useFetchData } from "../../hooks/useFetchData";
 import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
 import styles from "./Lecture.module.scss";
 
-const INITIAL_DATA: LectureModel = {
-	id: "",
-	title: "",
-	details: "",
-	description: {
-		data: "",
-	},
-	thumbnail: "",
-	category: ICategory.ALL,
-	subCategory: "",
-	createdAt: null,
-	createdBy: "",
-	numberOfUsers: [],
-	language: "",
-	items: {
-		data: [],
-		description: "",
-	},
-	reviewList: {
-		data: [],
-		description: "",
-	},
-};
-
 const Lecture = () => {
 	const { id } = useParams();
-	const axiosInstance = useAxios();
-	const { data, isLoading, isError } = useFetchQuery(
-		"get-lecture",
-		() => {
-			return axiosInstance.get(`/lecture/${id}`).then((res) => res.data);
-		},
-		{
-			initialData: INITIAL_DATA,
-			onError: () => console.log("error"),
-			onSuccess: () => {},
-		}
+	const axios = useAxios();
+	const { data, isLoading, isError } = useFetchData("get-lecture", () =>
+		getLecture(axios, id)
 	);
-	const lectureData = data as LectureModel;
 
 	if (isLoading) {
 		return (
@@ -61,17 +28,16 @@ const Lecture = () => {
 			</div>
 		);
 	}
-	if (isError) {
-		return <NotFoundError />;
-	}
+
+	if (isError) return <NotFoundError />;
 
 	return (
 		<div className={styles.lecture}>
 			<div className={styles.container}>
-				<LectureHeader value={lectureData} />
-				<LectureDescription value={lectureData.description} />
-				<LectureChapters value={lectureData.items} />
-				<LectureReviewList value={lectureData.reviewList} />
+				<LectureHeader value={data} />
+				<LectureDescription value={data.description} />
+				<LectureChapters value={data.items} />
+				<LectureReviewList value={data.reviewList} />
 			</div>
 		</div>
 	);
