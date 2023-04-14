@@ -57,9 +57,7 @@ const Home: FC = () => {
 			</div>
 		);
 	}
-	if (isError) {
-		return <NotFoundError />;
-	}
+	if (isError) return <NotFoundError />;
 
 	const getContent = () => {
 		if (!data.length) {
@@ -80,11 +78,7 @@ const Home: FC = () => {
 	};
 	return (
 		<div className={styles.home}>
-			<FilterList
-				onFilterChange={(f) => {
-					setCategory(f);
-				}}
-			/>
+			<FilterList onFilterChange={setCategory} />
 			{getContent()}
 			{/* <HomeSection title="New Lectures" value={data} showDivider />
 					<HomeSection title="Top Rated Lectures" value={data} showDivider />

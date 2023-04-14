@@ -4,7 +4,7 @@ import db from "../../config/firebase";
 import { tryAgainError } from "../../constant";
 import { ValidatedRequest } from "../../models/request";
 
-export const updateCreatedLecturePlan = async (
+export const updateCreatedLecture = async (
 	req: Request<any, any, any>,
 	res: Response<string>
 ) => {
@@ -14,7 +14,7 @@ export const updateCreatedLecturePlan = async (
 		`users/${validatedReq.userData.userId}/createdLectures/${req.params.id}`
 	);
 	try {
-		await updateDoc(lectureRef, { plan: req.body });
+		await updateDoc(lectureRef, req.body);
 
 		res.status(200).json("Successfully created");
 	} catch (err) {

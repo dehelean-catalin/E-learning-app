@@ -12,7 +12,6 @@ type Props = {
 const HomeSection: FC<Props> = ({ value, title, showDivider }) => {
 	return (
 		<div className={styles["home-section"]}>
-			{/* <div className={styles.title}>{title}</div> */}
 			<div className={styles["lecture-list"]}>
 				<LectureList value={value} />
 			</div>

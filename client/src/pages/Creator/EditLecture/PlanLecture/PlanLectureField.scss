@@ -1,0 +1,22 @@
+.plan-lecture-field {
+	flex: 1;
+	display: flex;
+	gap: 10px;
+	padding-bottom: 10px;
+
+	input {
+		flex: 0 0 70%;
+		background: var(--color-30);
+		border-radius: 4px;
+		border: 0px !important;
+		padding: 12px;
+		font-size: 14px;
+
+		&:focus {
+			outline: 0px;
+		}
+	}
+}
+.add-button {
+	min-width: fit-content;
+}

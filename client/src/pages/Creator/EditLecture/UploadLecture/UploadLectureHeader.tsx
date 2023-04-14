@@ -26,11 +26,22 @@ const UploadLectureHeader = () => {
 			<h1>Structura Cursului</h1>
 			{headerVisible && (
 				<div>
-					<Button label="Add item" icon="pi pi-add" onClick={onShowModal} />
-					<Button label="Edit" icon="pi pi-pencil" onClick={onShowModal} />
+					<Button
+						label="Add item"
+						icon="pi pi-add"
+						type="button"
+						onClick={onShowModal}
+					/>
+					<Button
+						label="Edit"
+						icon="pi pi-pencil"
+						type="button"
+						onClick={onShowModal}
+					/>
 					<Button
 						label="Delete"
 						icon="pi pi-trash"
+						type="button"
 						onClick={() => onDeleteNode(selectedNodeKey)}
 					/>
 				</div>

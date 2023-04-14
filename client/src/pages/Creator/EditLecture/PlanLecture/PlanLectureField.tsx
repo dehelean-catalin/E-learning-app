@@ -1,8 +1,8 @@
-import { FieldArray, FieldInputProps } from "formik";
+import { Field, FieldArray, FieldInputProps } from "formik";
 import { Button } from "primereact/button";
-import { InputText } from "primereact/inputtext";
 import { FC } from "react";
-import { PlanFieldModel } from "../../../../data/models/creator/createdLectures.model";
+import { PlanFieldModel } from "../../../../data/models/createdLecture.model";
+import "./PlanLectureField.scss";
 
 const PlanLectureField: FC<{
 	data: FieldInputProps<PlanFieldModel[]>;
@@ -13,9 +13,9 @@ const PlanLectureField: FC<{
 			render={(arrayHelpers) => (
 				<div>
 					{data.value.map((friend, index) => (
-						<div key={index}>
-							<InputText
-								name={`${data.name}.[${index}].value`}
+						<div key={index} className="plan-lecture-field">
+							<Field
+								name={`${data.name}.${index}.value`}
 								placeholder={friend.placeholder}
 								onChange={data.onChange}
 							/>
@@ -31,10 +31,13 @@ const PlanLectureField: FC<{
 						type="button"
 						label="Add more answers"
 						icon="pi pi-plus-circle"
-						className="w-5"
+						className="add-button"
 						iconPos="left"
 						onClick={() =>
-							arrayHelpers.push({ value: "", placeholder: "test" })
+							arrayHelpers.push({
+								value: "",
+								placeholder: "Enter new line ...",
+							})
 						}
 						disabled={!!data.value.find((i) => i.value === "")}
 					/>

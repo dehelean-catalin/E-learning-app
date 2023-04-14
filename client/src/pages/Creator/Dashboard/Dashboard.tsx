@@ -4,7 +4,9 @@ import { Paginator } from "primereact/paginator";
 import { useState } from "react";
 import "./Dashboard.scss";
 
+import { NavLink } from "react-router-dom";
 import Spinner from "../../../common/Spinner/Spinner";
+import Empty from "../../../components/Empty/Empty";
 import { getCreatedLectures } from "../../../data/services/creator";
 import { getCreatedLecturesLength } from "../../../data/services/creator/_getCreatedLecturesLength.service";
 import { useFetchData } from "../../../hooks/useFetchData";
@@ -46,8 +48,21 @@ const Dashboard = () => {
 	};
 
 	if (isLoading) return <Spinner />;
-	if (!data.length) return <NotFoundError />;
+
 	if (isError) return <NotFoundError />;
+
+	if (!data.length)
+		return (
+			<Empty>
+				<strong>Create a new lecture</strong>
+				<p>
+					Looks like you didn't create any lecture yet
+					<br />
+					Press bellow button and try to create a lecture
+				</p>
+				<NavLink to="/create">Create</NavLink>
+			</Empty>
+		);
 
 	return (
 		<div className="dashboard">

@@ -1,14 +1,14 @@
 import { AxiosError, AxiosInstance, AxiosResponse } from "axios";
-import { CreateLecture } from "data/models/creator/createLecture.model";
 import { NavigateFunction } from "react-router";
 import { AnyAction, Dispatch } from "redux";
+import { CreateLecturePayload } from "../../../../../shared/src/createdLecture.model";
 import { NotificationActions } from "../../redux/notificationReducer";
 
 export const postCreateLecture = (
 	axios: AxiosInstance,
 	dispatch: Dispatch<AnyAction>,
 	navigate: NavigateFunction,
-	data: CreateLecture
+	data: CreateLecturePayload
 ) => {
 	return axios
 		.post("create", data)

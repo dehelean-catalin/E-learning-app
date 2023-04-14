@@ -1,10 +1,7 @@
 @import "src/layout/variables.scss";
 
 .side-bar {
-	grid-area: menu;
-	position: sticky;
-	top: 0px;
-	height: 100vh;
+	width: 70px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

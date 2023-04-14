@@ -3,7 +3,7 @@ import {
 	getCreatedLectures,
 	getCreatedLecturesLength,
 	postCreateLecture,
-	updateCreatedLecturePlan,
+	updateCreatedLecture,
 } from "../controllers/creator-controller";
 import { getCreatedLecture } from "../controllers/creator-controller/_getCreatedLecture.service";
 import { default as tokenAuthMiddleware } from "../middleware/tokenAuth-middleware";
@@ -20,9 +20,6 @@ router.get(
 	getCreatedLecturesLength
 );
 router.post("/create", validation(createLectureSchema), postCreateLecture);
-router.post(
-	"/created-lectures/:id/plan",
-	tokenAuthMiddleware,
-	updateCreatedLecturePlan
-);
+router.post("/created-lectures/:id", tokenAuthMiddleware, updateCreatedLecture);
+
 export default router;

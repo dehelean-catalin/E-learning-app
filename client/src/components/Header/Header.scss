@@ -1,12 +1,8 @@
 @import "src/layout/variables.scss";
 .app-header {
-	grid-area: header;
-	position: sticky;
-	top: 0px;
 	display: grid;
 	grid-template-columns: auto 1fr auto;
-	background: $color-60;
-	padding: 0px 1rem;
 	color: white;
+	padding: 6px 12px;
 	z-index: 2;
 }

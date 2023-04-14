@@ -47,9 +47,13 @@ const RootLayout = () => {
 	return (
 		<div className="App">
 			<SideBar />
-			<Header />
+			<main className="main-wrapper">
+				<Header />
+				<div className="app-wrapper">
+					<Outlet />
+				</div>
+			</main>
 			<Notification />
-			<Outlet />
 			<NewForm />
 		</div>
 	);

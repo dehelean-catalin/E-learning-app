@@ -3,8 +3,10 @@ import { doc, setDoc } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
 import db from "../../config/firebase";
 import { tryAgainError } from "../../constant";
-import { CreateLecture } from "../../models/creator/createLecture.model";
-import { CreatedLecturesModel } from "../../models/creator/createdLectures.model";
+import {
+	CreateLecturePayload,
+	CreatedLectureModel,
+} from "../../models/createdLecture.model";
 import { ValidatedRequest } from "../../models/request";
 
 const INITIAL_REQUIREMENTS = [
@@ -41,7 +43,7 @@ const INITIAL_GOALS = [
 ];
 
 export const postCreateLecture = async (
-	req: Request<any, any, CreateLecture>,
+	req: Request<any, any, CreateLecturePayload>,
 	res: Response<string>
 ) => {
 	try {
@@ -51,11 +53,14 @@ export const postCreateLecture = async (
 			db,
 			`users/${validatedReq.userData.userId}/createdLectures/${id}`
 		);
-		const lectureData: CreatedLecturesModel = {
-			...req.body,
+		const lectureData: CreatedLectureModel = {
 			id,
 			lastUpdate: new Date().getTime(),
-			status: "Draft",
+			publish: {
+				...req.body,
+				status: "Draft",
+			},
+			content: {},
 			goals: INITIAL_GOALS,
 			requirements: INITIAL_REQUIREMENTS,
 		};

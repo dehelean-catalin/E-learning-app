@@ -59,11 +59,9 @@ function App() {
 					<Route path="register" element={<Register />} />
 					<Route path="forgot-password" element={<ForgotPassword />} />
 				</Route>
-
 				<Route path="/email-verified" element={<VerifyEmailLayout />}>
 					<Route index element={<EmailVerified />} />
 				</Route>
-
 				<Route path="/*" element={<RootLayout />}>
 					<Route index element={<Home />} />
 					<Route path="home" element={<Home />} />

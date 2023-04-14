@@ -1,13 +1,13 @@
 import { Chip } from "primereact/chip";
 import { FC, useState } from "react";
 import { useNavigate } from "react-router";
-import { CreatedLecturesModel } from "../../../data/models/creator/createdLectures.model";
+import { CreatedLectureModel } from "../../../data/models/createdLecture.model";
 import img from "../../../layout/images/multimedia.png";
 import "./CreatedLectureCard.scss";
 import { iconBasedOnStatus } from "./iconBasedOnStatus.helper";
 
-const CreatedLectureCard: FC<{ data: CreatedLecturesModel }> = ({ data }) => {
-	const { title, lastUpdate, status, id } = data;
+const CreatedLectureCard: FC<{ data: CreatedLectureModel }> = ({ data }) => {
+	const { title, status } = data.publish;
 	const navigate = useNavigate();
 	const [detailsVisibility, toggleDetails] = useState(false);
 
@@ -24,12 +24,12 @@ const CreatedLectureCard: FC<{ data: CreatedLecturesModel }> = ({ data }) => {
 			className="created-lecture-card"
 			onMouseEnter={showDetails}
 			onMouseLeave={hideDetails}
-			onClick={() => navigate(`/creator/created-lectures/${id}`)}
+			onClick={() => navigate(`/creator/created-lectures/${data.id}`)}
 		>
 			<img src={img} alt="create-icon" />
 			<div>
 				<div>{title}</div>
-				<div>Last Update: {lastUpdate}</div>
+				<div>Last Update: {data.lastUpdate}</div>
 				{detailsVisibility ? (
 					<>options</>
 				) : (

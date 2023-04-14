@@ -3,7 +3,6 @@ import {
 	UploadLectureState,
 } from "data/redux/creator/uploadLectureReducer";
 import { RootState } from "data/redux/reducers";
-import { Button } from "primereact/button";
 import { FileUpload } from "primereact/fileupload";
 import { Tree, TreeNodeTemplateOptions } from "primereact/tree";
 import TreeNode from "primereact/treenode";
@@ -65,7 +64,6 @@ const UploadLecture = () => {
 				onSelectionChange={onSelectionChange}
 				onDragDrop={({ value }) => console.log(value)}
 			/>
-			<Button label="Save" type="button" />
 			<EditLectureDialog />
 		</>
 	);

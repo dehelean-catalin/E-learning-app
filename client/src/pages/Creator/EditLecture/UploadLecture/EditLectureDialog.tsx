@@ -51,7 +51,7 @@ const EditLectureDialog = () => {
 					<InputText id="username" />
 				</div>
 				<FileUpload />
-				<Button label="Save" />
+				<Button label="Save" type="submit" />
 			</form>
 		</GenericDialog>
 	);

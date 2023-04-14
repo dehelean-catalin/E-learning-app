@@ -1,7 +1,7 @@
 import Joi from "joi";
-import { CreateLecture } from "../../models/creator/createLecture.model";
+import { CreateLecturePayload } from "../../models/createdLecture.model";
 
-export const createLectureSchema = Joi.object<CreateLecture, true>({
+export const createLectureSchema = Joi.object<CreateLecturePayload, true>({
 	title: Joi.string().required().messages({
 		"any.required": "title is required",
 		"string.empty": "title cannot be empty",

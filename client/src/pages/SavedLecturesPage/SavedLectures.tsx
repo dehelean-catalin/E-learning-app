@@ -1,12 +1,11 @@
 import { NavLink } from "react-router-dom";
 import LectureCard from "../../components/Cards/LectureCard/LectureCard";
+import Empty from "../../components/Empty/Empty";
 import SavedLecturesSkeleton from "../../components/SavedLecturesSkeleton/SavedLecturesSkeleton";
 import { LectureModel } from "../../data/models/lectureModel";
 import { getSavedLectures } from "../../data/services/saved-lectures/savedLectures.service";
 import { useAxios } from "../../hooks/useAxios";
 import { useFetchData } from "../../hooks/useFetchData";
-import image from "../../layout/images/no-results.png";
-import NotFound from "../NotFound/NotFound";
 import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
 import styles from "./SavedLectures.module.scss";
 
@@ -21,20 +20,18 @@ const SavedLectures = () => {
 
 	if (isError) return <NotFoundError />;
 
-	if (!data.length) {
+	if (!data.length)
 		return (
-			<NotFound>
-				<img src={image} alt="not found" />
+			<Empty>
 				<strong>No lecture found</strong>
-				<div>
+				<p>
 					Looks like you didn't saved any lecture yet
 					<br />
 					Press bellow button and try to save a lecture
-				</div>
+				</p>
 				<NavLink to="/home?category=all">Save a lecture</NavLink>
-			</NotFound>
+			</Empty>
 		);
-	}
 
 	return (
 		<div className={styles["saved-lectures"]}>

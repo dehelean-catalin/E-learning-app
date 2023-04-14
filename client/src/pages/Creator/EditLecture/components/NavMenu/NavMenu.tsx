@@ -4,9 +4,9 @@ import "./NavMenu.scss";
 const NavMenu = () => {
 	return (
 		<nav className="nav-menu">
-			<NavLink to={"plan"}>Plan your lecture</NavLink>
-			<NavLink to={"upload"}>Upload your content</NavLink>
-			<NavLink to={"publish"}>Publish your lecture</NavLink>
+			<NavLink to="plan">Plan your lecture</NavLink>
+			<NavLink to="upload">Upload your content</NavLink>
+			<NavLink to="publish">Publish your lecture</NavLink>
 		</nav>
 	);
 };

@@ -1,19 +1,30 @@
-import { Dropdown } from "primereact/dropdown";
+import { Field } from "formik";
 import { FileUpload } from "primereact/fileupload";
-import InputTextField from "../../../../components/Forms/Inputs/InputTextField/InputTextField";
 
 const PublishLecture = () => {
 	return (
 		<div>
 			Publica Cursul
-			<InputTextField placeholder="title" />
-			<InputTextField placeholder="description" />
-			<Dropdown placeholder="category" />
-			<Dropdown placeholder="lang" />
-			<Dropdown placeholder="nivel" />
-			<Dropdown placeholder="tags" />
+			<Field name={`publish.title`} placeholder="title" />
+			<Field name={`publish.description`} placeholder="description" />
+			<Field as="select" name="publish.category">
+				<option value="red">Red</option>
+				<option value="green">Green</option>
+				<option value="blue">Blue</option>
+			</Field>
+			<Field as="select" name="publish.language">
+				<option value="red">Red</option>
+				<option value="green">Green</option>
+				<option value="blue">Blue</option>
+			</Field>
+			<Field as="select" name="publish.level">
+				<option value="red">Red</option>
+				<option value="green">Green</option>
+				<option value="blue">Blue</option>
+			</Field>
+			<Field name="publish.tags" />
 			Imaginea cursului
-			<FileUpload mode="basic" />
+			<Field type="upload" mode="basic" />
 			Videoclip de prezentare
 			<FileUpload mode="basic" />
 		</div>

@@ -44,6 +44,7 @@ export enum ICategory {
 	History = "history",
 	Policy = "policy",
 }
+
 export const FILTERS = [
 	ICategory.ALL,
 	ICategory.UTCN,

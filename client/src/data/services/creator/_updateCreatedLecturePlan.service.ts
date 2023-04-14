@@ -1,14 +1,10 @@
 import { AxiosInstance } from "axios";
+import { CreatedLectureModel } from "../../../../../shared/src/createdLecture.model";
 
 export const updateCreatedLecturePlan = (
 	axios: AxiosInstance,
 	id: string,
-	plan: {
-		goals: any;
-		requirements: any;
-	}
+	data: CreatedLectureModel
 ): Promise<string> => {
-	return axios
-		.post(`created-lectures/${id}/plan`, plan)
-		.then((res) => res.data);
+	return axios.post(`created-lectures/${id}`, data).then((res) => res.data);
 };

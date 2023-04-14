@@ -1,13 +1,17 @@
 import { AxiosInstance } from "axios";
-import { CreatedLecturesModel } from "../../models/creator/createdLectures.model";
+import { CreatedLectureModel } from "../../models/createdLecture.model";
 
 export const getCreatedLectures = (
 	axios: AxiosInstance,
 	lectureId: string,
 	direction: string,
-	items: number
-): Promise<CreatedLecturesModel[]> => {
+	length: number
+): Promise<CreatedLectureModel[]> => {
 	return axios
-		.get("created-lectures", { params: { lectureId, direction, items } })
-		.then((res) => res.data);
+		.get("created-lectures-length")
+		.then((res) =>
+			axios
+				.get("created-lectures", { params: { lectureId, direction, length } })
+				.then((res) => res.data)
+		);
 };

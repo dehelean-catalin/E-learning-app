@@ -1,6 +1,5 @@
 import { SubmitButton } from "components/Forms";
-import { CreateLecture } from "data/models/creator/createLecture.model";
-import { filters, ICategory } from "data/models/lectureModel";
+import { filters } from "data/models/lectureModel";
 import { postCreateLecture } from "data/services/creator/_postCreateLecture.service";
 import { useAxios } from "hooks/useAxios";
 import { Dropdown } from "primereact/dropdown";
@@ -8,12 +7,17 @@ import { InputText } from "primereact/inputtext";
 import { FormEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+
+import {
+	Category,
+	CreateLecturePayload,
+} from "../../../data/models/createdLecture.model";
 import "./Create.scss";
 
 const initialState = {
 	title: "",
 	language: "",
-	category: ICategory.None,
+	category: Category.None,
 };
 
 const Create = () => {
@@ -21,7 +25,7 @@ const Create = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const [value, setValue] = useState<CreateLecture>(initialState);
+	const [value, setValue] = useState<CreateLecturePayload>(initialState);
 
 	const disabled =
 		!value.title.length || !value.category.length || !value.language.length;
@@ -39,49 +43,46 @@ const Create = () => {
 	};
 
 	return (
-		<div className="create-page">
-			<form onSubmit={handleSubmit}>
-				<h1>Create your course</h1>
-				<div className="field">
-					<h3>Do you give it a provisional title?</h3>
-					<span>
-						It's okay if you don't have inspiration right now for a good title.
-						You can change it later.
-					</span>
+		<form className="create-page" onSubmit={handleSubmit}>
+			<h1>Create your course</h1>
+			<div className="field">
+				<h3>Do you give it a provisional title?</h3>
+				<span>
+					It's okay if you don't have inspiration right now for a good title.
+					You can change it later.
+				</span>
 
-					<InputText
-						value={value.title}
-						onChange={(e) => handleChange("title", e)}
-						placeholder="ex: Learn React in 60 days ..."
-					></InputText>
-				</div>
-				<div className="field">
-					<h3>Which category best matches the knowledge you will share?</h3>
-					<span>
-						If you're not sure which category fits best, you can change it
-						later.
-					</span>
-					<Dropdown
-						value={value.category}
-						onChange={(e) => handleChange("category", e)}
-						options={filters.filter((f) => f !== "all")}
-						placeholder={"Pick a category"}
-					></Dropdown>
-				</div>
+				<InputText
+					value={value.title}
+					onChange={(e) => handleChange("title", e)}
+					placeholder="ex: Learn React in 60 days ..."
+				></InputText>
+			</div>
+			<div className="field">
+				<h3>Which category best matches the knowledge you will share?</h3>
+				<span>
+					If you're not sure which category fits best, you can change it later.
+				</span>
+				<Dropdown
+					value={value.category}
+					onChange={(e) => handleChange("category", e)}
+					options={filters.filter((f) => f !== "all")}
+					placeholder={"Pick a category"}
+				></Dropdown>
+			</div>
 
-				<div className="field">
-					<h3>In which language will the course content be presented?</h3>
-					<Dropdown
-						value={value.language}
-						onChange={(e) => handleChange("language", e)}
-						options={["english", "romanian", "french"]}
-						placeholder={"Pick a category"}
-					></Dropdown>
-				</div>
+			<div className="field">
+				<h3>In which language will the course content be presented?</h3>
+				<Dropdown
+					value={value.language}
+					onChange={(e) => handleChange("language", e)}
+					options={["english", "romanian", "french"]}
+					placeholder={"Pick a category"}
+				></Dropdown>
+			</div>
 
-				<SubmitButton label="Create" disabled={disabled} />
-			</form>
-		</div>
+			<SubmitButton label="Create" disabled={disabled} />
+		</form>
 	);
 };
 

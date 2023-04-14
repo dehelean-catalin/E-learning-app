@@ -1,21 +1,21 @@
 import { useField } from "formik";
 import {
-	CreatedLecturesModel,
+	CreatedLectureModel,
 	PlanFieldModel,
-} from "../../../../data/models/creator/createdLectures.model";
+} from "../../../../data/models/createdLecture.model";
 import { keyOf } from "../../../../helper";
 import "./PlanLecture.scss";
 import PlanLectureField from "./PlanLectureField";
 
 const PlanLecture = () => {
-	const goalsProperty = keyOf<CreatedLecturesModel>("goals");
-	const requirementsProperty = keyOf<CreatedLecturesModel>("requirements");
+	const goalsProperty = keyOf<CreatedLectureModel>("goals");
+	const requirementsProperty = keyOf<CreatedLectureModel>("requirements");
 
 	const [goalsField] = useField<PlanFieldModel[]>(goalsProperty);
 	const [requirementsField] = useField<PlanFieldModel[]>(requirementsProperty);
 
 	return (
-		<section>
+		<section className="plan-section">
 			<h1>Plan your lecture</h1>
 			<p>
 				The following descriptions will be visible on your Lecture Overview page
