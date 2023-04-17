@@ -59,10 +59,15 @@ export const postCreateLecture = async (
 			publish: {
 				...req.body,
 				status: "Draft",
+				caption: "",
+				promoVideo: "",
 			},
-			content: {},
+			content: [],
 			goals: INITIAL_GOALS,
 			requirements: INITIAL_REQUIREMENTS,
+			reviews: [],
+			comments: [],
+			enrolledUsers: [],
 		};
 
 		await setDoc(lectureRef, lectureData);

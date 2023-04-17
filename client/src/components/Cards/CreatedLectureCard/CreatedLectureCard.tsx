@@ -1,46 +1,38 @@
-import { Chip } from "primereact/chip";
-import { FC, useState } from "react";
+import { CreatedLectureModel } from "data/models/createdLecture.model";
+import img from "layout/images/test.png";
+import { FC } from "react";
 import { useNavigate } from "react-router";
-import { CreatedLectureModel } from "../../../data/models/createdLecture.model";
-import img from "../../../layout/images/multimedia.png";
+import { getRelativeTime } from "../../../helpers";
 import "./CreatedLectureCard.scss";
-import { iconBasedOnStatus } from "./iconBasedOnStatus.helper";
 
 const CreatedLectureCard: FC<{ data: CreatedLectureModel }> = ({ data }) => {
-	const { title, status } = data.publish;
+	const { title, status, caption, description } = data.publish;
 	const navigate = useNavigate();
-	const [detailsVisibility, toggleDetails] = useState(false);
-
-	const showDetails = () => {
-		toggleDetails(true);
-	};
-
-	const hideDetails = () => {
-		toggleDetails(false);
-	};
-
 	return (
-		<div
+		<article
 			className="created-lecture-card"
-			onMouseEnter={showDetails}
-			onMouseLeave={hideDetails}
 			onClick={() => navigate(`/creator/created-lectures/${data.id}`)}
 		>
-			<img src={img} alt="create-icon" />
-			<div>
-				<div>{title}</div>
-				<div>Last Update: {data.lastUpdate}</div>
-				{detailsVisibility ? (
-					<>options</>
-				) : (
-					<Chip
-						label={status}
-						className="status-chip"
-						icon={iconBasedOnStatus(status)}
-					/>
-				)}
+			{caption ? (
+				<img src={caption} alt="caption" />
+			) : (
+				<img className="empty-caption" src={img} alt="create-icon" />
+			)}
+			<div className="container">
+				<h2>{title}</h2>
+				<p>{description}</p>
+				<ul className="flex align-items-center">
+					{!!data?.enrolledUsers?.length && (
+						<li>{data.enrolledUsers.length} enrollments</li>
+					)}
+					{!!data?.reviews?.length && <li>{data.reviews.length} reviews</li>}
+					<li>{getRelativeTime(data.lastUpdate)}</li>
+				</ul>
 			</div>
-		</div>
+			<div className="edit">
+				Edit<p className="chip">{status}</p>
+			</div>
+		</article>
 	);
 };
 

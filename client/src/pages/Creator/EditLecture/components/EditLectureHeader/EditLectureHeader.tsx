@@ -1,7 +1,7 @@
+import { CreatedLectureModel } from "data/models/createdLecture.model";
 import { useFormikContext } from "formik";
 import { Button } from "primereact/button";
 import { NavLink } from "react-router-dom";
-import { CreatedLectureModel } from "../../../../../../../shared/src/createdLecture.model";
 import "./EditLectureHeader.scss";
 
 const EditLectureHeader = () => {

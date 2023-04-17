@@ -22,7 +22,10 @@ const PlanLectureField: FC<{
 							<Button
 								type="button"
 								icon="pi pi-trash"
-								onClick={() => arrayHelpers.remove(index)}
+								onClick={(e) => {
+									e.stopPropagation();
+									arrayHelpers.remove(index);
+								}}
 								disabled={data.value.length < 4}
 							/>
 						</div>

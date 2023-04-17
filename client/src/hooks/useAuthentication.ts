@@ -1,8 +1,8 @@
 import { postLogin, postLoginProvider, postRegister } from "data/services";
 import {
-	createUserWithEmailAndPassword,
 	GithubAuthProvider,
 	GoogleAuthProvider,
+	createUserWithEmailAndPassword,
 	signInWithEmailAndPassword,
 	signInWithPopup,
 } from "firebase/auth";
@@ -13,7 +13,7 @@ import { auth } from "../config/firebase.config";
 import AuthContext from "../data/context/auth-context";
 import { RegisterModel } from "../data/models/_auth.model";
 import { FormActions } from "../data/redux/formReducer";
-import { findTypeOfDevice } from "./../helper/_findTypeOfDevice.helper";
+import { findTypeOfDevice } from "../helpers/_findTypeOfDevice.helper";
 import authenticationErrorService from "./services/authenticationErrorService";
 
 type ErrorState = { code: string; message: string } | undefined;

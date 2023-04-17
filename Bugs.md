@@ -4,8 +4,9 @@ Articole licenta:
 
 # In Development:
 
-- mapping all gata to the publish lecture;
-- delete item, edit item upload section;
+- upload lecture content;
+- dashboard double loading;
+- dashbord improve cards;
 
 # Bugs:
 

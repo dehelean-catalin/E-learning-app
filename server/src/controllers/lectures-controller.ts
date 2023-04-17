@@ -1,81 +1,58 @@
 import { Request, Response } from "express";
 import {
+	QueryDocumentSnapshot,
 	collection,
 	doc,
 	getDoc,
 	getDocs,
 	query,
-	QueryDocumentSnapshot,
-	QuerySnapshot,
 	setDoc,
 	where,
 } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
 import db from "../config/firebase";
-import { ICategory, LectureModel } from "../models/lecture-model";
+import { Category } from "../models/createdLecture.model";
+import { LectureModel } from "../models/lecture-model";
 
 interface Params {
 	id: string;
 }
 
-interface Query {
-	category: ICategory;
-}
-
-const FILTERS = [
-	ICategory.ALL,
-	ICategory.UTCN,
-	ICategory.Design,
-	ICategory.DataSience,
-	ICategory.Web,
-	ICategory.Electronics,
-	ICategory.Arhitecture,
-	ICategory.History,
-	ICategory.Psychology,
-	ICategory.Policy,
-];
 export const getLectures = async (
-	req: Request<any, any, Query, any>,
+	req: Request<any, any, any, { category: Category }>,
 	res: Response
 ) => {
-	let lectures: any = [];
-	let querySnapshot: QuerySnapshot;
+	let lectures: LectureModel[] = [];
 
 	try {
-		if (!req.query?.category) {
-			throw new Error("Missing category!");
-		}
-		if (!FILTERS.includes(req.query?.category)) {
-			throw new Error("Category doesnt exist !");
-		}
-		if (req.query.category === "all") {
-			querySnapshot = await getDocs(collection(db, "lectures"));
-		} else {
-			const q = query(
-				collection(db, "lectures"),
-				where("category", "==", req.query.category)
-			);
-			querySnapshot = await getDocs(q);
+		if (!Object.values(Category).includes(req.query?.category)) {
+			throw new Error("Invalid category !");
 		}
 
-		querySnapshot.forEach((doc: QueryDocumentSnapshot) => {
-			lectures.push(doc.data());
-		});
+		const { category } = req.query;
 
-		let basicLectures: any = [];
-		lectures.forEach(
-			({ id, thumbnail, title, createdBy, items, reviewList }: LectureModel) =>
-				basicLectures.push({
-					id,
-					thumbnail,
-					title,
-					createdBy,
-					items,
-					reviewList,
-				})
+		const querySnapshot = await getDocs(
+			category === Category.ALL
+				? collection(db, "lectures")
+				: query(collection(db, "lectures"), where("category", "==", category))
 		);
 
-		res.status(200).json(basicLectures);
+		querySnapshot.forEach((doc: QueryDocumentSnapshot) => {
+			lectures.push(doc.data() as LectureModel);
+		});
+
+		lectures.forEach(
+			({ id, thumbnail, title, createdBy, items, reviewList }) => ({
+				id,
+				thumbnail,
+				title,
+				createdBy,
+				items,
+				reviewList,
+			})
+		);
+
+		res.status(200).json(lectures);
 	} catch (err: any) {
 		res.status(400).json({ code: 400, message: err.message });
 	}

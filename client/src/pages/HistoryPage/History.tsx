@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
 import HistoryCard from "../../components/History/HistoryCard/HistoryCard";
-import HomeSkeleton from "../../components/Home/HomeSkeleton/HomeSkeleton";
 import { getHistoryLectures } from "../../data/services/history/history.service";
 import { useAxios } from "../../hooks/useAxios";
 import { useFetchData } from "../../hooks/useFetchData";
 import image from "../../layout/images/empty.png";
+import HomeSkeleton from "../Home/HomeSkeleton/HomeSkeleton";
 import NotFound from "../NotFound/NotFound";
 import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
 import styles from "./History.module.scss";

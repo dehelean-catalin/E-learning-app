@@ -1,4 +1,5 @@
 import TreeNode from "primereact/treenode";
+import { Category } from "./createdLecture.model";
 
 export type LectureModel = {
 	id: string;
@@ -6,7 +7,7 @@ export type LectureModel = {
 	details: string;
 	thumbnail: string;
 	description: Description;
-	category: ICategory;
+	category: Category;
 	subCategory: string;
 	createdBy: string;
 	createdAt: string;
@@ -26,31 +27,6 @@ export type ReviewList = {
 	description: string;
 	data: ReviewItem[];
 };
-export enum ICategory {
-	ALL = "all",
-	UTCN = "utcn",
-	Design = "design",
-	DataSience = "dataSience",
-	Web = "web",
-	Arhitecture = "arhitecture",
-	Electronics = "electronics",
-	Psychology = "psychology",
-	History = "history",
-	Policy = "policy",
-	None = "",
-}
-export const filters = [
-	ICategory.ALL,
-	ICategory.UTCN,
-	ICategory.Design,
-	ICategory.DataSience,
-	ICategory.Web,
-	ICategory.Electronics,
-	ICategory.Arhitecture,
-	ICategory.History,
-	ICategory.Psychology,
-	ICategory.Policy,
-];
 
 export type ReviewItem = {
 	firstName: string;

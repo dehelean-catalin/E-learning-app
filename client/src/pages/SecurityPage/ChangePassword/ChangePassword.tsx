@@ -4,7 +4,7 @@ import InputPasswordField from "../../../components/Forms/Inputs/InputPasswordFi
 import {
 	errorMessageSchema,
 	passwordReggex,
-} from "../../../helper/inputPasswordHelper";
+} from "../../../helpers/inputPasswordHelper";
 import { useAxios } from "../../../hooks/useAxios";
 import styles from "./ChangePassword.module.scss";
 

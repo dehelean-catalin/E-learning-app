@@ -8,10 +8,6 @@ export const getCreatedLectures = (
 	length: number
 ): Promise<CreatedLectureModel[]> => {
 	return axios
-		.get("created-lectures-length")
-		.then((res) =>
-			axios
-				.get("created-lectures", { params: { lectureId, direction, length } })
-				.then((res) => res.data)
-		);
+		.get("created-lectures", { params: { lectureId, direction, length } })
+		.then((res) => res.data);
 };

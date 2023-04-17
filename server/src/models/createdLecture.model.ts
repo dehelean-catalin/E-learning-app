@@ -5,6 +5,9 @@ export type CreatedLectureModel = {
 	content: any;
 	goals: PlanFieldModel[];
 	requirements: PlanFieldModel[];
+	reviews: any;
+	comments: any;
+	enrolledUsers: string[];
 };
 
 export type Publish = {
@@ -14,7 +17,6 @@ export type Publish = {
 	language: string;
 	status: Status;
 	level?: Level;
-	tags?: string[];
 	caption?: any;
 	promoVideo?: any;
 };
@@ -34,15 +36,14 @@ export type PlanFieldModel = {
 };
 
 export enum Category {
-	ALL = "all",
-	UTCN = "utcn",
-	Design = "design",
-	DataSience = "dataSience",
-	Web = "web",
-	Arhitecture = "arhitecture",
-	Electronics = "electronics",
-	Psychology = "psychology",
-	History = "history",
-	Policy = "policy",
+	ALL = "All",
+	Design = "Design",
+	DataScience = "Data science",
+	Web = "Web development",
+	Architecture = "Architecture",
+	Electronics = "Electronics",
+	Psychology = "Psychology",
+	History = "History",
+	Policy = "Policy",
 	None = "",
 }

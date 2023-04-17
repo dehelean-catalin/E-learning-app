@@ -4,12 +4,12 @@ import {
 	formatDisplayNameError,
 	formatEmailError,
 	formatPasswordError,
-} from "helper/registerHelper";
+} from "helpers/registerHelper";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import AuthForm from "../../../components/auth/AuthForm/AuthForm";
 import InputTextField from "../../../components/Forms/Inputs/InputTextField/InputTextField";
-import { passwordReggex } from "../../../helper/inputPasswordHelper";
+import AuthForm from "../../../components/auth/AuthForm/AuthForm";
+import { passwordReggex } from "../../../helpers/inputPasswordHelper";
 import { useAuthentication } from "../../../hooks/useAuthentication";
 import styles from "./Register.module.scss";
 

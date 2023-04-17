@@ -1,5 +1,5 @@
 import { CustomRating } from "common/CustomRating/CustomRating";
-import { getRatingValue } from "helper/lectureCardHelper";
+import { getRatingValue } from "helpers/lectureCardHelper";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { FC, useRef } from "react";
 import { BiDotsVerticalRounded, BiLinkAlt } from "react-icons/bi";
@@ -98,12 +98,11 @@ const LectureCard: FC<Props> = ({
 	};
 	return (
 		<div className={className}>
-			<div
-				className={bannerClassName}
+			<img
+				src={thumbnail}
+				alt="caption"
 				onClick={() => navigate(`/lecture/${id}`)}
-			>
-				<img src={thumbnail} alt="" />
-			</div>
+			/>
 
 			<div className={contentClassName}>
 				<div className={styles.title}>

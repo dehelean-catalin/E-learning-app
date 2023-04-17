@@ -3,7 +3,7 @@ import {
 	CreatedLectureModel,
 	PlanFieldModel,
 } from "../../../../data/models/createdLecture.model";
-import { keyOf } from "../../../../helper";
+import { keyOf } from "../../../../helpers";
 import "./PlanLecture.scss";
 import PlanLectureField from "./PlanLectureField";
 

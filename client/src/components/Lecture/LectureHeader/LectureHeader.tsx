@@ -10,7 +10,7 @@ import { CustomRating } from "../../../common/CustomRating/CustomRating";
 import AuthContext from "../../../data/context/auth-context";
 import { LectureModel } from "../../../data/models/lectureModel";
 import { NotificationActions } from "../../../data/redux/notificationReducer";
-import { getRatingValue } from "../../../helper/lectureCardHelper";
+import { getRatingValue } from "../../../helpers/lectureCardHelper";
 import { useAxios } from "../../../hooks/useAxios";
 import styles from "./LectureHeader.module.scss";
 type Props = { value: LectureModel };

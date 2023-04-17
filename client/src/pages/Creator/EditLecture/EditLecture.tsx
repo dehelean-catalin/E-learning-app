@@ -3,8 +3,8 @@ import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
 import { Outlet, useNavigate, useParams } from "react-router";
 import { Form } from "react-router-dom";
-import { CreatedLectureModel } from "../../../../../shared/src/createdLecture.model";
 import Spinner from "../../../common/Spinner/Spinner";
+import { CreatedLectureModel } from "../../../data/models/createdLecture.model";
 import { NotificationActions } from "../../../data/redux/notificationReducer";
 import {
 	getCreatedLecture,
@@ -67,7 +67,7 @@ const EditLecture = () => {
 					<EditLectureHeader />
 					<main>
 						<NavMenu />
-						<Outlet />
+						<Outlet context={props} />
 					</main>
 				</Form>
 			)}

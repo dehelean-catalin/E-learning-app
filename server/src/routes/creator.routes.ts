@@ -2,8 +2,11 @@ import { Router } from "express";
 import {
 	getCreatedLectures,
 	getCreatedLecturesLength,
+	postContent,
 	postCreateLecture,
+	updateCaption,
 	updateCreatedLecture,
+	updatePromoVideo,
 } from "../controllers/creator-controller";
 import { getCreatedLecture } from "../controllers/creator-controller/_getCreatedLecture.service";
 import { default as tokenAuthMiddleware } from "../middleware/tokenAuth-middleware";
@@ -21,5 +24,10 @@ router.get(
 );
 router.post("/create", validation(createLectureSchema), postCreateLecture);
 router.post("/created-lectures/:id", tokenAuthMiddleware, updateCreatedLecture);
+
+router.post("/caption/:id", tokenAuthMiddleware, updateCaption);
+router.post("/promoVideo/:id", tokenAuthMiddleware, updatePromoVideo);
+
+router.post("/content/:id", tokenAuthMiddleware, postContent);
 
 export default router;

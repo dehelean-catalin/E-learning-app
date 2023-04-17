@@ -1,14 +1,12 @@
-.uplaod-lecture-tree {
+.upload-lecture {
 	flex: 1 0 90%;
-	background-color: transparent;
 
-	.p-treenode {
-		background-color: var(--color-30);
-		margin: 2px 0px;
+	.p-accordion-tab {
+		margin-bottom: 6px;
 	}
-	.p-treenode-label {
+	header {
 		display: flex;
-		align-items: center;
 		justify-content: space-between;
+		width: 100%;
 	}
 }

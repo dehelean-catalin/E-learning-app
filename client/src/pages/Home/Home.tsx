@@ -6,15 +6,15 @@ import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { NavLink, useSearchParams } from "react-router-dom";
-import FilterList from "../../components/Home/FilterList/FilterList";
-import HomeSection from "../../components/Home/HomeSection/HomeSection";
-import HomeFilterSkeleton from "../../components/Home/HomeSkeleton/HomeFilterSkeleton";
-import HomeSkeleton from "../../components/Home/HomeSkeleton/HomeSkeleton";
 import { useAxios } from "../../hooks/useAxios";
 import image from "../../layout/images/empty.png";
 import NotFound from "../NotFound/NotFound";
 import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
+import FilterList from "./FilterList/FilterList";
 import styles from "./Home.module.scss";
+import HomeSection from "./HomeSection/HomeSection";
+import HomeFilterSkeleton from "./HomeSkeleton/HomeFilterSkeleton";
+import HomeSkeleton from "./HomeSkeleton/HomeSkeleton";
 
 const Home: FC = () => {
 	const navigate = useNavigate();
@@ -22,7 +22,7 @@ const Home: FC = () => {
 	const axios = useAxios();
 	const [searchParams] = useSearchParams();
 	const categoryParam = searchParams.get("category");
-	const initialParam = !!categoryParam ? categoryParam : "all";
+	const initialParam = !!categoryParam ? categoryParam : "All";
 
 	const [category, setCategory] = useState(initialParam);
 
@@ -74,7 +74,7 @@ const Home: FC = () => {
 				</NotFound>
 			);
 		}
-		return <HomeSection title="Recomended Lectures" value={data} />;
+		return <HomeSection title="Recommended Lectures" value={data} />;
 	};
 	return (
 		<div className={styles.home}>

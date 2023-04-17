@@ -1,21 +1,42 @@
 @import "src/layout/variables.scss";
 .created-lecture-card {
-	max-height: 25%;
-	flex: 1;
 	display: flex;
-	gap: 1rem;
-	color: white;
-	border: 1px solid gray;
-	cursor: pointer;
+	gap: 20px;
+	color: rgb(147, 147, 147);
+
+	h2 {
+		color: white;
+	}
 	img {
-		height: 6rem;
-		margin: 0.75rem;
-		filter: invert(25%) sepia(0%) saturate(926%) hue-rotate(136deg)
-			brightness(101%) contrast(50%);
+		height: 100px;
+		aspect-ratio: 16/9;
+		object-fit: cover;
+		border-radius: 6px;
+	}
+	.empty-caption {
+		object-fit: contain;
+		background-color: var(--color-30);
+		color: white;
 	}
 
-	.status-chip {
-		background: $color-30;
-		color: gray;
+	.container {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+	}
+	.chip {
+		font-weight: 600;
+		background: var(--color-30);
+		border-radius: 4px;
+		padding: 4px 12px;
+	}
+	ul {
+		gap: 20px;
+	}
+
+	.edit {
+		color: white;
+		margin: auto;
+		text-align: end;
 	}
 }

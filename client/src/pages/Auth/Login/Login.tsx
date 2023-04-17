@@ -1,13 +1,13 @@
 import { SubmitButton } from "components/Forms";
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import AuthForm from "../../../components/auth/AuthForm/AuthForm";
 import InputPasswordField from "../../../components/Forms/Inputs/InputPasswordField/InputPasswordField";
 import InputTextField from "../../../components/Forms/Inputs/InputTextField/InputTextField";
+import AuthForm from "../../../components/auth/AuthForm/AuthForm";
 import {
 	formatEmailError,
 	formatPasswordError,
-} from "../../../helper/loginHelper";
+} from "../../../helpers/loginHelper";
 import { useAuthentication } from "../../../hooks/useAuthentication";
 import styles from "./Login.module.scss";
 

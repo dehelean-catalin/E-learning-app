@@ -1,5 +1,5 @@
 import { SubmitButton } from "components/Forms";
-import { filters } from "data/models/lectureModel";
+
 import { postCreateLecture } from "data/services/creator/_postCreateLecture.service";
 import { useAxios } from "hooks/useAxios";
 import { Dropdown } from "primereact/dropdown";
@@ -11,6 +11,7 @@ import { useNavigate } from "react-router";
 import {
 	Category,
 	CreateLecturePayload,
+	Language,
 } from "../../../data/models/createdLecture.model";
 import "./Create.scss";
 
@@ -66,8 +67,8 @@ const Create = () => {
 				<Dropdown
 					value={value.category}
 					onChange={(e) => handleChange("category", e)}
-					options={filters.filter((f) => f !== "all")}
-					placeholder={"Pick a category"}
+					options={Object.values(Category)}
+					placeholder={"Chose a category"}
 				></Dropdown>
 			</div>
 
@@ -76,8 +77,8 @@ const Create = () => {
 				<Dropdown
 					value={value.language}
 					onChange={(e) => handleChange("language", e)}
-					options={["english", "romanian", "french"]}
-					placeholder={"Pick a category"}
+					options={Object.values(Language)}
+					placeholder={"Chose a language"}
 				></Dropdown>
 			</div>
 

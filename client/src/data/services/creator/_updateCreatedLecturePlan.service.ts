@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { CreatedLectureModel } from "../../../../../shared/src/createdLecture.model";
+import { CreatedLectureModel } from "../../models/createdLecture.model";
 
 export const updateCreatedLecturePlan = (
 	axios: AxiosInstance,

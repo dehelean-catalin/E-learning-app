@@ -1,0 +1,26 @@
+@import "src/layout/variables.scss";
+.filer-section {
+	flex-wrap: wrap;
+	display: flex;
+	justify-content: center;
+	gap: 6px;
+
+	.category {
+		text-align: center;
+		background-color: $color-30;
+		min-width: 70px;
+		color: white;
+		padding: 4px 16px;
+		border-radius: 8px;
+		cursor: pointer;
+	}
+	.active-category {
+		text-align: center;
+		min-width: 70px;
+		color: black !important;
+		background: white;
+		padding: 4px 16px;
+		border-radius: 8px;
+		cursor: default;
+	}
+}
