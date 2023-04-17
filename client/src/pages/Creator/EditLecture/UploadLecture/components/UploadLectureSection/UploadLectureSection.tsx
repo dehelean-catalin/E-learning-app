@@ -4,8 +4,8 @@ import { Button } from "primereact/button";
 import TreeNode from "primereact/treenode";
 import { FC, useState } from "react";
 import useDragAndDropContent from "../../hooks/useUploadContent";
-import UploadLectureDivider from "../SectionDivider";
 import UploadLectureItem from "../UploadLectureItem/UploadLectureItem";
+import UploadLectureDivider from "./SectionDivider";
 import "./UploadLectureSection.scss";
 
 type Props = {

@@ -1,6 +1,8 @@
-import { AiFillHome } from "react-icons/ai";
 import { MdOutlineHistory } from "react-icons/md";
+import { RxDashboard } from "react-icons/rx";
+import { VscHome } from "react-icons/vsc";
 import { NavLink, useLocation } from "react-router-dom";
+import { Category } from "../../data/models/createdLecture.model";
 import CreatorSideBar from "./CreatorSideBar/CreatorSideBar";
 import "./SideBar.scss";
 
@@ -15,12 +17,21 @@ const NavigationHeader = () => {
 	return (
 		<nav className="side-bar">
 			<NavLink
-				to="home?category=all"
+				to={`home?category=${Category.ALL}`}
 				className={({ isActive }) => (isActive ? "active" : "")}
 			>
 				<span>
-					<AiFillHome />
+					<VscHome />
 					Home
+				</span>
+			</NavLink>
+
+			<NavLink
+				to={"/creator/created-lectures"}
+				className={({ isActive }) => (isActive ? "active" : "")}
+			>
+				<span>
+					<RxDashboard /> Dashboard
 				</span>
 			</NavLink>
 

@@ -1,21 +1,18 @@
 @import "src/layout/variables.scss";
 
 .side-bar {
-	width: 70px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	font-weight: 600;
+	width: 90px;
+	margin: auto;
 
 	a {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		color: white;
-		margin: 15px 0px;
 		text-decoration: none;
 		border-left: 5px solid transparent;
 		border-right: 5px solid transparent;
+		margin-bottom: 10px;
 		&.active {
 			color: $prime-green;
 			border-left: 5px solid $prime-green;
@@ -24,13 +21,14 @@
 	}
 
 	span {
-		width: 62px;
+		width: 70px;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
 		padding: 4px 0px;
 		border-radius: 4px;
 		transition: 0.3s all;
+		font-size: 1rem;
 
 		&:hover {
 			background-color: #30363d;

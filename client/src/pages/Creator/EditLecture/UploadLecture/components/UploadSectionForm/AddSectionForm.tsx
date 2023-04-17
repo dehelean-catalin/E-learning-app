@@ -15,7 +15,15 @@ const AddSectionForm: FC<Props> = ({ onSubmit, toggleVisibility, index }) => {
 	});
 
 	return (
-		<div className="new-section-form">
+		<div
+			className="new-section-form"
+			onKeyDown={(e) => {
+				if (e.code === "Enter") {
+					onSubmit(inputValues.title, inputValues.description);
+					toggleVisibility(false);
+				}
+			}}
+		>
 			<h3>{index ? `Edit section ${index + 1}` : "New section:"}</h3>
 			<fieldset>
 				<label htmlFor="title">Section title</label>

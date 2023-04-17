@@ -6,6 +6,7 @@ import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { NavLink, useSearchParams } from "react-router-dom";
+import { Category } from "../../data/models/createdLecture.model";
 import { useAxios } from "../../hooks/useAxios";
 import image from "../../layout/images/empty.png";
 import NotFound from "../NotFound/NotFound";
@@ -22,7 +23,7 @@ const Home: FC = () => {
 	const axios = useAxios();
 	const [searchParams] = useSearchParams();
 	const categoryParam = searchParams.get("category");
-	const initialParam = !!categoryParam ? categoryParam : "All";
+	const initialParam = !!categoryParam ? categoryParam : Category.ALL;
 
 	const [category, setCategory] = useState(initialParam);
 
@@ -57,6 +58,7 @@ const Home: FC = () => {
 			</div>
 		);
 	}
+
 	if (isError) return <NotFoundError />;
 
 	const getContent = () => {
@@ -80,9 +82,9 @@ const Home: FC = () => {
 		<div className={styles.home}>
 			<FilterList onFilterChange={setCategory} />
 			{getContent()}
-			{/* <HomeSection title="New Lectures" value={data} showDivider />
-					<HomeSection title="Top Rated Lectures" value={data} showDivider />
-					<HomeSection title="Most Viewed Lectures" value={data} /> */}
+			<HomeSection title="New Lectures" value={data} showDivider />
+			<HomeSection title="Top Rated Lectures" value={data} showDivider />
+			<HomeSection title="Most Viewed Lectures" value={data} />
 		</div>
 	);
 };

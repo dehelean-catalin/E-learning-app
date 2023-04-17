@@ -37,7 +37,6 @@ export enum Category {
 	Psychology = "Psychology",
 	History = "History",
 	Policy = "Policy",
-	None = "",
 }
 
 export enum Language {

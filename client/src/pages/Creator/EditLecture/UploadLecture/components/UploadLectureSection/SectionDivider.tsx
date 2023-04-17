@@ -1,7 +1,7 @@
 import { FieldArrayRenderProps } from "formik";
 import { Divider } from "primereact/divider";
 import { FC, useState } from "react";
-import AddSectionForm from "./AddSectionForm/AddSectionForm";
+import AddSectionForm from "../UploadSectionForm/AddSectionForm";
 
 const SectionDivider: FC<{
 	arrayHelpers: FieldArrayRenderProps;

@@ -1,9 +1,9 @@
 import { Button } from "primereact/button";
-import { FC, useState } from "react";
+import { FC, KeyboardEvent, useState } from "react";
 import { LectureItemFormState } from "./UploadLectureItem";
 
 type Props = {
-	onSubmit: any;
+	onSubmit: (data: LectureItemFormState) => void;
 	toggleVisibility: (b: boolean) => void;
 	index?: number;
 };
@@ -15,8 +15,22 @@ const LectureItemForm: FC<Props> = ({ onSubmit, toggleVisibility, index }) => {
 		content: null,
 	});
 
+	const handleEnterPress = (e: KeyboardEvent<HTMLDivElement>) => {
+		if (e.code === "Enter") {
+			onSubmit(inputValues);
+			toggleVisibility(false);
+		}
+	};
+	const handleChange = (e, prop: keyof LectureItemFormState) => {
+		setInputValues({ ...inputValues, [prop]: e.target.value });
+	};
+	const handleSubmit = () => {
+		onSubmit(inputValues);
+		toggleVisibility(false);
+	};
+
 	return (
-		<div className="new-section-form">
+		<div className="new-section-form" onKeyDown={handleEnterPress}>
 			<h3>{index ? `Edit lecture ${index + 1}` : "New lecture:"}</h3>
 			<fieldset>
 				<label htmlFor="title">Lecture title</label>
@@ -25,9 +39,7 @@ const LectureItemForm: FC<Props> = ({ onSubmit, toggleVisibility, index }) => {
 					name="title"
 					value={inputValues.label}
 					placeholder="Enter the title"
-					onChange={(e) =>
-						setInputValues({ ...inputValues, label: e.target.value })
-					}
+					onChange={(e) => handleChange(e, "label")}
 					autoFocus
 				/>
 				<label htmlFor="description">
@@ -38,12 +50,7 @@ const LectureItemForm: FC<Props> = ({ onSubmit, toggleVisibility, index }) => {
 					name="description"
 					value={inputValues.description}
 					placeholder="Enter the description"
-					onChange={(e) =>
-						setInputValues({
-							...inputValues,
-							description: e.target.value,
-						})
-					}
+					onChange={(e) => handleChange(e, "description")}
 				/>
 
 				<label htmlFor="file">Upload the content</label>
@@ -67,14 +74,7 @@ const LectureItemForm: FC<Props> = ({ onSubmit, toggleVisibility, index }) => {
 						className="cancel"
 						onClick={() => toggleVisibility(false)}
 					/>
-					<Button
-						type="button"
-						label="Save"
-						onClick={() => {
-							onSubmit(inputValues, inputValues);
-							toggleVisibility(false);
-						}}
-					/>
+					<Button type="button" label="Save" onClick={handleSubmit} />
 				</div>
 			</fieldset>
 		</div>

@@ -1,7 +1,7 @@
 import { FieldArray, useFormikContext } from "formik";
 import { CreatedLectureModel } from "../../../../data/models/createdLecture.model";
 import "./UploadLecture.scss";
-import SectionDivider from "./components/SectionDivider";
+import SectionDivider from "./components/UploadLectureSection/SectionDivider";
 import UploadLectureSection from "./components/UploadLectureSection/UploadLectureSection";
 
 const UploadLecture = () => {

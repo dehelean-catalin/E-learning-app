@@ -17,8 +17,8 @@ import "./Create.scss";
 
 const initialState = {
 	title: "",
-	language: "",
-	category: Category.None,
+	language: Language.English,
+	category: Category.ALL,
 };
 
 const Create = () => {

@@ -4,31 +4,30 @@ Articole licenta:
 
 # In Development:
 
-- upload lecture content;
+- account photo upload failed (- Moving to react-query;);
+- grid and list cards (- lecture card enhanced;);
+- edit functionality for lecture item;
+- validation on save for lecture item;
+- drag and drop functionality;
 - dashboard double loading;
 - dashbord improve cards;
-
-# Bugs:
-
 - Enhance update lecture history time ;
 - History: 12PM order wrong;
 - Update Lecture Overview logic + updating check mark;
 
 # Prio 0:
 
-- unify models
 - Search : Not found component;
-- Moving to react-query;
 - saga logout auto;
-- lecture card enhanced;
 - Lectures Page;
 - lecture overview display title, author and image;
 - history bar add high;
-- Review functionality and review list;
+- Review + Coments;
 - update colors;
 
 # Nice to have:
 
+- unify models
 - link email with provider;
 - multifactor authentication;
 - Add Notes for a lecture chapter;

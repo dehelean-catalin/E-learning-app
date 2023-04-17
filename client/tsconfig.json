@@ -10,6 +10,9 @@
 		"forceConsistentCasingInFileNames": true,
 		"alwaysStrict": true,
 		"baseUrl": "src",
+		"paths": {
+			"react-icons/*": ["node_modules/react-icons/*"]
+		},
 		"isolatedModules": true
 	}
 }
