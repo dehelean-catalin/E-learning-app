@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
-interface FileRequest extends Request {
+export interface FileRequest extends Request {
 	file: {
 		fieldname: string;
 		originalname: string;

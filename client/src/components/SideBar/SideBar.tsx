@@ -31,7 +31,7 @@ const NavigationHeader = () => {
 				className={({ isActive }) => (isActive ? "active" : "")}
 			>
 				<span>
-					<RxDashboard /> Dashboard
+					<RxDashboard size="32px" /> Dashboard
 				</span>
 			</NavLink>
 

@@ -1,4 +1,3 @@
-@import "src/layout/variables.scss";
 .login-provider-section {
 	display: flex;
 	flex-direction: column;
@@ -12,7 +11,7 @@
 		margin: 1.5rem 1rem;
 		span {
 			padding: 0px 10px;
-			background: $color-30;
+			background: var(--color-30);
 		}
 	}
 

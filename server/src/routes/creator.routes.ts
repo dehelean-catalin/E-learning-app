@@ -22,6 +22,7 @@ router.get(
 	tokenAuthMiddleware,
 	getCreatedLecturesLength
 );
+
 router.post("/create", validation(createLectureSchema), postCreateLecture);
 router.post("/created-lectures/:id", tokenAuthMiddleware, updateCreatedLecture);
 

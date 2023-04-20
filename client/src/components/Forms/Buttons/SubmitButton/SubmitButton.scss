@@ -1,7 +1,5 @@
-@import "src/layout/variables.scss";
-
 .submit-button {
-	background-color: $prime-green;
+	background-color: var(--blue-900);
 	margin-top: 10px;
 	border: 0;
 

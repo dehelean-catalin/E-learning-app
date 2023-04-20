@@ -1,7 +1,6 @@
-@import "src/layout/variables.scss";
 .skeleton {
 	flex: 1;
-	background: $color-30;
+	background: var(--color-30);
 	min-height: 260px;
 }
 .lecture-header {
@@ -11,7 +10,7 @@
 		"menu main"
 		"menu main";
 	grid-template-columns: 200px 1fr;
-	background: $color-30;
+	background: var(--color-30);
 	padding: 15px 25px;
 	gap: 20px;
 	border-radius: 12px;

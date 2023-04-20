@@ -1,5 +1,5 @@
+import image from "images/empty.png";
 import { FC, PropsWithChildren } from "react";
-import image from "../../layout/images/empty.png";
 import "./Empty.scss";
 
 const Empty: FC<PropsWithChildren> = ({ children }) => {

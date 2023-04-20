@@ -7,17 +7,18 @@ export type CreatedLectureModel = {
 	content: TreeNode[];
 	goals: PlanFieldModel[];
 	requirements: PlanFieldModel[];
-	reviews: any;
+	reviews: any[];
 	comments: any;
 	enrolledUsers: string[];
 };
 
 export type Publish = {
+	author: string;
 	title: string;
+	description: string;
 	category: Category;
 	language: Language;
 	status: Status;
-	description: string;
 	level?: Level;
 	caption?: any;
 	promoVideo?: any;
@@ -56,4 +57,5 @@ export type CreateLecturePayload = {
 	title: string;
 	category: Category;
 	language: string;
+	author: string;
 };

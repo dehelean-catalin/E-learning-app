@@ -1,8 +1,8 @@
 import { CreatedLectureModel } from "data/models/createdLecture.model";
-import img from "layout/images/test.png";
+import img from "images/test.png";
 import { FC } from "react";
 import { useNavigate } from "react-router";
-import { getRelativeTime } from "../../../helpers";
+import { toRelativeTime } from "../../../helpers";
 import "./CreatedLectureCard.scss";
 
 const CreatedLectureCard: FC<{ data: CreatedLectureModel }> = ({ data }) => {
@@ -10,7 +10,7 @@ const CreatedLectureCard: FC<{ data: CreatedLectureModel }> = ({ data }) => {
 	const navigate = useNavigate();
 	return (
 		<article
-			className="created-lecture-card"
+			className="grid-created-lecture"
 			onClick={() => navigate(`/creator/created-lectures/${data.id}`)}
 		>
 			{caption ? (
@@ -26,7 +26,7 @@ const CreatedLectureCard: FC<{ data: CreatedLectureModel }> = ({ data }) => {
 						<li>{data.enrolledUsers.length} enrollments</li>
 					)}
 					{!!data?.reviews?.length && <li>{data.reviews.length} reviews</li>}
-					<li>{getRelativeTime(data.lastUpdate)}</li>
+					<li>{toRelativeTime(data.lastUpdate)}</li>
 				</ul>
 			</div>
 			<div className="edit">

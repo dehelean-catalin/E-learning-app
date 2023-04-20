@@ -37,7 +37,7 @@ const Lecture = () => {
 				<LectureHeader value={data} />
 				<LectureDescription value={data.description} />
 				<LectureChapters value={data.items} />
-				<LectureReviewList value={data.reviewList} />
+				<LectureReviewList value={data.reviews} />
 			</div>
 		</div>
 	);

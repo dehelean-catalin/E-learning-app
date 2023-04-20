@@ -1,6 +1,6 @@
+import { Rating } from "primereact/rating";
 import { FC } from "react";
 import styles from "./CustomRating.module.scss";
-import { Rating } from "primereact/rating";
 
 type Props = {
 	rating: number;
@@ -18,6 +18,7 @@ export const CustomRating: FC<Props> = ({
 		if (hideUsers) return <></>;
 		return <div className={styles.users}>{numberOfUsers} students</div>;
 	};
+
 	return (
 		<div className={styles.rating}>
 			<div className={styles["rating-score"]}>{rating}</div>

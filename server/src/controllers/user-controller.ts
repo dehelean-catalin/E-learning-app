@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import db from "../config/firebase";
-import { HistoryModel, LectureModel } from "../models/lecture-model";
+import { LectureModel } from "../models/lecture-model";
 import { ValidatedRequest } from "../models/request";
 import { UserModel, WatchingLectureModel } from "../models/user-model";
 import { tryAgainError } from "./../constant";
@@ -140,9 +140,10 @@ export const updateWatchingLectureLastEntry = async (
 };
 
 export const getHistoryLectureList = async (req: Request, res: Response) => {
+	const validatedReq = req as ValidatedRequest;
+	const userRef = doc(db, "users", validatedReq.userData.userId);
+
 	try {
-		const validatedReq = req as ValidatedRequest;
-		const userRef = doc(db, "users", validatedReq.userData.userId);
 		const userSnap = await getDoc(userRef);
 
 		if (!userSnap.exists()) {
@@ -153,14 +154,15 @@ export const getHistoryLectureList = async (req: Request, res: Response) => {
 		let loadedIds: string[] = [];
 		watchingLectures.map((i: WatchingLectureModel) => loadedIds.push(i.id));
 
-		let loadedLectures: HistoryModel[] = [];
+		let loadedLectures: any[] = [];
+
 		for (const key in loadedIds) {
 			const lectureRef = doc(db, "lectures", loadedIds[key]);
 			const lectureSnap = await getDoc(lectureRef);
 			if (!lectureSnap.exists()) {
 				throw new Error("Try again! Something went wrongggg");
 			}
-			const { id, thumbnail, createdBy, title, reviewList } =
+			const { id, thumbnail, createdBy, title, reviews } =
 				lectureSnap.data() as LectureModel;
 			let page = "0";
 			let date = "";
@@ -185,15 +187,14 @@ export const getHistoryLectureList = async (req: Request, res: Response) => {
 			});
 			const progress = Math.round((confirmedProgress * 100) / duration);
 			const rating =
-				reviewList.data.reduce((a, b) => a + b.rating, 0) /
-				reviewList.data.length;
+				reviews.data.reduce((a, b) => a + b.rating, 0) / reviews.data.length;
 			loadedLectures.push({
 				id,
 				thumbnail,
 				createdBy,
 				title,
-				rating,
-				numberOfRates: reviewList.data.length,
+				reviews: reviews,
+				numberOfRates: reviews.data.length,
 				progress,
 				page,
 				date,
@@ -278,13 +279,13 @@ export const getWatchingLectureList = async (req: Request, res: Response) => {
 			if (!lectureSnap.exists()) {
 				throw new Error("Try again! Something went wrong");
 			}
-			const { thumbnail, createdBy, title, reviewList, items } =
+			const { thumbnail, createdBy, title, reviews, items } =
 				lectureSnap.data() as LectureModel;
 			loadedLectures.push({
 				thumbnail,
 				createdBy,
 				title,
-				reviewList,
+				reviews,
 				items,
 			});
 		}

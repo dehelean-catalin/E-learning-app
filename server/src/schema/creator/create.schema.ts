@@ -14,4 +14,8 @@ export const createLectureSchema = Joi.object<CreateLecturePayload, true>({
 		"any.required": "language is required",
 		"string.empty": "language cannot be empty",
 	}),
+	author: Joi.string().required().messages({
+		"any.required": "Invalid payload",
+		"string.empty": "Invalid payload",
+	}),
 });

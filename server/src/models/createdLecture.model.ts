@@ -11,6 +11,7 @@ export type CreatedLectureModel = {
 };
 
 export type Publish = {
+	author: string;
 	title: string;
 	category: Category;
 	description?: string;
@@ -25,6 +26,7 @@ export type CreateLecturePayload = {
 	title: string;
 	category: Category;
 	language: string;
+	author: string;
 };
 
 export type Status = "Draft" | "Public" | "Private" | "Unlisted";

@@ -95,8 +95,8 @@ const LectureHeader: FC<Props> = ({ value }) => {
 
 				<div className={styles.btns}>
 					<CustomRating
-						rating={getRatingValue(value.reviewList.data)}
-						numberOfRates={value.reviewList.data.length}
+						rating={getRatingValue(value.reviews.data)}
+						numberOfRates={value.reviews.data.length}
 						numberOfUsers={value.numberOfUsers.length}
 					/>
 					{getButton()}

@@ -1,4 +1,3 @@
-@import "src/layout/variables.scss";
 .lecture-overview {
 	display: grid;
 	grid-template-areas:
@@ -19,7 +18,7 @@
 		.course-list {
 			display: flex;
 			margin-top: 8px;
-			background: $color-30;
+			background: var(--color-30);
 			border: 0px;
 			color: WHITE;
 			padding: 0px 0px;

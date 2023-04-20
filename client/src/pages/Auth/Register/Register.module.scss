@@ -1,11 +1,9 @@
-@import "layout/variables.scss";
-
 .sign-up-info {
 	color: white;
 	margin-top: 15px;
 	text-align: center;
 	.link {
 		margin-left: 4px;
-		color: $prime-green;
+		color: var(--blue-900);
 	}
 }

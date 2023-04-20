@@ -13,14 +13,14 @@ export type LectureModel = {
 	language: Language;
 	numberOfUsers: string[];
 	items: Item;
-	reviewList: ReviewList;
+	reviews: ReviewList;
 };
 
 export type Language = "english" | "french" | "romanian";
 
 export type LectureCardModel = Pick<
 	LectureModel,
-	"title" | "thumbnail" | "createdBy" | "createdAt" | "id" | "reviewList"
+	"title" | "thumbnail" | "createdBy" | "createdAt" | "id" | "reviews"
 >;
 
 export type Description = {

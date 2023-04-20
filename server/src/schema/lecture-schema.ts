@@ -87,7 +87,7 @@ export const LectureSchema = Joi.object<Omit<LectureModel, "id">, true>({
 			data: Joi.array<TreeNode[]>().items(items).required(),
 		})
 		.required(),
-	reviewList: Joi.object<ReviewList>()
+	reviews: Joi.object<ReviewList>()
 		.keys({
 			description: Joi.string().required(),
 			data: Joi.array<ReviewItem[]>().items(reviewItem).required(),

@@ -1,5 +1,3 @@
-@import "layout/variables.scss";
-
 .password {
 	display: flex;
 	justify-content: flex-end;
@@ -7,7 +5,7 @@
 		font-size: 14px;
 		margin-top: -10px;
 		margin-bottom: 10px;
-		color: $prime-green;
+		color: var(--blue-900);
 		font-weight: 600;
 	}
 }
@@ -18,6 +16,6 @@
 	text-align: center;
 	.link {
 		margin-left: 4px;
-		color: $prime-green;
+		color: var(--blue-900);
 	}
 }

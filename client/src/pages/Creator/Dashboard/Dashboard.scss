@@ -1,17 +1,37 @@
 .dashboard {
+	padding-right: 20px;
 	height: 100%;
-	width: 50vw;
-	min-width: 500px;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	margin: auto;
-	padding: 20px 0px;
 
-	.wrapper {
-		flex: 1;
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
+	.p-dataview-grid {
+		height: 100%;
+		.p-nogutter {
+			display: grid !important;
+			grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+			gap: 20px;
+			padding: 0px 20px;
+		}
+	}
+	.p-dataview-content {
+		height: 82%;
+		overflow: auto;
+		background: transparent !important;
+	}
+	.p-paginator {
+		justify-content: center;
+		background: transparent !important;
+	}
+	.p-dataview-header {
+		background: transparent !important;
+		.p-highlight {
+			background: var(--primary-500) !important;
+		}
+	}
+	.p-dataview-list {
+		height: 100%;
+	}
+	img {
+		height: 120px !important;
+		object-fit: cover;
+		border-radius: 4px !important;
 	}
 }

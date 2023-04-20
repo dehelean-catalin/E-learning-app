@@ -1,9 +1,8 @@
-@import "src/layout/variables.scss";
 .activity-card {
 	display: flex;
 	align-items: center;
 	gap: 15px;
-	background: $color-30;
+	background: var(--color-30);
 	padding: 10px 15px;
 	border-radius: 4px;
 	font-size: 16px;

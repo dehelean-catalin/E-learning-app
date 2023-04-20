@@ -5,12 +5,12 @@ Articole licenta:
 # In Development:
 
 - account photo upload failed (- Moving to react-query;);
-- grid and list cards (- lecture card enhanced;);
+- List card;
 - edit functionality for lecture item;
 - validation on save for lecture item;
 - drag and drop functionality;
 - dashboard double loading;
-- dashbord improve cards;
+- dashboard improve cards;
 - Enhance update lecture history time ;
 - History: 12PM order wrong;
 - Update Lecture Overview logic + updating check mark;
@@ -23,7 +23,6 @@ Articole licenta:
 - lecture overview display title, author and image;
 - history bar add high;
 - Review + Coments;
-- update colors;
 
 # Nice to have:
 

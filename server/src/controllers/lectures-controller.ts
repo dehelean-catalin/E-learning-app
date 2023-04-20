@@ -41,16 +41,14 @@ export const getLectures = async (
 			lectures.push(doc.data() as LectureModel);
 		});
 
-		lectures.forEach(
-			({ id, thumbnail, title, createdBy, items, reviewList }) => ({
-				id,
-				thumbnail,
-				title,
-				createdBy,
-				items,
-				reviewList,
-			})
-		);
+		lectures.forEach(({ id, thumbnail, title, createdBy, items, reviews }) => ({
+			id,
+			thumbnail,
+			title,
+			createdBy,
+			items,
+			reviews,
+		}));
 
 		res.status(200).json(lectures);
 	} catch (err: any) {

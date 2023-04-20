@@ -14,7 +14,7 @@ export type LectureModel = {
 	language: string;
 	numberOfUsers: string[];
 	items: Item;
-	reviewList: ReviewList;
+	reviews: ReviewList;
 };
 export type Description = {
 	data: string;

@@ -1,4 +1,3 @@
-@import "src/layout/variables.scss";
 .search {
 	margin-right: 7rem;
 	font-size: 1.6rem;
@@ -22,7 +21,7 @@
 	}
 	.banner {
 		display: flex;
-		background: $color-30 !important;
+		background: var(--color-30) !important;
 		border-radius: 8px;
 		cursor: pointer;
 

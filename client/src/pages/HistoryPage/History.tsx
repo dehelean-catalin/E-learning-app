@@ -1,9 +1,9 @@
+import image from "images/empty.png";
 import { NavLink } from "react-router-dom";
-import HistoryCard from "../../components/History/HistoryCard/HistoryCard";
+import GridCard from "../../components/Cards/GridCard/GridCard";
 import { getHistoryLectures } from "../../data/services/history/history.service";
 import { useAxios } from "../../hooks/useAxios";
 import { useFetchData } from "../../hooks/useFetchData";
-import image from "../../layout/images/empty.png";
 import HomeSkeleton from "../Home/HomeSkeleton/HomeSkeleton";
 import NotFound from "../NotFound/NotFound";
 import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
@@ -47,7 +47,7 @@ const History = () => {
 			<div className={styles.title}>Recent watched</div>
 			<div className={styles.content}>
 				{data.map((value, key) => (
-					<HistoryCard key={key} value={value} />
+					<GridCard key={key} value={value} showProgress />
 				))}
 			</div>
 		</div>

@@ -1,0 +1,44 @@
+.grid-card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+
+	img {
+		width: 100%;
+		height: 160px;
+		border-radius: 8px;
+		object-fit: cover;
+		cursor: pointer;
+	}
+	.gray-out {
+		filter: brightness(0.5);
+	}
+
+	.icon-wrapper {
+		align-self: start;
+		cursor: pointer;
+	}
+
+	h3 {
+		overflow: hidden;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+	}
+	.progress-wrapper {
+		position: absolute;
+		display: block;
+		top: 120px;
+		width: 100%;
+
+		progress {
+			height: 6px;
+			width: 100%;
+		}
+	}
+}
+
+.p-rating .p-rating-item {
+	width: 1.25rem !important;
+}

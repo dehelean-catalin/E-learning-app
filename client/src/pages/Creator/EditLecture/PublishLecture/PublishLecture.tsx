@@ -4,30 +4,31 @@ import {
 	Language,
 	Level,
 } from "data/models/createdLecture.model";
-import { Field, useFormikContext } from "formik";
+import { Field, FormikProps, useFormikContext } from "formik";
 import { ChangeEvent, useState } from "react";
-import {
-	updateCaption,
-	updatePromoVideo,
-} from "../../../../data/services/creator";
+import { useOutletContext } from "react-router";
+import { updatePromoVideo } from "../../../../data/services/creator";
 import { useAxios } from "../../../../hooks/useAxios";
 import "./PublishLecture.scss";
 
 const PublishLecture = () => {
 	const axios = useAxios();
+	const { setFieldValue } =
+		useOutletContext<FormikProps<CreatedLectureModel>>();
 	const { values } = useFormikContext<CreatedLectureModel>();
-	const [caption, setCaption] = useState(values.publish.caption);
 	const [videoUrl, setVideoUrl] = useState(values.publish.promoVideo);
 
-	const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+	const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
 		e.preventDefault();
 
 		if (e.target.files?.length) {
 			const file = e.target.files[0];
 			const formData = new FormData();
 			formData.append("file", file);
-			setCaption(URL.createObjectURL(e.target.files[0]));
-			updateCaption(axios, values.id, formData);
+
+			await axios
+				.post(`caption/${values.id}`, formData)
+				.then((res) => setFieldValue("publish.caption", res.data));
 		}
 	};
 
@@ -79,7 +80,11 @@ const PublishLecture = () => {
 			</Field>
 			Lecture cover
 			<div className="field">
-				<img className="caption" src={caption} alt="caption-icon" />
+				<img
+					className="caption"
+					src={values.publish.caption}
+					alt="caption-icon"
+				/>
 				<div className="field-input">
 					<label htmlFor="caption">Upload an image</label>
 					<input id="caption" type="file" onChange={handleChange} />

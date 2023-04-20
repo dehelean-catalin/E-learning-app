@@ -1,8 +1,7 @@
-@import "src/layout/variables.scss";
 .upload {
 	margin-top: 6px;
 	.content-classname {
-		background-color: $input-color;
+		background-color: var(--input-color);
 		padding: 0px;
 		border: 0px;
 	}
@@ -11,7 +10,7 @@
 		align-items: center;
 		justify-content: space-between;
 		padding: 0px;
-		background-color: $input-color;
+		background-color: var(--input-color);
 		border: 0px;
 		border-radius: 4px;
 	}
@@ -53,7 +52,7 @@
 		align-items: center;
 		padding: 4px 12px !important;
 		color: white;
-		background-color: $second-green;
+		background-color: var(--blue-900);
 		font-size: 14px;
 		font-weight: 600;
 		border: 0px;
@@ -73,7 +72,7 @@
 	// 	align-items: center;
 	// 	padding: 4px 12px !important;
 	// 	color: white;
-	// 	background-color: $error;
+	// 	background-color: var(--red-300);
 	// 	font-size: 14px;
 	// 	font-weight: 600;
 	// 	border: 0px;

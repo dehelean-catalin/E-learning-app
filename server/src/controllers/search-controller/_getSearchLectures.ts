@@ -57,17 +57,17 @@ export const getSearchLectures = async (
 
 		if (formatedRating === "9g") {
 			searchedLectures = searchedLectures.filter(
-				({ reviewList }) => calculateRating(reviewList.data) >= 9
+				({ reviews }) => calculateRating(reviews.data) >= 9
 			);
 		}
 		if (formatedRating === "8-9b") {
 			searchedLectures = searchedLectures.filter(
-				({ reviewList }) => calculateRating(reviewList.data) >= 8
+				({ reviews }) => calculateRating(reviews.data) >= 8
 			);
 		}
 		if (formatedRating === "8u") {
 			searchedLectures = searchedLectures.filter(
-				({ reviewList }) => calculateRating(reviewList.data) < 8
+				({ reviews }) => calculateRating(reviews.data) < 8
 			);
 		}
 		if (req.query?.language === "english") {

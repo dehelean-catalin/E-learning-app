@@ -12,7 +12,6 @@ import { LectureModel } from "../../../data/models/lectureModel";
 import { NotificationActions } from "../../../data/redux/notificationReducer";
 import { useAxios } from "../../../hooks/useAxios";
 import styles from "./LectureCard.module.scss";
-import "./LectureCard.scss";
 
 type Props = {
 	value: LectureModel;
@@ -36,7 +35,7 @@ const LectureCard: FC<Props> = ({
 	const { pathname } = useLocation();
 	const queryClient = useQueryClient();
 	const op = useRef(null);
-	const { id, thumbnail, title, createdBy, reviewList } = value;
+	const { id, thumbnail, title, createdBy, reviews } = value;
 	const axiosInstance = useAxios();
 
 	const { mutate } = useMutation(
@@ -112,8 +111,8 @@ const LectureCard: FC<Props> = ({
 				{/* <div>{getLectureDuration(value.items.data)}</div>
 				<div>{value.language}</div> */}
 				<CustomRating
-					rating={getRatingValue(reviewList.data)}
-					numberOfRates={reviewList.data.length}
+					rating={getRatingValue(reviews.data)}
+					numberOfRates={reviews.data.length}
 					hideUsers={true}
 				/>
 				{/* {value.createdAt?.split("T")[0]} */}

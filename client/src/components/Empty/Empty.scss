@@ -1,4 +1,3 @@
-@import "src/layout/variables.scss";
 .empty-page {
 	display: flex;
 	flex-direction: column;
@@ -20,7 +19,7 @@
 		font-size: 20px;
 	}
 	a {
-		background: $prime-green;
+		background: var(--blue-900);
 		color: white;
 		border: 0;
 		padding: 10px 20px;

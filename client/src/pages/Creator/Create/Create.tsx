@@ -5,7 +5,7 @@ import { useAxios } from "hooks/useAxios";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { FormEvent, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 import {
@@ -13,20 +13,25 @@ import {
 	CreateLecturePayload,
 	Language,
 } from "../../../data/models/createdLecture.model";
+import { AccountDataState } from "../../../data/redux/account/AccountReducer";
+import { RootState } from "../../../data/redux/reducers";
 import "./Create.scss";
-
-const initialState = {
-	title: "",
-	language: Language.English,
-	category: Category.ALL,
-};
 
 const Create = () => {
 	const axios = useAxios();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const { displayName: author } = useSelector<RootState, AccountDataState>(
+		(s) => s.accountReducer.data
+	);
+	const initialState: CreateLecturePayload = {
+		title: "",
+		language: Language.English,
+		category: Category.ALL,
+		author,
+	};
 
-	const [value, setValue] = useState<CreateLecturePayload>(initialState);
+	const [value, setValue] = useState(initialState);
 
 	const disabled =
 		!value.title.length || !value.category.length || !value.language.length;
@@ -38,7 +43,8 @@ const Create = () => {
 	const handleSubmit = async (e: FormEvent) => {
 		e.preventDefault();
 
-		if (!disabled) postCreateLecture(axios, dispatch, navigate, value);
+		if (disabled) return;
+		postCreateLecture(axios, dispatch, navigate, value);
 
 		setValue(initialState);
 	};

@@ -35,7 +35,7 @@ import LectureOverview from "./pages/LectureOverview/LectureOverview";
 import NotFound from "./pages/NotFound/NotFound";
 import SavedLectures from "./pages/SavedLecturesPage/SavedLectures";
 import SecurityPage from "./pages/SecurityPage/SecurityPage";
-import Settings from "./pages/SettingsPage/Settings";
+import Settings from "./pages/Settings/Settings";
 import RootLayout from "./routes/ProtectedRoutes/RootLayout";
 import VerifyEmailLayout from "./routes/ProtectedRoutes/VerifyEmailLayout";
 
