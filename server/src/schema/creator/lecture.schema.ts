@@ -26,7 +26,7 @@ export const LectureSchema = Joi.object<CreatedLectureModel, true>({
 		"any.required": "Last update is required",
 	}),
 	publish: PublishSchema,
-	content: Joi.array().items(ContentSchema),
+	content: ContentSchema,
 	requirements: PlanFieldSchema,
 	goals: PlanFieldSchema,
 	reviews: Joi.array(),

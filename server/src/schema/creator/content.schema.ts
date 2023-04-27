@@ -12,7 +12,7 @@ const VideoStatusEnum = Joi.string()
 		"string.base": "Video status must be a string",
 	});
 
-export let ContentSchema = Joi.array<Content>().items({
+export let ContentSchema = Joi.array<Content[]>().items({
 	label: Joi.string().required().messages({
 		"any.required": "Label is required",
 		"string.empty": "Label cannot be empty",
