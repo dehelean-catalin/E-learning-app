@@ -1,8 +1,8 @@
 import { AxiosInstance } from "axios";
-import { HistoryModel } from "../../models/lectureModel";
+import { CreatedLectureModel } from "../../models/createdLecture.model";
 
 export const getHistoryLectures = (
 	axios: AxiosInstance
-): Promise<HistoryModel[]> => {
+): Promise<CreatedLectureModel[]> => {
 	return axios.get(`/user/history`).then((res) => res.data);
 };

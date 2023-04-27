@@ -43,6 +43,7 @@ const AddSectionForm: FC<Props> = ({ onSubmit, toggleVisibility, index }) => {
 
 				<input
 					name="description"
+					className=""
 					value={inputValues.description}
 					placeholder="Enter the description"
 					onChange={(e) =>

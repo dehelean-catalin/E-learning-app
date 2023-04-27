@@ -6,10 +6,11 @@ import { useNavigate } from "react-router";
 import { CustomRating } from "../../../common/CustomRating/CustomRating";
 import { CreatedLectureModel } from "../../../data/models/createdLecture.model";
 import { toRelativeTime } from "../../../helpers";
+import { itemStatus } from "./itemStatus.helper";
 
-const RenderListItem: FC<CreatedLectureModel> = (data) => {
+const RenderListItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {
 	const navigate = useNavigate();
-	const { reviews, publish, lastUpdate } = data;
+	const { reviews, publish, lastUpdate } = value;
 
 	return (
 		<div className="col-12">
@@ -36,6 +37,12 @@ const RenderListItem: FC<CreatedLectureModel> = (data) => {
 									{toRelativeTime(lastUpdate)}
 								</span>
 							</span>
+
+							<Tag
+								value={publish.status}
+								className={itemStatus(publish.status)}
+								icon="pi pi-eye"
+							/>
 						</div>
 						<div className="text-2xl font-bold text-900">{publish.title}</div>
 						<div className="flex gap-2">
@@ -44,20 +51,19 @@ const RenderListItem: FC<CreatedLectureModel> = (data) => {
 							) : (
 								<span className="text-color-secondary">No reviews</span>
 							)}
-							<Tag value={publish.status}></Tag>
 						</div>
 					</div>
-					<div className="flex align-items-center gap-3">
+					<div className="flex flex-column align-items-end gap-3">
 						<p className="flex align-items-center text-lg">
 							<i className="pi pi-users mr-2 text-2xl" />
 							<span className="font-semibold">
-								{data.enrolledUsers.length} students
+								{value.enrolledUsers.length} students
 							</span>
 						</p>
 						<Button
 							icon="pi pi-pencil"
 							className="p-button-rounded"
-							onClick={() => navigate(`/creator/created-lectures/${data.id}`)}
+							onClick={() => navigate(`/creator/created-lectures/${value.id}`)}
 						></Button>
 					</div>
 				</div>

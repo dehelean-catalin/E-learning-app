@@ -1,6 +1,6 @@
-import classNames from "classnames";
 import Divider from "common/Divider/Divider";
 import { Password } from "primereact/password";
+import { classNames } from "primereact/utils";
 import { FC } from "react";
 import "./InputPasswordField.scss";
 

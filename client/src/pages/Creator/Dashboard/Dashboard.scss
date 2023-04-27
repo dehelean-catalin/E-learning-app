@@ -1,37 +1,32 @@
-.dashboard {
-	padding-right: 20px;
+.p-dataview-grid {
 	height: 100%;
-
-	.p-dataview-grid {
-		height: 100%;
-		.p-nogutter {
-			display: grid !important;
-			grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-			gap: 20px;
-			padding: 0px 20px;
-		}
+	.p-nogutter {
+		display: grid !important;
+		grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+		gap: 20px;
+		padding: 0px 20px;
 	}
-	.p-dataview-content {
-		height: 82%;
-		overflow: auto;
-		background: transparent !important;
+}
+.p-dataview-content {
+	height: 82%;
+	overflow: auto;
+	background: transparent !important;
+}
+.p-paginator {
+	justify-content: center !important;
+	background: transparent !important;
+}
+.p-dataview-header {
+	background: transparent !important;
+	.p-highlight {
+		background: var(--primary-500) !important;
 	}
-	.p-paginator {
-		justify-content: center;
-		background: transparent !important;
-	}
-	.p-dataview-header {
-		background: transparent !important;
-		.p-highlight {
-			background: var(--primary-500) !important;
-		}
-	}
-	.p-dataview-list {
-		height: 100%;
-	}
-	img {
-		height: 120px !important;
-		object-fit: cover;
-		border-radius: 4px !important;
-	}
+}
+.p-dataview-list {
+	height: 100%;
+}
+img {
+	height: 120px;
+	object-fit: cover;
+	border-radius: 4px;
 }

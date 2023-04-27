@@ -14,8 +14,8 @@ import { useAxios } from "../../../hooks/useAxios";
 import { useFetchData } from "../../../hooks/useFetchData";
 import NotFoundError from "../../NotFound/NotFoundError/NotFoundError";
 import "./EditLecture.scss";
-import EditLectureHeader from "./components/EditLectureHeader/EditLectureHeader";
-import NavMenu from "./components/NavMenu/NavMenu";
+import EditLectureHeader from "./EditLectureHeader/EditLectureHeader";
+import NavMenu from "./NavMenu/NavMenu";
 
 const EditLecture = () => {
 	const { id } = useParams();
@@ -28,7 +28,7 @@ const EditLecture = () => {
 	);
 
 	const handleSuccess = () => {
-		navigate("/creator/created-lectures");
+		// navigate("/creator/created-lectures");
 		dispatch(
 			NotificationActions.showBannerNotification({
 				type: "info",
@@ -67,7 +67,9 @@ const EditLecture = () => {
 					<EditLectureHeader />
 					<main>
 						<NavMenu />
-						<Outlet context={props} />
+						<section className="plan-section">
+							<Outlet context={props} />
+						</section>
 					</main>
 				</Form>
 			)}

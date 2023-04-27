@@ -1,6 +1,7 @@
 import { FieldArrayRenderProps } from "formik";
 import { Divider } from "primereact/divider";
 import { FC, useState } from "react";
+import { firstLetterToUpperCase } from "../../helpers/firstLetterUpperCase";
 import AddSectionForm from "../UploadSectionForm/AddSectionForm";
 
 const SectionDivider: FC<{
@@ -12,18 +13,18 @@ const SectionDivider: FC<{
 
 	const handleSubmit = (
 		label: string,
-		data: string,
+		description: string,
 		arrayHelpers: FieldArrayRenderProps
 	) => {
 		index
 			? arrayHelpers.insert(index, {
-					label,
-					data,
+					label: firstLetterToUpperCase(label),
+					data: { description },
 					children: [],
 			  })
 			: arrayHelpers.unshift({
-					label,
-					data,
+					label: firstLetterToUpperCase(label),
+					data: { description },
 					children: [],
 			  });
 

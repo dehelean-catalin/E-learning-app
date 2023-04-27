@@ -5,6 +5,7 @@ import { useState } from "react";
 import { CreatedLectureModel } from "../../../data/models/createdLecture.model";
 import { getCreatedLectures } from "../../../data/services/creator";
 import { useFetchData } from "../../../hooks/useFetchData";
+import NotFoundError from "../../NotFound/NotFoundError/NotFoundError";
 import "./Dashboard.scss";
 import RenderGridItem from "./RenderGridItem";
 import RenderHeader from "./RenderHeader";
@@ -25,26 +26,26 @@ const Dashboard = () => {
 	const itemTemplate = (product: CreatedLectureModel, layout) => {
 		if (!product) return;
 
-		if (layout === "list") return RenderListItem(product);
-		if (layout === "grid") return RenderGridItem(product);
+		if (layout === "list") return <RenderListItem value={product} />;
+		if (layout === "grid") return <RenderGridItem value={product} />;
 	};
 
 	const header = RenderHeader(layout, setLayout, setSortOrder, setSortField);
 
+	if (isError) return <NotFoundError></NotFoundError>;
+
 	return (
-		<div className="dashboard">
-			<DataView
-				loading={isLoading}
-				value={data}
-				layout={layout}
-				header={header}
-				itemTemplate={itemTemplate}
-				paginator
-				rows={10}
-				sortOrder={sortOrder}
-				sortField={sortField}
-			/>
-		</div>
+		<DataView
+			loading={isLoading}
+			value={data}
+			layout={layout}
+			header={header}
+			itemTemplate={itemTemplate}
+			paginator
+			rows={10}
+			sortOrder={sortOrder}
+			sortField={sortField}
+		/>
 	);
 };
 

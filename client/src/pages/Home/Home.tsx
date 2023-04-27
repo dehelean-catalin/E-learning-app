@@ -82,9 +82,6 @@ const Home: FC = () => {
 		<div className={styles.home}>
 			<FilterList onFilterChange={setCategory} />
 			{getContent()}
-			<HomeSection title="New Lectures" value={data} showDivider />
-			<HomeSection title="Top Rated Lectures" value={data} showDivider />
-			<HomeSection title="Most Viewed Lectures" value={data} />
 		</div>
 	);
 };

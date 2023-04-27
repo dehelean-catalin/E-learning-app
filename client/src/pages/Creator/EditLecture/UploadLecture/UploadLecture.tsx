@@ -1,6 +1,5 @@
 import { FieldArray, useFormikContext } from "formik";
 import { CreatedLectureModel } from "../../../../data/models/createdLecture.model";
-import "./UploadLecture.scss";
 import SectionDivider from "./components/UploadLectureSection/SectionDivider";
 import UploadLectureSection from "./components/UploadLectureSection/UploadLectureSection";
 
@@ -8,7 +7,7 @@ const UploadLecture = () => {
 	const { values } = useFormikContext<CreatedLectureModel>();
 
 	return (
-		<section className="upload-lecture">
+		<>
 			<h1>Upload Content</h1>
 			<FieldArray
 				name="content"
@@ -29,7 +28,7 @@ const UploadLecture = () => {
 					</>
 				)}
 			/>
-		</section>
+		</>
 	);
 };
 

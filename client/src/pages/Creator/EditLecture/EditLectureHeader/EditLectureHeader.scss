@@ -1,5 +1,4 @@
 .edit-lecture-header {
-	grid-area: header;
 	position: sticky;
 	top: 0px;
 	display: grid;
@@ -8,6 +7,7 @@
 	padding: 6px 20px;
 	align-items: center;
 	background: var(--color-30);
+	z-index: 1;
 
 	.save-button {
 		padding: 0.5rem 1rem;

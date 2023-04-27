@@ -1,14 +1,15 @@
 import baseImg from "images/test.png";
 import { Button } from "primereact/button";
 import { Tag } from "primereact/tag";
+import { FC } from "react";
 import { useNavigate } from "react-router";
 import { CustomRating } from "../../../common/CustomRating/CustomRating";
 import { CreatedLectureModel } from "../../../data/models/createdLecture.model";
 import { toRelativeTime } from "../../../helpers";
 
-const RenderGridItem = (data: CreatedLectureModel) => {
+const RenderGridItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {
 	const navigate = useNavigate();
-	const { reviews, publish, lastUpdate } = data;
+	const { reviews, publish, lastUpdate, id, enrolledUsers } = value;
 
 	return (
 		<div className="p-4 border-1 surface-border border-round">
@@ -43,14 +44,12 @@ const RenderGridItem = (data: CreatedLectureModel) => {
 			<div className="flex align-items-center justify-content-between">
 				<p className="flex align-items-center text-lg">
 					<i className="pi pi-users mr-2 text-2xl" />
-					<span className="font-semibold">
-						{data.enrolledUsers.length} students
-					</span>
+					<span className="font-semibold">{enrolledUsers.length} students</span>
 				</p>
 				<Button
 					icon="pi pi-pencil"
 					className="p-button-rounded"
-					onClick={() => navigate(`/creator/created-lectures/${data.id}`)}
+					onClick={() => navigate(`/creator/created-lectures/${id}`)}
 				></Button>
 			</div>
 		</div>

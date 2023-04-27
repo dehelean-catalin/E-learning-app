@@ -1,8 +1,8 @@
-import classNames from "classnames";
 import { Field, FieldArray, FieldArrayRenderProps } from "formik";
 import { Button } from "primereact/button";
-import TreeNode from "primereact/treenode";
+import { classNames } from "primereact/utils";
 import { FC, useState } from "react";
+import { Content } from "../../../../../../data/models/createdLecture.model";
 import useDragAndDropContent from "../../hooks/useUploadContent";
 import UploadLectureItem from "../UploadLectureItem/UploadLectureItem";
 import UploadLectureDivider from "./SectionDivider";
@@ -10,7 +10,7 @@ import "./UploadLectureSection.scss";
 
 type Props = {
 	index: number;
-	content: TreeNode;
+	content: Content;
 	arrayHelpers: FieldArrayRenderProps;
 };
 
@@ -76,24 +76,23 @@ const UploadLectureSection: FC<Props> = ({ index, arrayHelpers, content }) => {
 				open={false}
 				onToggle={() => setIsOpen(!isOpen)}
 				draggable
-				onDragStart={(e) => handleDragStart(e, index)}
+				onDragStart={(e) => handleDragStart(e, index, "parent")}
 				onDragEnd={handleDragEnd}
 				onDragOver={handleDragOver}
 				onDragLeave={handleDragLeave}
-				onDrop={(e) => handleDrop(e, index)}
+				onDrop={(e) => handleDrop(e, index, "parent")}
 			>
 				<summary>
 					<section className="flex align-items-center">
-						<i className="pi pi-bars" />
+						<i className="pi pi-bars mr-3" />
 						{isOpen ? (
-							<i className="pi pi-angle-right" />
+							<i className="pi pi-angle-right mr-3" />
 						) : (
-							<i className="pi pi-angle-down" />
+							<i className="pi pi-angle-down mr-3" />
 						)}
 
 						<h4 className="mr-3">Section {index}</h4>
 						<span className="mr-2">{content.label}</span>
-
 						<i
 							className={classNames(["pi pi-pencil", "edit-icon"])}
 							onClick={(e) => {
@@ -104,7 +103,7 @@ const UploadLectureSection: FC<Props> = ({ index, arrayHelpers, content }) => {
 					</section>
 
 					<i
-						className="pi pi-trash"
+						className="pi pi-trash mr-2"
 						onClick={(e) => {
 							e.preventDefault();
 							arrayHelpers.remove(index);

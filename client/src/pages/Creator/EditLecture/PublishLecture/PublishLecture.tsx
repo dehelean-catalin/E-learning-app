@@ -9,7 +9,6 @@ import { ChangeEvent, useState } from "react";
 import { useOutletContext } from "react-router";
 import { updatePromoVideo } from "../../../../data/services/creator";
 import { useAxios } from "../../../../hooks/useAxios";
-import "./PublishLecture.scss";
 
 const PublishLecture = () => {
 	const axios = useAxios();
@@ -45,12 +44,14 @@ const PublishLecture = () => {
 	};
 
 	return (
-		<section className="publish-lecture">
+		<>
 			<h1>Publish your lecture</h1>
 			<label htmlFor="publish.title">Title</label>
 			<Field name={`publish.title`} placeholder="Enter the lecture title" />
 			<label htmlFor="publish.description">Description</label>
 			<Field
+				as="textarea"
+				rows="3"
 				name={`publish.description`}
 				placeholder="Enter a description for your lecture"
 			/>
@@ -109,7 +110,7 @@ const PublishLecture = () => {
 					/>
 				</div>
 			</div>
-		</section>
+		</>
 	);
 };
 

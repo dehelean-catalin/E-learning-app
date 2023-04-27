@@ -1,8 +1,11 @@
 import { FieldArrayRenderProps } from "formik";
 import { Button } from "primereact/button";
-import TreeNode from "primereact/treenode";
 import { FC, useState } from "react";
+import { useMutation } from "react-query";
+import Spinner from "../../../../../../common/Spinner/Spinner";
+import { ContentChildren } from "../../../../../../data/models/createdLecture.model";
 import { useAxios } from "../../../../../../hooks/useAxios";
+import { firstLetterToUpperCase } from "../../helpers/firstLetterUpperCase";
 import ChildrenItem from "./ChildrenItem";
 import LectureItemForm from "./LectureItemForm";
 import "./UploadLectureItem.scss";
@@ -10,53 +13,59 @@ import "./UploadLectureItem.scss";
 type Props = {
 	index: number;
 	arrayHelpers: FieldArrayRenderProps;
-	children: TreeNode[];
+	children: ContentChildren[];
 };
 
 export type LectureItemFormState = {
 	label: string;
 	description: string;
-	content: any;
+	content?: any;
+	duration?: number;
+	type: string;
 };
 
 const UploadLectureItem: FC<Props> = ({ arrayHelpers, children, index }) => {
 	const axios = useAxios();
 	const [isOpen, setIsOpen] = useState(false);
 
-	const handleSubmit = async ({
-		label,
-		description,
-		content,
-	}: LectureItemFormState) => {
-		const formData = new FormData();
-		formData.append("file", content);
-
-		await axios.post(`/content/${index}`, formData).then((res) => {
-			arrayHelpers.push({
-				label,
-				data: {
-					description,
-					content: res.data,
-				},
-			});
-		});
-	};
+	const { mutate, isLoading } = useMutation(
+		({ label, description, content, duration, type }: LectureItemFormState) => {
+			return axios.post(`/content/${index}`, content).then((res) =>
+				arrayHelpers.push({
+					label: firstLetterToUpperCase(label),
+					data: {
+						description,
+						content: res.data,
+						duration,
+						status: "Success",
+						date: new Date().toUTCString(),
+						type,
+					},
+				})
+			);
+		}
+	);
 
 	return (
 		<div className="section-items">
-			{children.map((children: TreeNode, index) => (
+			{children.map((value, subIndex) => (
 				<ChildrenItem
-					key={index}
+					key={subIndex}
+					subIndex={subIndex}
 					index={index}
-					data={children}
+					value={value}
 					arrayHelpers={arrayHelpers}
 				/>
 			))}
+
+			{isLoading && <Spinner className="h-2rem mx-auto my-2 w-full" />}
+
 			{isOpen ? (
-				<LectureItemForm toggleVisibility={setIsOpen} onSubmit={handleSubmit} />
+				<LectureItemForm toggleVisibility={setIsOpen} onSubmit={mutate} />
 			) : (
 				<Button
 					type="button"
+					className="py-2 px-3"
 					label="New"
 					icon="pi pi-plus-circle"
 					iconPos="left"

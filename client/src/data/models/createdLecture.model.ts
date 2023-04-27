@@ -1,10 +1,8 @@
-import TreeNode from "primereact/treenode";
-
 export type CreatedLectureModel = {
 	id: string;
 	lastUpdate: number;
 	publish: Publish;
-	content: TreeNode[];
+	content: Content[];
 	goals: PlanFieldModel[];
 	requirements: PlanFieldModel[];
 	reviews: any[];
@@ -23,6 +21,21 @@ export type Publish = {
 	caption?: any;
 	promoVideo?: any;
 };
+export type Content = {
+	label: string;
+	data: {
+		description: string;
+		date: string;
+		duration: number;
+		content: string;
+		type: string;
+		status: VideoStatus;
+	};
+	children: ContentChildren[];
+};
+
+export type ContentChildren = Omit<Content, "children">;
+
 export type PlanFieldModel = {
 	value: string;
 	placeholder: string;
@@ -46,7 +59,14 @@ export enum Language {
 	French = "French",
 }
 
-export type Status = "Draft" | "Public" | "Private" | "Unlisted";
+export type VideoStatus = "Success" | "Failed";
+
+export enum Status {
+	Draft = "Draft",
+	Public = "Public",
+	Private = "Private",
+	Unlisted = "Unlisted",
+}
 export enum Level {
 	Beginner = "Beginner",
 	Intermediate = "Intermediate",
