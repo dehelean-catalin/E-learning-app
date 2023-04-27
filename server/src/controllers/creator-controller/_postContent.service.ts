@@ -1,5 +1,11 @@
 import { Request, Response } from "express";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import {
+	getDownloadURL,
+	getMetadata,
+	getStorage,
+	ref,
+	uploadBytes,
+} from "firebase/storage";
 
 export interface FileRequest extends Request {
 	file: {
@@ -23,7 +29,13 @@ export const postContent = async (req: Request, res: Response) => {
 		});
 
 		const content = await getDownloadURL(storageRef);
-
+		getMetadata(storageRef)
+			.then((metadata) => {
+				console.log(metadata);
+			})
+			.catch((error) => {
+				// Uh-oh, an error occurred!
+			});
 		res.status(200).json(content);
 	} catch (err: any) {
 		res.status(400).json({ code: 400, message: err.message });

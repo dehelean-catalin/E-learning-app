@@ -4,14 +4,11 @@ Articole licenta:
 
 # In Development:
 
+- max-length validation CL and Server Plan Lecture, delete btn height;
+
 - account photo upload failed (- Moving to react-query;);
-- List card;
-- edit functionality for lecture item;
 - validation on save for lecture item;
-- drag and drop functionality;
-- dashboard double loading;
-- dashboard improve cards;
-- Enhance update lecture history time ;
+- Enhance update lecture history time;
 - History: 12PM order wrong;
 - Update Lecture Overview logic + updating check mark;
 
@@ -21,7 +18,6 @@ Articole licenta:
 - saga logout auto;
 - Lectures Page;
 - lecture overview display title, author and image;
-- history bar add high;
 - Review + Coments;
 
 # Nice to have:

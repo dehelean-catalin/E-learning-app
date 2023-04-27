@@ -11,7 +11,7 @@ import {
 } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
 import db from "../config/firebase";
-import { Category } from "../models/createdLecture.model";
+import { Category } from "../models/creator.model";
 import { LectureModel } from "../models/lecture-model";
 
 interface Params {

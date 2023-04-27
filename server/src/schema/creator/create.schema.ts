@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { CreateLecturePayload } from "../../models/createdLecture.model";
+import { CreateLecturePayload } from "../../models/creator.model";
 
 export const createLectureSchema = Joi.object<CreateLecturePayload, true>({
 	title: Joi.string().required().messages({

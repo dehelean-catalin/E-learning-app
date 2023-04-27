@@ -6,7 +6,7 @@ import { tryAgainError } from "../../constant";
 import {
 	CreateLecturePayload,
 	CreatedLectureModel,
-} from "../../models/createdLecture.model";
+} from "../../models/creator.model";
 import { ValidatedRequest } from "../../models/request";
 
 const INITIAL_REQUIREMENTS = [
@@ -17,7 +17,7 @@ const INITIAL_REQUIREMENTS = [
 	},
 	{
 		value: "",
-		placeholder: "Ex: Basic undersatings of HTML, CSS and Javascript ...",
+		placeholder: "Ex: Basic understating of HTML, CSS and Javascript ...",
 	},
 	{
 		value: "",
