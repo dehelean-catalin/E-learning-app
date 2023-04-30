@@ -33,6 +33,11 @@ export const PublishSchema = Joi.object<Publish, true>({
 		"string.empty": "Author name cannot be empty",
 		"any.required": "Author name is required",
 	}),
+	authorId: Joi.string().required().messages({
+		"string.base": "authorId must be a string",
+		"string.empty": "authorId cannot be empty",
+		"any.required": "authorId is required",
+	}),
 	title: Joi.string().required().messages({
 		"string.base": "Title must be a string",
 		"string.empty": "Title cannot be empty",

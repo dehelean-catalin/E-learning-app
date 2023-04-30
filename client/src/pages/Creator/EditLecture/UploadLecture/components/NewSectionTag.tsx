@@ -1,14 +1,19 @@
 import { FieldArrayRenderProps } from "formik";
 import { Divider } from "primereact/divider";
 import { FC, useState } from "react";
-import { firstLetterToUpperCase } from "../../helpers/firstLetterUpperCase";
-import AddSectionForm from "../UploadSectionForm/AddSectionForm";
+import { firstLetterToUpperCase } from "../helpers/firstLetterUpperCase";
+import AddSectionForm from "./NewSectionForm/NewSectionForm";
 
-const SectionDivider: FC<{
+type NewSectionTagProps = {
 	arrayHelpers: FieldArrayRenderProps;
 	index?: number;
 	isContentEmpty?: boolean;
-}> = ({ arrayHelpers, index, isContentEmpty }) => {
+};
+const NewSectionTag: FC<NewSectionTagProps> = ({
+	arrayHelpers,
+	index,
+	isContentEmpty,
+}) => {
 	const [visible, toggleVisibility] = useState(false);
 
 	const handleSubmit = (
@@ -55,4 +60,4 @@ const SectionDivider: FC<{
 	);
 };
 
-export default SectionDivider;
+export default NewSectionTag;

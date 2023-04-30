@@ -15,6 +15,7 @@ import { useFetchData } from "../../../hooks/useFetchData";
 import NotFoundError from "../../NotFound/NotFoundError/NotFoundError";
 import "./EditLecture.scss";
 import EditLectureHeader from "./EditLectureHeader/EditLectureHeader";
+import GenericConfirmDialog from "./GenericConfirmDialog";
 import NavMenu from "./NavMenu/NavMenu";
 
 const EditLecture = () => {
@@ -58,22 +59,25 @@ const EditLecture = () => {
 	if (isError) return <NotFoundError />;
 
 	return (
-		<Formik<CreatedLectureModel>
-			initialValues={data}
-			onSubmit={(v) => mutate(v)}
-		>
-			{(props) => (
-				<Form className="edit-form">
-					<EditLectureHeader />
-					<main>
-						<NavMenu />
-						<section className="plan-section">
-							<Outlet context={props} />
-						</section>
-					</main>
-				</Form>
-			)}
-		</Formik>
+		<>
+			<Formik<CreatedLectureModel>
+				initialValues={data}
+				onSubmit={(v) => mutate(v)}
+			>
+				{(props) => (
+					<Form className="edit-form">
+						<EditLectureHeader />
+						<main>
+							<NavMenu />
+							<section className="plan-section">
+								<Outlet context={props} />
+							</section>
+						</main>
+					</Form>
+				)}
+			</Formik>
+			<GenericConfirmDialog />
+		</>
 	);
 };
 

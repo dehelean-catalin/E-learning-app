@@ -1,27 +1,22 @@
 import { Request, Response } from "express";
-import { doc, setDoc, updateDoc } from "firebase/firestore";
-import { v4 as uuid } from "uuid";
+import { deleteDoc, doc, setDoc } from "firebase/firestore";
 import db from "../../config/firebase";
-import { CreatedLectureModel } from "../../models/creator.model";
 import { ValidatedRequest } from "../../models/request";
 
 export const postPublishLecture = async (req: Request, res: Response) => {
-	const id = uuid();
 	const validatedReq = req as ValidatedRequest;
 	const lectureRef = doc(
 		db,
 		`users/${validatedReq.userData.userId}/createdLectures/${req.params.id}`
 	);
 
-	const data = {
-		id,
-		...req.body,
-		publish: { ...req.body.publish, status: "Public" },
-	} as CreatedLectureModel;
-
 	try {
-		await setDoc(doc(db, "lectures", id), data);
-		await updateDoc(lectureRef, { "publish.status": "Public" });
+		await setDoc(doc(db, "lectures", req.params.id), {
+			...req.body,
+			publish: { ...req.body.publish, status: "Public" },
+		});
+
+		await deleteDoc(lectureRef);
 
 		res.status(200).json("Success");
 	} catch (err: any) {

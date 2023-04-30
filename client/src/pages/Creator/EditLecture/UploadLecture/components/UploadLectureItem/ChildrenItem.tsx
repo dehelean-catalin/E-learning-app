@@ -1,7 +1,13 @@
-import { ContentChildren } from "data/models/createdLecture.model";
+import {
+	ContentChildren,
+	CreatedLectureModel,
+} from "data/models/createdLecture.model";
+import { useFormikContext } from "formik";
 import { formattedDate } from "helpers";
 import { classNames } from "primereact/utils";
-import { FC, useRef, useState } from "react";
+import { FC, useEffect, useRef } from "react";
+import { useDispatch } from "react-redux";
+import { ConfirmDialogActions } from "../../../../../../data/redux/confirmDialog.reducer";
 import useDragAndDropContent from "../../hooks/useUploadContent";
 import "./ChildrenItem.scss";
 
@@ -11,7 +17,12 @@ const ChildrenItem: FC<{
 	arrayHelpers: any;
 	value: ContentChildren;
 }> = ({ index, arrayHelpers, value, subIndex }) => {
-	const { data, label } = value;
+	const { setFieldValue } = useFormikContext<CreatedLectureModel>();
+	const dispatch = useDispatch();
+	const {
+		data: { content, status, date, duration, type },
+		label,
+	} = value;
 	const {
 		handleDragStart,
 		handleDragEnd,
@@ -19,19 +30,29 @@ const ChildrenItem: FC<{
 		handleDragOver,
 		handleDrop,
 	} = useDragAndDropContent();
-	const [duration, setDuration] = useState<number>(0);
+
 	const videoRef = useRef<HTMLVideoElement>(null);
 
 	const statusClassName = classNames({
-		"text-primary": data.status === "Success",
+		"text-primary": status === "Success",
 		"font-semibold": true,
 	});
 
-	const handleLoadedMetadata = () => {
-		setDuration(videoRef.current?.duration || 0);
-	};
+	useEffect(() => {
+		const video = videoRef.current;
+		if (video) video.load();
+	}, [content]);
 
-	const displayedDate = formattedDate(data.date);
+	const displayedDate = formattedDate(date);
+	const handleLoadedMetadata = () => {
+		const video = videoRef.current;
+
+		if (duration === Math.round(video?.duration)) return;
+		setFieldValue(
+			`content.${index}.children.${subIndex}.data.duration`,
+			Math.round(video?.duration) ?? 0
+		);
+	};
 
 	return (
 		<div
@@ -45,12 +66,13 @@ const ChildrenItem: FC<{
 		>
 			<i className="pi pi-bars" />
 			<video
+				controls
 				muted={false}
 				ref={videoRef}
 				onLoadedMetadata={handleLoadedMetadata}
 			>
-				<source src={data?.content} type="video/mp4" />
-				<source src={data?.content} type="video/webm" />
+				<source src={content} type="video/mp4" />
+				<source src={content} type="video/webm" />
 				Your browser does not support the video tag.
 			</video>
 			<table className="flex-1">
@@ -65,12 +87,12 @@ const ChildrenItem: FC<{
 				<tbody>
 					<tr>
 						<td>{label ?? "-"}</td>
-						<td>{data.type ?? "-"}</td>
+						<td>{type ?? "-"}</td>
 						<td className={statusClassName}>
-							{data.status ? (
+							{status ? (
 								<>
 									<i className="pi pi-check-circle mr-2" />
-									{data.status}
+									{status}
 								</>
 							) : (
 								"-"
@@ -91,8 +113,14 @@ const ChildrenItem: FC<{
 				</tbody>
 			</table>
 			<i
-				className="pi pi-trash align-self-center cursor-pointer mr-2"
-				onClick={() => arrayHelpers.remove(subIndex)}
+				className="pi pi-trash align-self-center cursor-pointer"
+				onClick={() =>
+					dispatch(
+						ConfirmDialogActions.show({
+							accept: () => arrayHelpers.remove(index),
+						})
+					)
+				}
 			/>
 		</div>
 	);

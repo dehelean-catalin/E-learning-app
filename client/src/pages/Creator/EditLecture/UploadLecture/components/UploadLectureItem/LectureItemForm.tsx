@@ -1,6 +1,6 @@
 import { Button } from "primereact/button";
 import { classNames } from "primereact/utils";
-import { FC, KeyboardEvent, useState } from "react";
+import { FC, KeyboardEvent, useRef, useState } from "react";
 import { LectureItemFormState } from "./UploadLectureItem";
 
 type Props = {
@@ -9,9 +9,8 @@ type Props = {
 	index?: number;
 };
 
-type InputState = Omit<LectureItemFormState, "type">;
-
 const LectureItemForm: FC<Props> = ({ onSubmit, toggleVisibility, index }) => {
+	const videoRef = useRef<HTMLInputElement>(null);
 	const formData = new FormData();
 
 	const [touched, setTouched] = useState({
@@ -19,21 +18,33 @@ const LectureItemForm: FC<Props> = ({ onSubmit, toggleVisibility, index }) => {
 		content: false,
 	});
 
-	const [inputValues, setInputValues] = useState<InputState>({
+	const [inputValues, setInputValues] = useState<LectureItemFormState>({
 		label: "",
 		description: "",
 	});
 
 	const disabled = !inputValues.label.trim().length || !inputValues?.content;
 
+	const titleErrorClassName = classNames({
+		"opacity-0 text-xs text-red-400": true,
+		"opacity-100": touched.label && !inputValues.label.trim().length,
+	});
+
+	const uploadErrorClassName = classNames({
+		"opacity-0 text-xs text-red-400": true,
+		"opacity-100":
+			touched.content && !inputValues?.content?.type.includes("video"),
+	});
+
 	const handleEnterPress = (e: KeyboardEvent<HTMLDivElement>) => {
 		if (!inputValues?.content) return;
+
 		formData.append("file", inputValues?.content);
+
 		if (e.code === "Enter") {
 			onSubmit({
 				...inputValues,
 				content: formData,
-				type: inputValues.content.type,
 			});
 			toggleVisibility(false);
 		}
@@ -43,14 +54,24 @@ const LectureItemForm: FC<Props> = ({ onSubmit, toggleVisibility, index }) => {
 		setInputValues({ ...inputValues, [prop]: e.target.value });
 	};
 
+	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setInputValues({
+			...inputValues,
+			content: e.target.files[0],
+			type: e.target.files[0].type,
+			duration: 0,
+		});
+		setTouched({ ...touched, content: true });
+	};
+
 	const handleSubmit = () => {
 		if (!inputValues?.content) return;
+
 		formData.append("file", inputValues?.content);
 
 		onSubmit({
 			...inputValues,
 			content: formData,
-			type: inputValues.content.type,
 		});
 		toggleVisibility(false);
 	};
@@ -72,15 +93,16 @@ const LectureItemForm: FC<Props> = ({ onSubmit, toggleVisibility, index }) => {
 					autoFocus
 					onBlur={() => setTouched({ ...touched, label: true })}
 				/>
-				{touched.label && !inputValues.label.trim().length && (
-					<span className="text-red-400 text-xs">Required*</span>
-				)}
+
+				<span className={titleErrorClassName}>Required*</span>
+
 				<label htmlFor="description">
 					What will students be able to do at the end of this section?
 				</label>
 
 				<input
 					name="description"
+					className="mb-3"
 					value={inputValues.description}
 					placeholder="Enter the description"
 					onChange={(e) => handleChange(e, "description")}
@@ -95,18 +117,11 @@ const LectureItemForm: FC<Props> = ({ onSubmit, toggleVisibility, index }) => {
 					})}
 					name="file"
 					type="file"
+					ref={videoRef}
 					accept="video/*"
-					onChange={(e) => {
-						setInputValues({
-							...inputValues,
-							content: e.target.files[0],
-						});
-						setTouched({ ...touched, content: true });
-					}}
+					onChange={handleFileChange}
 				/>
-				{touched.content && !inputValues?.content?.type.includes("video") && (
-					<p className="text-red-400 text-xs">Invalid format</p>
-				)}
+				<span className={uploadErrorClassName}>Invalid format</span>
 
 				<div className="flex justify-content-end gap-2 mt-2">
 					<Button
@@ -128,3 +143,6 @@ const LectureItemForm: FC<Props> = ({ onSubmit, toggleVisibility, index }) => {
 };
 
 export default LectureItemForm;
+function onVideoDurationLoaded(duration: number) {
+	throw new Error("Function not implemented.");
+}

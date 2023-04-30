@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import { CustomRating } from "../../../common/CustomRating/CustomRating";
 import { CreatedLectureModel } from "../../../data/models/createdLecture.model";
 import { toRelativeTime } from "../../../helpers";
+import { itemIcon, itemStatus } from "./item.helper";
 
 const RenderGridItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {
 	const navigate = useNavigate();
@@ -18,7 +19,11 @@ const RenderGridItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {
 					<i className="pi pi-history"></i>
 					<span className="font-semibold">{toRelativeTime(lastUpdate)}</span>
 				</p>
-				<Tag value={publish.status} />
+				<Tag
+					value={publish.status}
+					className={itemStatus(publish.status)}
+					icon={itemIcon(publish.status)}
+				/>
 			</div>
 			<div className="flex flex-column align-items-center gap-2 pt-5 pb-4">
 				{publish.caption ? (

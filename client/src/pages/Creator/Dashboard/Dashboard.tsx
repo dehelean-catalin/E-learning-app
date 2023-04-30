@@ -30,12 +30,20 @@ const Dashboard = () => {
 		if (layout === "grid") return <RenderGridItem value={product} />;
 	};
 
-	const header = RenderHeader(layout, setLayout, setSortOrder, setSortField);
+	const header = (
+		<RenderHeader
+			layout={layout}
+			setLayout={setLayout}
+			setSortOrder={setSortOrder}
+			setSortField={setSortField}
+		/>
+	);
 
 	if (isError) return <NotFoundError></NotFoundError>;
 
 	return (
 		<DataView
+			className="dashboard"
 			loading={isLoading}
 			value={data}
 			layout={layout}

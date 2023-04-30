@@ -3,113 +3,144 @@ import {
 	CreatedLectureModel,
 	Language,
 	Level,
+	Privacy,
 } from "data/models/createdLecture.model";
 import { Field, FormikProps, useFormikContext } from "formik";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
+import { FaPhotoVideo } from "react-icons/fa";
+import { IoMdImages } from "react-icons/io";
+import { useMutation } from "react-query";
 import { useOutletContext } from "react-router";
-import { updatePromoVideo } from "../../../../data/services/creator";
 import { useAxios } from "../../../../hooks/useAxios";
+import ImageField from "./ImageField";
 
 const PublishLecture = () => {
 	const axios = useAxios();
 	const { setFieldValue } =
 		useOutletContext<FormikProps<CreatedLectureModel>>();
 	const { values } = useFormikContext<CreatedLectureModel>();
-	const [videoUrl, setVideoUrl] = useState(values.publish.promoVideo);
 
-	const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
-		e.preventDefault();
+	const { mutate: handleCaptionChange, isLoading: isCaptionLoading } =
+		useMutation((e: ChangeEvent<HTMLInputElement>) => {
+			e.preventDefault();
 
-		if (e.target.files?.length) {
+			if (!e.target.files?.length) return;
 			const file = e.target.files[0];
 			const formData = new FormData();
 			formData.append("file", file);
 
-			await axios
+			return axios
 				.post(`caption/${values.id}`, formData)
 				.then((res) => setFieldValue("publish.caption", res.data));
-		}
-	};
+		});
 
-	const handleVideoChange = (e: ChangeEvent<HTMLInputElement>) => {
-		e.preventDefault();
+	const { mutate: handleVideoChange, isLoading: isVideoLoading } = useMutation(
+		(e: ChangeEvent<HTMLInputElement>) => {
+			e.preventDefault();
+			if (!e.target.files?.length) return;
 
-		if (e.target.files?.length) {
 			const file = e.target.files[0];
 			const formData = new FormData();
 			formData.append("file", file);
-			setVideoUrl(URL.createObjectURL(e.target.files[0]));
-			updatePromoVideo(axios, values.id, formData);
+
+			return axios
+				.post(`promoVideo/${values.id}`, formData)
+				.then((res) => setFieldValue("publish.promoVideo", res.data));
 		}
-	};
+	);
 
 	return (
 		<>
 			<h1>Publish your lecture</h1>
-			<label htmlFor="publish.title">Title</label>
+			<label className="my-2" htmlFor="publish.title">
+				Title
+			</label>
 			<Field name={`publish.title`} placeholder="Enter the lecture title" />
-			<label htmlFor="publish.description">Description</label>
+			<label className="my-2" htmlFor="publish.description">
+				Description
+			</label>
 			<Field
 				as="textarea"
 				rows="3"
 				name={`publish.description`}
 				placeholder="Enter a description for your lecture"
 			/>
-			<label htmlFor="publish.category">Category</label>
-			<Field as="select" name="publish.category">
-				{Object.keys(Category).map((o) => (
-					<option key={o} value={o}>
-						{o}
-					</option>
-				))}
-			</Field>
-			<label htmlFor="publish.language">Language</label>
-			<Field as="select" name="publish.language">
-				{Object.keys(Language).map((o) => (
-					<option key={o} value={o}>
-						{o}
-					</option>
-				))}
-			</Field>
-			<label htmlFor="publish.level">Level</label>
-			<Field as="select" name="publish.level">
-				{Object.keys(Level).map((o) => (
-					<option key={o} value={o}>
-						{o}
-					</option>
-				))}
-			</Field>
-			Lecture cover
-			<div className="field">
-				<img
-					className="caption"
-					src={values.publish.caption}
-					alt="caption-icon"
-				/>
-				<div className="field-input">
-					<label htmlFor="caption">Upload an image</label>
-					<input id="caption" type="file" onChange={handleChange} />
+			<div className="grid gap-2">
+				<div className="col-4 flex flex-column flex-1">
+					<label className="my-2" htmlFor="publish.category">
+						Category
+					</label>
+					<Field as="select" name="publish.category">
+						{Object.values(Category).map((o) => (
+							<option key={o} value={o}>
+								{o}
+							</option>
+						))}
+					</Field>
+				</div>
+				<div className=" col-4 flex flex-column flex-1">
+					<label className="my-2" htmlFor="publish.language">
+						Language
+					</label>
+					<Field as="select" name="publish.language">
+						{Object.values(Language).map((o) => (
+							<option key={o} value={o}>
+								{o}
+							</option>
+						))}
+					</Field>
+				</div>
+				<div className="col-4 flex flex-column flex-1">
+					<label className="my-2" htmlFor="publish.level">
+						Level
+					</label>
+					<Field as="select" name="publish.level">
+						{Object.values(Level).map((o) => (
+							<option key={o} value={o}>
+								{o}
+							</option>
+						))}
+					</Field>
 				</div>
 			</div>
-			Promotional video
-			<div className="field">
-				{videoUrl && (
-					<video controls width="500">
-						<source src={videoUrl} type="video/mp4" />
-						<source src={videoUrl} type="video/webm" />
-						Your browser does not support the video tag.
-					</video>
+			<div className="grid">
+				{values.publish.status !== "Draft" && (
+					<div className="col-4 flex flex-column">
+						<label className="my-2" htmlFor="publish.status">
+							Privacy
+						</label>
+						<Field as="select" name="publish.status">
+							{Object.values(Privacy).map((o) => (
+								<option key={o} value={o}>
+									{o}
+								</option>
+							))}
+						</Field>
+					</div>
 				)}
-				<div className="field-input">
-					<label htmlFor="promo-video">Upload a video</label>
-					<input
-						id="promo-video"
-						type="file"
-						onChange={handleVideoChange}
-						accept="video/*"
-					/>
-				</div>
 			</div>
+
+			<h4 className="my-2">Lecture caption</h4>
+
+			<ImageField
+				isLoading={isCaptionLoading}
+				src={values.publish?.caption}
+				handleChange={handleCaptionChange}
+				emptyIcon={
+					<IoMdImages size={75} className="text-color-secondary m-auto" />
+				}
+			/>
+
+			<h4 className="mb-2 mt-4">Promo video</h4>
+			<ImageField
+				isLoading={isVideoLoading}
+				src={values.publish?.promoVideo}
+				handleChange={handleVideoChange}
+				emptyIcon={
+					<FaPhotoVideo size={75} className="text-color-secondary m-auto" />
+				}
+				isVideo
+			/>
 		</>
 	);
 };

@@ -38,6 +38,7 @@ import SecurityPage from "./pages/SecurityPage/SecurityPage";
 import Settings from "./pages/Settings/Settings";
 import RootLayout from "./routes/ProtectedRoutes/RootLayout";
 import VerifyEmailLayout from "./routes/ProtectedRoutes/VerifyEmailLayout";
+import { CreatedLecturesRoute } from "./routes/baseRoutes";
 
 function App() {
 	const { handleEmailVerified } = useContext(AuthContext);
@@ -83,10 +84,7 @@ function App() {
 						path="creator/created-lectures"
 						element={<CreatedLectures />}
 					/>
-					<Route
-						path={"creator/created-lectures/:id/"}
-						element={<EditLecture />}
-					>
+					<Route path={CreatedLecturesRoute} element={<EditLecture />}>
 						<Route index element={<PlanLecture />} />
 						<Route path="plan" element={<PlanLecture />} />
 						<Route path="upload" element={<UploadLecture />} />

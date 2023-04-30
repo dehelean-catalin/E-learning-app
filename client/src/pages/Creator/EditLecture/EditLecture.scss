@@ -33,6 +33,10 @@
 			outline: 0px;
 		}
 	}
+	select,
+	option {
+		cursor: pointer !important;
+	}
 
 	label {
 		margin-bottom: 2px;

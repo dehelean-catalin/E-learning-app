@@ -12,6 +12,7 @@ export type CreatedLectureModel = {
 
 export type Publish = {
 	author: string;
+	authorId: string;
 	title: string;
 	category: Category;
 	description?: string;
@@ -64,3 +65,5 @@ export enum Category {
 	Policy = "Policy",
 	None = "",
 }
+
+export type Authorization = "CanEditLecture";

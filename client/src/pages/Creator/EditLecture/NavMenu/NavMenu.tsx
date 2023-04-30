@@ -1,13 +1,16 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useMatch } from "react-router-dom";
+import { CreatedLecturesRoute } from "../../../../routes/baseRoutes";
 import "./NavMenu.scss";
 
 const NavMenu = () => {
+	const matchCreatedLectureRoute = useMatch(CreatedLecturesRoute);
+
 	return (
 		<nav className="nav-menu">
 			<NavLink
 				to="plan"
 				className={(navData) =>
-					navData.isActive
+					navData.isActive || matchCreatedLectureRoute
 						? "text-primary border-left-2 border-primary"
 						: "border-left-2 border-transparent"
 				}

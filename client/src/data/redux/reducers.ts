@@ -2,9 +2,10 @@ import { combineReducers } from "redux";
 import { StateType } from "typesafe-actions";
 import accountReducer, { AccountDataAction } from "./account/AccountReducer";
 import authReducer from "./auth/authReducer";
-import editLectureReducer, {
-	EditLectureAction,
-} from "./creator/editLectureReducer";
+import {
+	ConfirmDialogAction,
+	confirmDialogReducer,
+} from "./confirmDialog.reducer";
 import uploadLectureReducer, {
 	UploadLectureAction,
 } from "./creator/uploadLectureReducer";
@@ -17,7 +18,7 @@ const reducers = {
 	accountReducer,
 	authReducer,
 	uploadLectureReducer,
-	editLectureReducer,
+	confirmDialogReducer,
 };
 
 export const rootReducer = combineReducers(reducers);
@@ -27,4 +28,4 @@ export type RootAction =
 	| FormAction
 	| AccountDataAction
 	| UploadLectureAction
-	| EditLectureAction;
+	| ConfirmDialogAction;

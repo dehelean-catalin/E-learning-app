@@ -2,10 +2,12 @@ import { Field, FieldArray, FieldArrayRenderProps } from "formik";
 import { Button } from "primereact/button";
 import { classNames } from "primereact/utils";
 import { FC, useState } from "react";
+import { useDispatch } from "react-redux";
 import { Content } from "../../../../../../data/models/createdLecture.model";
+import { ConfirmDialogActions } from "../../../../../../data/redux/confirmDialog.reducer";
 import useDragAndDropContent from "../../hooks/useUploadContent";
+import NewSectionTag from "../NewSectionTag";
 import UploadLectureItem from "../UploadLectureItem/UploadLectureItem";
-import UploadLectureDivider from "./SectionDivider";
 import "./UploadLectureSection.scss";
 
 type Props = {
@@ -15,6 +17,7 @@ type Props = {
 };
 
 const UploadLectureSection: FC<Props> = ({ index, arrayHelpers, content }) => {
+	const dispatch = useDispatch();
 	const [isOpen, setIsOpen] = useState(true);
 	const [openEditMode, setOpenEditMode] = useState(false);
 
@@ -91,7 +94,7 @@ const UploadLectureSection: FC<Props> = ({ index, arrayHelpers, content }) => {
 							<i className="pi pi-angle-down mr-3" />
 						)}
 
-						<h4 className="mr-3">Section {index}</h4>
+						<h4 className="mr-3">Section {index + 1}</h4>
 						<span className="mr-2">{content.label}</span>
 						<i
 							className={classNames(["pi pi-pencil", "edit-icon"])}
@@ -101,12 +104,15 @@ const UploadLectureSection: FC<Props> = ({ index, arrayHelpers, content }) => {
 							}}
 						/>
 					</section>
-
 					<i
-						className="pi pi-trash mr-2"
+						className="pi pi-trash"
 						onClick={(e) => {
 							e.preventDefault();
-							arrayHelpers.remove(index);
+							dispatch(
+								ConfirmDialogActions.show({
+									accept: () => arrayHelpers.remove(index),
+								})
+							);
 						}}
 					/>
 				</summary>
@@ -122,7 +128,8 @@ const UploadLectureSection: FC<Props> = ({ index, arrayHelpers, content }) => {
 					)}
 				/>
 			</details>
-			<UploadLectureDivider arrayHelpers={arrayHelpers} index={index + 1} />
+
+			<NewSectionTag arrayHelpers={arrayHelpers} index={index + 1} />
 		</>
 	);
 };

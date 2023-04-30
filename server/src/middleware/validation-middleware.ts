@@ -23,9 +23,11 @@ export default function authorization(model: ObjectSchema) {
 				throw new Error("Authentication failed!");
 			}
 			const decodedData: any = jwt.verify(token, "code");
+
 			if (error) {
 				throw new Error(`${error.details.map((x) => x.message).join(" ")}`);
 			}
+
 			validatedReq.userData = { userId: decodedData.userId };
 			next();
 		} catch (err: any) {

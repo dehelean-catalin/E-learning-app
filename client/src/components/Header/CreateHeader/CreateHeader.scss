@@ -5,20 +5,22 @@
 	column-gap: 1rem;
 	padding: 0rem 1rem;
 	color: white;
-}
-.page-number {
-	display: flex;
-	align-items: center;
-	padding-left: 1rem;
-	border-left: 1px solid rgb(91, 91, 91);
-	margin: 0.5rem 0rem;
-	font-size: 1.25rem;
-	font-weight: 700;
-}
-.close-create-page {
-	margin: auto;
-	text-decoration: none;
-	color: var(--blue-900);
-	font-size: 1.5rem;
-	font-weight: 700;
+
+	.page-number {
+		display: flex;
+		align-items: center;
+		padding-left: 1rem;
+		border-left: 1px solid rgb(91, 91, 91);
+		margin: 0.5rem 0rem;
+		font-size: 1.25rem;
+		font-weight: 700;
+	}
+
+	.close-create-page {
+		margin: auto;
+		text-decoration: none;
+		color: var(--blue-900);
+		font-size: 1.5rem;
+		font-weight: 700;
+	}
 }

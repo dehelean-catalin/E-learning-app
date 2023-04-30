@@ -1,6 +1,6 @@
 import { Button } from "primereact/button";
 import { FC, useState } from "react";
-import "./AddSectionForm.scss";
+import "./NewSectionForm.scss";
 
 type Props = {
 	onSubmit: any;
@@ -8,7 +8,7 @@ type Props = {
 	index?: number;
 };
 
-const AddSectionForm: FC<Props> = ({ onSubmit, toggleVisibility, index }) => {
+const NewSectionForm: FC<Props> = ({ onSubmit, toggleVisibility, index }) => {
 	const [inputValues, setInputValues] = useState({
 		title: "",
 		description: "",
@@ -68,6 +68,7 @@ const AddSectionForm: FC<Props> = ({ onSubmit, toggleVisibility, index }) => {
 							onSubmit(inputValues.title, inputValues.description);
 							toggleVisibility(false);
 						}}
+						disabled={!inputValues.title.trim().length}
 					/>
 				</div>
 			</fieldset>
@@ -75,4 +76,4 @@ const AddSectionForm: FC<Props> = ({ onSubmit, toggleVisibility, index }) => {
 	);
 };
 
-export default AddSectionForm;
+export default NewSectionForm;

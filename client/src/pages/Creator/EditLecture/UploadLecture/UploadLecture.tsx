@@ -1,10 +1,12 @@
 import { FieldArray, useFormikContext } from "formik";
 import { CreatedLectureModel } from "../../../../data/models/createdLecture.model";
-import SectionDivider from "./components/UploadLectureSection/SectionDivider";
+import NewSectionTag from "./components/NewSectionTag";
 import UploadLectureSection from "./components/UploadLectureSection/UploadLectureSection";
 
 const UploadLecture = () => {
-	const { values } = useFormikContext<CreatedLectureModel>();
+	const {
+		values: { content },
+	} = useFormikContext<CreatedLectureModel>();
 
 	return (
 		<>
@@ -13,11 +15,11 @@ const UploadLecture = () => {
 				name="content"
 				render={(arrayHelpers) => (
 					<>
-						<SectionDivider
+						<NewSectionTag
 							arrayHelpers={arrayHelpers}
-							isContentEmpty={!values.content.length}
+							isContentEmpty={!content.length}
 						/>
-						{values.content.map((content, index) => (
+						{content.map((content, index) => (
 							<UploadLectureSection
 								key={index}
 								index={index}

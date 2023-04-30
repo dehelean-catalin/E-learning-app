@@ -2,13 +2,12 @@ import * as Joi from "joi";
 import { Content } from "../../models/creator.model";
 
 const VideoStatusEnum = Joi.string()
-	.valid("published", "draft", "pending")
+	.valid("Success", "Failed", "pending")
 	.required()
 	.messages({
 		"any.required": "Video status is required",
 		"string.empty": "Video status cannot be empty",
-		"any.only":
-			'Video status must be one of "published", "draft", or "pending"',
+		"any.only": 'Video status must be one of "Success", "Failed", or "pending"',
 		"string.base": "Video status must be a string",
 	});
 
@@ -19,9 +18,7 @@ export let ContentSchema = Joi.array<Content[]>().items({
 		"string.base": "Label must be a string",
 	}),
 	data: Joi.object({
-		description: Joi.string().required().messages({
-			"any.required": "Description is required",
-			"string.empty": "Description cannot be empty",
+		description: Joi.string().optional().allow("").messages({
 			"string.base": "Description must be a string",
 		}),
 	}),
@@ -33,9 +30,7 @@ export let ContentSchema = Joi.array<Content[]>().items({
 				"string.base": "Label must be a string",
 			}),
 			data: Joi.object({
-				description: Joi.string().required().messages({
-					"any.required": "Description is required",
-					"string.empty": "Description cannot be empty",
+				description: Joi.string().optional().allow("").messages({
 					"string.base": "Description must be a string",
 				}),
 				date: Joi.string().required().messages({

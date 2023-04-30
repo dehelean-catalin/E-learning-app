@@ -61,6 +61,7 @@ export const postCreateLecture = async (
 				status: "Draft",
 				caption: "",
 				promoVideo: "",
+				authorId: validatedReq.userData.userId,
 			},
 			content: [],
 			goals: INITIAL_GOALS,

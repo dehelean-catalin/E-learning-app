@@ -1,5 +1,6 @@
 import Joi from "joi";
 import {
+	Content,
 	CreatedLectureModel,
 	PlanFieldModel,
 } from "../../models/creator.model";
@@ -33,3 +34,28 @@ export const LectureSchema = Joi.object<CreatedLectureModel, true>({
 	comments: Joi.array(),
 	enrolledUsers: Joi.array(),
 });
+
+const lectureDurationBasedOnContent = (data: Content[]) => {
+	let totalDuration = 0;
+
+	for (const i in data) {
+		for (const j in data[i].children) {
+			totalDuration += data[i].children[j].data.duration;
+		}
+	}
+
+	return totalDuration;
+};
+
+export const PublicLectureSchema = LectureSchema.custom(
+	(value: CreatedLectureModel, helpers) => {
+		if (value.requirements.filter((r) => r.value.length > 0).length < 3)
+			throw new Error("Not enough requirements");
+		if (value.goals.filter((r) => r.value.length > 0).length < 3)
+			throw new Error("Not enough goals");
+		if (lectureDurationBasedOnContent(value.content) < 100)
+			throw new Error("Not enough content");
+
+		return value;
+	}
+);

@@ -21,7 +21,7 @@ export type LectureItemFormState = {
 	description: string;
 	content?: any;
 	duration?: number;
-	type: string;
+	type?: string;
 };
 
 const UploadLectureItem: FC<Props> = ({ arrayHelpers, children, index }) => {

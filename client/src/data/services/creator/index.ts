@@ -4,4 +4,3 @@ export * from "./_getCreatedLecturesLength.service";
 export * from "./_postCreateLecture.service";
 export * from "./_updateCaption.service";
 export * from "./_updateCreatedLecturePlan.service";
-export * from "./_updatePromoVideo.service";

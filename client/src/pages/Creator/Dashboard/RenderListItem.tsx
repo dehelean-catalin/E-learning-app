@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 import { CustomRating } from "../../../common/CustomRating/CustomRating";
 import { CreatedLectureModel } from "../../../data/models/createdLecture.model";
 import { toRelativeTime } from "../../../helpers";
-import { itemStatus } from "./itemStatus.helper";
+import { itemIcon, itemStatus } from "./item.helper";
 
 const RenderListItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {
 	const navigate = useNavigate();
@@ -37,14 +37,13 @@ const RenderListItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {
 									{toRelativeTime(lastUpdate)}
 								</span>
 							</span>
-
 							<Tag
 								value={publish.status}
 								className={itemStatus(publish.status)}
-								icon="pi pi-eye"
+								icon={itemIcon(publish.status)}
 							/>
 						</div>
-						<div className="text-2xl font-bold text-900">{publish.title}</div>
+						<div className="text-2xl font-bold text-900">{publish.title} </div>
 						<div className="flex gap-2">
 							{!!reviews.length ? (
 								<CustomRating rating={reviews.length} hideUsers />

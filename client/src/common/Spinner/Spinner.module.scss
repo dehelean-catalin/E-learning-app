@@ -1,12 +1,11 @@
 .spinner {
 	color: white;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 150px;
-	aspect-ratio: 1;
 
 	circle {
 		stroke: white !important;
+	}
+
+	svg {
+		height: 30px;
 	}
 }

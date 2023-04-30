@@ -12,14 +12,15 @@ export type CreatedLectureModel = {
 
 export type Publish = {
 	author: string;
+	authorId: string;
 	title: string;
 	description: string;
 	category: Category;
 	language: Language;
 	status: Status;
 	level?: Level;
-	caption?: any;
-	promoVideo?: any;
+	caption?: string;
+	promoVideo?: string;
 };
 export type Content = {
 	label: string;
@@ -67,6 +68,12 @@ export enum Status {
 	Private = "Private",
 	Unlisted = "Unlisted",
 }
+export enum Privacy {
+	Public = "Public",
+	Private = "Private",
+	Unlisted = "Unlisted",
+}
+
 export enum Level {
 	Beginner = "Beginner",
 	Intermediate = "Intermediate",
