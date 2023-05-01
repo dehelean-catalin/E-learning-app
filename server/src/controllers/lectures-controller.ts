@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import {
-	QueryDocumentSnapshot,
 	collection,
 	doc,
 	getDoc,
@@ -11,50 +10,10 @@ import {
 } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
 import db from "../config/firebase";
-import { Category } from "../models/creator.model";
-import { LectureModel } from "../models/lecture-model";
 
 interface Params {
 	id: string;
 }
-
-export const getLectures = async (
-	req: Request<any, any, any, { category: Category }>,
-	res: Response
-) => {
-	let lectures: LectureModel[] = [];
-
-	try {
-		if (!Object.values(Category).includes(req.query?.category)) {
-			throw new Error("Invalid category !");
-		}
-
-		const { category } = req.query;
-
-		const querySnapshot = await getDocs(
-			category === Category.ALL
-				? collection(db, "lectures")
-				: query(collection(db, "lectures"), where("category", "==", category))
-		);
-
-		querySnapshot.forEach((doc: QueryDocumentSnapshot) => {
-			lectures.push(doc.data() as LectureModel);
-		});
-
-		lectures.forEach(({ id, thumbnail, title, createdBy, items, reviews }) => ({
-			id,
-			thumbnail,
-			title,
-			createdBy,
-			items,
-			reviews,
-		}));
-
-		res.status(200).json(lectures);
-	} catch (err: any) {
-		res.status(400).json({ code: 400, message: err.message });
-	}
-};
 
 export const getLectureById = async (req: Request, res: Response) => {
 	try {

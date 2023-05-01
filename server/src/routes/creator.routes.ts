@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+	deleteLecture,
 	getCreatedLectures,
 	postContent,
 	postCreateLecture,
@@ -7,8 +8,9 @@ import {
 	updateCreatedLecture,
 	updatePromoVideo,
 } from "../controllers/creator-controller";
-import { getCreatedLecture } from "../controllers/creator-controller/_getCreatedLecture.service";
+import { getCreatedLectureById } from "../controllers/creator-controller/_getCreatedLectureById.service";
 import { postPublishLecture } from "../controllers/creator-controller/_postPublishLecture.service";
+import { putLecture } from "../controllers/creator-controller/_putLecture.service";
 import { default as tokenAuthMiddleware } from "../middleware/tokenAuth-middleware";
 import validation from "../middleware/validation-middleware";
 import { createLectureSchema } from "../schema/creator/create.schema";
@@ -20,7 +22,7 @@ import {
 const router = Router();
 
 router.get("/created-lectures", tokenAuthMiddleware, getCreatedLectures);
-router.get("/created-lectures/:id", tokenAuthMiddleware, getCreatedLecture);
+router.get("/created-lectures/:id", tokenAuthMiddleware, getCreatedLectureById);
 
 router.post("/create", validation(createLectureSchema), postCreateLecture);
 router.post(
@@ -38,5 +40,8 @@ router.post(
 	validation(PublicLectureSchema),
 	postPublishLecture
 );
+
+router.put("/lecture/:id", validation(PublicLectureSchema), putLecture);
+router.delete("/lecture/:id", tokenAuthMiddleware, deleteLecture);
 
 export default router;

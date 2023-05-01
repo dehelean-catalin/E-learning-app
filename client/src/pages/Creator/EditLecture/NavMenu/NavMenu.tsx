@@ -37,6 +37,16 @@ const NavMenu = () => {
 			>
 				Publish your lecture
 			</NavLink>
+			<NavLink
+				to="settings"
+				className={(navData) =>
+					navData.isActive
+						? "text-primary border-left-2 border-primary"
+						: "border-left-2 border-transparent"
+				}
+			>
+				Settings
+			</NavLink>
 		</nav>
 	);
 };

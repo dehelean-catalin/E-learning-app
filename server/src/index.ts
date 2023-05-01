@@ -4,7 +4,7 @@ import http from "http";
 import multer from "multer";
 import authRoutes from "./routes/auth-routes";
 import creatorRoutes from "./routes/creator.routes";
-import lecturesRoutes from "./routes/lectures-routes";
+import homeRoutes from "./routes/home.routes";
 import profileRoutes from "./routes/profile-routes";
 import searchRotes from "./routes/search-routes";
 import userRoutes from "./routes/users-routes";
@@ -16,11 +16,11 @@ app.use(multer().single("file"));
 app.use(json());
 
 app.use(authRoutes);
+app.use(homeRoutes);
 app.use(userRoutes);
 app.use(profileRoutes);
 app.use(searchRotes);
 app.use(creatorRoutes);
-app.use(lecturesRoutes);
 
 app.all("*", (req, res) => {
 	res.status(404).json({ code: 404, message: "Not found" });

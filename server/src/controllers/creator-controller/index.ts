@@ -1,4 +1,5 @@
-export * from "./_getCreatedLecture.service";
+export * from "./_deleteLecture.service";
+export * from "./_getCreatedLectureById.service";
 export * from "./_getCreatedLectures.service";
 export * from "./_postContent.service";
 export * from "./_postCreateLecture.service";

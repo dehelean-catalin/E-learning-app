@@ -2,7 +2,7 @@ import { CreatedLectureModel } from "data/models/createdLecture.model";
 import { useFormikContext } from "formik";
 import { Button } from "primereact/button";
 import { useMutation } from "react-query";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import {
 	formattedVideoDuration,
 	lectureDurationBasedOnContent,
@@ -14,14 +14,32 @@ const EditLectureHeader = () => {
 	const { submitForm, values } = useFormikContext<CreatedLectureModel>();
 	const { id } = useParams();
 	const axios = useAxios();
+	const navigate = useNavigate();
 
 	const { publish, requirements, goals, content } = values;
 
 	const lectureDuration = lectureDurationBasedOnContent(content);
 
-	const { mutate } = useMutation(() => {
-		return axios.post(`/publish/${id}`, values);
-	});
+	const onSuccess = () => {
+		navigate("/creator/dashboard");
+	};
+
+	const { mutate, isLoading: publishLoading } = useMutation(
+		() => {
+			return axios.post(`/publish/${id}`, values);
+		},
+		{ onSuccess }
+	);
+
+	const { mutate: updateLecture, isLoading: updateLoading } = useMutation(
+		() => {
+			return axios.put(`/lecture/${id}`, values);
+		}
+	);
+
+	const saveBtnDisabled =
+		!!values.requirements.filter((i) => i.value.length >= 80).length ||
+		!!values.goals.filter((i) => i.value.length >= 80).length;
 
 	const publishDisabled =
 		!!publish.title &&
@@ -35,7 +53,7 @@ const EditLectureHeader = () => {
 
 	return (
 		<header className="edit-lecture-header">
-			<NavLink to="/creator/created-lectures" className="back-to-link" replace>
+			<NavLink to="/creator/dashboard" className="back-to-link" replace>
 				<i className="pi pi-chevron-left" /> Back to lectures
 			</NavLink>
 			<div className="flex align-items-center border-left-2 pl-3 gap-2">
@@ -57,11 +75,7 @@ const EditLectureHeader = () => {
 						icon="pi pi-bookmark"
 						iconPos="left"
 						onClick={submitForm}
-						disabled={
-							!!values.requirements.filter((i) => i.value.length >= 80)
-								.length ||
-							!!values.goals.filter((i) => i.value.length >= 80).length
-						}
+						disabled={saveBtnDisabled}
 					/>
 
 					<Button
@@ -70,6 +84,7 @@ const EditLectureHeader = () => {
 						type="button"
 						icon="pi pi-globe"
 						iconPos="left"
+						loading={publishLoading}
 						onClick={() => mutate()}
 						disabled={!publishDisabled}
 					/>
@@ -79,11 +94,11 @@ const EditLectureHeader = () => {
 					label="Update"
 					className="save-button"
 					type="button"
-					onClick={submitForm}
-					disabled={
-						!!values.requirements.filter((i) => i.value.length >= 80).length ||
-						!!values.goals.filter((i) => i.value.length >= 80).length
-					}
+					iconPos="left"
+					icon="pi pi-check"
+					loading={updateLoading}
+					onClick={() => updateLecture()}
+					disabled={!publishDisabled}
 				/>
 			)}
 		</header>

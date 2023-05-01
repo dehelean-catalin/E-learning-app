@@ -19,7 +19,7 @@ export const postCreateLecture = (
 					type: "info",
 				})
 			);
-			navigate("/creator/created-lectures", { replace: true });
+			navigate("/creator/dashboard", { replace: true });
 		})
 		.catch((err: AxiosError<string>) =>
 			dispatch(

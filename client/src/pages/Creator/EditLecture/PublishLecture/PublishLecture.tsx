@@ -3,7 +3,6 @@ import {
 	CreatedLectureModel,
 	Language,
 	Level,
-	Privacy,
 } from "data/models/createdLecture.model";
 import { Field, FormikProps, useFormikContext } from "formik";
 import { ChangeEvent } from "react";
@@ -65,8 +64,8 @@ const PublishLecture = () => {
 				name={`publish.description`}
 				placeholder="Enter a description for your lecture"
 			/>
-			<div className="grid gap-2">
-				<div className="col-4 flex flex-column flex-1">
+			<div className="grid">
+				<div className="col-4 flex flex-column">
 					<label className="my-2" htmlFor="publish.category">
 						Category
 					</label>
@@ -78,7 +77,7 @@ const PublishLecture = () => {
 						))}
 					</Field>
 				</div>
-				<div className=" col-4 flex flex-column flex-1">
+				<div className=" col-4 flex flex-column">
 					<label className="my-2" htmlFor="publish.language">
 						Language
 					</label>
@@ -90,7 +89,7 @@ const PublishLecture = () => {
 						))}
 					</Field>
 				</div>
-				<div className="col-4 flex flex-column flex-1">
+				<div className="col-4 flex flex-column">
 					<label className="my-2" htmlFor="publish.level">
 						Level
 					</label>
@@ -102,22 +101,6 @@ const PublishLecture = () => {
 						))}
 					</Field>
 				</div>
-			</div>
-			<div className="grid">
-				{values.publish.status !== "Draft" && (
-					<div className="col-4 flex flex-column">
-						<label className="my-2" htmlFor="publish.status">
-							Privacy
-						</label>
-						<Field as="select" name="publish.status">
-							{Object.values(Privacy).map((o) => (
-								<option key={o} value={o}>
-									{o}
-								</option>
-							))}
-						</Field>
-					</div>
-				)}
 			</div>
 
 			<h4 className="my-2">Lecture caption</h4>

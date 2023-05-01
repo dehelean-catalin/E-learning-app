@@ -4,7 +4,7 @@ Articole licenta:
 
 # In Development:
 
-- max-length validation CL and Server Plan Lecture, delete btn height;
+- home get lectures constrains (author id and status Public, max length);
 
 - account photo upload failed (- Moving to react-query;);
 - validation on save for lecture item;

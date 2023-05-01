@@ -5,9 +5,7 @@ import { ValidatedRequest } from "../models/request";
 
 export default function authorization(model: ObjectSchema) {
 	return async (req: Request, res: Response, next: NextFunction) => {
-		if (req.method === "OPTIONS") {
-			return next();
-		}
+		if (req.method === "OPTIONS") return next();
 
 		try {
 			if (!req.headers?.authorization) {

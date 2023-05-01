@@ -1,28 +1,31 @@
 import { Request, Response } from "express";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, updateDoc } from "firebase/firestore";
 import db from "../../config/firebase";
 import { tryAgainError } from "../../constant";
 import { CreatedLectureModel } from "../../models/creator.model";
 import { ValidatedRequest } from "../../models/request";
 
-export const getCreatedLecture = async (
+export const putLecture = async (
 	req: Request<any, any, CreatedLectureModel>,
-	res: Response
+	res: Response<string>
 ) => {
 	const validatedReq = req as ValidatedRequest;
-	const createdLectureSRef = doc(
-		db,
-		`users/${validatedReq.userData.userId}/createdLectures/${req.params.id}`
-	);
+	const { authorId } = req.body.publish;
+	const { userId } = validatedReq.userData;
+
 	const lectureRef = doc(db, `lectures/${req.params.id}`);
 
 	try {
-		let docSnap = await getDoc(createdLectureSRef);
+		if (authorId !== userId) throw new Error("Not authorized");
 
-		if (!docSnap.exists()) docSnap = await getDoc(lectureRef);
+		await updateDoc(lectureRef, {
+			...req.body,
+			lastUpdate: new Date().getTime(),
+		});
 
-		res.status(200).json(docSnap.data());
-	} catch {
+		res.status(200).json("Successfully updated");
+	} catch (err) {
+		console.error(err);
 		res.status(400).json(tryAgainError);
 	}
 };

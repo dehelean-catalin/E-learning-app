@@ -46,31 +46,32 @@ export const postCreateLecture = async (
 	req: Request<any, any, CreateLecturePayload>,
 	res: Response<string>
 ) => {
-	try {
-		const id = uuid();
-		const validatedReq = req as ValidatedRequest;
-		const lectureRef = doc(
-			db,
-			`users/${validatedReq.userData.userId}/createdLectures/${id}`
-		);
-		const lectureData: CreatedLectureModel = {
-			id,
-			lastUpdate: new Date().getTime(),
-			publish: {
-				...req.body,
-				status: "Draft",
-				caption: "",
-				promoVideo: "",
-				authorId: validatedReq.userData.userId,
-			},
-			content: [],
-			goals: INITIAL_GOALS,
-			requirements: INITIAL_REQUIREMENTS,
-			reviews: [],
-			comments: [],
-			enrolledUsers: [],
-		};
+	const id = uuid();
+	const validatedReq = req as ValidatedRequest;
+	const lectureRef = doc(
+		db,
+		`users/${validatedReq.userData.userId}/createdLectures/${id}`
+	);
 
+	const lectureData: CreatedLectureModel = {
+		id,
+		lastUpdate: new Date().getTime(),
+		publish: {
+			...req.body,
+			status: "Draft",
+			caption: "",
+			promoVideo: "",
+			authorId: validatedReq.userData.userId,
+		},
+		content: [],
+		goals: INITIAL_GOALS,
+		requirements: INITIAL_REQUIREMENTS,
+		reviews: [],
+		comments: [],
+		enrolledUsers: [],
+	};
+
+	try {
 		await setDoc(lectureRef, lectureData);
 
 		res.status(200).json("Successfully created");

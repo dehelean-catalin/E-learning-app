@@ -3,7 +3,6 @@ import { RxDashboard } from "react-icons/rx";
 import { VscHome } from "react-icons/vsc";
 import { NavLink, useLocation } from "react-router-dom";
 import { Category } from "../../data/models/createdLecture.model";
-import CreatorSideBar from "./CreatorSideBar/CreatorSideBar";
 import "./SideBar.scss";
 
 const NavigationHeader = () => {
@@ -11,7 +10,6 @@ const NavigationHeader = () => {
 
 	if (pathname === "/create") return <></>;
 
-	if (pathname === "creator/created-lectures") return <CreatorSideBar />;
 	if (pathname.includes("creator/created-lectures/")) return <></>;
 
 	return (
@@ -27,7 +25,7 @@ const NavigationHeader = () => {
 			</NavLink>
 
 			<NavLink
-				to={"/creator/created-lectures"}
+				to={"/creator/dashboard"}
 				className={({ isActive }) => (isActive ? "active" : "")}
 			>
 				<span>

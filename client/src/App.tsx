@@ -26,11 +26,12 @@ import Login from "./pages/Auth/Login/Login";
 import Register from "./pages/Auth/Register/Register";
 import PlanLecture from "./pages/Creator/EditLecture/PlanLecture/PlanLecture";
 import PublishLecture from "./pages/Creator/EditLecture/PublishLecture/PublishLecture";
+import SettingsLecture from "./pages/Creator/EditLecture/SettingsLecture/SettingsLecture";
 import UploadLecture from "./pages/Creator/EditLecture/UploadLecture/UploadLecture";
 import EmailVerified from "./pages/EmailVerified/EmailVerified";
 import History from "./pages/HistoryPage/History";
 import Home from "./pages/Home/Home";
-import Lecture from "./pages/Lecture/Lecture";
+import LectureDetails from "./pages/LectureDetails/LectureDetails";
 import LectureOverview from "./pages/LectureOverview/LectureOverview";
 import NotFound from "./pages/NotFound/NotFound";
 import SavedLectures from "./pages/SavedLecturesPage/SavedLectures";
@@ -73,22 +74,20 @@ function App() {
 						<Route path="change-password" element={<SecurityPage />} />
 					</Route>
 
-					<Route path="lecture/:id" element={<Lecture />}></Route>
+					<Route path="lecture/:id" element={<LectureDetails />}></Route>
 					<Route path="lecture/:id/overview" element={<LectureOverview />} />
 
 					<Route path="history" element={<History />} />
 					<Route path="search" element={<Search />} />
 					<Route path="create" element={<Create />} />
 
-					<Route
-						path="creator/created-lectures"
-						element={<CreatedLectures />}
-					/>
+					<Route path="creator/dashboard" element={<CreatedLectures />} />
 					<Route path={CreatedLecturesRoute} element={<EditLecture />}>
 						<Route index element={<PlanLecture />} />
 						<Route path="plan" element={<PlanLecture />} />
 						<Route path="upload" element={<UploadLecture />} />
 						<Route path="publish" element={<PublishLecture />} />
+						<Route path="settings" element={<SettingsLecture />} />
 					</Route>
 
 					<Route path="*" element={<NotFound>Not found</NotFound>} />

@@ -10,7 +10,7 @@ const CreateHeader = () => {
 			<div className="page-number">Create a course</div>
 			<NavLink
 				className="close-create-page"
-				to={"/creator/created-lectures"}
+				to={"/creator/dashboard"}
 				replace={true}
 			>
 				Close
