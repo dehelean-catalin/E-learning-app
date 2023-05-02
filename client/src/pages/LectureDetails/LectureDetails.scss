@@ -3,3 +3,11 @@
 	display: flex;
 	gap: 20px;
 }
+.lecture-details-spinner {
+	height: 100%;
+	display: flex;
+
+	.p-progress-spinner {
+		margin: auto !important;
+	}
+}

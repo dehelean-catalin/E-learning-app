@@ -1,5 +1,5 @@
+import { ProgressSpinner } from "primereact/progressspinner";
 import { useParams } from "react-router";
-import Spinner from "../../common/Spinner/Spinner";
 import { getLecture } from "../../data/services/lecture/lecture.service";
 import { useAxios } from "../../hooks/useAxios";
 import { useFetchData } from "../../hooks/useFetchData";
@@ -15,10 +15,15 @@ const LectureDetails = () => {
 		getLecture(axios, id)
 	);
 
-	if (isLoading) return <Spinner />;
+	if (isLoading)
+		return (
+			<div className="lecture-details-spinner">
+				<ProgressSpinner />
+			</div>
+		);
 	if (isError) return <NotFoundError />;
 
-	const { publish, content, lastUpdate, goals, requirements } = data;
+	const { content } = data;
 
 	return (
 		<div className="lecture-details">
@@ -27,6 +32,7 @@ const LectureDetails = () => {
 
 			<div className="flex-1">
 				<h2>Reviews</h2>
+				<>No reviews yet</>
 			</div>
 		</div>
 	);

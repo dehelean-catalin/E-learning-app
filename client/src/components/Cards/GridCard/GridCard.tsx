@@ -1,4 +1,4 @@
-import { CustomRating } from "common/CustomRating/CustomRating";
+import { CustomRating } from "components/CustomRating/CustomRating";
 import { classNames } from "primereact/utils";
 import { FC } from "react";
 import { useNavigate } from "react-router";

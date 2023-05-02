@@ -1,7 +1,7 @@
 import GridCard from "components/Cards/GridCard/GridCard";
 import { FC } from "react";
-import Divider from "../../../common/Divider/Divider";
 import GridCardIcon from "../../../components/Cards/GridCard/GridCardIcon";
+import Divider from "../../../components/Divider/Divider";
 import { CreatedLectureModel } from "../../../data/models/createdLecture.model";
 import styles from "./HomeSection.module.scss";
 

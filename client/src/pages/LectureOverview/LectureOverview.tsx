@@ -1,4 +1,4 @@
-import Spinner from "common/Spinner/Spinner";
+import Spinner from "components/Spinner/Spinner";
 import { useFetchData } from "hooks/useFetchData";
 import NotFoundError from "pages/NotFound/NotFoundError/NotFoundError";
 import TreeNode from "primereact/treenode";

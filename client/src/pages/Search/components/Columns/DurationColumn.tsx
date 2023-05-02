@@ -1,4 +1,4 @@
-import Divider from "common/Divider/Divider";
+import Divider from "components/Divider/Divider";
 import {
 	DurationParams,
 	QueryFilterParams,

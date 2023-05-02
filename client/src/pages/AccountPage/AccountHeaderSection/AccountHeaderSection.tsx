@@ -3,8 +3,8 @@ import { BiPlusMedical } from "react-icons/bi";
 import { HiOutlineMail } from "react-icons/hi";
 import { IoLocationOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import ProfilePicture from "../../../common/ProfilePicture/ProfilePicture";
-import Spinner from "../../../common/Spinner/Spinner";
+import ProfilePicture from "../../../components/ProfilePicture/ProfilePicture";
+import Spinner from "../../../components/Spinner/Spinner";
 import {
 	AccountDataActions,
 	AccountDataState,

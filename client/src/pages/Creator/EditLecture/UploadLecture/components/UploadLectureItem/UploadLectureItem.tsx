@@ -2,7 +2,7 @@ import { FieldArrayRenderProps } from "formik";
 import { Button } from "primereact/button";
 import { FC, useState } from "react";
 import { useMutation } from "react-query";
-import Spinner from "../../../../../../common/Spinner/Spinner";
+import Spinner from "../../../../../../components/Spinner/Spinner";
 import { ContentChildren } from "../../../../../../data/models/createdLecture.model";
 import { useAxios } from "../../../../../../hooks/useAxios";
 import { firstLetterToUpperCase } from "../../helpers/firstLetterUpperCase";

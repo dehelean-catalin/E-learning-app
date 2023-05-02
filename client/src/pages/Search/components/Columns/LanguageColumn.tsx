@@ -1,4 +1,4 @@
-import Divider from "common/Divider/Divider";
+import Divider from "components/Divider/Divider";
 import { LangParams } from "data/models/search/searchFilterModel";
 import { FC } from "react";
 import { IoClose } from "react-icons/io5";

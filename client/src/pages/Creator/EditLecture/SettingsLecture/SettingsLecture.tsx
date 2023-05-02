@@ -3,7 +3,7 @@ import { Button } from "primereact/button";
 import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import Divider from "../../../../common/Divider/Divider";
+import Divider from "../../../../components/Divider/Divider";
 import {
 	CreatedLectureModel,
 	Privacy,

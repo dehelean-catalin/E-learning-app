@@ -1,5 +1,5 @@
 import { Skeleton } from "primereact/skeleton";
-import Divider from "../../../common/Divider/Divider";
+import Divider from "../../Divider/Divider";
 import styles from "./LectureSectionCard.module.scss";
 
 const items = [0, 1];

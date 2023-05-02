@@ -1,4 +1,4 @@
-import Divider from "common/Divider/Divider";
+import Divider from "components/Divider/Divider";
 import { Password } from "primereact/password";
 import { classNames } from "primereact/utils";
 import { FC } from "react";

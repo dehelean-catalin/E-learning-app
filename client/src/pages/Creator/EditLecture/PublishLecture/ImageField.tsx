@@ -1,6 +1,6 @@
 import { Image } from "primereact/image";
 import { ChangeEvent, FC, ReactNode } from "react";
-import Spinner from "../../../../common/Spinner/Spinner";
+import Spinner from "../../../../components/Spinner/Spinner";
 import "./ImageField.scss";
 
 type ImageFieldProps = {

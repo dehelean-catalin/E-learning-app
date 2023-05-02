@@ -1,6 +1,6 @@
 import { FC } from "react";
-import ProfilePicture from "../../../common/ProfilePicture/ProfilePicture";
 import { ReviewItem } from "../../../data/models/lectureModel";
+import ProfilePicture from "../../ProfilePicture/ProfilePicture";
 import styles from "./LectureReviewList.module.scss";
 type Props = {
 	value: ReviewItem;

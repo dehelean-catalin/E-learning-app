@@ -1,5 +1,5 @@
-import Spinner from "common/Spinner/Spinner";
 import LectureCard from "components/Cards/LectureCard/LectureCard";
+import Spinner from "components/Spinner/Spinner";
 import {
 	DateParams,
 	DurationParams,

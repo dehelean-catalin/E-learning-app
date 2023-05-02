@@ -2,8 +2,8 @@ import { Formik } from "formik";
 import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
 import { Outlet, useParams } from "react-router";
-import { Form, useBeforeUnload } from "react-router-dom";
-import Spinner from "../../../common/Spinner/Spinner";
+import { Form } from "react-router-dom";
+import Spinner from "../../../components/Spinner/Spinner";
 import { CreatedLectureModel } from "../../../data/models/createdLecture.model";
 import { NotificationActions } from "../../../data/redux/notificationReducer";
 import {

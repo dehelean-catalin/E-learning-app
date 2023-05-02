@@ -4,11 +4,24 @@ Articole licenta:
 
 # In Development:
 
-- lecture details responsive, header design, save functionality, check button logic, video preview pop-up;
-- lecture overview design improvements and fix functionality, adding details and comment section, logic for adding a review;
-- lecture details reviews list;
-- lecture details show more functionality;
-- Bug: close create modal go back not to dashboard;
+- LD responsive;
+- LD header design improve;
+- LD save functionality;
+- LD continue and start func;
+- LD video preview;
+- LD show more functionality;
+
+- LO adapt model;
+- LO additional info;
+- LO comment section;
+- LO review section;
+
+- LD reviews list;
+
+# Bug:
+
+- loading design fix;
+- close create modal go back not to dashboard;
 - create lecture modal width fix;
 
 # Prior 0:

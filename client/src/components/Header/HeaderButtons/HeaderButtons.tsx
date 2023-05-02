@@ -1,5 +1,5 @@
-import Divider from "common/Divider/Divider";
-import ProfilePicture from "common/ProfilePicture/ProfilePicture";
+import Divider from "components/Divider/Divider";
+import ProfilePicture from "components/ProfilePicture/ProfilePicture";
 import AuthContext from "data/context/auth-context";
 import { AccountDataState } from "data/redux/account/AccountReducer";
 import { RootState } from "data/redux/reducers";
