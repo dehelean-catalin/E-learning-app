@@ -5,7 +5,6 @@ export const formatEmailError = (
 	email: string,
 	emailTouched: boolean
 ) => {
-	console.log(error.message);
 	if (error?.message?.toLocaleLowerCase().includes("email") && !emailTouched) {
 		return error.message;
 	}

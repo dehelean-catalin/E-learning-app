@@ -1,5 +1,4 @@
 import { CustomRating } from "common/CustomRating/CustomRating";
-import { getRatingValue } from "helpers/lectureCardHelper";
 import { classNames } from "primereact/utils";
 import { FC } from "react";
 import { useNavigate } from "react-router";
@@ -33,9 +32,8 @@ const GridCard: FC<Props> = ({ value, icon, showProgress }) => {
 					<p className="text-color-secondary">{publish?.author}</p>
 					{!!reviews?.length && (
 						<CustomRating
-							rating={getRatingValue(reviews)}
-							numberOfRates={reviews.length}
-							hideUsers={true}
+							reviews={reviews}
+							enrolledUsers={value.enrolledUsers.length}
 						/>
 					)}
 				</div>

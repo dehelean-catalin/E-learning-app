@@ -44,13 +44,37 @@ export const formattedDate = (date: string): string | "Invalid Date" => {
 };
 
 export const lectureDurationBasedOnContent = (data: Content[]) => {
-	let totalDuration = 0;
+	let seconds = 0;
 
 	for (const i in data) {
 		for (const j in data[i].children) {
-			totalDuration += data[i].children[j].data.duration;
+			seconds += data[i].children[j].data.duration;
 		}
 	}
 
-	return totalDuration;
+	return seconds;
+};
+
+export const convertSecondsToTimeString = (seconds: number) => {
+	const hours = Math.floor(seconds / 3600);
+	const minutes = Math.floor((seconds % 3600) / 60);
+	const remainingSeconds = seconds % 60;
+	const hoursString = hours ? `${hours.toString().padStart(2, "0")}:` : "";
+	const minutesString = minutes.toString().padStart(2, "0");
+	const secondsString = remainingSeconds.toString().padStart(2, "0");
+
+	return `${hoursString}${minutesString}:${secondsString}`;
+};
+
+export const convertSecondsToTime = (seconds: number) => {
+	const hours = Math.floor(seconds / 3600);
+	let minutes = Math.floor((seconds % 3600) / 60);
+	const remainingSeconds = seconds % 60;
+
+	if (remainingSeconds >= 30) minutes += 1;
+
+	const hoursString = hours ? `${hours}h ` : "";
+	const minutesString = minutes ? `${minutes}min ` : "";
+
+	return ` ${hoursString}${minutesString}`;
 };

@@ -41,7 +41,7 @@ const RenderGridItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {
 				)}
 				<div className="text-2xl font-bold">{publish.title}</div>
 				{!!reviews.length ? (
-					<CustomRating rating={reviews.length} hideUsers />
+					<CustomRating reviews={reviews} />
 				) : (
 					<span className="text-color-secondary">No reviews</span>
 				)}

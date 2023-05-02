@@ -1,32 +1,22 @@
 import { Rating } from "primereact/rating";
 import { FC } from "react";
+import { Review } from "../../data/models/createdLecture.model";
 import styles from "./CustomRating.module.scss";
 
 type Props = {
-	rating: number;
-	numberOfRates?: number;
-	numberOfUsers?: number;
-	hideUsers?: boolean;
+	reviews: Review[];
+	enrolledUsers?: number;
 };
-export const CustomRating: FC<Props> = ({
-	rating,
-	numberOfUsers = undefined,
-	numberOfRates = undefined,
-	hideUsers = false,
-}) => {
-	const getUsers = () => {
-		if (hideUsers) return <></>;
-		return <div className={styles.users}>{numberOfUsers} students</div>;
-	};
+export const CustomRating: FC<Props> = ({ reviews, enrolledUsers }) => {
+	if (!reviews.length) return <>No reviews yet</>;
 
+	const rating = reviews.reduce((a, b) => b.rating + a, 0);
 	return (
 		<div className={styles.rating}>
 			<div className={styles["rating-score"]}>{rating}</div>
 			<Rating value={rating / 2} cancel={false} readOnly />
-			{typeof numberOfRates !== "undefined" && (
-				<div> ({numberOfRates} ratings)</div>
-			)}
-			{getUsers()}
+			{reviews.length && <div> ({reviews.length} ratings)</div>}
+			{typeof enrolledUsers !== "undefined" ? <span>{enrolledUsers}</span> : ""}
 		</div>
 	);
 };

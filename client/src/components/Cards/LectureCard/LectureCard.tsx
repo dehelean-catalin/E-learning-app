@@ -1,5 +1,3 @@
-import { CustomRating } from "common/CustomRating/CustomRating";
-import { getRatingValue } from "helpers/lectureCardHelper";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { FC, useRef } from "react";
 import { BiDotsVerticalRounded, BiLinkAlt } from "react-icons/bi";
@@ -110,11 +108,11 @@ const LectureCard: FC<Props> = ({
 				<div className={styles.author}>{createdBy}</div>
 				{/* <div>{getLectureDuration(value.items.data)}</div>
 				<div>{value.language}</div> */}
-				<CustomRating
+				{/* <CustomRating
 					rating={getRatingValue(reviews.data)}
 					numberOfRates={reviews.data.length}
 					hideUsers={true}
-				/>
+				/> */}
 				{/* {value.createdAt?.split("T")[0]} */}
 			</div>
 			<div className={iconClassName} onClick={(e) => op.current.toggle(e)}>

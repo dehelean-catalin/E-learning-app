@@ -5,7 +5,7 @@ export type CreatedLectureModel = {
 	content: Content[];
 	goals: PlanFieldModel[];
 	requirements: PlanFieldModel[];
-	reviews: any[];
+	reviews: Review[];
 	comments: any;
 	enrolledUsers: string[];
 };
@@ -40,6 +40,13 @@ export type ContentChildren = Omit<Content, "children">;
 export type PlanFieldModel = {
 	value: string;
 	placeholder: string;
+};
+
+export type Review = {
+	author: string;
+	date: string;
+	message: string;
+	rating: number;
 };
 
 export enum Category {

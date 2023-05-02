@@ -7,6 +7,7 @@
 
 	select,
 	button {
-		flex: 1 0 25%;
+		flex: 1 0 20%;
+		min-width: fit-content;
 	}
 }

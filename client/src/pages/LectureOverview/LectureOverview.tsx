@@ -1,20 +1,22 @@
 import Spinner from "common/Spinner/Spinner";
-import { getWatchingLectures } from "data/services";
 import { useFetchData } from "hooks/useFetchData";
 import NotFoundError from "pages/NotFound/NotFoundError/NotFoundError";
 import TreeNode from "primereact/treenode";
 import { useState } from "react";
 import { useLocation, useParams } from "react-router";
+import { getWatchingLecture } from "../../data/services/watching.service";
 import { useAxios } from "../../hooks/useAxios";
 import styles from "./LectureOverview.module.scss";
 import LectureOverviewTree from "./LectureOverviewTree";
 import LectureOverviewVideo from "./LectureOverviewVideo";
 
 const LectureOverview = () => {
-	const { id } = useParams();
 	const axios = useAxios();
-	const search = useLocation().search;
-	const page = new URLSearchParams(search).get("page");
+	const { id } = useParams();
+	const { search } = useLocation();
+	const searchParams = new URLSearchParams(search);
+	const page = searchParams.get("page");
+
 	const [progress, setProgress] = useState({ index: 0, url: "" });
 
 	const onSuccess = (e) => {
@@ -31,20 +33,15 @@ const LectureOverview = () => {
 	};
 
 	const { data, isLoading, isError } = useFetchData(
-		["watching-lectures", id, page],
-		() => getWatchingLectures(axios, id),
+		["watching", id, page],
+		() => getWatchingLecture(axios, id),
 		{
 			onSuccess,
 		}
 	);
 
-	if (isLoading) {
-		return <Spinner />;
-	}
-
-	if (isError) {
-		return <NotFoundError />;
-	}
+	if (isLoading) return <Spinner />;
+	if (isError) return <NotFoundError />;
 
 	return (
 		<div className={styles["lecture-overview"]}>

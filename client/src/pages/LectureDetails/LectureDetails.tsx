@@ -1,11 +1,12 @@
 import { useParams } from "react-router";
-import LectureHeaderSkeleton from "../../components/Lecture/LectureHeader/LectureHeaderSkeleton";
-import LectureSectionSkeleton from "../../components/Lecture/LectureSectionCard/LectureSectionSkeleton";
+import Spinner from "../../common/Spinner/Spinner";
 import { getLecture } from "../../data/services/lecture/lecture.service";
 import { useAxios } from "../../hooks/useAxios";
 import { useFetchData } from "../../hooks/useFetchData";
 import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
-import styles from "./Lecture.module.scss";
+import LectureContent from "./LectureContent/LectureContent";
+import "./LectureDetails.scss";
+import LecturePreview from "./LecturePreview/LecturePreview";
 
 const LectureDetails = () => {
 	const { id } = useParams();
@@ -14,27 +15,18 @@ const LectureDetails = () => {
 		getLecture(axios, id)
 	);
 
-	if (isLoading) {
-		return (
-			<div className={styles.lecture}>
-				<div className={styles.container}>
-					<LectureHeaderSkeleton />
-					<LectureSectionSkeleton />
-				</div>
-			</div>
-		);
-	}
-
+	if (isLoading) return <Spinner />;
 	if (isError) return <NotFoundError />;
 
+	const { publish, content, lastUpdate, goals, requirements } = data;
+
 	return (
-		<div className={styles.lecture}>
-			<div className={styles.container}>
-				{/* <LectureHeader value={data} />
-				<LectureDescription value={data.publish.description} />
-				<LectureChapters value={data.content} />
-				<LectureReviewList value={data.reviews} /> */}
-				on working
+		<div className="lecture-details">
+			<LecturePreview value={data} />
+			<LectureContent value={content} />
+
+			<div className="flex-1">
+				<h2>Reviews</h2>
 			</div>
 		</div>
 	);

@@ -4,25 +4,25 @@ Articole licenta:
 
 # In Development:
 
-- home get lectures constrains (author id and status Public, max length);
+- lecture details responsive, header design, save functionality, check button logic, video preview pop-up;
+- lecture overview design improvements and fix functionality, adding details and comment section, logic for adding a review;
+- lecture details reviews list;
+- lecture details show more functionality;
+- Bug: close create modal go back not to dashboard;
+- create lecture modal width fix;
+
+# Prior 0:
 
 - account photo upload failed (- Moving to react-query;);
 - validation on save for lecture item;
 - Enhance update lecture history time;
 - History: 12PM order wrong;
 - Update Lecture Overview logic + updating check mark;
-
-# Prio 0:
-
 - Search : Not found component;
 - saga logout auto;
-- Lectures Page;
-- lecture overview display title, author and image;
-- Review + Coments;
 
 # Nice to have:
 
-- unify models
 - link email with provider;
 - multifactor authentication;
 - Add Notes for a lecture chapter;

@@ -1,7 +1,6 @@
 import { FC } from "react";
-import { ReviewItem } from "../../../data/models/lectureModel";
-import { CustomRating } from "../../../common/CustomRating/CustomRating";
 import ProfilePicture from "../../../common/ProfilePicture/ProfilePicture";
+import { ReviewItem } from "../../../data/models/lectureModel";
 import styles from "./LectureReviewList.module.scss";
 type Props = {
 	value: ReviewItem;
@@ -19,9 +18,7 @@ const LectureReviewCard: FC<Props> = ({ value }) => {
 				<div className={styles.name}>
 					{firstName} {lastName}
 				</div>
-				<div>
-					<CustomRating rating={rating} hideUsers />
-				</div>
+				<div>{/* <CustomRating reviews={rating} hideUsers /> */}</div>
 			</div>
 
 			<div className={styles.comment}>{comment}</div>

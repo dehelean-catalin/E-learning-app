@@ -46,7 +46,7 @@ const RenderListItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {
 						<div className="text-2xl font-bold text-900">{publish.title} </div>
 						<div className="flex gap-2">
 							{!!reviews.length ? (
-								<CustomRating rating={reviews.length} hideUsers />
+								<CustomRating reviews={reviews} />
 							) : (
 								<span className="text-color-secondary">No reviews</span>
 							)}

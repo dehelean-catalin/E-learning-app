@@ -1,45 +1,80 @@
 import { CreatedLectureModel } from "data/models/createdLecture.model";
 import { useFormikContext } from "formik";
+import { isEqual } from "lodash";
 import { Button } from "primereact/button";
+import { FC } from "react";
 import { useMutation } from "react-query";
+import { useDispatch } from "react-redux";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
+import { NotificationActions } from "../../../../data/redux/notificationReducer";
 import {
-	formattedVideoDuration,
+	convertSecondsToTime,
 	lectureDurationBasedOnContent,
 } from "../../../../helpers";
 import { useAxios } from "../../../../hooks/useAxios";
 import "./EditLectureHeader.scss";
 
-const EditLectureHeader = () => {
-	const { submitForm, values } = useFormikContext<CreatedLectureModel>();
+type EditLectureHeaderProps = { isLoading: boolean };
+const EditLectureHeader: FC<EditLectureHeaderProps> = ({ isLoading }) => {
+	const { submitForm, values, initialValues } =
+		useFormikContext<CreatedLectureModel>();
 	const { id } = useParams();
 	const axios = useAxios();
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
+	const isFormDirty = !isEqual(initialValues, values);
 
 	const { publish, requirements, goals, content } = values;
 
 	const lectureDuration = lectureDurationBasedOnContent(content);
 
-	const onSuccess = () => {
+	const handlePublishSuccess = () => {
 		navigate("/creator/dashboard");
+		dispatch(
+			NotificationActions.showBannerNotification({
+				type: "info",
+				message: "Published successfully",
+			})
+		);
+	};
+
+	const handleError = () => {
+		dispatch(
+			NotificationActions.showBannerNotification({
+				type: "warning",
+				message: "Something went wrong!",
+			})
+		);
+	};
+
+	const handleUpdateSuccess = () => {
+		dispatch(
+			NotificationActions.showBannerNotification({
+				type: "info",
+				message: "Your changes have been successfully saved",
+			})
+		);
 	};
 
 	const { mutate, isLoading: publishLoading } = useMutation(
 		() => {
 			return axios.post(`/publish/${id}`, values);
 		},
-		{ onSuccess }
+		{ onSuccess: handlePublishSuccess, onError: handleError }
 	);
 
 	const { mutate: updateLecture, isLoading: updateLoading } = useMutation(
 		() => {
 			return axios.put(`/lecture/${id}`, values);
-		}
+		},
+		{ onSuccess: handleUpdateSuccess, onError: handleError }
 	);
 
 	const saveBtnDisabled =
 		!!values.requirements.filter((i) => i.value.length >= 80).length ||
-		!!values.goals.filter((i) => i.value.length >= 80).length;
+		!!values.goals.filter((i) => i.value.length >= 80).length ||
+		!isFormDirty;
 
 	const publishDisabled =
 		!!publish.title &&
@@ -60,9 +95,9 @@ const EditLectureHeader = () => {
 				<span className="text-primary font-semibold text-xl">
 					{values.publish.title}
 				</span>
-				{!!formattedVideoDuration(lectureDuration) && (
+				{!!convertSecondsToTime(lectureDuration).length && (
 					<span>
-						{formattedVideoDuration(lectureDuration)} of content uploaded
+						{convertSecondsToTime(lectureDuration)} of content uploaded
 					</span>
 				)}
 			</div>
@@ -75,6 +110,7 @@ const EditLectureHeader = () => {
 						icon="pi pi-bookmark"
 						iconPos="left"
 						onClick={submitForm}
+						loading={isLoading}
 						disabled={saveBtnDisabled}
 					/>
 

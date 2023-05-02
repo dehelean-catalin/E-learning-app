@@ -2,7 +2,7 @@ import { Formik } from "formik";
 import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
 import { Outlet, useParams } from "react-router";
-import { Form } from "react-router-dom";
+import { Form, useBeforeUnload } from "react-router-dom";
 import Spinner from "../../../common/Spinner/Spinner";
 import { CreatedLectureModel } from "../../../data/models/createdLecture.model";
 import { NotificationActions } from "../../../data/redux/notificationReducer";
@@ -45,7 +45,7 @@ const EditLecture = () => {
 		);
 	};
 
-	const { mutate } = useMutation(
+	const { mutate, isLoading: isSubmitLoading } = useMutation(
 		(v: CreatedLectureModel) => updateCreatedLecturePlan(axios, id, v),
 		{
 			onSuccess: handleSuccess,
@@ -64,7 +64,7 @@ const EditLecture = () => {
 			>
 				{(props) => (
 					<Form className="edit-form">
-						<EditLectureHeader />
+						<EditLectureHeader isLoading={isSubmitLoading} />
 						<main>
 							<NavMenu />
 							<section className="plan-section">
