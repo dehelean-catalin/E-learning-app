@@ -9,13 +9,22 @@
 	background: var(--color-30);
 	z-index: 1;
 
-	.save-button {
-		padding: 0.5rem 1rem;
-		font-weight: 600;
-	}
-
 	.back-to-link {
 		color: white;
 		text-decoration: none;
+	}
+	.center-section {
+		display: flex;
+		align-items: center;
+		border-left: 2px solid white;
+		padding-left: 12px;
+		gap: 12px;
+	}
+	.title {
+		white-space: nowrap;
+		max-width: 300px;
+		color: var(--primary-color);
+		text-overflow: ellipsis;
+		overflow: hidden;
 	}
 }

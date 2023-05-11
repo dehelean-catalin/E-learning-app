@@ -4,13 +4,13 @@ import { AnyAction, Dispatch } from "redux";
 import { CreateLecturePayload } from "../../models/createdLecture.model";
 import { NotificationActions } from "../../redux/notificationReducer";
 
-export const postCreateLecture = (
+export const postCreateLecture = async (
 	axios: AxiosInstance,
 	dispatch: Dispatch<AnyAction>,
 	navigate: NavigateFunction,
 	data: CreateLecturePayload
 ) => {
-	return axios
+	return await axios
 		.post("create", data)
 		.then((res: AxiosResponse<string>) => {
 			dispatch(

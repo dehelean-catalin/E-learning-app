@@ -67,6 +67,8 @@ export const convertSecondsToTimeString = (seconds: number) => {
 };
 
 export const convertSecondsToTime = (seconds: number) => {
+	if (seconds < 30) return `${seconds} sec`;
+
 	const hours = Math.floor(seconds / 3600);
 	let minutes = Math.floor((seconds % 3600) / 60);
 	const remainingSeconds = seconds % 60;

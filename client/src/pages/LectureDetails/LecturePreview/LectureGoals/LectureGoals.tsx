@@ -12,12 +12,7 @@ type LectureGoalsProps = {
 const LectureGoals: FC<LectureGoalsProps> = ({ goals, requirements }) => {
 	return (
 		<div className="lecture-goals">
-			<Accordion
-				className="flex-1 mt-4"
-				activeIndex={0}
-				collapseIcon=""
-				expandIcon=""
-			>
+			<Accordion className="flex-1 mt-4" collapseIcon="" expandIcon="">
 				<AccordionTab
 					headerTemplate={
 						<header>
@@ -35,12 +30,7 @@ const LectureGoals: FC<LectureGoalsProps> = ({ goals, requirements }) => {
 				</AccordionTab>
 			</Accordion>
 
-			<Accordion
-				className="flex-1 mt-4"
-				activeIndex={0}
-				collapseIcon=""
-				expandIcon=""
-			>
+			<Accordion className="flex-1 mt-4" collapseIcon="" expandIcon="">
 				<AccordionTab
 					headerTemplate={
 						<header>

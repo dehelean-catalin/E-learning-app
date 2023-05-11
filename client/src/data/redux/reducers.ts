@@ -9,6 +9,7 @@ import {
 import uploadLectureReducer, {
 	UploadLectureAction,
 } from "./creator/uploadLectureReducer";
+import { DialogAction, dialogReducer } from "./dialog.reducer";
 import formReducer, { FormAction } from "./formReducer";
 import notificationReducer, { NotificationAction } from "./notificationReducer";
 
@@ -19,6 +20,7 @@ const reducers = {
 	authReducer,
 	uploadLectureReducer,
 	confirmDialogReducer,
+	dialogReducer,
 };
 
 export const rootReducer = combineReducers(reducers);
@@ -28,4 +30,5 @@ export type RootAction =
 	| FormAction
 	| AccountDataAction
 	| UploadLectureAction
-	| ConfirmDialogAction;
+	| ConfirmDialogAction
+	| DialogAction;

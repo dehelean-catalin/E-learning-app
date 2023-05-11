@@ -1,0 +1,51 @@
+.lecture-card {
+	.p-card-body {
+		padding: 1rem 1.5rem;
+	}
+	.caption-container {
+		position: relative;
+
+		svg {
+			font-size: 26px;
+		}
+	}
+	.caption {
+		height: 225px;
+		object-fit: cover;
+		border-radius: 4px;
+		opacity: 0.2;
+	}
+	.preview-wrapper {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+		font-size: 16px;
+		cursor: pointer;
+	}
+	.details {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+
+		.top {
+			flex: 1;
+		}
+	}
+
+	.subtitle {
+		display: flex;
+		flex-direction: column;
+		color: rgba($color: white, $alpha: 0.87);
+		gap: 8px;
+		i {
+			font-size: 0.75rem;
+		}
+	}
+}

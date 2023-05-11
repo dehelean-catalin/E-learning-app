@@ -1,5 +1,5 @@
-import { GenericButton } from "components/Forms";
 import { useState } from "react";
+import PRButton from "../../../components/Forms/Buttons/PRButton/PRButton";
 import InputPasswordField from "../../../components/Forms/Inputs/InputPasswordField/InputPasswordField";
 import {
 	errorMessageSchema,
@@ -63,7 +63,7 @@ const ChangePassword = () => {
 					onBlur={() => setTouched({ ...touched, confirmedValue: true })}
 				/>
 				<div className={styles.btns}>
-					<GenericButton disabled={disabled}>Change password</GenericButton>
+					<PRButton disabled={disabled}>Change password</PRButton>
 				</div>
 			</form>
 		</div>

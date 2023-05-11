@@ -1,8 +1,14 @@
 .lecture-details {
-	margin: 20px auto;
+	margin: 20px;
 	display: flex;
 	gap: 20px;
 }
+@media only screen and (max-width: 1000px) {
+	.lecture-details {
+		flex-direction: column;
+	}
+}
+
 .lecture-details-spinner {
 	height: 100%;
 	display: flex;

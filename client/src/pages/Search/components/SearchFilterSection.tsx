@@ -1,9 +1,9 @@
-import { GenericButton } from "components/Forms";
 import { QueryFilterParams } from "data/models/search/searchFilterModel";
 import qs from "query-string";
 import { useState } from "react";
 import { HiFilter } from "react-icons/hi";
 import { useLocation, useNavigate } from "react-router";
+import PRButton from "../../../components/Forms/Buttons/PRButton/PRButton";
 import DateColumn from "./Columns/DateColumn";
 import DurationColumn from "./Columns/DurationColumn";
 import LanguageColumn from "./Columns/LanguageColumn";
@@ -37,9 +37,9 @@ const SearchFilterSection = () => {
 
 	return (
 		<div className="search-filter-section">
-			<GenericButton onClick={() => toogleSection(!isOpen)}>
+			<PRButton onClick={() => toogleSection(!isOpen)}>
 				Filter <HiFilter />
-			</GenericButton>
+			</PRButton>
 
 			{isOpen && (
 				<>
@@ -50,8 +50,8 @@ const SearchFilterSection = () => {
 						<LanguageColumn values={values} setValues={handleChange} />
 					</section>
 					<div className="flex justify-content-end gap-2">
-						<GenericButton onClick={handleClear}>Clear</GenericButton>
-						<GenericButton onClick={handleApply}>Apply</GenericButton>
+						<PRButton onClick={handleClear}>Clear</PRButton>
+						<PRButton onClick={handleApply}>Apply</PRButton>
 					</div>
 				</>
 			)}

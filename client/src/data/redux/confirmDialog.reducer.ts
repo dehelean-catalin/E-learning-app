@@ -4,7 +4,6 @@ import { ActionType, Reducer, createAction, getType } from "typesafe-actions";
 export const ConfirmDialogActions = {
 	show: createAction("show", (payload: ConfirmDialogProps) => payload)(),
 	hide: createAction("hide")(),
-	deleteSection: createAction("deleteSection", (payload: any) => payload)(),
 };
 
 export type ConfirmDialogAction = ActionType<typeof ConfirmDialogActions>;

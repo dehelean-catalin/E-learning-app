@@ -21,13 +21,14 @@ export const InputTextSearch = () => {
 	};
 
 	return (
-		<span className="p-input-icon-left input-search">
+		<span className="p-input-icon-left search-field">
 			<i className="pi pi-search" />
 			<InputText
 				value={value}
 				placeholder="Search"
 				onKeyDown={handlekeydown}
 				onChange={handleChange}
+				className="input-search"
 			/>
 		</span>
 	);

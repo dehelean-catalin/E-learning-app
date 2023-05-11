@@ -4,6 +4,7 @@ import { FC, useState } from "react";
 import { useMutation } from "react-query";
 import Spinner from "../../../../../../components/Spinner/Spinner";
 import { ContentChildren } from "../../../../../../data/models/createdLecture.model";
+import { generateRandomId } from "../../../../../../helpers";
 import { useAxios } from "../../../../../../hooks/useAxios";
 import { firstLetterToUpperCase } from "../../helpers/firstLetterUpperCase";
 import ChildrenItem from "./ChildrenItem";
@@ -34,6 +35,7 @@ const UploadLectureItem: FC<Props> = ({ arrayHelpers, children, index }) => {
 				arrayHelpers.push({
 					label: firstLetterToUpperCase(label),
 					data: {
+						id: generateRandomId(5),
 						description,
 						content: res.data,
 						duration,

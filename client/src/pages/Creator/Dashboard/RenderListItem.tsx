@@ -43,7 +43,7 @@ const RenderListItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {
 								icon={itemIcon(publish.status)}
 							/>
 						</div>
-						<div className="text-2xl font-bold text-900">{publish.title} </div>
+						<div className="text-xl font-bold text-900">{publish.title} </div>
 						<div className="flex gap-2">
 							{!!reviews.length ? (
 								<CustomRating reviews={reviews} />

@@ -1,0 +1,10 @@
+.lecture-video {
+	flex: 1 0 55%;
+	display: flex;
+	div {
+		width: auto !important;
+		height: auto !important;
+		max-height: fit-content;
+		flex: 1;
+	}
+}

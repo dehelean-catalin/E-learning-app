@@ -1,17 +1,20 @@
 import { AxiosInstance } from "axios";
-import { Content } from "../models/createdLecture.model";
+import { VideoProgressItem } from "../models/createdLecture.model";
 
-export const getWatchingLecture = async (
-	axios: AxiosInstance,
-	id: string
-): Promise<Content[]> => {
-	return await axios.get(`watching/${id}`).then((res) => res.data);
-};
-
-export const postWatchingLecture = async (
+export const getLectureCurrentProgress = async (
 	axios: AxiosInstance,
 	id: string,
-	content: Content[]
+	chapterId: string
+): Promise<Omit<VideoProgressItem, "id">> => {
+	return await axios
+		.get(`lecture/${id}/progress/${chapterId}`)
+		.then((res) => res.data);
+};
+
+export const postLectureProgress = async (
+	axios: AxiosInstance,
+	id: string,
+	items: string[]
 ): Promise<string> => {
-	return axios.post(`/watching/${id}`, content).then((res) => res.data);
+	return axios.post(`lecture/${id}/progress`, items).then((res) => res.data);
 };

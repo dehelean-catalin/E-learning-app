@@ -1,7 +1,7 @@
 import { InputTextSearch } from "components/Forms";
 import { FC } from "react";
 import { useLocation } from "react-router";
-import CreateHeader from "./CreateHeader/CreateHeader";
+import CreateHeader from "../../pages/Creator/Create/CreateHeader/CreateHeader";
 import "./Header.scss";
 import HeaderButtons from "./HeaderButtons/HeaderButtons";
 import HeaderLogo from "./HeaderLogo/HeaderLogo";
@@ -9,9 +9,8 @@ import HeaderLogo from "./HeaderLogo/HeaderLogo";
 const Header: FC = () => {
 	const { pathname } = useLocation();
 
-	if (pathname === "/create") {
-		return <CreateHeader />;
-	}
+	if (pathname === "/create") return <CreateHeader />;
+
 	if (pathname.includes("/creator/created-lectures/")) {
 		return <></>;
 	}

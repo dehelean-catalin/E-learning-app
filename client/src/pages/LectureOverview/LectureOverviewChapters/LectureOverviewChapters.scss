@@ -1,0 +1,33 @@
+.lecture-overview-chapters {
+	flex: 1 0 40%;
+	font-size: 16px;
+	min-width: 40%;
+	article {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		padding-bottom: 12px;
+		cursor: pointer;
+	}
+	.right {
+		display: flex;
+		gap: 16px;
+	}
+	.details {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+	.time {
+		color: gray;
+		display: flex;
+		align-items: center;
+		gap: 4px;
+	}
+	.checkbox {
+		margin-top: 4px;
+	}
+	video {
+		border-radius: 2px;
+	}
+}

@@ -24,15 +24,18 @@ export type Publish = {
 };
 export type Content = {
 	label: string;
-	data: {
-		description: string;
-		date: string;
-		duration: number;
-		content: string;
-		type: string;
-		status: VideoStatus;
-	};
+	data: ContentData;
 	children: ContentChildren[];
+};
+
+export type ContentData = {
+	id: string;
+	description: string;
+	date: string;
+	duration: number;
+	content: string;
+	type: string;
+	status: VideoStatus;
 };
 
 export type ContentChildren = Omit<Content, "children">;
@@ -93,3 +96,11 @@ export type CreateLecturePayload = {
 	language: string;
 	author: string;
 };
+
+export type VideoProgress = {
+	lastChapter: string;
+	lastDate: string;
+	items: VideoProgressItem[];
+};
+
+export type VideoProgressItem = { id: string; current: number; total: number };

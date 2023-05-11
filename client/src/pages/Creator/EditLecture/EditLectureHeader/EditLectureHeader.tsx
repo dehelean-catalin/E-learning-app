@@ -6,6 +6,7 @@ import { FC } from "react";
 import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
+import PRButton from "../../../../components/Forms/Buttons/PRButton/PRButton";
 import { NotificationActions } from "../../../../data/redux/notificationReducer";
 import {
 	convertSecondsToTime,
@@ -59,7 +60,7 @@ const EditLectureHeader: FC<EditLectureHeaderProps> = ({ isLoading }) => {
 
 	const { mutate, isLoading: publishLoading } = useMutation(
 		() => {
-			return axios.post(`/publish/${id}`, values);
+			return axios.post(`/lecture/${id}`, values);
 		},
 		{ onSuccess: handlePublishSuccess, onError: handleError }
 	);
@@ -84,31 +85,26 @@ const EditLectureHeader: FC<EditLectureHeaderProps> = ({ isLoading }) => {
 		!goals.filter((i) => i.value.length >= 80).length &&
 		goals.filter((i) => i.value.length > 0).length > 2 &&
 		requirements.filter((i) => i.value.length > 0).length > 2 &&
-		lectureDuration > 100;
+		lectureDuration > 100 &&
+		isFormDirty;
 
 	return (
 		<header className="edit-lecture-header">
 			<NavLink to="/creator/dashboard" className="back-to-link" replace>
 				<i className="pi pi-chevron-left" /> Back to lectures
 			</NavLink>
-			<div className="flex align-items-center border-left-2 pl-3 gap-2">
-				<span className="text-primary font-semibold text-xl">
-					{values.publish.title}
-				</span>
+			<div className="center-section">
+				<h4 className="title">{values.publish.title}</h4>
 				{!!convertSecondsToTime(lectureDuration).length && (
-					<span>
-						{convertSecondsToTime(lectureDuration)} of content uploaded
-					</span>
+					<div>{convertSecondsToTime(lectureDuration)} of content uploaded</div>
 				)}
 			</div>
 			{values.publish.status === "Draft" ? (
 				<div>
-					<Button
+					<PRButton
 						label="Save changes"
-						className="save-button mr-2 bg-transparent text-white"
-						type="button"
+						className="mr-2 bg-transparent"
 						icon="pi pi-bookmark"
-						iconPos="left"
 						onClick={submitForm}
 						loading={isLoading}
 						disabled={saveBtnDisabled}
@@ -116,21 +112,16 @@ const EditLectureHeader: FC<EditLectureHeaderProps> = ({ isLoading }) => {
 
 					<Button
 						label="Publish"
-						className="save-button"
-						type="button"
 						icon="pi pi-globe"
-						iconPos="left"
 						loading={publishLoading}
 						onClick={() => mutate()}
 						disabled={!publishDisabled}
 					/>
 				</div>
 			) : (
-				<Button
+				<PRButton
 					label="Update"
-					className="save-button"
 					type="button"
-					iconPos="left"
 					icon="pi pi-check"
 					loading={updateLoading}
 					onClick={() => updateLecture()}

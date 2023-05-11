@@ -75,7 +75,10 @@ function App() {
 					</Route>
 
 					<Route path="lecture/:id" element={<LectureDetails />}></Route>
-					<Route path="lecture/:id/overview" element={<LectureOverview />} />
+					<Route
+						path="lecture/:id/overview/:chapterId"
+						element={<LectureOverview />}
+					/>
 
 					<Route path="history" element={<History />} />
 					<Route path="search" element={<Search />} />

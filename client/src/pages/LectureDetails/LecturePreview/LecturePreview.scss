@@ -1,5 +1,5 @@
 .lecture-preview {
-	flex: 0 0 45%;
+	flex: 0 0 40%;
 
 	ul {
 		list-style-type: disc !important;
@@ -11,8 +11,5 @@
 		display: flex;
 		align-items: center;
 		gap: 6px;
-	}
-	i {
-		font-size: 6px;
 	}
 }
