@@ -9,7 +9,7 @@ import {
 	updatePromoVideo,
 } from "../controllers/creator-controller";
 import { getCreatedLectureById } from "../controllers/creator-controller/_getCreatedLectureById.service";
-import { postPublishLecture } from "../controllers/creator-controller/_postPublishLecture.service";
+import { postLecture } from "../controllers/creator-controller/_postPublishLecture.service";
 import { putLecture } from "../controllers/creator-controller/_putLecture.service";
 import { default as tokenAuthMiddleware } from "../middleware/tokenAuth-middleware";
 import validation from "../middleware/validation-middleware";
@@ -35,12 +35,8 @@ router.post("/caption/:id", tokenAuthMiddleware, updateCaption);
 router.post("/promoVideo/:id", tokenAuthMiddleware, updatePromoVideo);
 
 router.post("/content/:id", tokenAuthMiddleware, postContent);
-router.post(
-	"/publish/:id",
-	validation(PublicLectureSchema),
-	postPublishLecture
-);
 
+router.post("/lecture/:id", validation(PublicLectureSchema), postLecture);
 router.put("/lecture/:id", validation(PublicLectureSchema), putLecture);
 router.delete("/lecture/:id", tokenAuthMiddleware, deleteLecture);
 

@@ -2,8 +2,8 @@ import { Router } from "express";
 import { getSavedLectures } from "../controllers/lectures-controller";
 import {
 	deleteSavedLecture,
-	getCurrentPage,
 	getHistoryLectureList,
+	getLastChapter,
 	getUserByID,
 	getWatchingLectureList,
 	saveLecture,
@@ -40,6 +40,6 @@ router.put(
 );
 
 router.get("/user/history", tokenAuth, getHistoryLectureList);
-router.get("/user/watching-lectures/:id/page", tokenAuth, getCurrentPage);
+router.get("/lectures/:id/last-chapter", tokenAuth, getLastChapter);
 
 export default router;

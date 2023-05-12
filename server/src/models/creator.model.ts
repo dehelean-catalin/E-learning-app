@@ -5,9 +5,7 @@ export type CreatedLectureModel = {
 	content: Content[];
 	goals: PlanFieldModel[];
 	requirements: PlanFieldModel[];
-	reviews: any;
 	comments: any;
-	enrolledUsers: string[];
 };
 
 export type Publish = {
@@ -26,6 +24,7 @@ export type Publish = {
 export type Content = {
 	label: string;
 	data: {
+		id: string;
 		description: string;
 		date: string;
 		duration: number;
@@ -65,5 +64,17 @@ export enum Category {
 	Policy = "Policy",
 	None = "",
 }
+export type Review = {
+	author: string;
+	authorId: string;
+	date: string;
+	message: string;
+	rating: number;
+};
+export type VideoProgress = {
+	lastChapter: string;
+	lastDate: string;
+	items: VideoProgressItem[];
+};
 
-export type Authorization = "CanEditLecture";
+export type VideoProgressItem = { id: string; current: number; total: number };

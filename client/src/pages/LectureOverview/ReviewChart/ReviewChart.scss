@@ -1,0 +1,28 @@
+.review-chart {
+	display: flex;
+	gap: 24px;
+
+	.rating {
+		flex: 1 0 20%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+		h1 {
+			color: gold;
+			font-size: 50px;
+			height: 56px;
+		}
+		p {
+			color: gray;
+			font-size: 12px;
+			text-align: center;
+		}
+	}
+
+	.chart {
+		width: 500px;
+		height: 180px;
+	}
+}

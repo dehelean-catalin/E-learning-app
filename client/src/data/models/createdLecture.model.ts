@@ -46,6 +46,8 @@ export type PlanFieldModel = {
 };
 
 export type Review = {
+	authorId: string;
+	profilePicture: string;
 	author: string;
 	date: string;
 	message: string;

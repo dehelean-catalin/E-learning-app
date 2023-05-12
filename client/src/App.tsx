@@ -39,7 +39,10 @@ import SecurityPage from "./pages/SecurityPage/SecurityPage";
 import Settings from "./pages/Settings/Settings";
 import RootLayout from "./routes/ProtectedRoutes/RootLayout";
 import VerifyEmailLayout from "./routes/ProtectedRoutes/VerifyEmailLayout";
-import { CreatedLecturesRoute } from "./routes/baseRoutes";
+import {
+	CreatedLecturesRoute,
+	LECTURE_OVERVIEW_ROUTE,
+} from "./routes/baseRoutes";
 
 function App() {
 	const { handleEmailVerified } = useContext(AuthContext);
@@ -75,10 +78,7 @@ function App() {
 					</Route>
 
 					<Route path="lecture/:id" element={<LectureDetails />}></Route>
-					<Route
-						path="lecture/:id/overview/:chapterId"
-						element={<LectureOverview />}
-					/>
+					<Route path={LECTURE_OVERVIEW_ROUTE} element={<LectureOverview />} />
 
 					<Route path="history" element={<History />} />
 					<Route path="search" element={<Search />} />

@@ -3,7 +3,7 @@ import { deleteDoc, doc, setDoc } from "firebase/firestore";
 import db from "../../config/firebase";
 import { ValidatedRequest } from "../../models/request";
 
-export const postPublishLecture = async (req: Request, res: Response) => {
+export const postLecture = async (req: Request, res: Response) => {
 	const validatedReq = req as ValidatedRequest;
 	const lectureRef = doc(
 		db,

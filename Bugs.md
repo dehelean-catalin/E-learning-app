@@ -4,33 +4,21 @@ Articole licenta:
 
 # In Development:
 
-- LD responsive;
-- LD header design improve;
-- LD save functionality;
-- LD continue and start func;
-- LD video preview;
-- LD show more functionality;
-
-- LO adapt model;
 - LO additional info;
+- LO delete, edit review, get all reviews;
+- LD reviews section;
+- history, search, remove old models
 - LO comment section;
-- LO review section;
-
-- LD reviews list;
-
-# Bug:
-
-- loading design fix;
-- close create modal go back not to dashboard;
-- create lecture modal width fix;
 
 # Prior 0:
 
+- loading design fix;
+- remove backdrop;
+- register details form;
 - account photo upload failed (- Moving to react-query;);
-- validation on save for lecture item;
 - Enhance update lecture history time;
 - History: 12PM order wrong;
-- Update Lecture Overview logic + updating check mark;
+- updating check mark;
 - Search : Not found component;
 - saga logout auto;
 

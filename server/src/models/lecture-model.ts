@@ -1,4 +1,4 @@
-import { Category } from "./creator.model";
+import { Category, Review } from "./creator.model";
 
 export type LectureModel = {
 	id: string;
@@ -32,7 +32,7 @@ export type Item = {
 };
 export type ReviewList = {
 	description: string;
-	data: ReviewItem[];
+	data: Review[];
 };
 
 export interface TreeNode {
@@ -49,13 +49,6 @@ export interface TreeChild {
 		duration: number;
 	};
 }
-export type ReviewItem = {
-	firstName: string;
-	lastName: string;
-	comment: string;
-	rating: number;
-	date: Date;
-};
 
 export type HistoryModel = {
 	id: string;

@@ -6,7 +6,7 @@ import { getLecture } from "../../data/services/lecture.service";
 import { useAxios } from "../../hooks/useAxios";
 import "./LectureOverview.scss";
 import LectureOverviewChapters from "./LectureOverviewChapters/LectureOverviewChapters";
-import LectureOverviewTabs from "./LectureOverviewTabs/LectureOverviewTabs";
+import LectureOverviewReviews from "./LectureOverviewTabs/LectureOverviewReviews";
 import LectureOverviewVideo from "./LectureOverviewVideo/LectureOverviewVideo";
 
 const LectureOverview = () => {
@@ -22,9 +22,16 @@ const LectureOverview = () => {
 
 	return (
 		<div className="lecture-overview">
-			<LectureOverviewVideo id={id} value={data.content} />
+			<div className="left">
+				<LectureOverviewVideo
+					id={id}
+					value={data.content}
+					publish={data.publish}
+				/>
+				<LectureOverviewReviews />
+			</div>
+
 			<LectureOverviewChapters id={id} data={data.content} />
-			<LectureOverviewTabs />
 		</div>
 	);
 };

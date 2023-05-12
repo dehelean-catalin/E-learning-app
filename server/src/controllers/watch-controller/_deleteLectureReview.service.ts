@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
-import { doc, getDoc } from "firebase/firestore";
+import { deleteDoc, doc } from "firebase/firestore";
 import db from "../../config/firebase";
 import { ValidatedRequest } from "../../models/request";
 
-export const getWatchingLecture = async (
-	req: Request,
+export const deleteLectureReview = async (
+	req: Request<any, any, { message: string; rating: number }>,
 	res: Response,
 	next: NextFunction
 ) => {
@@ -12,14 +12,12 @@ export const getWatchingLecture = async (
 	const { userId } = validatedReq.userData;
 	const { id } = req.params;
 
-	const userRef = doc(db, `users/${userId}/watching`, id);
+	const lectureRef = doc(db, `lectures/${id}/reviews`, userId);
 
 	try {
-		const userSnap = await getDoc(userRef);
+		await deleteDoc(lectureRef);
 
-		if (!userSnap.exists()) throw new Error("Try again! Something went wrong");
-
-		res.status(200).json(userSnap.get("content"));
+		res.status(200).json("Success");
 	} catch (err) {
 		next(err);
 	}

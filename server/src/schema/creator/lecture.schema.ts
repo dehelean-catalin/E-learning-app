@@ -30,9 +30,7 @@ export const LectureSchema = Joi.object<CreatedLectureModel, true>({
 	content: ContentSchema,
 	requirements: PlanFieldSchema,
 	goals: PlanFieldSchema,
-	reviews: Joi.array(),
 	comments: Joi.array(),
-	enrolledUsers: Joi.array(),
 });
 
 const lectureDurationBasedOnContent = (data: Content[]) => {

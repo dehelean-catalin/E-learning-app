@@ -1,8 +1,12 @@
 import { ProgressSpinner } from "primereact/progressspinner";
 import { useParams } from "react-router";
-import { getLecture } from "../../data/services/lecture.service";
+import {
+	getLecture,
+	getLectureReviews,
+} from "../../data/services/lecture.service";
 import { useAxios } from "../../hooks/useAxios";
 import { useFetchData } from "../../hooks/useFetchData";
+import ReviewChart from "../LectureOverview/ReviewChart/ReviewChart";
 import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
 import LectureContent from "./LectureContent/LectureContent";
 import "./LectureDetails.scss";
@@ -15,8 +19,12 @@ const LectureDetails = () => {
 	const { data, isLoading, isError } = useFetchData("get-lecture", () =>
 		getLecture(axios, id)
 	);
+	const { data: reviews, isLoading: isReviewLoading } = useFetchData(
+		"getLectureReviews",
+		() => getLectureReviews(axios, id)
+	);
 
-	if (isLoading)
+	if (isLoading || isReviewLoading)
 		return (
 			<div className="lecture-details-spinner">
 				<ProgressSpinner />
@@ -35,7 +43,7 @@ const LectureDetails = () => {
 
 				<div className="flex-1">
 					<h2>Reviews</h2>
-					<>No reviews yet</>
+					<ReviewChart value={reviews} />
 				</div>
 			</div>
 			<VideoDialog />

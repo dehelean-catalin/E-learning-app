@@ -5,10 +5,8 @@ import {
 	getDoc,
 	getDocs,
 	query,
-	setDoc,
 	where,
 } from "firebase/firestore";
-import { v4 as uuid } from "uuid";
 import db from "../config/firebase";
 
 interface Params {
@@ -60,17 +58,6 @@ export const getLectureChapterList = async (
 		}
 		const { details } = docSnap.data();
 		res.status(200).json(details);
-	} catch (err: any) {
-		res.status(400).json({ code: 400, message: err.message });
-	}
-};
-
-export const addLecture = async (req: Request, res: Response) => {
-	const id = uuid();
-	try {
-		await setDoc(doc(db, "lectures", id), { id, ...req.body });
-
-		res.status(200).json(" Lecture was added");
 	} catch (err: any) {
 		res.status(400).json({ code: 400, message: err.message });
 	}

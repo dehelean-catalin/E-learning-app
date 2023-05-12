@@ -29,13 +29,20 @@ export const putLectureLastDate = (
 export const getLectureReviews = (
 	axios: AxiosInstance,
 	id: string
-): Promise<{ reviews: Review[]; yourReview: Review[] }> => {
+): Promise<Review[]> => {
 	return axios.get(`lecture/${id}/review`).then((res) => res.data);
 };
 export const postLectureReview = (
 	axios: AxiosInstance,
 	id: string,
-	value: Review
-): Promise<any> => {
+	value: Omit<Review, "date">
+): Promise<string> => {
 	return axios.post(`lecture/${id}/review`, value).then((res) => res.data);
+};
+
+export const deleteLectureReview = (
+	axios: AxiosInstance,
+	id: string
+): Promise<string> => {
+	return axios.delete(`lecture/${id}/review`).then((res) => res.data);
 };

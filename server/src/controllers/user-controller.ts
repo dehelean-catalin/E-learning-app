@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import db from "../config/firebase";
 import { LectureModel } from "../models/lecture-model";
@@ -214,28 +214,24 @@ export const getHistoryLectureList = async (req: Request, res: Response) => {
 	}
 };
 
-export const getCurrentPage = async (req: Request, res: Response) => {
+export const getLastChapter = async (
+	req: Request,
+	res: Response,
+	next: NextFunction
+) => {
+	const validatedReq = req as ValidatedRequest;
+	const { id } = req.params;
+	const { userId } = validatedReq.userData;
+
 	try {
-		const validatedReq = req as ValidatedRequest;
-		const userRef = doc(db, "users", validatedReq.userData.userId);
+		const lectureRef = doc(db, `lectures/${id}/enrolledUsers`, userId);
 
-		const userSnap = await getDoc(userRef);
-		if (!userSnap.exists()) {
-			throw new Error("This Lecture dont exist");
-		}
-		const watchingLectures = userSnap.get(
-			"watchingLectures"
-		) as WatchingLectureModel[];
-		let page = "0";
-		for (const key in watchingLectures) {
-			if (watchingLectures[key].id === req.params.id) {
-				page = watchingLectures[key].lastEntry.page;
-			}
-		}
+		const lectureSnap = await getDoc(lectureRef);
+		if (!lectureSnap.exists()) throw new Error("Something went wrong");
 
-		res.status(200).json(page);
+		res.status(200).json(lectureSnap.get("lastChapter"));
 	} catch (err: any) {
-		res.status(400).json({ code: 400, message: err.message });
+		next(err);
 	}
 };
 

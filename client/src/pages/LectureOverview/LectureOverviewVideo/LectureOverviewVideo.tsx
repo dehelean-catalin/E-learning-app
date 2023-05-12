@@ -1,17 +1,21 @@
 import { FC, useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player/lazy";
 import { useParams } from "react-router";
-import { Content } from "../../../data/models/createdLecture.model";
+import { Content, Publish } from "../../../data/models/createdLecture.model";
 import { useAxios } from "../../../hooks/useAxios";
 import "./LectureOverviewVideo.scss";
 import { getChapterVideoWithProgress } from "./lectureOverview.helper";
 
 type LectureOverviewVideoProps = {
 	value: Content[];
+	publish: Publish;
 	id: string;
 };
 
-const LectureOverviewVideo: FC<LectureOverviewVideoProps> = ({ value }) => {
+const LectureOverviewVideo: FC<LectureOverviewVideoProps> = ({
+	value,
+	publish,
+}) => {
 	const { chapterId, id } = useParams();
 	const axios = useAxios();
 	const playerRef = useRef<ReactPlayer>(null);
@@ -47,7 +51,10 @@ const LectureOverviewVideo: FC<LectureOverviewVideoProps> = ({ value }) => {
 				onReady={handleReady}
 				playing={false}
 			/>
-			{contentData?.description}
+			<p>
+				<h2>{publish.title}</h2>
+				{publish.author}
+			</p>
 		</div>
 	);
 };

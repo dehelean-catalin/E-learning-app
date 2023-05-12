@@ -1,10 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { ValidatedRequest } from "./../models/request";
+
 export type DecodedToken = {
 	userId: string;
 	email: string;
 };
+
 export default async (req: Request, res: Response, next: NextFunction) => {
 	const validatedReq = req as ValidatedRequest;
 	if (req.method === "OPTIONS") {

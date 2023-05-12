@@ -4,28 +4,49 @@ import AuthContext from "data/context/auth-context";
 import { AccountDataState } from "data/redux/account/AccountReducer";
 import { RootState } from "data/redux/reducers";
 import { OverlayPanel } from "primereact/overlaypanel";
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import { BiVideoPlus } from "react-icons/bi";
 import { BsBookmark, BsPersonCircle } from "react-icons/bs";
 import { IoSettingsOutline } from "react-icons/io5";
 import { VscSignOut } from "react-icons/vsc";
+import { useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useMatch } from "react-router-dom";
+import { Review } from "../../../data/models/createdLecture.model";
+import { LECTURE_OVERVIEW_ROUTE } from "../../../routes/baseRoutes";
+import PRButton from "../../Forms/Buttons/PRButton/PRButton";
 import "./HeaderButtons.scss";
+import LeaveRatingDialog from "./LeaveRatingDialog";
 
 const HeaderButtons = () => {
 	const op = useRef(null);
+	const { userId } = useContext(AuthContext);
 	const { logout } = useContext(AuthContext);
 	const { pathname } = useLocation();
+	const [visibile, setVisible] = useState(false);
 	const { displayName, email, profilePicture } = useSelector<
 		RootState,
 		AccountDataState
 	>((s) => s.accountReducer.data);
 
+	const isMatchingLectureOverview = !!useMatch(LECTURE_OVERVIEW_ROUTE);
 	const checkCreatorPath = pathname === "/create";
+	const queryClient = useQueryClient();
+
+	const data = queryClient.getQueryData("getLectureReview") as Review[];
+	const isLectureReviewed = data?.find((d) => d.authorId === userId);
 
 	return (
 		<div className="header-buttons">
+			{isMatchingLectureOverview && !isLectureReviewed && (
+				<PRButton
+					label="leave a rating"
+					icon="pi pi-star"
+					className="bg-transparent"
+					onClick={() => setVisible(true)}
+				/>
+			)}
+
 			{checkCreatorPath ? (
 				<></>
 			) : (
@@ -81,6 +102,7 @@ const HeaderButtons = () => {
 					</div>
 				</main>
 			</OverlayPanel>
+			<LeaveRatingDialog visible={visibile} onHide={() => setVisible(false)} />
 		</div>
 	);
 };

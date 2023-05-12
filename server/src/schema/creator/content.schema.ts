@@ -30,6 +30,11 @@ export let ContentSchema = Joi.array<Content[]>().items({
 				"string.base": "Label must be a string",
 			}),
 			data: Joi.object({
+				id: Joi.string().required().messages({
+					"any.required": "Id is required",
+					"string.empty": "Id cannot be empty",
+					"string.base": "Id must be a string",
+				}),
 				description: Joi.string().optional().allow("").messages({
 					"string.base": "Description must be a string",
 				}),

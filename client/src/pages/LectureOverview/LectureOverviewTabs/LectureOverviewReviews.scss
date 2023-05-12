@@ -1,0 +1,12 @@
+.lecture-overview-reviews {
+	margin-top: 20px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+
+	.wrapper {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+}
