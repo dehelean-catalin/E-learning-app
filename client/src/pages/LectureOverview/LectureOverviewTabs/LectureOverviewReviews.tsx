@@ -21,6 +21,7 @@ const LectureOverviewReviews = () => {
 
 	if (isLoading) return <Spinner />;
 	if (isError) return <>Error</>;
+	if (!data.length) return <></>;
 
 	const reviews = data.filter((d) => d.authorId !== userId);
 	const userReview = data.find((d) => d.authorId === userId);
@@ -31,7 +32,6 @@ const LectureOverviewReviews = () => {
 				<h2 className="title">Studend feedback</h2>
 				<ReviewChart value={data} />
 				<LectureReviewForm value={userReview} />
-				<h2 className="title mt-3">Reviews</h2>
 				<LectureReviews value={reviews} />
 			</div>
 		</div>

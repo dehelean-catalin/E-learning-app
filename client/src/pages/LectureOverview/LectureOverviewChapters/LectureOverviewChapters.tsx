@@ -48,12 +48,14 @@ const LectureOverviewChapters: FC<LectureOverviewChaptersProps> = ({
 							Section {index + 1}: {label}
 						</h4>
 					}
+					key={index}
 				>
 					{children.map(({ label, data }, index2) => (
 						<article
 							onClick={() => {
 								navigate(`/lecture/${id}/overview/${data.id}`);
 							}}
+							key={index2}
 						>
 							<div className="right">
 								{Math.round(

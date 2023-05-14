@@ -2,6 +2,20 @@
 	margin: 20px;
 	display: flex;
 	gap: 20px;
+
+	.lecture-reviews {
+		flex: 0 0 33%;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+	.details-chart {
+		width: 300px;
+		height: 150px;
+	}
+	.no-review {
+		margin: auto;
+	}
 }
 @media only screen and (max-width: 1000px) {
 	.lecture-details {

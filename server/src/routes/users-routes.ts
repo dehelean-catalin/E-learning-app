@@ -1,12 +1,9 @@
 import { Router } from "express";
-import { getSavedLectures } from "../controllers/lectures-controller";
 import {
-	deleteSavedLecture,
 	getHistoryLectureList,
 	getLastChapter,
 	getUserByID,
 	getWatchingLectureList,
-	saveLecture,
 	updatetWatchingLectureCurrenTime,
 	updateWatchingLectureLastEntry,
 } from "../controllers/user-controller";
@@ -20,10 +17,6 @@ import {
 const router = Router();
 
 router.get("/user", tokenAuth, getUserByID);
-
-router.get("/user/save-lecture", tokenAuth, getSavedLectures);
-router.post("/user/save-lecture/:id", tokenAuth, saveLecture);
-router.delete("/user/save-lecture/:id", tokenAuth, deleteSavedLecture);
 
 router.get("/user/watching-lectures", tokenAuth, getWatchingLectureList);
 

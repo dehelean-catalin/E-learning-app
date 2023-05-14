@@ -32,17 +32,20 @@ export const getLectureReviews = (
 ): Promise<Review[]> => {
 	return axios.get(`lecture/${id}/review`).then((res) => res.data);
 };
-export const postLectureReview = (
+export const postLectureReview = async (
 	axios: AxiosInstance,
 	id: string,
-	value: Omit<Review, "date">
+	value: Omit<Review, "date" | "authorId">
 ): Promise<string> => {
-	return axios.post(`lecture/${id}/review`, value).then((res) => res.data);
+	return await axios
+		.post(`lecture/${id}/review`, value)
+		.then((res) => res.data);
 };
 
 export const deleteLectureReview = (
 	axios: AxiosInstance,
-	id: string
+	id: string,
+	rating: number
 ): Promise<string> => {
-	return axios.delete(`lecture/${id}/review`).then((res) => res.data);
+	return axios.put(`lecture/${id}/review`, { rating }).then((res) => res.data);
 };

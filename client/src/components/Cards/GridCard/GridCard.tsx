@@ -2,11 +2,11 @@ import { CustomRating } from "components/CustomRating/CustomRating";
 import { classNames } from "primereact/utils";
 import { FC } from "react";
 import { useNavigate } from "react-router";
-import { CreatedLectureModel } from "../../../data/models/createdLecture.model";
+import { LectureCard } from "../../../data/models/lectureModel";
 import "./GridCard.scss";
 
 type Props = {
-	value: CreatedLectureModel;
+	value: LectureCard;
 	icon?: JSX.Element;
 	showProgress?: boolean;
 };
@@ -14,13 +14,13 @@ type Props = {
 const GridCard: FC<Props> = ({ value, icon, showProgress }) => {
 	const navigate = useNavigate();
 
-	const { id, publish, reviews } = value;
+	const { id, title, caption, author, rating, numberOfRatings } = value;
 
 	return (
 		<article className="grid-card">
 			<img
 				className={classNames({ "gray-out": showProgress })}
-				src={publish?.caption}
+				src={caption}
 				alt="caption"
 				loading="lazy"
 				onClick={() => navigate(`/lecture/${id}`)}
@@ -28,13 +28,10 @@ const GridCard: FC<Props> = ({ value, icon, showProgress }) => {
 
 			<div className="flex">
 				<div className="flex-1">
-					<h3 className="mb-1">{publish?.title}</h3>
-					<p className="text-color-secondary">{publish?.author}</p>
-					{!!reviews?.length && (
-						<CustomRating
-							reviews={reviews}
-							enrolledUsers={value.enrolledUsers.length}
-						/>
+					<h3 className="mb-1">{title}</h3>
+					<p className="text-color-secondary">{author}</p>
+					{!!numberOfRatings && (
+						<CustomRating rating={rating} numberOfRates={numberOfRatings} />
 					)}
 				</div>
 

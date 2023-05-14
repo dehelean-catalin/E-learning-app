@@ -1,0 +1,14 @@
+.leave-rating {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+
+	.rating-stars {
+		display: flex;
+		justify-content: center;
+	}
+	.p-rating .p-rating-item {
+		width: 2.75rem !important;
+		height: 2.5rem !important;
+	}
+}

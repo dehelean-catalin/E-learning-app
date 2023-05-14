@@ -4,7 +4,6 @@ import db from "../config/firebase";
 import { LectureModel } from "../models/lecture-model";
 import { ValidatedRequest } from "../models/request";
 import { UserModel, WatchingLectureModel } from "../models/user-model";
-import { tryAgainError } from "./../constant";
 
 export const getUserByID = async (req: Request, res: Response) => {
 	try {
@@ -18,52 +17,6 @@ export const getUserByID = async (req: Request, res: Response) => {
 		res.status(200).json(userData);
 	} catch (err: any) {
 		res.status(400).json({ code: 400, message: err.message });
-	}
-};
-
-export const saveLecture = async (req: Request, res: Response) => {
-	try {
-		const validatedReq = req as ValidatedRequest;
-		const docRef = doc(db, "users", validatedReq.userData.userId);
-		const docSnap = await getDoc(docRef);
-
-		if (!docSnap.exists()) {
-			throw new Error(tryAgainError);
-		}
-		const { savedLectures } = docSnap.data();
-		if (savedLectures?.includes(req.params.id)) {
-			throw new Error("Lecture is already saved");
-		}
-
-		savedLectures.push(req.params.id);
-
-		await updateDoc(docRef, {
-			savedLectures,
-		});
-
-		res.status(200).json({ code: 200, message: "Succesfully saved" });
-	} catch (err: any) {
-		return res.status(400).json({ code: 400, message: err.message });
-	}
-};
-
-export const deleteSavedLecture = async (req: Request, res: Response) => {
-	try {
-		const validatedReq = req as ValidatedRequest;
-		const docRef = doc(db, "users", validatedReq.userData.userId);
-		const docSnap = await getDoc(docRef);
-		if (!docSnap.exists()) {
-			throw new Error("Try again! Something went wrong");
-		}
-
-		let { savedLectures } = docSnap.data();
-		savedLectures = savedLectures.filter(
-			(lectureId: string) => lectureId !== req.params.id
-		);
-		await updateDoc(docRef, { savedLectures });
-		res.status(200).json(savedLectures);
-	} catch (err: any) {
-		return res.status(400).json({ code: 400, message: err.message });
 	}
 };
 

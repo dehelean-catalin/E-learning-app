@@ -5,7 +5,10 @@ export type CreatedLectureModel = {
 	content: Content[];
 	goals: PlanFieldModel[];
 	requirements: PlanFieldModel[];
-	comments: any;
+	rating: number;
+	enrolledUsers: number;
+	numberOfRatings: number;
+	duration: number;
 };
 
 export type Publish = {
@@ -17,8 +20,8 @@ export type Publish = {
 	language: string;
 	status: Status;
 	level?: Level;
-	caption?: string;
-	promoVideo?: string;
+	caption: string;
+	promoVideo: string;
 };
 
 export type Content = {
@@ -47,7 +50,7 @@ export type CreateLecturePayload = {
 	author: string;
 };
 
-export type Language = "english" | "french" | "romanian";
+export type Language = "English" | "French" | "Romanian";
 export type VideoStatus = "Success" | "Failed";
 export type Status = "Draft" | "Public" | "Private" | "Unlisted";
 export type Level = "Beginner" | "Intermediate" | "Advanced" | "Expert";
@@ -65,8 +68,8 @@ export enum Category {
 	None = "",
 }
 export type Review = {
+	profilePicture: string;
 	author: string;
-	authorId: string;
 	date: string;
 	message: string;
 	rating: number;

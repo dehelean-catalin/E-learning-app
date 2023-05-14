@@ -26,6 +26,6 @@ router.put("/lecture/:id/last-date", tokenAuth, putLectureLastDate);
 
 router.get("/lecture/:id/review", tokenAuth, getLectureReviews);
 router.post("/lecture/:id/review", validation(reviewSchema), postLectureReview);
-router.delete("/lecture/:id/review", tokenAuth, deleteLectureReview);
+router.put("/lecture/:id/review", tokenAuth, deleteLectureReview);
 
 export default router;

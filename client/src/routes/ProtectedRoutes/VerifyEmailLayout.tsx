@@ -11,6 +11,7 @@ const VerifyEmailLayout = () => {
 	if (!token) {
 		return <Navigate to="/login" replace={true} />;
 	}
+
 	return (
 		<div className="Auth">
 			<Outlet />

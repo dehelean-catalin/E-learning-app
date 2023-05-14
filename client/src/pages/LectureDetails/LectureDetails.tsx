@@ -6,7 +6,9 @@ import {
 } from "../../data/services/lecture.service";
 import { useAxios } from "../../hooks/useAxios";
 import { useFetchData } from "../../hooks/useFetchData";
+import LectureReviewCard from "../LectureOverview/LectureOverviewTabs/LectureReviewCard/LectureReviewCard";
 import ReviewChart from "../LectureOverview/ReviewChart/ReviewChart";
+import NotFound from "../NotFound/NotFound";
 import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
 import LectureContent from "./LectureContent/LectureContent";
 import "./LectureDetails.scss";
@@ -35,15 +37,26 @@ const LectureDetails = () => {
 
 	const { content } = data;
 
+	console.log(reviews);
+
 	return (
 		<>
 			<div className="lecture-details">
-				<LecturePreview value={data} />
+				<LecturePreview value={data} reviews={reviews} />
 				<LectureContent value={content} />
 
-				<div className="flex-1">
+				<div className="lecture-reviews">
 					<h2>Reviews</h2>
-					<ReviewChart value={reviews} />
+					{!!reviews.length ? (
+						<>
+							<ReviewChart value={reviews} chartClassName="details-chart" />
+							{reviews.map((r) => (
+								<LectureReviewCard key={r.authorId} value={r} />
+							))}
+						</>
+					) : (
+						<NotFound>No reviews yet</NotFound>
+					)}
 				</div>
 			</div>
 			<VideoDialog />

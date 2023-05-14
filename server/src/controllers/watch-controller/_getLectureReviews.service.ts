@@ -16,7 +16,6 @@ export const getLectureReviews = async (
 	try {
 		const docSnap = await getDocs(collection(db, `lectures/${id}/reviews`));
 		const reviews: Review[] = [];
-		const yourReview: Review[] = [];
 
 		docSnap.forEach((doc) => {
 			if (doc.id !== userId) {

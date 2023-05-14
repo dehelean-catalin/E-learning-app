@@ -1,24 +1,26 @@
 import { Rating } from "primereact/rating";
 import { FC } from "react";
-import { Review } from "../../data/models/createdLecture.model";
 import styles from "./CustomRating.module.scss";
 import { convertToRelativeNumber } from "./helpers/customRating.helper";
 
 type Props = {
-	reviews: Review[];
+	rating: number;
+	numberOfRates: number;
 	enrolledUsers?: number;
 };
 
-export const CustomRating: FC<Props> = ({ reviews, enrolledUsers }) => {
-	if (!reviews.length) return <>No reviews yet</>;
-
-	const rating = reviews.reduce((a, b) => b.rating + a, 0) / reviews.length;
-
+export const CustomRating: FC<Props> = ({
+	rating,
+	numberOfRates,
+	enrolledUsers,
+}) => {
+	if (!numberOfRates) return <>No reviews</>;
+	const averageRating = rating / numberOfRates;
 	return (
 		<div className={styles.rating}>
-			<div className={styles["rating-score"]}>{rating}</div>
-			<Rating value={rating / 2} cancel={false} readOnly />
-			{reviews.length && <div> ({reviews.length} ratings)</div>}
+			<div className={styles["rating-score"]}>{averageRating}</div>
+			<Rating value={averageRating} cancel={false} readOnly />
+			{numberOfRates && <div> ({convertToRelativeNumber(numberOfRates)})</div>}
 			{typeof enrolledUsers !== "undefined" ? (
 				<span>{convertToRelativeNumber(enrolledUsers)} students</span>
 			) : (

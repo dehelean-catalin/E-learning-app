@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { CustomRating } from "../../../../components/CustomRating/CustomRating";
 import { toRelativeTime } from "../../../../helpers";
 
 type SubtitleProps = {
@@ -7,6 +8,9 @@ type SubtitleProps = {
 	language: string;
 	category: string;
 	description: string;
+	rating: number;
+	enrolledUsers: number;
+	numberOfRatings: number;
 };
 
 const Subtitle: FC<SubtitleProps> = ({
@@ -15,11 +19,18 @@ const Subtitle: FC<SubtitleProps> = ({
 	category,
 	author,
 	description,
+	rating,
+	enrolledUsers,
+	numberOfRatings,
 }) => {
 	return (
 		<div className="subtitle">
 			<h3>{description}</h3>
-			{/* <CustomRating reviews={DUMMY_REVIEWS} enrolledUsers={200000} /> */}
+			<CustomRating
+				rating={rating}
+				numberOfRates={numberOfRatings}
+				enrolledUsers={enrolledUsers}
+			/>
 			<p>Author: {author}</p>
 			<p className="flex gap-3 align-items-center">
 				<span>

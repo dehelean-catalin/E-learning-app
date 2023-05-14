@@ -7,7 +7,8 @@ import creatorRoutes from "./routes/creator.routes";
 import homeRoutes from "./routes/home.routes";
 import lectureRoutes from "./routes/lecture.routes";
 import profileRoutes from "./routes/profile-routes";
-import searchRotes from "./routes/search-routes";
+import savedLectureRoutes from "./routes/savedLecture.routes";
+import searchRotes from "./routes/search.routes";
 import userRoutes from "./routes/users-routes";
 const app = express();
 
@@ -22,6 +23,7 @@ app.use(userRoutes);
 app.use(profileRoutes);
 app.use(searchRotes);
 app.use(creatorRoutes);
+app.use(savedLectureRoutes);
 
 app.all("*", (req, res) => {
 	res.status(404).json({ code: 404, message: "Not found" });

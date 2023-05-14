@@ -10,7 +10,7 @@ import { itemIcon, itemStatus } from "./item.helper";
 
 const RenderListItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {
 	const navigate = useNavigate();
-	const { reviews, publish, lastUpdate } = value;
+	const { rating, publish, lastUpdate, numberOfRatings } = value;
 
 	return (
 		<div className="col-12">
@@ -45,8 +45,8 @@ const RenderListItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {
 						</div>
 						<div className="text-xl font-bold text-900">{publish.title} </div>
 						<div className="flex gap-2">
-							{!!reviews.length ? (
-								<CustomRating reviews={reviews} />
+							{!!rating ? (
+								<CustomRating rating={rating} numberOfRates={numberOfRatings} />
 							) : (
 								<span className="text-color-secondary">No reviews</span>
 							)}
@@ -56,7 +56,7 @@ const RenderListItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {
 						<p className="flex align-items-center text-lg">
 							<i className="pi pi-users mr-2 text-2xl" />
 							<span className="font-semibold">
-								{value.enrolledUsers.length} students
+								{value.enrolledUsers} students
 							</span>
 						</p>
 						<Button

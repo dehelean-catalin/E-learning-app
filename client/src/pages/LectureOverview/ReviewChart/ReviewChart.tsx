@@ -4,7 +4,10 @@ import { FC } from "react";
 import { Review } from "../../../data/models/createdLecture.model";
 import "./ReviewChart.scss";
 
-const ReviewChart: FC<{ value: Review[] }> = ({ value }) => {
+const ReviewChart: FC<{ value: Review[]; chartClassName?: string }> = ({
+	value,
+	chartClassName,
+}) => {
 	const chartData = {
 		labels: ["5", "4", "3", "2", "1"],
 		datasets: [
@@ -60,7 +63,7 @@ const ReviewChart: FC<{ value: Review[] }> = ({ value }) => {
 				<p>based on {value.length} reviews</p>
 			</div>
 			<Chart
-				className="chart"
+				className={`chart ${chartClassName ? chartClassName : ""}`}
 				type="bar"
 				data={chartData}
 				options={chartOptions}

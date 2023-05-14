@@ -1,5 +1,3 @@
-import LectureCard from "components/Cards/LectureCard/LectureCard";
-import Spinner from "components/Spinner/Spinner";
 import {
 	DateParams,
 	DurationParams,
@@ -11,7 +9,10 @@ import { getSearchLectures } from "data/services/search/_getSearchLectures.servi
 import { useAxios } from "hooks/useAxios";
 import { useFetchData } from "hooks/useFetchData";
 import NotFoundError from "pages/NotFound/NotFoundError/NotFoundError";
+import { ProgressSpinner } from "primereact/progressspinner";
 import { useSearchParams } from "react-router-dom";
+import LectureListActionBar from "../../components/Cards/LectureCard/LectureListActionBar";
+import LectureListCard from "../../components/Cards/LectureCard/LectureListCard";
 import "./Search.scss";
 import SearchFilterSection from "./components/SearchFilterSection";
 
@@ -25,27 +26,28 @@ const Search = () => {
 	const date = searchParams.get("date") as DateParams;
 
 	const { data, isError, isLoading } = useFetchData(
-		["search", [searchQuery, rating, language, duration, date]],
+		["getSearchLectures", [searchQuery, rating, language, duration, date]],
 		() => getSearchLectures(axios, searchParams as QueryFilterParams)
 	);
 
-	if (isLoading) return <Spinner />;
-
+	if (isLoading) return <ProgressSpinner />;
 	if (isError) return <NotFoundError />;
 
 	return (
 		<div className="search">
 			<div className="wrapper">
 				<SearchFilterSection />
-				{data?.map((lecture, key) => (
-					<LectureCard
-						key={key}
-						value={lecture}
-						className="search-card"
-						bannerClassName="banner"
-						contentClassName="content"
-					/>
-				))}
+				{data.length ? (
+					data.map((lecture, key) => (
+						<LectureListCard
+							key={key}
+							value={lecture}
+							icon={<LectureListActionBar id={lecture.id} />}
+						/>
+					))
+				) : (
+					<div className="m-auto">No lecture found</div>
+				)}
 			</div>
 		</div>
 	);

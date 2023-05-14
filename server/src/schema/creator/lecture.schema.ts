@@ -18,7 +18,7 @@ const PlanFieldSchema = Joi.array<PlanFieldModel[]>()
 	})
 	.optional();
 
-export const LectureSchema = Joi.object<CreatedLectureModel, true>({
+export const LectureSchema = Joi.object<CreatedLectureModel>({
 	id: Joi.string().required().messages({
 		"any.required": "Id is required",
 		"string.empty": "Id cannot be empty",
@@ -30,7 +30,18 @@ export const LectureSchema = Joi.object<CreatedLectureModel, true>({
 	content: ContentSchema,
 	requirements: PlanFieldSchema,
 	goals: PlanFieldSchema,
-	comments: Joi.array(),
+	rating: Joi.number().allow(null).required().messages({
+		"any.required": "rating is required",
+	}),
+	enrolledUsers: Joi.number().required().messages({
+		"any.required": "enrolledUsers is required",
+	}),
+	numberOfRatings: Joi.number().required().messages({
+		"any.required": "numberOfRatings is required",
+	}),
+	duration: Joi.number().required().messages({
+		"any.required": "duration is required",
+	}),
 });
 
 const lectureDurationBasedOnContent = (data: Content[]) => {

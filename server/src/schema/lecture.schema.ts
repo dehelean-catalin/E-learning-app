@@ -6,7 +6,8 @@ export const reviewSchema = Joi.object<Review, true>().keys({
 		"any.required": "author is required",
 		"string.empty": "author cannot be empty",
 	}),
-	message: Joi.string().optional(),
+	profilePicture: Joi.string().allow("").optional(),
+	message: Joi.string().allow("").optional(),
 	rating: Joi.custom((value) => {
 		if (typeof value !== "number") {
 			throw new Error("Not a number");

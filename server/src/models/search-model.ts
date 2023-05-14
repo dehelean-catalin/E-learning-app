@@ -9,3 +9,15 @@ export type QueryFilterParams = {
 	date?: DateParams;
 	duration?: DurationParams;
 };
+
+export type LectureCard = {
+	id: string;
+	title: string;
+	caption: string;
+	promoVideo: string;
+	author: string;
+	rating: number;
+	numberOfRatings: number;
+	enrolledUsers: number;
+	description?: string;
+};

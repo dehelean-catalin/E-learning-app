@@ -22,10 +22,8 @@ const CreatedLectureCard: FC<{ data: CreatedLectureModel }> = ({ data }) => {
 				<h2>{title}</h2>
 				<p>{description}</p>
 				<ul className="flex align-items-center">
-					{!!data?.enrolledUsers?.length && (
-						<li>{data.enrolledUsers.length} enrollments</li>
-					)}
-					{!!data?.reviews?.length && <li>{data.reviews.length} reviews</li>}
+					{!!data?.enrolledUsers && <li>{data.enrolledUsers} enrollments</li>}
+					{!!data.numberOfRatings && <li>{data.numberOfRatings} reviews</li>}
 					<li>{toRelativeTime(data.lastUpdate)}</li>
 				</ul>
 			</div>

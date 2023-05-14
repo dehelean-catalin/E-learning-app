@@ -1,7 +1,6 @@
 import { QueryFilterParams } from "data/models/search/searchFilterModel";
 import qs from "query-string";
 import { useState } from "react";
-import { HiFilter } from "react-icons/hi";
 import { useLocation, useNavigate } from "react-router";
 import PRButton from "../../../components/Forms/Buttons/PRButton/PRButton";
 import DateColumn from "./Columns/DateColumn";
@@ -37,9 +36,11 @@ const SearchFilterSection = () => {
 
 	return (
 		<div className="search-filter-section">
-			<PRButton onClick={() => toogleSection(!isOpen)}>
-				Filter <HiFilter />
-			</PRButton>
+			<PRButton
+				label="Filter"
+				icon="pi pi-filter"
+				onClick={() => toogleSection(!isOpen)}
+			/>
 
 			{isOpen && (
 				<>

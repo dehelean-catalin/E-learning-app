@@ -5,9 +5,10 @@ export type CreatedLectureModel = {
 	content: Content[];
 	goals: PlanFieldModel[];
 	requirements: PlanFieldModel[];
-	reviews: Review[];
-	comments: any;
-	enrolledUsers: string[];
+	rating: number | null;
+	numberOfRatings: number;
+	enrolledUsers: number;
+	duration: number;
 };
 
 export type Publish = {

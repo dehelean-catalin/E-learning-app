@@ -75,6 +75,9 @@ const EditLectureHeader: FC<EditLectureHeaderProps> = ({ isLoading }) => {
 	const saveBtnDisabled =
 		!!values.requirements.filter((i) => i.value.length >= 80).length ||
 		!!values.goals.filter((i) => i.value.length >= 80).length ||
+		!publish.title.trim().length ||
+		!publish.caption.trim().length ||
+		!publish.promoVideo.trim().length ||
 		!isFormDirty;
 
 	const publishDisabled =
@@ -85,8 +88,7 @@ const EditLectureHeader: FC<EditLectureHeaderProps> = ({ isLoading }) => {
 		!goals.filter((i) => i.value.length >= 80).length &&
 		goals.filter((i) => i.value.length > 0).length > 2 &&
 		requirements.filter((i) => i.value.length > 0).length > 2 &&
-		lectureDuration > 100 &&
-		isFormDirty;
+		lectureDuration > 100;
 
 	return (
 		<header className="edit-lecture-header">
@@ -95,7 +97,7 @@ const EditLectureHeader: FC<EditLectureHeaderProps> = ({ isLoading }) => {
 			</NavLink>
 			<div className="center-section">
 				<h4 className="title">{values.publish.title}</h4>
-				{!!convertSecondsToTime(lectureDuration).length && (
+				{!!lectureDuration && (
 					<div>{convertSecondsToTime(lectureDuration)} of content uploaded</div>
 				)}
 			</div>
@@ -125,7 +127,7 @@ const EditLectureHeader: FC<EditLectureHeaderProps> = ({ isLoading }) => {
 					icon="pi pi-check"
 					loading={updateLoading}
 					onClick={() => updateLecture()}
-					disabled={!publishDisabled}
+					disabled={!(publishDisabled && isFormDirty)}
 				/>
 			)}
 		</header>

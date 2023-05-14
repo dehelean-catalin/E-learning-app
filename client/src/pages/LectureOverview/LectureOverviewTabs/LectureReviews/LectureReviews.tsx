@@ -4,12 +4,17 @@ import LectureReviewCard from "../LectureReviewCard/LectureReviewCard";
 import "./LectureReviews.scss";
 
 const LectureReviews: FC<{ value: Review[] }> = ({ value }) => {
+	if (!value) return;
+
 	return (
-		<div className="review-list">
-			{value.map((val, index) => (
-				<LectureReviewCard key={index} value={val} />
-			))}
-		</div>
+		<>
+			<h2 className="title mt-3">Reviews</h2>
+			<div className="review-list">
+				{value.map((val, index) => (
+					<LectureReviewCard key={index} value={val} />
+				))}
+			</div>
+		</>
 	);
 };
 

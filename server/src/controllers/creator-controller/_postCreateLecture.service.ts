@@ -66,7 +66,10 @@ export const postCreateLecture = async (
 		content: [],
 		goals: INITIAL_GOALS,
 		requirements: INITIAL_REQUIREMENTS,
-		comments: [],
+		enrolledUsers: 0,
+		numberOfRatings: 0,
+		rating: 0,
+		duration: 0,
 	};
 
 	try {

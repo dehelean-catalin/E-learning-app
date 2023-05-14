@@ -10,7 +10,8 @@ import { itemIcon, itemStatus } from "./item.helper";
 
 const RenderGridItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {
 	const navigate = useNavigate();
-	const { reviews, publish, lastUpdate, id, enrolledUsers } = value;
+	const { rating, numberOfRatings, publish, lastUpdate, id, enrolledUsers } =
+		value;
 
 	return (
 		<div className="p-4 border-1 surface-border border-round">
@@ -40,8 +41,8 @@ const RenderGridItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {
 					/>
 				)}
 				<div className="text-2xl font-bold">{publish.title}</div>
-				{!!reviews.length ? (
-					<CustomRating reviews={reviews} />
+				{!!rating ? (
+					<CustomRating rating={rating} numberOfRates={numberOfRatings} />
 				) : (
 					<span className="text-color-secondary">No reviews</span>
 				)}
@@ -49,7 +50,7 @@ const RenderGridItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {
 			<div className="flex align-items-center justify-content-between">
 				<p className="flex align-items-center text-lg">
 					<i className="pi pi-users mr-2 text-2xl" />
-					<span className="font-semibold">{enrolledUsers.length} students</span>
+					<span className="font-semibold">{enrolledUsers} students</span>
 				</p>
 				<Button
 					icon="pi pi-pencil"

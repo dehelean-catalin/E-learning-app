@@ -1,14 +1,14 @@
-import { FC, useContext } from "react";
+import { FC } from "react";
 import { FaPlay } from "react-icons/fa";
 import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import PRButton from "../../../../components/Forms/Buttons/PRButton/PRButton";
-import AuthContext from "../../../../data/context/auth-context";
 import { Content } from "../../../../data/models/createdLecture.model";
 import { NotificationActions } from "../../../../data/redux/notificationReducer";
 import {
 	getLastChapter,
+	getLectureProgress,
 	putLectureLastDate,
 } from "../../../../data/services/lecture.service";
 import { postLectureProgress } from "../../../../data/services/watching.service";
@@ -18,21 +18,22 @@ import { useFetchData } from "../../../../hooks/useFetchData";
 type LectureArticleFooterProps = {
 	id: string;
 	content: Content[];
-	enrolledUsers: string[];
 };
 
 const LectureArticleFooter: FC<LectureArticleFooterProps> = ({
 	id,
-	enrolledUsers,
 	content,
 }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const axios = useAxios();
-	const { userId } = useContext(AuthContext);
+
+	const { data: isEnrolled } = useFetchData("getLectureProgress", () =>
+		getLectureProgress(axios, id)
+	);
 
 	const handleSuccess = () => {
-		navigate(`/lecture/${id}/overview/${chapterId}`);
+		navigate(`/lecture/${id}/overview/${content[0].children[0].data.id}`);
 		dispatch(
 			NotificationActions.showBannerNotification({
 				type: "info",
@@ -49,13 +50,12 @@ const LectureArticleFooter: FC<LectureArticleFooterProps> = ({
 			})
 		);
 	};
-	const isEnrolled = enrolledUsers.includes(userId);
 
 	const { data: chapterId, isLoading } = useFetchData(
 		"getLastViewedPage",
 		() => getLastChapter(axios, id),
 		{
-			enabled: isEnrolled,
+			enabled: !!isEnrolled,
 		}
 	);
 

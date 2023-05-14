@@ -1,6 +1,9 @@
 import { Card } from "primereact/card";
 import { FC } from "react";
-import { CreatedLectureModel } from "../../../../data/models/createdLecture.model";
+import {
+	CreatedLectureModel,
+	Review,
+} from "../../../../data/models/createdLecture.model";
 import Header from "./Header";
 import "./LectureArticle.scss";
 import LectureArticleFooter from "./LectureArticleFooter";
@@ -8,11 +11,11 @@ import Subtitle from "./Subtitle";
 
 type Props = {
 	value: CreatedLectureModel;
+	reviews: Review[];
 };
 
 const LectureArticle: FC<Props> = ({ value }) => {
 	const {
-		enrolledUsers,
 		id,
 		publish: {
 			category,
@@ -25,6 +28,9 @@ const LectureArticle: FC<Props> = ({ value }) => {
 		},
 		content,
 		lastUpdate,
+		rating,
+		numberOfRatings,
+		enrolledUsers,
 	} = value;
 
 	return (
@@ -40,6 +46,9 @@ const LectureArticle: FC<Props> = ({ value }) => {
 			}
 			subTitle={
 				<Subtitle
+					enrolledUsers={enrolledUsers}
+					rating={rating}
+					numberOfRatings={numberOfRatings}
 					lastUpdate={lastUpdate}
 					author={author}
 					category={category}
@@ -47,13 +56,7 @@ const LectureArticle: FC<Props> = ({ value }) => {
 					language={language}
 				/>
 			}
-			footer={
-				<LectureArticleFooter
-					id={id}
-					content={content}
-					enrolledUsers={enrolledUsers}
-				/>
-			}
+			footer={<LectureArticleFooter id={id} content={content} />}
 		></Card>
 	);
 };

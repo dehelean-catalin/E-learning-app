@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, increment, setDoc, updateDoc } from "firebase/firestore";
 import db from "../../config/firebase";
 import { VideoProgress, VideoProgressItem } from "../../models/creator.model";
 import { ValidatedRequest } from "../../models/request";
@@ -13,7 +13,8 @@ export const postLectureProgress = async (
 	const { userId } = validatedReq.userData;
 	const { id } = req.params;
 
-	const lectureRef = doc(db, `lectures/${id}/enrolledUsers`, userId);
+	const lectureProgressRef = doc(db, `lectures/${id}/enrolledUsers`, userId);
+	const lectureRef = doc(db, `lectures`, id);
 
 	const items: VideoProgressItem[] = req.body.map((i) =>
 		Object.assign({ id: i }, { current: 0, total: 0 })
@@ -25,7 +26,8 @@ export const postLectureProgress = async (
 		items,
 	};
 	try {
-		await setDoc(lectureRef, videoProgress);
+		await setDoc(lectureProgressRef, videoProgress);
+		await updateDoc(lectureRef, { enrolledUsers: increment(1) });
 
 		res.status(200).json("Successfully enrolled");
 	} catch (err) {

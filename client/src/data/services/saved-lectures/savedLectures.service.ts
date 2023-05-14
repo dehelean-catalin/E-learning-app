@@ -1,5 +1,8 @@
 import { AxiosInstance } from "axios";
+import { LectureCard } from "../../models/lectureModel";
 
-export const getSavedLectures = (axios: AxiosInstance): Promise<any> => {
-	return axios.get("/user/save-lecture").then((res) => res.data);
+export const getSavedLectures = (
+	axios: AxiosInstance
+): Promise<LectureCard[]> => {
+	return axios.get("/saved-lecture").then((res) => res.data);
 };

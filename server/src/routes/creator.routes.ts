@@ -21,10 +21,11 @@ import {
 
 const router = Router();
 
+router.post("/create", validation(createLectureSchema), postCreateLecture);
+
 router.get("/created-lectures", tokenAuthMiddleware, getCreatedLectures);
 router.get("/created-lectures/:id", tokenAuthMiddleware, getCreatedLectureById);
 
-router.post("/create", validation(createLectureSchema), postCreateLecture);
 router.post(
 	"/created-lectures/:id",
 	validation(LectureSchema),

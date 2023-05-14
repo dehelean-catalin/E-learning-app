@@ -1,5 +1,5 @@
 import { OverlayPanel } from "primereact/overlaypanel";
-import { useRef } from "react";
+import { FC, useRef } from "react";
 import { BiDotsVerticalRounded, BiLinkAlt } from "react-icons/bi";
 import { BsBookmark } from "react-icons/bs";
 import { useMutation } from "react-query";
@@ -8,7 +8,7 @@ import { NotificationActions } from "../../../data/redux/notificationReducer";
 import { useAxios } from "../../../hooks/useAxios";
 import "./GridCardIcon.scss";
 
-const GridCardIcon = ({ id }) => {
+const GridCardIcon: FC<{ id: string }> = ({ id }) => {
 	const dispatch = useDispatch();
 	const axios = useAxios();
 	const op = useRef(null);
@@ -33,7 +33,7 @@ const GridCardIcon = ({ id }) => {
 		);
 	};
 
-	const { mutate } = useMutation(() => axios.post(`user/save-lecture/${id}`), {
+	const { mutate } = useMutation(() => axios.post(`saved-lecture/${id}`), {
 		onSuccess,
 		onError,
 	});

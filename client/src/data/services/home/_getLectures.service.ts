@@ -1,10 +1,10 @@
 import { AxiosInstance } from "axios";
-import { CreatedLectureModel } from "../../models/createdLecture.model";
+import { LectureCard } from "../../models/lectureModel";
 
 export const getLectures = async (
 	axios: AxiosInstance,
 	params: { category: string }
-): Promise<CreatedLectureModel[]> => {
+): Promise<LectureCard[]> => {
 	return await axios
 		.get("/lectures", {
 			params,
