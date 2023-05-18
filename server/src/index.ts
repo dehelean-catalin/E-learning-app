@@ -2,8 +2,9 @@ import cors from "cors";
 import express, { json } from "express";
 import http from "http";
 import multer from "multer";
-import authRoutes from "./routes/auth-routes";
+import authRoutes from "./routes/auth.routes";
 import creatorRoutes from "./routes/creator.routes";
+import historyRoutes from "./routes/history.routes";
 import homeRoutes from "./routes/home.routes";
 import lectureRoutes from "./routes/lecture.routes";
 import profileRoutes from "./routes/profile-routes";
@@ -24,6 +25,7 @@ app.use(profileRoutes);
 app.use(searchRotes);
 app.use(creatorRoutes);
 app.use(savedLectureRoutes);
+app.use(historyRoutes);
 
 app.all("*", (req, res) => {
 	res.status(404).json({ code: 404, message: "Not found" });

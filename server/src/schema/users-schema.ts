@@ -15,7 +15,6 @@ export const UserSchema = Joi.object<UserModel>({
 	displayName: Joi.string().required().messages({
 		"any.required": "firstName is required",
 	}),
-
 	phoneNumber: Joi.string().required().messages({
 		"any.required": "phoneNumber is required",
 	}),
@@ -28,39 +27,30 @@ export const UserSchema = Joi.object<UserModel>({
 	profilePicture: Joi.string().required().messages({
 		"any.required": "profilePicture is required",
 	}),
-	bannerPicture: Joi.string().required().messages({
-		"any.required": "bannerPicture is required",
-	}),
-	favoriteTopics: Joi.string().required().messages({
-		"any.required": "favoriteTopics is required",
-	}),
 	savedLectures: Joi.array<string[]>().required().messages({
 		"any.required": "savedLectures is required",
 	}),
-	watchingLectures: Joi.array().required().messages({
-		"any.required": "watchingLectures is required",
-	}),
 });
 
-export const UserDataSchema = Joi.object<UserDataModel, true>({
+export const UserDataSchema = Joi.object<UserDataModel>({
 	displayName: Joi.string(),
 	phoneNumber: Joi.string().allow(""),
 	address: Joi.string().allow(""),
 	aboutYou: Joi.string().allow(""),
 	email: Joi.string().allow(""),
 	profilePicture: Joi.string().allow(""),
-	bannerPicture: Joi.string().allow(""),
-	favoriteTopics: Joi.array(),
 	connections: Joi.array(),
-	links: Joi.alternatives(),
-	createdLectures: Joi.array(),
 });
+
 export const ProfileSchema = Joi.object({
-	displayName: Joi.string(),
+	displayName: Joi.string().required().messages({
+		"any.required": "id is required",
+	}),
 	phoneNumber: Joi.string().allow(""),
 	address: Joi.string().allow(""),
 	aboutYou: Joi.string().allow(""),
 });
+
 export const WatchingLectureSchema = Joi.object<WatchingLectureModel, true>({
 	id: Joi.string().required().messages({
 		"any.required": "id is required",
@@ -69,6 +59,7 @@ export const WatchingLectureSchema = Joi.object<WatchingLectureModel, true>({
 		page: Joi.string().required(),
 		date: Joi.date().format("YYYY-MM-DD").required,
 	}),
+
 	items: Joi.array()
 		.items({
 			page: Joi.string().required().messages({

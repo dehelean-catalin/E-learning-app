@@ -1,23 +1,23 @@
 import { FC } from "react";
-import { useMutation, useQueryClient } from "react-query";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { LectureCard } from "../../../data/models/lectureModel";
-import { useAxios } from "../../../hooks/useAxios";
 import { CustomRating } from "../../CustomRating/CustomRating";
 import "./LectureListCard.scss";
 
 type Props = {
 	value: LectureCard;
 	className?: string;
+	captionClassName?: string;
 	icon: JSX.Element;
 };
 
-const LectureListCard: FC<Props> = ({ value, className, icon }) => {
+const LectureListCard: FC<Props> = ({
+	value,
+	className,
+	captionClassName,
+	icon,
+}) => {
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
-
-	const queryClient = useQueryClient();
 
 	const {
 		id,
@@ -29,18 +29,11 @@ const LectureListCard: FC<Props> = ({ value, className, icon }) => {
 		numberOfRatings,
 		description,
 	} = value;
-	const axiosInstance = useAxios();
-
-	const { mutate } = useMutation(
-		() => axiosInstance.delete(`user/save-lecture/${id}`),
-		{
-			onSuccess: () => queryClient.invalidateQueries("save-lecture"),
-		}
-	);
 
 	return (
 		<div className="lecture-list-card">
 			<img
+				className={`${captionClassName ? captionClassName : "lg:h-10rem"}`}
 				src={caption}
 				alt="caption"
 				onClick={() => navigate(`/lecture/${id}`)}

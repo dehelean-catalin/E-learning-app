@@ -1,8 +1,8 @@
 import { Router } from "express";
-import { getSavedLectures } from "../controllers/lectures-controller";
 
 import {
 	deleteSavedLecture,
+	getSavedLectures,
 	postSavedLecture,
 } from "../controllers/savedLectures.controller";
 import tokenAuth from "../middleware/tokenAuth-middleware";

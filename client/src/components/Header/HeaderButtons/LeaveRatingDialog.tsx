@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { AccountDataState } from "../../../data/redux/account/AccountReducer";
+import { AccountDataState } from "../../../data/redux/AccountReducer";
 import { RootState } from "../../../data/redux/reducers";
 import { postLectureReview } from "../../../data/services/lecture.service";
 import { useAxios } from "../../../hooks/useAxios";

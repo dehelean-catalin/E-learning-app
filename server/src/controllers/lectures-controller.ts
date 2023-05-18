@@ -1,14 +1,6 @@
 import { Request, Response } from "express";
-import {
-	collection,
-	doc,
-	getDoc,
-	getDocs,
-	query,
-	where,
-} from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import db from "../config/firebase";
-import { CreatedLectureModel } from "../models/creator.model";
 
 interface Params {
 	id: string;
@@ -59,44 +51,6 @@ export const getLectureChapterList = async (
 		}
 		const { details } = docSnap.data();
 		res.status(200).json(details);
-	} catch (err: any) {
-		res.status(400).json({ code: 400, message: err.message });
-	}
-};
-
-export const getSavedLectures = async (req: any, res: Response) => {
-	const docRef = doc(db, "users", req.userData.userId);
-
-	try {
-		const docSnap = await getDoc(docRef);
-		if (!docSnap.exists()) throw new Error("This Lecture dont exist");
-
-		const { savedLectures: savedLecturesIds } = docSnap.data();
-
-		const q = query(
-			collection(db, "lectures"),
-			where("id", "in", savedLecturesIds)
-		);
-
-		const querySnapshot = await getDocs(q);
-
-		const savedLectures = querySnapshot.docs.map((doc) =>
-			doc.data()
-		) as CreatedLectureModel[];
-
-		res.status(200).json(
-			savedLectures.map((s) => ({
-				id: s.id,
-				title: s.publish.title,
-				description: s.publish.description,
-				caption: s.publish.caption,
-				promoVideo: s.publish.promoVideo,
-				author: s.publish.author,
-				rating: s.rating,
-				numberOfRatings: s.numberOfRatings,
-				enrolledUsers: s.enrolledUsers,
-			}))
-		);
 	} catch (err: any) {
 		res.status(400).json({ code: 400, message: err.message });
 	}

@@ -11,9 +11,8 @@ import { tryAgainError } from "./../constant";
 import { signToken } from "./../helpers/signToken";
 
 export const login = async (req: Request, res: Response) => {
+	const { email, device, uid } = req.body;
 	try {
-		const { email, device, uid } = req.body;
-
 		const token = signToken(uid, email);
 
 		const docRef = doc(db, "users", uid);
@@ -75,13 +74,9 @@ export const register: LoginWithCutsomProvider = async (req, res) => {
 			address: "",
 			aboutYou: "",
 			profilePicture: "",
-			bannerPicture: "",
-			links: [],
-			favoriteTopics: [],
 			connections,
 			savedLectures: [],
-			watchingLectures: [],
-			createdLectures: [],
+			history: [],
 		};
 		const token = signToken(uid, email);
 
@@ -114,13 +109,11 @@ export const forgotPassword = async (req: Request, res: Response) => {
 export const changePassword = async (req: any, res: Response) => {
 	const validatedReq = req as ValidatedRequest;
 	try {
-		if (!auth.currentUser) {
-			throw new Error("User not found");
-		}
+		if (!auth.currentUser) throw new Error("User not found");
 
 		await updatePassword(auth.currentUser, validatedReq.body.newPassword);
 
-		res.status(200).json("Success");
+		res.status(200).json("Password changed successfully.");
 	} catch (err: any) {
 		res.status(400).json({ code: 400, message: err.message });
 	}
@@ -167,13 +160,9 @@ export const loginWithProvider: LoginWithCutsomProvider = async (req, res) => {
 				address: "",
 				aboutYou: "",
 				profilePicture: photoURL ?? "",
-				bannerPicture: "",
-				links: [],
-				favoriteTopics: [],
 				connections,
 				savedLectures: [],
-				watchingLectures: [],
-				createdLectures: [],
+				history: [],
 			};
 			await setDoc(docRef, data);
 		} else {

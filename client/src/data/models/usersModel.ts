@@ -44,12 +44,3 @@ export interface IMessage {
 		day: string;
 	};
 }
-
-export interface IAuthContext {
-	userId: string;
-	token: string;
-	emailVerified: boolean;
-	login: (token: string, userId: string) => void;
-	handleEmailVerified: () => void;
-	logout: () => void;
-}

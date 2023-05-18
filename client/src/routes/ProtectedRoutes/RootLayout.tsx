@@ -1,4 +1,4 @@
-import { AccountDataActions } from "data/redux/account/AccountReducer";
+import { AccountDataActions } from "data/redux/AccountReducer";
 import { getAccountData } from "data/services";
 import { useAxios } from "hooks/useAxios";
 import { useFetchData } from "hooks/useFetchData";
@@ -17,10 +17,10 @@ const RootLayout = () => {
 	const dispatch = useDispatch();
 	const axios = useAxios();
 
-	const onSuccess = (e) => dispatch(AccountDataActions.getAccountData(e));
+	const onSuccess = (e) => dispatch(AccountDataActions.setAccountData(e));
 
 	const { isLoading, isError } = useFetchData(
-		["account", token],
+		["getProfileData", token],
 		() => getAccountData(axios),
 		{
 			onSuccess,

@@ -1,0 +1,48 @@
+.settings-content {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	header {
+		font-size: 24px;
+	}
+
+	form {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+	}
+
+	h1 {
+		font-size: 18px;
+		border-bottom: 1px solid white;
+		padding-bottom: 4px;
+		margin-bottom: 15px;
+	}
+
+	.invalid {
+		border-bottom-color: var(--red-300) !important;
+		color: var(--red-300);
+	}
+	.form-error {
+		height: 10px;
+		color: var(--red-300);
+		font-size: 12px;
+		font-weight: 500;
+	}
+}
+.loading {
+	height: 100%;
+	circle {
+		stroke: white !important;
+	}
+}
+.little-loading {
+	height: 40px;
+	display: flex;
+	text-align: left;
+	justify-content: flex-end;
+	circle {
+		stroke: white !important;
+	}
+}

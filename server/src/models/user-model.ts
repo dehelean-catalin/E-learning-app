@@ -4,14 +4,19 @@ export type UserModel = {
 	phoneNumber: string;
 	address: string;
 	aboutYou: string;
-	bannerPicture: string;
 	profilePicture: string;
-	links: LinkModel[] | [];
-	favoriteTopics: string[];
 	connections: ConnectionItem[];
 	savedLectures: string[];
-	watchingLectures: WatchingLectureModel[] | [];
-	createdLectures: [];
+	history: string[];
+};
+
+export type Profile = {
+	email: string;
+	displayName: string;
+	profilePicture?: string;
+	phoneNumber?: string;
+	address?: string;
+	aboutYou?: string;
 };
 
 export type UserDataModel = Omit<

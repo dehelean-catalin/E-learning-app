@@ -11,7 +11,7 @@ import {
 	getLectureProgress,
 	putLectureLastDate,
 } from "../../../../data/services/lecture.service";
-import { postLectureProgress } from "../../../../data/services/watching.service";
+import { postLectureProgress } from "../../../../data/services/progress.service";
 import { useAxios } from "../../../../hooks/useAxios";
 import { useFetchData } from "../../../../hooks/useFetchData";
 

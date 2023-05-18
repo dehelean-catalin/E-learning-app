@@ -1,5 +1,5 @@
 import { SubmitButton } from "components/Forms";
-import InputPasswordField from "components/Forms/Inputs/InputPasswordField/InputPasswordField";
+import InputPasswordField from "components/Forms/Inputs/PRPassword/InputPasswordField";
 import {
 	formatDisplayNameError,
 	formatEmailError,
@@ -77,7 +77,7 @@ const Register = () => {
 				<InputPasswordField
 					overlay="white"
 					value={password}
-					onChange={setPassword}
+					onChange={(e) => setPassword(e.target.value)}
 					feedback={true}
 					onBlur={() => setPasswordTouched(true)}
 					errorMessage={formatPasswordError(error, password, passwordTouched)}

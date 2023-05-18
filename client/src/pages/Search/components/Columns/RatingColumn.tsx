@@ -23,21 +23,21 @@ const RatingColumn: FC<FilterColumnProps> = ({ values, setValues }) => {
 				className={values?.rating === "9g" ? "active" : ""}
 				onClick={() => handleChange("9g")}
 			>
-				9 stars & up
+				4.5 stars & up
 				{values?.rating === "9g" && <IoClose onClick={handleClose} />}
 			</li>
 			<li
 				className={values?.rating === "8-9b" ? "active" : ""}
 				onClick={() => handleChange("8-9b")}
 			>
-				8 stars & up
+				3 stars & up
 				{values?.rating === "8-9b" && <IoClose onClick={handleClose} />}
 			</li>
 			<li
 				className={values?.rating === "8u" ? "active" : ""}
 				onClick={() => handleChange("8u")}
 			>
-				Under 8 stars
+				Under 3 stars
 				{values?.rating === "8u" && <IoClose onClick={handleClose} />}
 			</li>
 		</ul>

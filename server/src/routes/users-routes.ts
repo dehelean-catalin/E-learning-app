@@ -1,9 +1,7 @@
 import { Router } from "express";
 import {
-	getHistoryLectureList,
 	getLastChapter,
 	getUserByID,
-	getWatchingLectureList,
 	updatetWatchingLectureCurrenTime,
 	updateWatchingLectureLastEntry,
 } from "../controllers/user-controller";
@@ -18,8 +16,6 @@ const router = Router();
 
 router.get("/user", tokenAuth, getUserByID);
 
-router.get("/user/watching-lectures", tokenAuth, getWatchingLectureList);
-
 router.put(
 	"/user/watching-lectures/:id/time",
 	validation(WatchingLectureTimeSchema),
@@ -32,7 +28,6 @@ router.put(
 	updateWatchingLectureLastEntry
 );
 
-router.get("/user/history", tokenAuth, getHistoryLectureList);
 router.get("/lectures/:id/last-chapter", tokenAuth, getLastChapter);
 
 export default router;

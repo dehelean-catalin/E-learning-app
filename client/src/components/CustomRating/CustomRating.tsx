@@ -14,11 +14,11 @@ export const CustomRating: FC<Props> = ({
 	numberOfRates,
 	enrolledUsers,
 }) => {
-	if (!numberOfRates) return <>No reviews</>;
+	if (!numberOfRates) return;
 	const averageRating = rating / numberOfRates;
 	return (
 		<div className={styles.rating}>
-			<div className={styles["rating-score"]}>{averageRating}</div>
+			<div className={styles["rating-score"]}>{averageRating.toFixed(1)}</div>
 			<Rating value={averageRating} cancel={false} readOnly />
 			{numberOfRates && <div> ({convertToRelativeNumber(numberOfRates)})</div>}
 			{typeof enrolledUsers !== "undefined" ? (

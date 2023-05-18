@@ -24,6 +24,3 @@ export const putProfilePicture = async (payload) => {
 export const getProfileBanner = async () => {
 	return await axios.get("http://localhost:4000/profile-banner");
 };
-export const putProfileBanner = async (payload) => {
-	return await axios.put("http://localhost:4000/profile-banner", payload);
-};

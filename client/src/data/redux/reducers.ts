@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import { StateType } from "typesafe-actions";
-import accountReducer, { AccountDataAction } from "./account/AccountReducer";
+import accountReducer, { AccountDataAction } from "./AccountReducer";
 import authReducer from "./auth/authReducer";
 import {
 	ConfirmDialogAction,

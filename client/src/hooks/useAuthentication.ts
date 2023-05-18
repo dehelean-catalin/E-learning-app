@@ -94,6 +94,7 @@ export const useAuthentication = () => {
 				device,
 			});
 			login(axiosResponse, uid);
+			localStorage.setItem("emailVerified", "true");
 		} catch (err) {
 			console.log(err);
 

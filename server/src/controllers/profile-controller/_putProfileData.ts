@@ -4,9 +4,10 @@ import db from "../../config/firebase";
 import { ValidatedRequest } from "../../models/request";
 
 export const putProfileData = async (req: Request, res: Response) => {
+	const validatedReq = req as ValidatedRequest;
+	const docRef = doc(db, "users", validatedReq.userData.userId);
+
 	try {
-		const validatedReq = req as ValidatedRequest;
-		const docRef = doc(db, "users", validatedReq.userData.userId);
 		await updateDoc(docRef, req.body);
 		res.status(200).json("Succesfully saved");
 	} catch (err: any) {

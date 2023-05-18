@@ -48,15 +48,6 @@ const LectureListActionBar: FC<{ id: string }> = ({ id }) => {
 			})
 		);
 	};
-	// <div
-	// 		className={"item"}
-	// 		onClick={(e) => {
-	// 			mutate();
-	// 			op.current.toggle(e);
-	// 		}}
-	// 	>
-	// 		<IoTrashOutline fontSize="18px" /> Remove lecture
-	// 	</div>;
 
 	return (
 		<div className="m-auto" onClick={(e) => op.current.toggle(e)}>

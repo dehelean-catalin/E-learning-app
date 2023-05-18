@@ -13,7 +13,7 @@ import {
 	CreateLecturePayload,
 	Language,
 } from "../../../data/models/createdLecture.model";
-import { AccountDataState } from "../../../data/redux/account/AccountReducer";
+import { AccountDataState } from "../../../data/redux/AccountReducer";
 import { RootState } from "../../../data/redux/reducers";
 import "./Create.scss";
 

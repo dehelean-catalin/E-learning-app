@@ -1,7 +1,7 @@
 import Divider from "components/Divider/Divider";
 import ProfilePicture from "components/ProfilePicture/ProfilePicture";
 import AuthContext from "data/context/auth-context";
-import { AccountDataState } from "data/redux/account/AccountReducer";
+import { AccountDataState } from "data/redux/AccountReducer";
 import { RootState } from "data/redux/reducers";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useContext, useRef, useState } from "react";

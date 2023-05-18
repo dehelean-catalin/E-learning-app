@@ -1,9 +1,5 @@
 import AuthContext from "data/context/auth-context";
-import {
-	getAuth,
-	onAuthStateChanged,
-	sendEmailVerification,
-} from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Create from "pages/Creator/Create/Create";
 import CreatedLectures from "pages/Creator/Dashboard/Dashboard";
 import EditLecture from "pages/Creator/EditLecture/EditLecture";
@@ -19,7 +15,6 @@ import {
 	createRoutesFromElements,
 } from "react-router-dom";
 import "./App.scss";
-import Account from "./pages/AccountPage/AccountPage";
 import AuthLayout from "./pages/Auth/AuthLayout/AuthLayout";
 import ForgotPassword from "./pages/Auth/ForgotPassoword/ForgotPassword";
 import Login from "./pages/Auth/Login/Login";
@@ -34,8 +29,9 @@ import Home from "./pages/Home/Home";
 import LectureDetails from "./pages/LectureDetails/LectureDetails";
 import LectureOverview from "./pages/LectureOverview/LectureOverview";
 import NotFound from "./pages/NotFound/NotFound";
-import SavedLectures from "./pages/SavedLecturesPage/SavedLectures";
-import SecurityPage from "./pages/SecurityPage/SecurityPage";
+import Account from "./pages/Settings/Profile/AccountPage";
+import SavedLectures from "./pages/Settings/SavedLectures/SavedLectures";
+import Security from "./pages/Settings/Security/Security";
 import Settings from "./pages/Settings/Settings";
 import RootLayout from "./routes/ProtectedRoutes/RootLayout";
 import VerifyEmailLayout from "./routes/ProtectedRoutes/VerifyEmailLayout";
@@ -45,14 +41,14 @@ import {
 } from "./routes/baseRoutes";
 
 function App() {
-	const { handleEmailVerified } = useContext(AuthContext);
+	const { handleEmailVerified, handleProviderId } = useContext(AuthContext);
 
 	onAuthStateChanged(getAuth(), (user) => {
 		const storedEmailVerified = localStorage.getItem("emailVerified");
-
 		if (!user) return;
-		if (!!user && !user.emailVerified) sendEmailVerification(user);
-		if (user.emailVerified && !storedEmailVerified) handleEmailVerified();
+		// if (!!user && !user.emailVerified) sendEmailVerification(user);
+		// if (user.emailVerified && !storedEmailVerified) handleEmailVerified();
+		handleProviderId(user.providerData[0].providerId);
 	});
 
 	const router = createBrowserRouter(
@@ -74,7 +70,7 @@ function App() {
 						<Route index element={<Account />} />
 						<Route path="account" element={<Account />} />
 						<Route path="saved-lectures" element={<SavedLectures />} />
-						<Route path="change-password" element={<SecurityPage />} />
+						<Route path="change-password" element={<Security />} />
 					</Route>
 
 					<Route path="lecture/:id" element={<LectureDetails />}></Route>

@@ -1,8 +1,8 @@
 import { SubmitButton } from "components/Forms";
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import InputPasswordField from "../../../components/Forms/Inputs/InputPasswordField/InputPasswordField";
 import InputTextField from "../../../components/Forms/Inputs/InputTextField/InputTextField";
+import InputPasswordField from "../../../components/Forms/Inputs/PRPassword/InputPasswordField";
 import AuthForm from "../../../components/auth/AuthForm/AuthForm";
 import {
 	formatEmailError,
@@ -61,7 +61,7 @@ const Login = () => {
 					overlay="white"
 					value={password}
 					onChange={(e) => {
-						setPassword(e);
+						setPassword(e.target.value);
 						if (error?.message) {
 							setError(null);
 						}

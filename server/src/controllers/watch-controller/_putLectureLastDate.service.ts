@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { doc, updateDoc } from "firebase/firestore";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 import db from "../../config/firebase";
 import { ValidatedRequest } from "../../models/request";
 
@@ -12,12 +12,14 @@ export const putLectureLastDate = async (
 	const { userId } = validatedReq.userData;
 	const { id } = req.params;
 
-	const lectureRef = doc(db, `lectures/${id}/enrolledUsers`, userId);
+	const lectureProgressRef = doc(db, `lectures/${id}/enrolledUsers`, userId);
+	const userRef = doc(db, "users", userId);
 
 	try {
-		await updateDoc(lectureRef, {
+		await updateDoc(lectureProgressRef, {
 			lastDate: new Date().toLocaleString(),
 		});
+		await updateDoc(userRef, { history: arrayUnion(id) });
 
 		res.status(200).json("Date has been updated");
 	} catch (err) {

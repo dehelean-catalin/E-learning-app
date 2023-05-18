@@ -1,5 +1,3 @@
-import { AxiosError } from "axios";
-import { NotificationActions } from "data/redux/notificationReducer";
 import { getLectures } from "data/services";
 import { useFetchData } from "hooks/useFetchData";
 import image from "images/empty.png";
@@ -31,13 +29,7 @@ const Home: FC = () => {
 		navigate(`/home?category=${category}`);
 	};
 
-	const onError = (err: AxiosError<{ message: string }>) => {
-		dispatch(
-			NotificationActions.showBannerNotification({
-				type: "warning",
-				message: err.response.data?.message,
-			})
-		);
+	const onError = () => {
 		navigate(`/home?category=${category}`);
 	};
 

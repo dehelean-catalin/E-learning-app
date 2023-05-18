@@ -37,8 +37,6 @@ const LectureDetails = () => {
 
 	const { content } = data;
 
-	console.log(reviews);
-
 	return (
 		<>
 			<div className="lecture-details">
