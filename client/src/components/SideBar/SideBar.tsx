@@ -42,6 +42,14 @@ const NavigationHeader = () => {
 					History
 				</span>
 			</NavLink>
+			<NavLink
+				to={"library"}
+				className={(navData) => (navData.isActive ? "active" : "")}
+			>
+				<span>
+					<i className="pi pi-book text-3xl mb-2" /> Library
+				</span>
+			</NavLink>
 		</nav>
 	);
 };

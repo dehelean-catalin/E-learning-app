@@ -17,7 +17,7 @@ const GridCardIcon: FC<{ id: string }> = ({ id }) => {
 		dispatch(
 			NotificationActions.showBannerNotification({
 				type: "info",
-				action: "settings/saved-lectures",
+				action: "library",
 				message: "Lecture Saved",
 			})
 		);
@@ -27,7 +27,7 @@ const GridCardIcon: FC<{ id: string }> = ({ id }) => {
 		dispatch(
 			NotificationActions.showBannerNotification({
 				type: "warning",
-				action: "settings/saved-lectures",
+				action: "library",
 				message: err.response.data.message,
 			})
 		);

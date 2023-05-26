@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { Navigate, Outlet } from "react-router";
-import AuthContext from "../../data/context/auth-context";
+import AuthContext from "../data/context/auth-context";
 
 const VerifyEmailLayout = () => {
 	const { emailVerified, token } = useContext(AuthContext);

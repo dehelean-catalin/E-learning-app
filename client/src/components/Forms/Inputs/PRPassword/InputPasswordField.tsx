@@ -1,8 +1,8 @@
-import Divider from "components/Divider/Divider";
 import { Password } from "primereact/password";
 import { classNames } from "primereact/utils";
 import { ChangeEvent, FC } from "react";
 import "./InputPasswordField.scss";
+import PRPasswordFooter from "./PRPasswordFooter";
 
 type Props = {
 	value: string;
@@ -28,17 +28,6 @@ const InputPasswordField: FC<Props> = ({
 	feedback = false,
 }) => {
 	const header = <div className="font-bold mb-3">Pick a password</div>;
-	const footer = (
-		<>
-			<Divider />
-			<p className="mt-2">Suggestions</p>
-			<ul className="pl-2 ml-2 mt-0 line-height-3">
-				<li>At least one lowercase, one uppercase</li>
-				<li>At least one numeric, one symbol</li>
-				<li>Minimum 8 characters</li>
-			</ul>
-		</>
-	);
 
 	return (
 		<div className={classNames(["input-password-field", `${overlay}`])}>
@@ -55,7 +44,7 @@ const InputPasswordField: FC<Props> = ({
 				mediumRegex={mediumRegex}
 				strongRegex={strongRegex}
 				header={header}
-				footer={footer}
+				footer={<PRPasswordFooter value={value} />}
 			/>
 			<div className="error">{errorMessage}</div>
 		</div>

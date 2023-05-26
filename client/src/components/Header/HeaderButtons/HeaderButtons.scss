@@ -4,11 +4,16 @@
 	align-items: center;
 }
 .profile-overlay {
+	width: 300px;
 	display: flex;
 	flex-direction: column;
-	background-color: var(--color-30) !important;
+	background-color: var(--surface-card) !important;
 	color: white !important;
-	width: 300px;
+	padding: 10px;
+	.p-overlaypanel-content {
+		background: var(--surface-card) !important;
+	}
+
 	&::before {
 		border-bottom-color: var(--color-30) !important;
 	}

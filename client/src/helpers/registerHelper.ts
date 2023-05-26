@@ -5,12 +5,16 @@ export const formatEmailError = (
 	email: string,
 	emailTouched: boolean
 ) => {
+	const formattedEmail = email?.trim();
+	const emailExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
 	if (error?.message?.toLocaleLowerCase().includes("email") && !emailTouched) {
 		return error.message;
 	}
-	if (email?.trim().length === 0 && emailTouched) {
-		return "Email is required";
-	}
+	if (!formattedEmail.length && emailTouched) return "Email is required";
+
+	if (!formattedEmail.match(emailExp) && emailTouched)
+		return "Not an email format";
 };
 
 export const formatDisplayNameError = (

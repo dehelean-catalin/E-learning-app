@@ -35,7 +35,7 @@ const RenderGridItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {
 					/>
 				) : (
 					<img
-						className="h-9 shadow-2 border-round"
+						className="h-9 shadow-2 border-round surface-card"
 						src={baseImg}
 						alt="caption"
 					/>

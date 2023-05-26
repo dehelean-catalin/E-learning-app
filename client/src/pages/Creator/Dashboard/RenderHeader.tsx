@@ -5,8 +5,18 @@ import { useState } from "react";
 const RenderHeader = ({ layout, setLayout, setSortOrder, setSortField }) => {
 	const [sortKey, setSortKey] = useState("!lastUpdate");
 	const sortOptions = [
-		{ label: "Newest", value: "!lastUpdate", icon: "pi pi-sort-numeric-down" },
+		{ label: "Latest", value: "!lastUpdate", icon: "pi pi-sort-numeric-down" },
 		{ label: "Oldest", value: "lastUpdate", icon: "pi pi-sort-numeric-up" },
+		{
+			label: "Popular",
+			value: "!enrolledUsers",
+			icon: "pi pi-sort-numeric-down",
+		},
+		{
+			label: "Least popular",
+			value: "enrolledUsers",
+			icon: "pi pi-sort-numeric-up",
+		},
 		{
 			label: "A to Z",
 			value: "publish.title",

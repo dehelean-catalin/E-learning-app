@@ -36,11 +36,15 @@ const SearchFilterSection = () => {
 
 	return (
 		<div className="search-filter-section">
-			<PRButton
-				label="Filter"
-				icon="pi pi-filter"
-				onClick={() => toogleSection(!isOpen)}
-			/>
+			<header>
+				<h3>Results</h3>
+				<PRButton
+					label="Filter"
+					icon="pi pi-filter"
+					className="surface-card"
+					onClick={() => toogleSection(!isOpen)}
+				/>
+			</header>
 
 			{isOpen && (
 				<>
@@ -51,8 +55,13 @@ const SearchFilterSection = () => {
 						<LanguageColumn values={values} setValues={handleChange} />
 					</section>
 					<div className="flex justify-content-end gap-2">
-						<PRButton onClick={handleClear}>Clear</PRButton>
-						<PRButton onClick={handleApply}>Apply</PRButton>
+						<PRButton
+							label="Clear"
+							icon="pi pi-times"
+							className="bg-transparent"
+							onClick={handleClear}
+						/>
+						<PRButton label="Apply" icon="pi pi-check" onClick={handleApply} />
 					</div>
 				</>
 			)}

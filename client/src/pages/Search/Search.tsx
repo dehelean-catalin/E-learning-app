@@ -9,10 +9,10 @@ import { getSearchLectures } from "data/services/search/_getSearchLectures.servi
 import { useAxios } from "hooks/useAxios";
 import { useFetchData } from "hooks/useFetchData";
 import NotFoundError from "pages/NotFound/NotFoundError/NotFoundError";
-import { ProgressSpinner } from "primereact/progressspinner";
 import { useSearchParams } from "react-router-dom";
 import LectureListActionBar from "../../components/Cards/LectureCard/LectureListActionBar";
 import LectureListCard from "../../components/Cards/LectureCard/LectureListCard";
+import Spinner from "../../components/Spinner/Spinner";
 import "./Search.scss";
 import SearchFilterSection from "./components/SearchFilterSection";
 
@@ -30,7 +30,7 @@ const Search = () => {
 		() => getSearchLectures(axios, searchParams as QueryFilterParams)
 	);
 
-	if (isLoading) return <ProgressSpinner />;
+	if (isLoading) return <Spinner />;
 	if (isError) return <NotFoundError />;
 
 	return (

@@ -23,9 +23,10 @@ const RenderListItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {
 					/>
 				) : (
 					<img
-						className="w-16rem shadow-2 border-round"
+						className="w-16rem shadow-2 border-round surface-card"
 						src={baseImg}
 						alt="caption"
+						style={{ objectFit: "contain" }}
 					/>
 				)}
 				<div className="flex justify-content-between flex-1 gap-4">

@@ -6,8 +6,6 @@ import { RootState } from "data/redux/reducers";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useContext, useRef, useState } from "react";
 import { BiVideoPlus } from "react-icons/bi";
-import { BsBookmark, BsPersonCircle } from "react-icons/bs";
-import { IoSettingsOutline } from "react-icons/io5";
 import { VscSignOut } from "react-icons/vsc";
 import { useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
@@ -79,23 +77,23 @@ const HeaderButtons = () => {
 						className={"row"}
 						onClick={(e) => op.current.toggle(e)}
 					>
-						<BsPersonCircle fontSize="20px" /> My Account
-					</NavLink>
-
-					<NavLink
-						to={"/settings/account"}
-						className={"row"}
-						onClick={(e) => op.current.toggle(e)}
-					>
-						<IoSettingsOutline fontSize="22px" /> Settings
+						<i className="pi pi-user text-xl mr-3" /> Profile
 					</NavLink>
 					<NavLink
 						to={"/settings/saved-lectures"}
 						className={"row"}
 						onClick={(e) => op.current.toggle(e)}
 					>
-						<BsBookmark fontSize="20px" /> Saved Lectures
+						<i className="pi pi-lock text-xl mr-3" /> Security
 					</NavLink>
+					<NavLink
+						to={"/settings/account"}
+						className={"row"}
+						onClick={(e) => op.current.toggle(e)}
+					>
+						<i className="pi pi-cog text-xl mr-3" /> Settings
+					</NavLink>
+
 					<Divider />
 					<div className={"row"} onClick={logout}>
 						<VscSignOut fontSize="22px" /> Log out

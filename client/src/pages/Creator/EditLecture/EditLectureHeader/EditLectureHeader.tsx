@@ -1,9 +1,8 @@
 import { CreatedLectureModel } from "data/models/createdLecture.model";
 import { useFormikContext } from "formik";
 import { isEqual } from "lodash";
-import { Button } from "primereact/button";
 import { FC } from "react";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import PRButton from "../../../../components/Forms/Buttons/PRButton/PRButton";
@@ -16,6 +15,7 @@ import { useAxios } from "../../../../hooks/useAxios";
 import "./EditLectureHeader.scss";
 
 type EditLectureHeaderProps = { isLoading: boolean };
+
 const EditLectureHeader: FC<EditLectureHeaderProps> = ({ isLoading }) => {
 	const { submitForm, values, initialValues } =
 		useFormikContext<CreatedLectureModel>();
@@ -23,6 +23,7 @@ const EditLectureHeader: FC<EditLectureHeaderProps> = ({ isLoading }) => {
 	const axios = useAxios();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const queryClient = useQueryClient();
 
 	const isFormDirty = !isEqual(initialValues, values);
 
@@ -72,13 +73,7 @@ const EditLectureHeader: FC<EditLectureHeaderProps> = ({ isLoading }) => {
 		{ onSuccess: handleUpdateSuccess, onError: handleError }
 	);
 
-	const saveBtnDisabled =
-		!!values.requirements.filter((i) => i.value.length >= 80).length ||
-		!!values.goals.filter((i) => i.value.length >= 80).length ||
-		!publish.title.trim().length ||
-		!publish.caption.trim().length ||
-		!publish.promoVideo.trim().length ||
-		!isFormDirty;
+	const saveBtnDisabled = !isFormDirty;
 
 	const publishDisabled =
 		!!publish.title &&
@@ -105,16 +100,17 @@ const EditLectureHeader: FC<EditLectureHeaderProps> = ({ isLoading }) => {
 				<div>
 					<PRButton
 						label="Save changes"
-						className="mr-2 bg-transparent"
+						className="mr-2"
 						icon="pi pi-bookmark"
 						onClick={submitForm}
 						loading={isLoading}
 						disabled={saveBtnDisabled}
 					/>
 
-					<Button
+					<PRButton
 						label="Publish"
 						icon="pi pi-globe"
+						className="w-10rem"
 						loading={publishLoading}
 						onClick={() => mutate()}
 						disabled={!publishDisabled}

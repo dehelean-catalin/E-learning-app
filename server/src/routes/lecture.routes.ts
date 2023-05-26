@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { getLastChapter, transcribe } from "../controllers/lectures-controller";
 import {
 	deleteLectureReview,
 	getLectureCurrentProgress,
@@ -23,9 +24,13 @@ router.get(
 router.post("/lecture/:id/progress", tokenAuth, postLectureProgress);
 router.put("/lecture/:id/progress", tokenAuth, putLectureProgress);
 router.put("/lecture/:id/last-date", tokenAuth, putLectureLastDate);
+router.get("/lectures/:id/last-chapter", tokenAuth, getLastChapter);
 
 router.get("/lecture/:id/review", tokenAuth, getLectureReviews);
 router.post("/lecture/:id/review", validation(reviewSchema), postLectureReview);
+
 router.put("/lecture/:id/review", tokenAuth, deleteLectureReview);
+
+router.post("/transcribe", transcribe);
 
 export default router;

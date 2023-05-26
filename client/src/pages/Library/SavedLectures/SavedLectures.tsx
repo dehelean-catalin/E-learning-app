@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import LectureListCard from "../../../components/Cards/LectureCard/LectureListCard";
 import Empty from "../../../components/Empty/Empty";
-import SavedLecturesSkeleton from "../../../components/SavedLecturesSkeleton/SavedLecturesSkeleton";
+import Spinner from "../../../components/Spinner/Spinner";
 import { getSavedLectures } from "../../../data/services/saved-lectures/savedLectures.service";
 import { useAxios } from "../../../hooks/useAxios";
 import { useFetchData } from "../../../hooks/useFetchData";
@@ -16,7 +16,8 @@ const SavedLectures = () => {
 		getSavedLectures(axios)
 	);
 
-	if (isLoading) return <SavedLecturesSkeleton />;
+	if (isLoading) return <Spinner />;
+
 	if (isError) return <NotFoundError />;
 
 	return (

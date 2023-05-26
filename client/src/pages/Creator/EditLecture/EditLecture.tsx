@@ -1,5 +1,5 @@
 import { Formik } from "formik";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { useDispatch } from "react-redux";
 import { Outlet, useParams } from "react-router";
 import { Form } from "react-router-dom";
@@ -22,16 +22,18 @@ const EditLecture = () => {
 	const { id } = useParams();
 	const axios = useAxios();
 	const dispatch = useDispatch();
+	const queryClient = useQueryClient();
 
-	const { data, isLoading, isError } = useFetchData("items", () =>
+	const { data, isLoading, isError } = useFetchData("getCreatedLecture", () =>
 		getCreatedLecture(axios, id)
 	);
 
 	const handleSuccess = () => {
+		queryClient.invalidateQueries("getCreatedLecture");
 		dispatch(
 			NotificationActions.showBannerNotification({
 				type: "info",
-				message: "Success",
+				message: "Your changes have been successfully saved",
 			})
 		);
 	};
@@ -53,7 +55,8 @@ const EditLecture = () => {
 		}
 	);
 
-	if (isLoading) return <Spinner />;
+	if (!isLoading) return <Spinner />;
+
 	if (isError) return <NotFoundError />;
 
 	return (

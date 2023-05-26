@@ -1,5 +1,9 @@
 import AuthContext from "data/context/auth-context";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import {
+	getAuth,
+	onAuthStateChanged,
+	sendEmailVerification,
+} from "firebase/auth";
 import Create from "pages/Creator/Create/Create";
 import CreatedLectures from "pages/Creator/Dashboard/Dashboard";
 import EditLecture from "pages/Creator/EditLecture/EditLecture";
@@ -28,13 +32,13 @@ import History from "./pages/HistoryPage/History";
 import Home from "./pages/Home/Home";
 import LectureDetails from "./pages/LectureDetails/LectureDetails";
 import LectureOverview from "./pages/LectureOverview/LectureOverview";
+import SavedLectures from "./pages/Library/SavedLectures/SavedLectures";
 import NotFound from "./pages/NotFound/NotFound";
 import Account from "./pages/Settings/Profile/AccountPage";
-import SavedLectures from "./pages/Settings/SavedLectures/SavedLectures";
 import Security from "./pages/Settings/Security/Security";
 import Settings from "./pages/Settings/Settings";
-import RootLayout from "./routes/ProtectedRoutes/RootLayout";
-import VerifyEmailLayout from "./routes/ProtectedRoutes/VerifyEmailLayout";
+import RootLayout from "./routes/RootLayout";
+import VerifyEmailLayout from "./routes/VerifyEmailLayout";
 import {
 	CreatedLecturesRoute,
 	LECTURE_OVERVIEW_ROUTE,
@@ -46,8 +50,8 @@ function App() {
 	onAuthStateChanged(getAuth(), (user) => {
 		const storedEmailVerified = localStorage.getItem("emailVerified");
 		if (!user) return;
-		// if (!!user && !user.emailVerified) sendEmailVerification(user);
-		// if (user.emailVerified && !storedEmailVerified) handleEmailVerified();
+		if (!!user && !user.emailVerified) sendEmailVerification(user);
+		if (user.emailVerified && !storedEmailVerified) handleEmailVerified();
 		handleProviderId(user.providerData[0].providerId);
 	});
 
@@ -69,13 +73,12 @@ function App() {
 					<Route path="settings/" element={<Settings />}>
 						<Route index element={<Account />} />
 						<Route path="account" element={<Account />} />
-						<Route path="saved-lectures" element={<SavedLectures />} />
 						<Route path="change-password" element={<Security />} />
 					</Route>
 
 					<Route path="lecture/:id" element={<LectureDetails />}></Route>
 					<Route path={LECTURE_OVERVIEW_ROUTE} element={<LectureOverview />} />
-
+					<Route path="library" element={<SavedLectures />} />
 					<Route path="history" element={<History />} />
 					<Route path="search" element={<Search />} />
 					<Route path="create" element={<Create />} />

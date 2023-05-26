@@ -4,7 +4,7 @@ import LectureReviewCard from "../LectureReviewCard/LectureReviewCard";
 import "./LectureReviews.scss";
 
 const LectureReviews: FC<{ value: Review[] }> = ({ value }) => {
-	if (!value) return;
+	if (!value.length) return;
 
 	return (
 		<>

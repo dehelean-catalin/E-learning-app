@@ -6,9 +6,8 @@ import { Category } from "../../../data/models/createdLecture.model";
 const AuthLayout = () => {
 	const { token } = useContext(AuthContext);
 
-	if (token) {
+	if (token)
 		return <Navigate to={`/home?category=${Category.ALL}`} replace={true} />;
-	}
 
 	return (
 		<div className="Auth">

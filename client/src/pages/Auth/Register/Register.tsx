@@ -29,14 +29,14 @@ const Register = () => {
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault();
-		if (disabled) {
-			return;
-		}
+		if (disabled) return;
+
 		const data = {
 			email,
 			password,
 			displayName,
 		};
+
 		handleRegister(data);
 		setDisplayNameTouched(false);
 		setPasswordTouched(false);

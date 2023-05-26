@@ -1,7 +1,4 @@
 import { useContext } from "react";
-import { BsBookmark } from "react-icons/bs";
-import { HiOutlineKey } from "react-icons/hi";
-import { MdOutlineAccountCircle } from "react-icons/md";
 import { VscSignOut } from "react-icons/vsc";
 import { NavLink } from "react-router-dom";
 import AuthContext from "../../data/context/auth-context";
@@ -9,28 +6,29 @@ import styles from "./SettingsNavigationTabs.module.scss";
 
 const SettingsNavigationTabs = () => {
 	const { logout } = useContext(AuthContext);
+
 	return (
 		<div className={styles["settings-navigation-tabs"]}>
-			<header>Settings</header>
 			<div>
 				<NavLink
 					to={"account"}
 					className={(navData) => (navData.isActive ? styles.active : "")}
 				>
-					<MdOutlineAccountCircle fontSize="24px" /> Account
+					<i className="pi pi-user mx-2 text-xl" /> Account
 				</NavLink>
 				<NavLink
 					to={"change-password"}
 					className={(navData) => (navData.isActive ? styles.active : "")}
 				>
-					<HiOutlineKey fontSize="22px" /> Change password
+					<i className="pi pi-lock mx-2 text-xl" /> Security
 				</NavLink>
 				<NavLink
-					to={"saved-lectures"}
+					to={"settings"}
 					className={(navData) => (navData.isActive ? styles.active : "")}
 				>
-					<BsBookmark fontSize="20px" /> Saved Lectures
+					<i className="pi pi-cog mx-2 text-xl" /> Settings
 				</NavLink>
+
 				<NavLink to={"/join"} onClick={() => logout()}>
 					<VscSignOut fontSize="24px" /> Log out
 				</NavLink>

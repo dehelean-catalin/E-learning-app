@@ -3,13 +3,12 @@ import { FC } from "react";
 import styles from "./Spinner.module.scss";
 type Props = {
 	className?: string;
-	strokeWidth?: string;
 };
-const Spinner: FC<Props> = ({ strokeWidth = "3px", className }) => {
+const Spinner: FC<Props> = ({ className }) => {
 	return (
 		<ProgressSpinner
-			className={`${styles.spinner} ${className ? className : ""}`}
-			strokeWidth={strokeWidth}
+			className={`${styles.spinner} ${className ? className : ""} flex h-full`}
+			strokeWidth="4px"
 		/>
 	);
 };

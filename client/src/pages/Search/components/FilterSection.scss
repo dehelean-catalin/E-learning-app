@@ -2,6 +2,10 @@
 	button {
 		background: #282828;
 	}
+	header {
+		display: flex;
+		justify-content: space-between;
+	}
 	section {
 		margin-top: 0.25rem;
 	}
