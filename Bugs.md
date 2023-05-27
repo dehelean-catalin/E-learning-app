@@ -4,18 +4,10 @@ Articole licenta:
 
 # In Development:
 
-- LO additional info;
-- LO delete, edit review, get all reviews;
-- LD reviews section;
-- history, search, remove old models
-- LO comment section;
-
-# Prior 0:
-
-- loading design fix;
-- remove backdrop;
+- remove old models;
+- delete user;
+- user sesion backend;
 - register details form;
-- account photo upload failed (- Moving to react-query;);
 - Enhance update lecture history time;
 - History: 12PM order wrong;
 - updating check mark;
@@ -24,6 +16,8 @@ Articole licenta:
 
 # Nice to have:
 
+- LO additional info;
+- LO comment section;
 - link email with provider;
 - multifactor authentication;
 - Add Notes for a lecture chapter;

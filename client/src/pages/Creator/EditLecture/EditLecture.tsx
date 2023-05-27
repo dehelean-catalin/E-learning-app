@@ -55,8 +55,7 @@ const EditLecture = () => {
 		}
 	);
 
-	if (!isLoading) return <Spinner />;
-
+	if (isLoading) return <Spinner />;
 	if (isError) return <NotFoundError />;
 
 	return (

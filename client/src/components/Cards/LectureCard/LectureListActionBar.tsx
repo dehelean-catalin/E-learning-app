@@ -4,7 +4,7 @@ import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
 import { NotificationActions } from "../../../data/redux/notificationReducer";
 import { useAxios } from "../../../hooks/useAxios";
-import PRButton from "../../Forms/Buttons/PRButton/PRButton";
+import PRButton from "../../PRButton/PRButton";
 
 const LectureListActionBar: FC<{ id: string }> = ({ id }) => {
 	const dispatch = useDispatch();

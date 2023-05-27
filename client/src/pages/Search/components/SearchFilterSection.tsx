@@ -2,7 +2,7 @@ import { QueryFilterParams } from "data/models/search/searchFilterModel";
 import qs from "query-string";
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router";
-import PRButton from "../../../components/Forms/Buttons/PRButton/PRButton";
+import PRButton from "../../../components/PRButton/PRButton";
 import DateColumn from "./Columns/DateColumn";
 import DurationColumn from "./Columns/DurationColumn";
 import LanguageColumn from "./Columns/LanguageColumn";

@@ -31,20 +31,23 @@ const UploadLectureItem: FC<Props> = ({ arrayHelpers, children, index }) => {
 
 	const { mutate, isLoading } = useMutation(
 		({ label, description, content, duration, type }: LectureItemFormState) => {
-			return axios.post(`/content/${index}`, content).then((res) =>
-				arrayHelpers.push({
-					label: firstLetterToUpperCase(label),
-					data: {
-						id: generateRandomId(5),
-						description,
-						content: res.data,
-						duration,
-						status: "Success",
-						date: new Date().toUTCString(),
-						type,
-					},
-				})
-			);
+			return axios
+				.post<{ content: string; track: string }>(`/content/${index}`, content)
+				.then((res) =>
+					arrayHelpers.push({
+						label: firstLetterToUpperCase(label),
+						data: {
+							id: generateRandomId(5),
+							description,
+							content: res.data.content,
+							track: res.data.track,
+							duration,
+							status: "Success",
+							date: new Date().toUTCString(),
+							type,
+						},
+					})
+				);
 		}
 	);
 

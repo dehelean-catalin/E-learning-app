@@ -1,4 +1,3 @@
-import { SubmitButton } from "components/Forms";
 import InputPasswordField from "components/Forms/Inputs/PRPassword/InputPasswordField";
 import {
 	formatDisplayNameError,
@@ -8,6 +7,7 @@ import {
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import InputTextField from "../../../components/Forms/Inputs/InputTextField/InputTextField";
+import PRButton from "../../../components/PRButton/PRButton";
 import AuthForm from "../../../components/auth/AuthForm/AuthForm";
 import { passwordReggex } from "../../../helpers/inputPasswordHelper";
 import { useAuthentication } from "../../../hooks/useAuthentication";
@@ -49,11 +49,7 @@ const Register = () => {
 				title="Create account"
 				onSubmit={handleSubmit}
 				button={
-					<SubmitButton
-						label={"Sign Up"}
-						disabled={disabled}
-						loading={isLoading}
-					/>
+					<PRButton label="Sign Up" disabled={disabled} loading={isLoading} />
 				}
 			>
 				<InputTextField

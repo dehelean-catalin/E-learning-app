@@ -5,7 +5,7 @@ import { FC } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
-import PRButton from "../../../../components/Forms/Buttons/PRButton/PRButton";
+import PRButton from "../../../../components/PRButton/PRButton";
 import { NotificationActions } from "../../../../data/redux/notificationReducer";
 import {
 	convertSecondsToTime,

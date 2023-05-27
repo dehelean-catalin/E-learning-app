@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import { NavLink, useLocation, useMatch } from "react-router-dom";
 import { Review } from "../../../data/models/createdLecture.model";
 import { LECTURE_OVERVIEW_ROUTE } from "../../../routes/baseRoutes";
-import PRButton from "../../Forms/Buttons/PRButton/PRButton";
+import PRButton from "../../PRButton/PRButton";
 import "./HeaderButtons.scss";
 import LeaveRatingDialog from "./LeaveRatingDialog";
 

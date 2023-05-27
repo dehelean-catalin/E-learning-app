@@ -1,5 +1,6 @@
 import { Image } from "primereact/image";
 import { ChangeEvent, FC, ReactNode } from "react";
+import ReactPlayer from "react-player";
 import Spinner from "../../../../components/Spinner/Spinner";
 import "./ImageField.scss";
 
@@ -27,11 +28,7 @@ const ImageField: FC<ImageFieldProps> = ({
 					{src ? (
 						isVideo ? (
 							<div className="image-container">
-								<video controls className="max-w-full" muted={false}>
-									<source src={src} type="video/mp4" />
-									<source src={src} type="video/webm" />
-									Your browser does not support the video tag.
-								</video>
+								<ReactPlayer url={src} controls muted={false}></ReactPlayer>
 							</div>
 						) : (
 							<Image

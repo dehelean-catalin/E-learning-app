@@ -1,7 +1,7 @@
 import { FormEvent, useContext, useState } from "react";
 import { useMutation } from "react-query";
-import PRButton from "../../../../components/Forms/Buttons/PRButton/PRButton";
 import InputTextField from "../../../../components/Forms/Inputs/InputTextField/InputTextField";
+import PRButton from "../../../../components/PRButton/PRButton";
 import AuthContext from "../../../../data/context/auth-context";
 import { postNewPassword } from "../../../../data/services/security.service";
 import { useAxios } from "../../../../hooks/useAxios";

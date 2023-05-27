@@ -8,7 +8,7 @@ import { AccountDataState } from "../../../data/redux/AccountReducer";
 import { RootState } from "../../../data/redux/reducers";
 import { postLectureReview } from "../../../data/services/lecture.service";
 import { useAxios } from "../../../hooks/useAxios";
-import PRButton from "../../Forms/Buttons/PRButton/PRButton";
+import PRButton from "../../PRButton/PRButton";
 import PRDialog from "../../PRDialog/PRDialog";
 import "./LeaveRatingDialog.scss";
 

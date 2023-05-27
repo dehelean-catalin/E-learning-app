@@ -21,6 +21,7 @@ export type Publish = {
 	status: Status;
 	level?: Level;
 	caption?: string;
+	s;
 	promoVideo?: string;
 };
 export type Content = {
@@ -35,6 +36,7 @@ export type ContentData = {
 	date: string;
 	duration: number;
 	content: string;
+	track: string;
 	type: string;
 	status: VideoStatus;
 };

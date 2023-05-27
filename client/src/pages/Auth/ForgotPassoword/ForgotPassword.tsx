@@ -1,9 +1,9 @@
-import { SubmitButton } from "components/Forms";
 import InfoBoxEmail from "components/InfoBoxEmail/InfoBoxEmail";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import InputTextField from "../../../components/Forms/Inputs/InputTextField/InputTextField";
+import PRButton from "../../../components/PRButton/PRButton";
 import { AuthActions, AuthState } from "../../../data/redux/auth/authReducer";
 import { RootState } from "../../../data/redux/reducers";
 import styles from "./ForgotPassword.module.scss";
@@ -46,7 +46,7 @@ const ForgotPassword = () => {
 					placeholder="Enter email"
 					overlay="white"
 				/>
-				<SubmitButton label="Continue" disabled={!state.value?.length} />
+				<PRButton label="Continue" disabled={!state.value?.length} />
 				<div className={styles.link}>
 					<span>Are you new here? Join us</span>
 					<NavLink to={"/register"} className={styles.link}>

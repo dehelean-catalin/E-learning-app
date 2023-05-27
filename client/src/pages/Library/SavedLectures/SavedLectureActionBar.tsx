@@ -2,7 +2,7 @@ import { OverlayPanel } from "primereact/overlaypanel";
 import { FC, useRef } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useDispatch } from "react-redux";
-import PRButton from "../../../components/Forms/Buttons/PRButton/PRButton";
+import PRButton from "../../../components/PRButton/PRButton";
 import { NotificationActions } from "../../../data/redux/notificationReducer";
 import { useAxios } from "../../../hooks/useAxios";
 

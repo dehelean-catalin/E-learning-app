@@ -3,7 +3,7 @@ import { FaPlay } from "react-icons/fa";
 import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import PRButton from "../../../../components/Forms/Buttons/PRButton/PRButton";
+import PRButton from "../../../../components/PRButton/PRButton";
 import { Content } from "../../../../data/models/createdLecture.model";
 import { NotificationActions } from "../../../../data/redux/notificationReducer";
 import {

@@ -5,7 +5,7 @@ import {
 import { useFormikContext } from "formik";
 import { formattedDate } from "helpers";
 import { classNames } from "primereact/utils";
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { ConfirmDialogActions } from "../../../../../../data/redux/confirmDialog.reducer";
 import useDragAndDropContent from "../../hooks/useUploadContent";
@@ -20,7 +20,7 @@ const ChildrenItem: FC<{
 	const { setFieldValue } = useFormikContext<CreatedLectureModel>();
 	const dispatch = useDispatch();
 	const {
-		data: { content, status, date, duration, type },
+		data: { content, status, track, date, duration, type },
 		label,
 	} = value;
 	const {
@@ -53,6 +53,25 @@ const ChildrenItem: FC<{
 			Math.round(video?.duration) ?? 0
 		);
 	};
+	const [trackUrl, setTrackUrl] = useState("");
+
+	useEffect(() => {
+		fetch(track)
+			.then((response) => {
+				if (response.ok) {
+					return response.blob();
+				} else {
+					throw new Error("Error retrieving VTT file: " + response.status);
+				}
+			})
+			.then((data) => {
+				const url = URL.createObjectURL(data);
+				setTrackUrl(url);
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+	}, []);
 
 	return (
 		<div
@@ -73,6 +92,13 @@ const ChildrenItem: FC<{
 			>
 				<source src={content} type="video/mp4" />
 				<source src={content} type="video/webm" />
+				<track
+					kind="captions"
+					src={trackUrl}
+					label="English"
+					srcLang="en"
+					default
+				/>
 				Your browser does not support the video tag.
 			</video>
 			<table className="flex-1">

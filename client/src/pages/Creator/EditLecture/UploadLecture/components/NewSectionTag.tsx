@@ -2,7 +2,7 @@ import { FieldArrayRenderProps } from "formik";
 import { Divider } from "primereact/divider";
 import { FC, useState } from "react";
 import { firstLetterToUpperCase } from "../helpers/firstLetterUpperCase";
-import AddSectionForm from "./NewSectionForm/NewSectionForm";
+import NewSectionForm from "./NewSectionForm/NewSectionForm";
 
 type NewSectionTagProps = {
 	arrayHelpers: FieldArrayRenderProps;
@@ -38,7 +38,7 @@ const NewSectionTag: FC<NewSectionTagProps> = ({
 
 	if (visible || isContentEmpty)
 		return (
-			<AddSectionForm
+			<NewSectionForm
 				toggleVisibility={toggleVisibility}
 				onSubmit={(t, d) => handleSubmit(t, d, arrayHelpers)}
 			/>

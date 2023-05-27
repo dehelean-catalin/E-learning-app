@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Backdrop from "../../Backdrop/Backdrop";
 import style from "../NewForm.module.scss";
 import EducationForm from "./EducationForm";
 import ProfileForm from "./ProfileForm";
@@ -44,7 +43,6 @@ const RegisterDetailsForm = () => {
 
 				{getCurrentPage()}
 			</div>
-			<Backdrop />
 		</>
 	);
 };

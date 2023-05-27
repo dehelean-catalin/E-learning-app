@@ -22,9 +22,7 @@ const LectureOverviewVideo: FC<LectureOverviewVideoProps> = ({
 
 	const [playerReady, setPlayerReady] = useState(false);
 
-	const handleReady = () => {
-		setPlayerReady(true);
-	};
+	const handleReady = () => setPlayerReady(true);
 
 	const contentData = getChapterVideoWithProgress(value, chapterId);
 
@@ -33,6 +31,34 @@ const LectureOverviewVideo: FC<LectureOverviewVideoProps> = ({
 			if (playerReady) playerRef.current.seekTo(res.data.current);
 		});
 	}, [chapterId, playerReady]);
+
+	useEffect(() => {
+		const fetchVTTFile = async () => {
+			try {
+				const response = await fetch(contentData.track);
+				if (!response.ok) {
+					throw new Error("Error retrieving VTT file: " + response.status);
+				}
+
+				const data = await response.blob();
+				const url = URL.createObjectURL(data);
+
+				const trackElement = document.createElement("track");
+				trackElement.src = url;
+				trackElement.kind = "captions";
+				trackElement.srclang = "en";
+				trackElement.label = "English";
+				trackElement.default = true;
+
+				const videoElement = document.querySelector("video");
+				videoElement.appendChild(trackElement);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+
+		fetchVTTFile();
+	}, [chapterId, contentData.track]);
 
 	return (
 		<div className="lecture-video">

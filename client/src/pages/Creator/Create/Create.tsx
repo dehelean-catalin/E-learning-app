@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 import { useMutation } from "react-query";
-import PRButton from "../../../components/Forms/Buttons/PRButton/PRButton";
+import PRButton from "../../../components/PRButton/PRButton";
 import {
 	Category,
 	CreateLecturePayload,
@@ -92,8 +92,8 @@ const Create = () => {
 
 				<PRButton
 					type="submit"
-					className="submit-btn"
-					// icon="pi pi-check"
+					icon="pi pi-check"
+					className="w-full"
 					label="Create"
 					disabled={disabled}
 					loading={isLoading}

@@ -1,8 +1,8 @@
-import { SubmitButton } from "components/Forms";
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import InputTextField from "../../../components/Forms/Inputs/InputTextField/InputTextField";
 import InputPasswordField from "../../../components/Forms/Inputs/PRPassword/InputPasswordField";
+import PRButton from "../../../components/PRButton/PRButton";
 import AuthForm from "../../../components/auth/AuthForm/AuthForm";
 import {
 	formatEmailError,
@@ -40,11 +40,7 @@ const Login = () => {
 				title="Sign in"
 				onSubmit={submitHandler}
 				button={
-					<SubmitButton
-						label="Sign In"
-						disabled={!!disabled}
-						loading={isLoading}
-					/>
+					<PRButton label="Sign In" disabled={!!disabled} loading={isLoading} />
 				}
 			>
 				<InputTextField
