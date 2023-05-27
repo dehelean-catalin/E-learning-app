@@ -4,7 +4,6 @@ import { FirebaseError } from "firebase/app";
 import { sendPasswordResetEmail, updatePassword } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import db, { auth } from "../config/firebase";
-import { LoginWithCutsomProvider } from "../interfaces/auth-interface";
 import { ValidatedRequest } from "../models/request";
 import { ConnectionItem, UserModel } from "../models/user-model";
 import { tryAgainError } from "./../constant";
@@ -55,7 +54,7 @@ export const login = async (req: Request, res: Response) => {
 	}
 };
 
-export const register: LoginWithCutsomProvider = async (req, res) => {
+export const register = async (req, res) => {
 	try {
 		const { email, uid, displayName, device } = req.body;
 
@@ -134,7 +133,7 @@ export const getConnectionsList = async (req: Request, res: Response) => {
 	}
 };
 
-export const loginWithProvider: LoginWithCutsomProvider = async (req, res) => {
+export const loginWithProvider = async (req, res) => {
 	try {
 		const { email, device, uid, displayName, photoURL } = req.body;
 

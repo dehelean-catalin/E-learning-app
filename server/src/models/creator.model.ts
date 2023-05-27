@@ -32,6 +32,7 @@ export type Content = {
 		date: string;
 		duration: number;
 		content: string;
+		track: string;
 		type: string;
 		status: VideoStatus;
 	};

@@ -52,6 +52,7 @@ export let ContentSchema = Joi.array<Content[]>().items({
 					"string.empty": "Content cannot be empty",
 					"string.base": "Content must be a string",
 				}),
+				track: Joi.string(),
 				type: Joi.string().required().messages({
 					"any.required": "Type is required",
 					"string.empty": "Type cannot be empty",

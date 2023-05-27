@@ -1,4 +1,3 @@
-import { Deepgram } from "@deepgram/sdk";
 import { NextFunction, Request, RequestHandler, Response } from "express";
 import { doc, getDoc } from "firebase/firestore";
 import db from "../config/firebase";
@@ -76,25 +75,6 @@ export const getLastChapter = async (
 
 		res.status(200).json(lectureSnap.get("lastChapter"));
 	} catch (err: any) {
-		next(err);
-	}
-};
-
-const deepgram = new Deepgram("2a13dd5e7f255c33ce8556d7544f7ce7226b8d51");
-
-export const transcribe = async (req, res, next) => {
-	const audioSource = { buffer: req.file.buffer, mimetype: "video" };
-	try {
-		const response: any = await deepgram.transcription.preRecorded(
-			audioSource,
-			{
-				punctuate: true,
-				utterances: true,
-			}
-		);
-		res.json(response.toWebVTT());
-	} catch (err) {
-		console.log(err);
 		next(err);
 	}
 };

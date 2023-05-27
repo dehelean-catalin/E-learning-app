@@ -7,10 +7,10 @@ import creatorRoutes from "./routes/creator.routes";
 import historyRoutes from "./routes/history.routes";
 import homeRoutes from "./routes/home.routes";
 import lectureRoutes from "./routes/lecture.routes";
-import profileRoutes from "./routes/profile-routes";
+import profileRoutes from "./routes/profile.routes";
 import savedLectureRoutes from "./routes/savedLecture.routes";
 import searchRotes from "./routes/search.routes";
-import userRoutes from "./routes/users-routes";
+import userRoutes from "./routes/user.routes";
 const app = express();
 
 app.use(cors());

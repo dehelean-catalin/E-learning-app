@@ -45,8 +45,6 @@ export const getHistoryLectureList = async (req: Request, res: Response) => {
 			);
 			const querySnapshot = await getDocs(q);
 
-			const queryPSnapshot = await getDocs(q);
-
 			const historyLectures = querySnapshot.docs.map((doc) =>
 				doc.data()
 			) as CreatedLectureModel[];

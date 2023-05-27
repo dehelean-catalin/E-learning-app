@@ -16,6 +16,7 @@ const router = Router();
 
 router.get("/profile-data", tokenAuthMiddleware, getProfileData);
 router.put("/profile-data", validation(ProfileSchema), putProfileData);
+
 router.get("/profile-picture", tokenAuth, getProfilePicture);
 router.put("/profile-picture", tokenAuth, putProfilePicture);
 
