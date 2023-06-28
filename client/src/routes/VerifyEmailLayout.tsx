@@ -5,12 +5,8 @@ import AuthContext from "../data/context/auth-context";
 const VerifyEmailLayout = () => {
 	const { emailVerified, token } = useContext(AuthContext);
 
-	if (emailVerified) {
-		return <Navigate to="/home?category=All" replace={true} />;
-	}
-	if (!token) {
-		return <Navigate to="/login" replace={true} />;
-	}
+	if (!token) return <Navigate to="/login" replace={true} />;
+	if (emailVerified) return <Navigate to="/home?category=All" replace={true} />;
 
 	return (
 		<div className="Auth">

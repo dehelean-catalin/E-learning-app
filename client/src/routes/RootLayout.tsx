@@ -7,7 +7,6 @@ import { ScrollTop } from "primereact/scrolltop";
 import { useContext, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Navigate, Outlet } from "react-router";
-import NewForm from "../components/Forms/NewForm";
 import Header from "../components/Header/Header";
 import Notification from "../components/Notification/Notification";
 import SideBar from "../components/SideBar/SideBar";
@@ -17,7 +16,7 @@ const RootLayout = () => {
 	const { token, emailVerified } = useContext(AuthContext);
 	const dispatch = useDispatch();
 	const axios = useAxios();
-
+	console.log(emailVerified);
 	const onSuccess = (e) => dispatch(AccountDataActions.setAccountData(e));
 
 	const { isLoading, isError } = useFetchData(
@@ -53,7 +52,6 @@ const RootLayout = () => {
 				</div>
 			</main>
 			<Notification />
-			<NewForm />
 		</div>
 	);
 };

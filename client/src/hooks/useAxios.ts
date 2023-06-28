@@ -1,11 +1,10 @@
 import axios from "axios";
-import { decodeJwt } from "jose";
 import { useContext } from "react";
 import AuthContext from "../data/context/auth-context";
 
 export const useAxios = () => {
-	const token = localStorage.getItem("token");
-	const { logout } = useContext(AuthContext);
+	const { logout, token } = useContext(AuthContext);
+	const expTime = localStorage.getItem("exp_time");
 
 	const axiosInstance = axios.create({
 		baseURL: "http://localhost:4000",
@@ -20,9 +19,9 @@ export const useAxios = () => {
 			req.headers.authorization = `Bearer ${token}`;
 		}
 		if (token) {
-			const { exp } = decodeJwt(token);
+			const expDate = new Date(expTime);
 
-			if (exp * 1000 < Date.now()) {
+			if (expDate.getTime() * 1000 < Date.now()) {
 				logout();
 			}
 		}

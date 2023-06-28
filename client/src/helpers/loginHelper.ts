@@ -9,12 +9,10 @@ export const formatPasswordError = (
 	password: string,
 	passwordTouched: boolean
 ) => {
-	if (error?.message && !passwordTouched) {
-		return error.message;
-	}
-	if (password.trim().length === 0 && passwordTouched) {
+	if (error?.message && !passwordTouched) return error.message;
+
+	if (password.trim().length === 0 && passwordTouched)
 		return "Password is required";
-	}
 
 	return "";
 };

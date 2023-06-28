@@ -19,14 +19,18 @@ export const registerSchema = Joi.object<ProviderAuthModel, true>({
 		"any.required": "Device is required",
 		"string.empty": "Device cannot be empty",
 	}),
+	city: Joi.string().required().messages({
+		"any.required": "City is required",
+		"string.empty": "City cannot be empty",
+	}),
 	photoURL: Joi.string(),
 	emailVerified: Joi.string(),
 });
 
 export const loginSchema = Joi.object<LoginModel, true>({
-	email: Joi.string().required().messages({
-		"any.required": "Email is required",
-		"string.empty": "Email cannot be empty",
+	city: Joi.string().required().messages({
+		"any.required": "City is required",
+		"string.empty": "City cannot be empty",
 	}),
 	uid: Joi.string().required().messages({
 		"any.required": "Uid is required",

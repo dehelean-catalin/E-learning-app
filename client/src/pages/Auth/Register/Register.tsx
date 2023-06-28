@@ -1,4 +1,4 @@
-import InputPasswordField from "components/Forms/Inputs/PRPassword/InputPasswordField";
+import InputPasswordField from "components/Inputs/PRPassword/InputPasswordField";
 import {
 	formatDisplayNameError,
 	formatEmailError,
@@ -6,7 +6,7 @@ import {
 } from "helpers/registerHelper";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import InputTextField from "../../../components/Forms/Inputs/InputTextField/InputTextField";
+import InputTextField from "../../../components/Inputs/InputTextField/InputTextField";
 import PRButton from "../../../components/PRButton/PRButton";
 import AuthForm from "../../../components/auth/AuthForm/AuthForm";
 import { passwordReggex } from "../../../helpers/inputPasswordHelper";
@@ -44,12 +44,18 @@ const Register = () => {
 	};
 
 	return (
-		<div>
+		<div className="m-auto">
 			<AuthForm
 				title="Create account"
 				onSubmit={handleSubmit}
 				button={
-					<PRButton label="Sign Up" disabled={disabled} loading={isLoading} />
+					<PRButton
+						label="Sign Up"
+						type="submit"
+						style={{ height: "35px" }}
+						disabled={disabled}
+						loading={isLoading}
+					/>
 				}
 			>
 				<InputTextField

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import InputTextField from "../../../components/Forms/Inputs/InputTextField/InputTextField";
-import InputPasswordField from "../../../components/Forms/Inputs/PRPassword/InputPasswordField";
+import InputTextField from "../../../components/Inputs/InputTextField/InputTextField";
+import InputPasswordField from "../../../components/Inputs/PRPassword/InputPasswordField";
 import PRButton from "../../../components/PRButton/PRButton";
 import AuthForm from "../../../components/auth/AuthForm/AuthForm";
 import {
@@ -22,25 +22,30 @@ const Login = () => {
 
 	const hasValue = !!email && !!password;
 	const disabled =
-		!hasValue || formatPasswordError(error, password, passwordTouched);
+		!hasValue || !!formatPasswordError(error, password, passwordTouched);
 
 	const submitHandler = (e: React.FormEvent) => {
 		e.preventDefault();
-		if (disabled) {
-			return;
-		}
+		if (disabled) return;
+
 		setPasswordTouched(false);
 		setEmailTouched(false);
 		handleLogin(email, password);
 	};
 
 	return (
-		<div>
+		<div className="m-auto">
 			<AuthForm
 				title="Sign in"
 				onSubmit={submitHandler}
 				button={
-					<PRButton label="Sign In" disabled={!!disabled} loading={isLoading} />
+					<PRButton
+						label="Sign In"
+						type="submit"
+						style={{ height: "35px" }}
+						disabled={disabled}
+						loading={isLoading}
+					/>
 				}
 			>
 				<InputTextField

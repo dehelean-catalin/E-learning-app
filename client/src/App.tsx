@@ -48,10 +48,18 @@ function App() {
 	const { handleEmailVerified, handleProviderId } = useContext(AuthContext);
 
 	onAuthStateChanged(getAuth(), (user) => {
-		const storedEmailVerified = localStorage.getItem("emailVerified");
 		if (!user) return;
-		if (!!user && !user.emailVerified) sendEmailVerification(user);
-		if (user.emailVerified && !storedEmailVerified) handleEmailVerified();
+
+		const { emailVerified } = user;
+		const { creationTime } = user.metadata;
+
+		localStorage.setItem("exp_time", creationTime);
+
+		if (!emailVerified) sendEmailVerification(user);
+
+		if (emailVerified || user.providerData[0].providerId !== "password")
+			handleEmailVerified();
+
 		handleProviderId(user.providerData[0].providerId);
 	});
 

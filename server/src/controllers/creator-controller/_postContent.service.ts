@@ -35,9 +35,10 @@ export const postContent = async (req: Request, res: Response) => {
 				language: "en",
 			}
 		);
-		const vttContent = response.toWebVTT();
 
+		const vttContent = response.toWebVTT();
 		const vttUint8Array = new TextEncoder().encode(vttContent);
+
 		await uploadBytes(trackRef, vttUint8Array, {
 			contentType: "text/vtt",
 		});

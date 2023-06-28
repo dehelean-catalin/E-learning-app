@@ -1,4 +1,9 @@
-import { postLogin, postLoginProvider, postRegister } from "data/services";
+import axios from "axios";
+import {
+	postConnectionDetails,
+	postLoginProvider,
+	postRegister,
+} from "data/services";
 import {
 	GithubAuthProvider,
 	GoogleAuthProvider,
@@ -12,7 +17,6 @@ import { useDispatch } from "react-redux";
 import { auth } from "../config/firebase.config";
 import AuthContext from "../data/context/auth-context";
 import { RegisterModel } from "../data/models/_auth.model";
-import { FormActions } from "../data/redux/formReducer";
 import { findTypeOfDevice } from "../helpers/_findTypeOfDevice.helper";
 import authenticationErrorService from "./services/authenticationErrorService";
 
@@ -31,12 +35,13 @@ export const useAuthentication = () => {
 		try {
 			const response = await signInWithEmailAndPassword(auth, email, password);
 			const { uid } = response.user;
-			const token = await postLogin({
-				email,
-				uid,
-				device,
-			});
-			login(token, uid);
+
+			const tokenID = await response.user.getIdToken();
+			const location = await axios.get("https://ipapi.co/json/");
+
+			await postConnectionDetails(uid, device, location.data.city);
+
+			login(tokenID, uid);
 		} catch (err) {
 			console.log(err);
 			const { getLoginError } = authenticationErrorService();
@@ -57,16 +62,19 @@ export const useAuthentication = () => {
 				email,
 				password
 			);
-			const { uid } = response.user;
 
-			const token = await postRegister({
+			const { uid } = response.user;
+			const token = await response.user.getIdToken();
+			const loc = await axios.get("https://ipapi.co/json/");
+
+			await postRegister({
 				displayName,
 				email,
 				uid,
 				device,
+				city: loc.data.city,
 			});
 			login(token, uid);
-			dispatch(FormActions.openFormular({ type: "register" }));
 		} catch (err) {
 			console.log(err);
 			const { getRegisterError } = authenticationErrorService();
@@ -82,18 +90,20 @@ export const useAuthentication = () => {
 	) => {
 		try {
 			provider.addScope("email");
-			const result = await signInWithPopup(auth, provider);
-			const { uid } = result.user;
-			const { email, displayName, photoURL } = result.user.providerData[0];
+			const res = await signInWithPopup(auth, provider);
+			const { uid } = res.user;
+			const token = await res.user.getIdToken();
+			const { email, displayName, photoURL } = res.user.providerData[0];
 
-			const axiosResponse = await postLoginProvider({
+			await postLoginProvider({
 				email,
 				displayName,
 				photoURL,
 				uid,
 				device,
 			});
-			login(axiosResponse, uid);
+
+			login(token, uid);
 			localStorage.setItem("emailVerified", "true");
 		} catch (err) {
 			console.log(err);

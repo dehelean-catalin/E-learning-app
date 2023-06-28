@@ -58,10 +58,7 @@ const LectureOverviewChapters: FC<LectureOverviewChaptersProps> = ({
 							key={index2}
 						>
 							<div className="right">
-								{Math.round(
-									data.duration -
-										totalProgress.find((t) => t.id === data.id).total / 20
-								) <=
+								{Math.round(data.duration - data.duration / 20) <=
 								Math.round(
 									totalProgress.find((t) => t.id === data.id).total
 								) ? (

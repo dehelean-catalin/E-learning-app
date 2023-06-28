@@ -1,6 +1,6 @@
 import { FormEvent, useContext, useState } from "react";
 import { useMutation } from "react-query";
-import InputPasswordField from "../../../../components/Forms/Inputs/PRPassword/InputPasswordField";
+import InputPasswordField from "../../../../components/Inputs/PRPassword/InputPasswordField";
 import PRButton from "../../../../components/PRButton/PRButton";
 import AuthContext from "../../../../data/context/auth-context";
 import { postNewPassword } from "../../../../data/services/security.service";

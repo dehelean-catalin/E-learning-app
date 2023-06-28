@@ -1,36 +1,42 @@
-import InfoBoxEmail from "components/InfoBoxEmail/InfoBoxEmail";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { FormEvent, useState } from "react";
+import { useMutation } from "react-query";
 import { NavLink } from "react-router-dom";
-import InputTextField from "../../../components/Forms/Inputs/InputTextField/InputTextField";
+import InfoBoxEmail from "../../../components/InfoBoxEmail/InfoBoxEmail";
+import InputTextField from "../../../components/Inputs/InputTextField/InputTextField";
 import PRButton from "../../../components/PRButton/PRButton";
-import { AuthActions, AuthState } from "../../../data/redux/auth/authReducer";
-import { RootState } from "../../../data/redux/reducers";
+import { postForgotPassword } from "../../../data/services";
 import styles from "./ForgotPassword.module.scss";
 
-// TODO: ERROR AND REMOVING SAGA;
-
 const ForgotPassword = () => {
-	const dispatch = useDispatch();
-	const state = useSelector<RootState, AuthState>((s) => s.authReducer);
+	const [email, setEmail] = useState("");
+	const [visible, setVisible] = useState(false);
+	const [errorMessage, setErrMessage] = useState("");
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		dispatch(AuthActions.forgotPasswordRequest(state.value));
-	};
+	const { mutate: handleSubmit, isLoading } = useMutation(
+		(e: FormEvent) => {
+			e.preventDefault();
+			if (!email.length) return;
 
-	useEffect(() => {
-		return () => {
-			dispatch(AuthActions.clearState());
-		};
-	}, []);
-
-	const getContent = () => {
-		if (state.isValid) {
-			return <InfoBoxEmail link="reset password link" email={state.value} />;
+			return postForgotPassword(email);
+		},
+		{
+			onSuccess: () => {
+				setVisible(true);
+				setErrMessage("");
+			},
+			onError: (err: any) => setErrMessage(err.response.data.message),
 		}
+	);
 
+	if (visible)
 		return (
+			<div className="m-auto">
+				<InfoBoxEmail link="reset password link" email={email} />
+			</div>
+		);
+
+	return (
+		<div className={styles["forgot-password"]}>
 			<form onSubmit={handleSubmit}>
 				<div className={styles.title}>Forget password</div>
 				<div className={styles.info}>
@@ -39,14 +45,19 @@ const ForgotPassword = () => {
 				</div>
 				<InputTextField
 					label="Email"
-					value={state.value}
-					onChange={(e) => {
-						dispatch(AuthActions.setInputValue(e));
-					}}
+					value={email}
+					onChange={(e) => setEmail(e)}
 					placeholder="Enter email"
 					overlay="white"
+					errorMessage={errorMessage}
 				/>
-				<PRButton label="Continue" disabled={!state.value?.length} />
+				<PRButton
+					label="Continue"
+					className="mt-2"
+					type="submit"
+					loading={isLoading}
+					disabled={!email.length}
+				/>
 				<div className={styles.link}>
 					<span>Are you new here? Join us</span>
 					<NavLink to={"/register"} className={styles.link}>
@@ -54,9 +65,8 @@ const ForgotPassword = () => {
 					</NavLink>
 				</div>
 			</form>
-		);
-	};
-	return <div className={styles["forgot-password"]}>{getContent()}</div>;
+		</div>
+	);
 };
 
 export default ForgotPassword;

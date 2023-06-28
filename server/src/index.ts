@@ -1,6 +1,6 @@
 import cors from "cors";
 import express, { json } from "express";
-import http from "http";
+import { createServer } from "http";
 import multer from "multer";
 import authRoutes from "./routes/auth.routes";
 import creatorRoutes from "./routes/creator.routes";
@@ -11,6 +11,7 @@ import profileRoutes from "./routes/profile.routes";
 import savedLectureRoutes from "./routes/savedLecture.routes";
 import searchRotes from "./routes/search.routes";
 import userRoutes from "./routes/user.routes";
+
 const app = express();
 
 app.use(cors());
@@ -31,7 +32,7 @@ app.all("*", (req, res) => {
 	res.status(404).json({ code: 404, message: "Not found" });
 });
 
-const server = http.createServer(app);
+const server = createServer(app);
 
 server.listen(4000, () => {
 	console.log("Server is up on port 4000");

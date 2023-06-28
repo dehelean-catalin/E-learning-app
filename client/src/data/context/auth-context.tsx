@@ -1,4 +1,6 @@
+import { signOut } from "firebase/auth";
 import { createContext, FC, useState } from "react";
+import { auth } from "../../config/firebase.config";
 
 type Props = {
 	children: JSX.Element;
@@ -33,37 +35,41 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
 
 	const [token, setToken] = useState(initialToken);
 	const [userId, setUserId] = useState(initialUserId);
-	const [emailVerified, setEmailVerified] = useState(initialEmailVerified);
+	const [emailVerified, setEmailVerified] = useState<boolean>(
+		initialEmailVerified === "true" ? true : false
+	);
+
 	const [providerId, setProviderId] = useState(initProviderId);
 
 	const loginHandler = (token: string, userId: string) => {
 		setToken(token);
 		setUserId(userId);
-		setEmailVerified("true");
-		localStorage.setItem("emailVerified", "true");
 		localStorage.setItem("userId", userId);
 		localStorage.setItem("token", token);
 	};
 
 	const handleEmailVerified = () => {
-		setEmailVerified("true");
+		setEmailVerified(true);
 		localStorage.setItem("emailVerified", "true");
 	};
+
 	const handleProviderId = (value: string) => {
 		setProviderId(value);
 		localStorage.setItem("providerId", value);
 	};
 
 	const logoutHandler = () => {
-		setToken(null);
-		localStorage.clear();
-		window.location.replace("/login");
+		signOut(auth).then(() => {
+			setToken(null);
+			localStorage.clear();
+			window.location.replace("/login");
+		});
 	};
 
 	const contexValue = {
 		userId,
 		token,
-		emailVerified: !!emailVerified?.length,
+		emailVerified,
 		login: loginHandler,
 		handleEmailVerified,
 		logout: logoutHandler,

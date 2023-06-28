@@ -6,10 +6,11 @@ export type LoginModel = {
 
 export type AuthModel = {
 	displayName?: string;
-	email: string;
+	email?: string;
 	device: string;
 	photoURL?: string;
 	uid: string;
+	city?: string;
 };
 export type RegisterModel = {
 	email: string;

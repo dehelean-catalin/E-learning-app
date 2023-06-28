@@ -17,9 +17,9 @@ export const getUserByID = async (req: Request, res: Response) => {
 		const validatedReq = req as ValidatedRequest;
 		const userRef = doc(db, "users", validatedReq.userData.userId);
 		const userSnap = await getDoc(userRef);
-		if (!userSnap.exists()) {
-			throw new Error("This user don't exist");
-		}
+
+		if (!userSnap.exists()) throw new Error("This user don't exist");
+
 		const userData = userSnap.data() as UserModel;
 		res.status(200).json(userData);
 	} catch (err: any) {
@@ -29,7 +29,8 @@ export const getUserByID = async (req: Request, res: Response) => {
 
 export const getHistoryLectureList = async (req: Request, res: Response) => {
 	const validatedReq = req as ValidatedRequest;
-	const userRef = doc(db, "users", validatedReq.userData.userId);
+	const { userId } = validatedReq.userData;
+	const userRef = doc(db, "users", userId);
 
 	try {
 		const userSnap = await getDoc(userRef);
@@ -43,6 +44,7 @@ export const getHistoryLectureList = async (req: Request, res: Response) => {
 				collection(db, "lectures"),
 				where("id", "in", historyIds)
 			);
+
 			const querySnapshot = await getDocs(q);
 
 			const historyLectures = querySnapshot.docs.map((doc) =>
@@ -58,6 +60,7 @@ export const getHistoryLectureList = async (req: Request, res: Response) => {
 					promoVideo: s.publish.promoVideo,
 					author: s.publish.author,
 					rating: s.rating,
+					duration: s.duration,
 					numberOfRatings: s.numberOfRatings,
 					enrolledUsers: s.enrolledUsers,
 				}))

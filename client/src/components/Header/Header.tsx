@@ -1,7 +1,7 @@
-import { InputTextSearch } from "components/Forms";
 import { FC } from "react";
 import { useLocation } from "react-router";
 import CreateHeader from "../../pages/Creator/Create/CreateHeader/CreateHeader";
+import { InputTextSearch } from "../Inputs/InputTextSearch/InputTextSearch";
 import "./Header.scss";
 import HeaderButtons from "./HeaderButtons/HeaderButtons";
 import HeaderLogo from "./HeaderLogo/HeaderLogo";

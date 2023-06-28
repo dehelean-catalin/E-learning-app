@@ -1,32 +1,26 @@
 import { NextFunction, Request, Response } from "express";
 import { ObjectSchema } from "joi";
 import jwt from "jsonwebtoken";
+import { adminAuth } from "../config/firebase-admin";
 import { ValidatedRequest } from "../models/request";
 
 export default function authorization(model: ObjectSchema) {
 	return async (req: Request, res: Response, next: NextFunction) => {
 		if (req.method === "OPTIONS") return next();
-
+		const validatedReq = req as ValidatedRequest;
 		try {
-			if (!req.headers?.authorization) {
-				throw new Error("Missing token");
-			}
-			const validatedReq = req as ValidatedRequest;
+			if (!req.headers?.authorization) throw new Error("Missing token");
 
 			const token = req.headers?.authorization.split(" ")[1];
+			if (!token) throw new Error("Authentication failed!");
 
 			const { error } = model.validate(req.body);
-
-			if (!token) {
-				throw new Error("Authentication failed!");
-			}
-			const decodedData: any = jwt.verify(token, "code");
-
-			if (error) {
+			if (error)
 				throw new Error(`${error.details.map((x) => x.message).join(" ")}`);
-			}
 
-			validatedReq.userData = { userId: decodedData.userId };
+			const decodedToken = await adminAuth.verifyIdToken(token);
+			console.log(decodedToken.uid);
+			validatedReq.userData = { userId: decodedToken.uid };
 			next();
 		} catch (err: any) {
 			if (err instanceof jwt.JsonWebTokenError) {

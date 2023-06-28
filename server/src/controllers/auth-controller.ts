@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Request, Response } from "express";
+import { Request, RequestHandler, Response } from "express";
 import { FirebaseError } from "firebase/app";
 import { sendPasswordResetEmail, updatePassword } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
@@ -7,45 +7,46 @@ import db, { auth } from "../config/firebase";
 import { ValidatedRequest } from "../models/request";
 import { ConnectionItem, UserModel } from "../models/user-model";
 import { tryAgainError } from "./../constant";
-import { signToken } from "./../helpers/signToken";
 
-export const login = async (req: Request, res: Response) => {
-	const { email, device, uid } = req.body;
+export type LoginReq = {
+	device: string;
+	uid: string;
+	city: string;
+};
+
+export const login: RequestHandler<any, any, LoginReq> = async (
+	req,
+	res,
+	next
+) => {
+	const { device, uid, city } = req.body;
+	const docRef = doc(db, "users", uid);
+
 	try {
-		const token = signToken(uid, email);
-
-		const docRef = doc(db, "users", uid);
 		const userSnap = await getDoc(docRef);
-
-		if (!userSnap.exists()) {
-			throw new Error("User not found");
-		}
-
 		const connections = userSnap.get("connections") as ConnectionItem[];
 
-		const loc = await axios.get("https://ipapi.co/json/");
-		const location = loc.data.city;
-
 		const filter = connections.filter(
-			(con) => con.location === location && con.device === device
+			(con) => con.location === city && con.device === device
 		);
 
 		if (!filter.length) {
 			connections.push({
 				device,
 				date: new Date().toISOString(),
-				location,
+				location: city,
 			});
 		} else {
 			connections.forEach((data) => {
-				if (data.device === device && data.location === location) {
+				if (data.device === device && data.location === city) {
 					data.date = new Date().toISOString();
 				}
 			});
 		}
-		updateDoc(docRef, { connections });
 
-		res.status(200).json(token);
+		await updateDoc(docRef, { connections });
+
+		res.status(200).json("Login success");
 	} catch (err) {
 		console.log(err);
 		res
@@ -54,35 +55,41 @@ export const login = async (req: Request, res: Response) => {
 	}
 };
 
-export const register = async (req, res) => {
+export const register: RequestHandler<
+	any,
+	any,
+	{
+		email: string;
+		uid: string;
+		displayName: string;
+		device: string;
+		city: string;
+	}
+> = async (req, res) => {
+	const { email, uid, displayName, device, city } = req.body;
+	const docRef = doc(db, "users", uid);
+	const connections = [
+		{
+			location: city,
+			date: new Date().toISOString(),
+			device,
+		},
+	];
+	const data: UserModel = {
+		email,
+		displayName,
+		phoneNumber: "",
+		address: "",
+		aboutYou: "",
+		profilePicture: "",
+		connections,
+		savedLectures: [],
+		history: [],
+	};
+
 	try {
-		const { email, uid, displayName, device } = req.body;
-
-		const loc = await axios.get("https://ipapi.co/json/");
-		const connections = [
-			{
-				location: loc.data.city,
-				date: new Date().toISOString(),
-				device,
-			},
-		];
-		const data: UserModel = {
-			email,
-			displayName,
-			phoneNumber: "",
-			address: "",
-			aboutYou: "",
-			profilePicture: "",
-			connections,
-			savedLectures: [],
-			history: [],
-		};
-		const token = signToken(uid, email);
-
-		const docRef = doc(db, "users", uid);
 		await setDoc(docRef, data);
-
-		res.status(200).json(token);
+		res.status(200).json("Register succesfuly");
 	} catch (err: any) {
 		res
 			.status(400)
@@ -90,12 +97,17 @@ export const register = async (req, res) => {
 	}
 };
 
-export const forgotPassword = async (req: Request, res: Response) => {
+export const forgotPassword: RequestHandler<
+	any,
+	any,
+	{ email: string }
+> = async (req, res, next) => {
 	try {
-		if (!req.body?.email) {
-			throw new Error("Email is required");
-		}
-		await sendPasswordResetEmail(auth, req.body.email);
+		if (!req.body?.email) throw new Error("Email is required");
+		const { email } = req.body;
+
+		await sendPasswordResetEmail(auth, email);
+
 		res.status(200).json("Success");
 	} catch (err) {
 		if (err instanceof FirebaseError) {
@@ -136,8 +148,6 @@ export const getConnectionsList = async (req: Request, res: Response) => {
 export const loginWithProvider = async (req, res) => {
 	try {
 		const { email, device, uid, displayName, photoURL } = req.body;
-
-		const token = signToken(uid, email);
 
 		const docRef = doc(db, "users", uid);
 		const userSnap = await getDoc(docRef);
@@ -187,7 +197,7 @@ export const loginWithProvider = async (req, res) => {
 			updateDoc(docRef, { connections });
 		}
 
-		res.status(200).json(token);
+		res.status(200).json("Login succesfully");
 	} catch (err) {
 		console.log(err);
 		res

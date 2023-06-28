@@ -10,9 +10,6 @@ const LoginProviderSection = () => {
 
 	return (
 		<div className="login-provider-section">
-			<div className="or">
-				<span>or</span>
-			</div>
 			<Button
 				className="google p-0"
 				aria-label="Google"

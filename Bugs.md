@@ -4,15 +4,12 @@ Articole licenta:
 
 # In Development:
 
-- remove old models;
+- monitorizare - afișarea progresului și a ultimului capitol;
+- monitorizare - afișarea progresului în cadrul cursului;
 - delete user;
 - user sesion backend;
-- register details form;
-- Enhance update lecture history time;
 - History: 12PM order wrong;
 - updating check mark;
-- Search : Not found component;
-- saga logout auto;
 
 # Nice to have:
 

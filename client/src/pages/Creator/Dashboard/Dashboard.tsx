@@ -15,7 +15,6 @@ const Dashboard = () => {
 	const axios = useAxios();
 
 	const [layout, setLayout] = useState<DataViewLayoutType>("list");
-
 	const [sortOrder, setSortOrder] = useState(null);
 	const [sortField, setSortField] = useState(null);
 

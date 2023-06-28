@@ -1,5 +1,5 @@
 export type LoginModel = {
-	email: string;
+	city: string;
 	uid: string;
 	device: string;
 };
@@ -11,4 +11,5 @@ export type ProviderAuthModel = {
 	photoURL?: string;
 	device: string;
 	uid: string;
+	city?: string;
 };
