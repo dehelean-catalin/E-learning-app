@@ -17,11 +17,10 @@ export let ContentSchema = Joi.array<Content[]>().items({
 		"string.empty": "Label cannot be empty",
 		"string.base": "Label must be a string",
 	}),
-	data: Joi.object({
-		description: Joi.string().optional().allow("").messages({
-			"string.base": "Description must be a string",
-		}),
+	data: Joi.string().optional().allow("").messages({
+		"string.base": "Data Description must be a string",
 	}),
+
 	children: Joi.array()
 		.items({
 			label: Joi.string().required().messages({

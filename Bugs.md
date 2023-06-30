@@ -7,8 +7,7 @@ Articole licenta:
 - monitorizare - afișarea progresului și a ultimului capitol;
 - monitorizare - afișarea progresului în cadrul cursului;
 - delete user;
-- user sesion backend;
-- History: 12PM order wrong;
+- forgot password la connection
 - updating check mark;
 
 # Nice to have:

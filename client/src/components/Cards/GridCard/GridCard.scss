@@ -29,12 +29,15 @@
 	.progress-wrapper {
 		position: absolute;
 		display: block;
-		top: 120px;
+		top: 127px;
 		width: 100%;
 
-		progress {
-			height: 6px;
+		.progress {
+			height: 4px;
 			width: 100%;
+		}
+		.p-progressbar-value {
+			background-color: red;
 		}
 	}
 }

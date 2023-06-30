@@ -21,8 +21,8 @@ const LectureGoals: FC<LectureGoalsProps> = ({ goals, requirements }) => {
 						</header>
 					}
 				>
-					{goals.map((r) => (
-						<div className="row">
+					{goals.map((r, key) => (
+						<div className="row" key={key}>
 							<i className="pi pi-check mr-2" />
 							<p>{r.value}</p>
 						</div>
@@ -40,8 +40,8 @@ const LectureGoals: FC<LectureGoalsProps> = ({ goals, requirements }) => {
 					}
 					contentClassName="tab"
 				>
-					{requirements.map((r) => (
-						<div className="row">
+					{requirements.map((r, key) => (
+						<div className="row" key={key}>
 							<i className="pi pi-check mr-2" />
 							<p>{r.value}</p>
 						</div>

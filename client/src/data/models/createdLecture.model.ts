@@ -7,7 +7,7 @@ export type CreatedLectureModel = {
 	requirements: PlanFieldModel[];
 	rating: number | null;
 	numberOfRatings: number;
-	enrolledUsers: number;
+	enrolledUsers: string[];
 	duration: number;
 };
 
@@ -26,7 +26,7 @@ export type Publish = {
 };
 export type Content = {
 	label: string;
-	data: ContentData;
+	data: string;
 	children: ContentChildren[];
 };
 
@@ -41,7 +41,10 @@ export type ContentData = {
 	status: VideoStatus;
 };
 
-export type ContentChildren = Omit<Content, "children">;
+export type ContentChildren = {
+	label: string;
+	data: ContentData;
+};
 
 export type PlanFieldModel = {
 	value: string;

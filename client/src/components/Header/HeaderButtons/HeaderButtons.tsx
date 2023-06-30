@@ -1,53 +1,36 @@
 import Divider from "components/Divider/Divider";
 import ProfilePicture from "components/ProfilePicture/ProfilePicture";
 import AuthContext from "data/context/auth-context";
-import { AccountDataState } from "data/redux/AccountReducer";
+
 import { RootState } from "data/redux/reducers";
 import { OverlayPanel } from "primereact/overlaypanel";
-import { useContext, useRef, useState } from "react";
+import { useContext, useRef } from "react";
 import { BiVideoPlus } from "react-icons/bi";
-import { useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
-import { NavLink, useLocation, useMatch } from "react-router-dom";
-import { Review } from "../../../data/models/createdLecture.model";
-import { LECTURE_OVERVIEW_ROUTE } from "../../../routes/baseRoutes";
-import PRButton from "../../PRButton/PRButton";
+import { NavLink, useLocation } from "react-router-dom";
+import { AccountDataState } from "../../../data/redux/AccountReducer";
 import "./HeaderButtons.scss";
-import LeaveRatingDialog from "./LeaveRatingDialog";
+import LectureButtons from "./LectureButtons";
 
 const HeaderButtons = () => {
 	const op = useRef(null);
-	const { userId } = useContext(AuthContext);
 	const { logout } = useContext(AuthContext);
 	const { pathname } = useLocation();
-	const [visibile, setVisible] = useState(false);
+
 	const { displayName, email, profilePicture } = useSelector<
 		RootState,
 		AccountDataState
 	>((s) => s.accountReducer.data);
 
-	const isMatchingLectureOverview = !!useMatch(LECTURE_OVERVIEW_ROUTE);
 	const checkCreatorPath = pathname === "/create";
-	const queryClient = useQueryClient();
-
-	const data = queryClient.getQueryData("getLectureReview") as Review[];
-	const isLectureReviewed = data?.find((d) => d.authorId === userId);
 
 	return (
 		<div className="header-buttons">
-			{isMatchingLectureOverview && !isLectureReviewed && (
-				<PRButton
-					label="leave a rating"
-					icon="pi pi-star"
-					className="bg-transparent"
-					onClick={() => setVisible(true)}
-				/>
-			)}
-
+			<LectureButtons />
 			{checkCreatorPath ? (
 				<></>
 			) : (
-				<NavLink to={"/create"}>
+				<NavLink to={"/create"} className="ml-3">
 					<BiVideoPlus color="white" fontSize="2rem" />
 				</NavLink>
 			)}
@@ -79,7 +62,7 @@ const HeaderButtons = () => {
 						<i className="pi pi-user text-xl mr-3" /> Profile
 					</NavLink>
 					<NavLink
-						to={"/settings/saved-lectures"}
+						to={"/settings/change-password"}
 						className={"row"}
 						onClick={(e) => op.current.toggle(e)}
 					>
@@ -92,7 +75,6 @@ const HeaderButtons = () => {
 					</div>
 				</main>
 			</OverlayPanel>
-			<LeaveRatingDialog visible={visibile} onHide={() => setVisible(false)} />
 		</div>
 	);
 };

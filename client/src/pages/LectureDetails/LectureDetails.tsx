@@ -18,9 +18,11 @@ import VideoDialog from "./VideoDialog/VideoDialog";
 const LectureDetails = () => {
 	const { id } = useParams();
 	const axios = useAxios();
+
 	const { data, isLoading, isError } = useFetchData("get-lecture", () =>
 		getLecture(axios, id)
 	);
+
 	const { data: reviews, isLoading: isReviewLoading } = useFetchData(
 		"getLectureReviews",
 		() => getLectureReviews(axios, id)

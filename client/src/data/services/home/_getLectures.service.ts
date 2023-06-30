@@ -3,11 +3,11 @@ import { LectureCard } from "../../models/lectureModel";
 
 export const getLectures = async (
 	axios: AxiosInstance,
-	params: { category: string }
+	category: string
 ): Promise<LectureCard[]> => {
 	return await axios
 		.get("/lectures", {
-			params,
+			params: { category },
 		})
 		.then((res) => res.data);
 };

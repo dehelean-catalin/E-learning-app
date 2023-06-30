@@ -57,7 +57,7 @@ const RenderListItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {
 						<p className="flex align-items-center text-lg">
 							<i className="pi pi-users mr-2 text-2xl" />
 							<span className="font-semibold">
-								{value.enrolledUsers} students
+								{value.enrolledUsers.length} students
 							</span>
 						</p>
 						<Button

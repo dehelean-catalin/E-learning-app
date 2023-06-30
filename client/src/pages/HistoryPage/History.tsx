@@ -37,7 +37,7 @@ const History = () => {
 					<br />
 					Go back to your home page and start watching
 				</div>
-				<NavLink to="/home?category=all">Start watching</NavLink>
+				<NavLink to="/home?category=All">Start watching</NavLink>
 			</NotFound>
 		);
 	}
@@ -47,7 +47,7 @@ const History = () => {
 			<div className={styles.title}>Recent watched</div>
 			<div className={styles.content}>
 				{data.map((value, key) => (
-					<GridCard key={key} value={value} />
+					<GridCard key={key} value={value} showProgress />
 				))}
 			</div>
 		</div>

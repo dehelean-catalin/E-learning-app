@@ -14,7 +14,10 @@ export const getLectureCurrentProgress = async (
 export const postLectureProgress = async (
 	axios: AxiosInstance,
 	id: string,
-	items: string[]
+	items: string[],
+	lastName: string
 ): Promise<string> => {
-	return axios.post(`lecture/${id}/progress`, items).then((res) => res.data);
+	return axios
+		.post(`lecture/${id}/progress`, { items, lastName })
+		.then((res) => res.data);
 };

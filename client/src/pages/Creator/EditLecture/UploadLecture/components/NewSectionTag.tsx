@@ -24,12 +24,12 @@ const NewSectionTag: FC<NewSectionTagProps> = ({
 		index
 			? arrayHelpers.insert(index, {
 					label: firstLetterToUpperCase(label),
-					data: { description },
+					data: description,
 					children: [],
 			  })
 			: arrayHelpers.unshift({
 					label: firstLetterToUpperCase(label),
-					data: { description },
+					data: description,
 					children: [],
 			  });
 

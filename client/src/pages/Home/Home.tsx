@@ -2,7 +2,6 @@ import { getLectures } from "data/services";
 import { useFetchData } from "hooks/useFetchData";
 import image from "images/empty.png";
 import { FC, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { NavLink, useSearchParams } from "react-router-dom";
 import { Category } from "../../data/models/createdLecture.model";
@@ -17,12 +16,10 @@ import HomeSkeleton from "./HomeSkeleton/HomeSkeleton";
 
 const Home: FC = () => {
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
 	const axios = useAxios();
 	const [searchParams] = useSearchParams();
 	const categoryParam = searchParams.get("category");
 	const initialParam = !!categoryParam ? categoryParam : Category.ALL;
-
 	const [category, setCategory] = useState(initialParam);
 
 	const onSuccess = () => {
@@ -35,7 +32,7 @@ const Home: FC = () => {
 
 	const { data, isError, isLoading } = useFetchData(
 		["home", category],
-		() => getLectures(axios, { category }),
+		() => getLectures(axios, category),
 		{
 			onSuccess,
 			onError,

@@ -1,8 +1,13 @@
 import Spinner from "components/Spinner/Spinner";
 import { useFetchData } from "hooks/useFetchData";
 import NotFoundError from "pages/NotFound/NotFoundError/NotFoundError";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
-import { getLecture } from "../../data/services/lecture.service";
+import { ProgressActions } from "../../data/redux/ProgressReducer";
+import {
+	getLecture,
+	getLectureProgress,
+} from "../../data/services/lecture.service";
 import { useAxios } from "../../hooks/useAxios";
 import "./LectureOverview.scss";
 import LectureOverviewChapters from "./LectureOverviewChapters/LectureOverviewChapters";
@@ -17,21 +22,31 @@ const LectureOverview = () => {
 		getLecture(axios, id)
 	);
 
+	const dispatch = useDispatch();
+
+	const { isLoading: isProgressLoading } = useFetchData(
+		"getLectureProgress",
+		() => getLectureProgress(axios, id),
+		{
+			initialData: [],
+			onSuccess: (res) => dispatch(ProgressActions.setProgress(res)),
+		}
+	);
+
 	if (isLoading) return <Spinner />;
 	if (isError) return <NotFoundError />;
 
 	return (
 		<div className="lecture-overview">
 			<div className="left">
-				<LectureOverviewVideo
-					id={id}
-					value={data.content}
-					publish={data.publish}
-				/>
+				<LectureOverviewVideo value={data.content} publish={data.publish} />
 				<LectureOverviewReviews />
 			</div>
-
-			<LectureOverviewChapters id={id} data={data.content} />
+			{isProgressLoading ? (
+				<Spinner />
+			) : (
+				<LectureOverviewChapters id={id} data={data.content} />
+			)}
 		</div>
 	);
 };

@@ -26,17 +26,20 @@ export type Publish = {
 
 export type Content = {
 	label: string;
-	data: {
-		id: string;
-		description: string;
-		date: string;
-		duration: number;
-		content: string;
-		track: string;
-		type: string;
-		status: VideoStatus;
-	};
-	children: Omit<Content, "children">[];
+	data: string;
+	children: {
+		label: string;
+		data: {
+			id: string;
+			description: string;
+			date: string;
+			duration: number;
+			content: string;
+			track: string;
+			type: string;
+			status: VideoStatus;
+		};
+	}[];
 };
 
 export type PlanFieldModel = {
@@ -78,6 +81,7 @@ export type Review = {
 export type VideoProgress = {
 	lastChapter: string;
 	lastDate: string;
+	lastName: string;
 	items: VideoProgressItem[];
 };
 

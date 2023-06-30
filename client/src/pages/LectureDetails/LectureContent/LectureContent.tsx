@@ -28,14 +28,15 @@ const LectureContent: FC<LectureContentProps> = ({ value }) => {
 			</p>
 
 			<Accordion multiple>
-				{value.map(({ label, children }) => (
+				{value.map(({ label, children }, key) => (
 					<AccordionTab
 						headerTemplate={
 							<AccordionTabHeader label={label} children={children} />
 						}
+						key={key}
 					>
 						{children.map((children) => (
-							<div className="content-item">
+							<div className="content-item" key={children.data.id}>
 								<div className="content-label">
 									<RxVideo className="mr-3" />
 									{children.label}

@@ -94,6 +94,7 @@ export const useAuthentication = () => {
 			const { uid } = res.user;
 			const token = await res.user.getIdToken();
 			const { email, displayName, photoURL } = res.user.providerData[0];
+			const location = await axios.get("https://ipapi.co/json/");
 
 			await postLoginProvider({
 				email,
@@ -101,13 +102,13 @@ export const useAuthentication = () => {
 				photoURL,
 				uid,
 				device,
+				city: location.data.city,
 			});
 
 			login(token, uid);
 			localStorage.setItem("emailVerified", "true");
 		} catch (err) {
 			console.log(err);
-
 			const { getLoginError } = authenticationErrorService();
 			const error = getLoginError(err);
 			setError(error);

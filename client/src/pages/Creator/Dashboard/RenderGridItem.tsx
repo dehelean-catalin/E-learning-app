@@ -50,7 +50,7 @@ const RenderGridItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {
 			<div className="flex align-items-center justify-content-between">
 				<p className="flex align-items-center text-lg">
 					<i className="pi pi-users mr-2 text-2xl" />
-					<span className="font-semibold">{enrolledUsers} students</span>
+					<span className="font-semibold">{enrolledUsers.length} students</span>
 				</p>
 				<Button
 					icon="pi pi-pencil"

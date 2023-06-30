@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Request, RequestHandler, Response } from "express";
 import { FirebaseError } from "firebase/app";
 import { sendPasswordResetEmail, updatePassword } from "firebase/auth";
@@ -145,14 +144,23 @@ export const getConnectionsList = async (req: Request, res: Response) => {
 	}
 };
 
-export const loginWithProvider = async (req, res) => {
+export const loginWithProvider: RequestHandler<
+	any,
+	any,
+	{
+		email: string;
+		uid: string;
+		displayName: string;
+		device: string;
+		city: string;
+		photoURL: string;
+	}
+> = async (req, res) => {
 	try {
-		const { email, device, uid, displayName, photoURL } = req.body;
+		const { email, device, uid, displayName, photoURL, city } = req.body;
 
 		const docRef = doc(db, "users", uid);
 		const userSnap = await getDoc(docRef);
-		const location = await axios.get("https://ipapi.co/json/");
-		const { city } = location.data;
 
 		if (!userSnap.exists()) {
 			const connections = [
@@ -178,7 +186,7 @@ export const loginWithProvider = async (req, res) => {
 			const connections = userSnap.get("connections") as ConnectionItem[];
 
 			const filter = connections.filter(
-				(con) => city === location && con.device === device
+				(con) => city === con.location && con.device === device
 			);
 
 			if (!filter.length) {
@@ -189,7 +197,7 @@ export const loginWithProvider = async (req, res) => {
 				});
 			} else {
 				connections.forEach((data) => {
-					if (data.device === device && city === location) {
+					if (data.device === device && city === data.location) {
 						data.date = new Date().toISOString();
 					}
 				});

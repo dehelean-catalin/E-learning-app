@@ -1,14 +1,16 @@
 import { Accordion, AccordionTab } from "primereact/accordion";
+import { classNames } from "primereact/utils";
 import { FC } from "react";
 import { BsFillPlayCircleFill } from "react-icons/bs";
-import { ImCheckboxChecked, ImCheckboxUnchecked } from "react-icons/im";
-import { useNavigate } from "react-router";
-import Spinner from "../../../components/Spinner/Spinner";
-import { Content } from "../../../data/models/createdLecture.model";
-import { getLectureProgress } from "../../../data/services/lecture.service";
+import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router";
+import {
+	Content,
+	VideoProgressItem,
+} from "../../../data/models/createdLecture.model";
+import { RootState } from "../../../data/redux/reducers";
 import { convertSecondsToTime } from "../../../helpers";
 import { useAxios } from "../../../hooks/useAxios";
-import { useFetchData } from "../../../hooks/useFetchData";
 import "./LectureOverviewChapters.scss";
 
 type LectureOverviewChaptersProps = {
@@ -21,23 +23,11 @@ const LectureOverviewChapters: FC<LectureOverviewChaptersProps> = ({
 	data,
 }) => {
 	const navigate = useNavigate();
+	const { chapterId } = useParams();
 	const axios = useAxios();
-
-	const {
-		data: totalProgress,
-		isLoading,
-		isError,
-	} = useFetchData("getLectureProgress", () => getLectureProgress(axios, id), {
-		initialData: [],
-	});
-
-	if (isLoading)
-		return (
-			<div className="lecture-overview-chapters">
-				<Spinner />
-			</div>
-		);
-	if (isError) return <Spinner />;
+	const progress = useSelector<RootState, VideoProgressItem[]>(
+		(s) => s.progressReducer.data
+	);
 
 	return (
 		<Accordion multiple className="lecture-overview-chapters">
@@ -54,19 +44,23 @@ const LectureOverviewChapters: FC<LectureOverviewChaptersProps> = ({
 						<article
 							onClick={() => {
 								navigate(`/lecture/${id}/overview/${data.id}`);
+								axios.put(`lectures/${id}/last-chapter`, {
+									lastChapter: data.id,
+									lastName: label,
+								});
 							}}
 							key={index2}
+							className={classNames({
+								"surface-hover": data.id === chapterId,
+							})}
 						>
 							<div className="right">
 								{Math.round(data.duration - data.duration / 20) <=
-								Math.round(
-									totalProgress.find((t) => t.id === data.id).total
-								) ? (
-									<ImCheckboxChecked />
+								Math.round(progress?.find((p) => p.id === data.id).total) ? (
+									<i className="pi pi-check-square align-self-center text-primary" />
 								) : (
-									<ImCheckboxUnchecked />
+									<i className="pi pi-stop align-self-center" />
 								)}
-
 								<div className="details">
 									{label}
 									<div className="time">
@@ -75,7 +69,7 @@ const LectureOverviewChapters: FC<LectureOverviewChaptersProps> = ({
 									</div>
 								</div>
 							</div>
-							<video width="70px" muted={false}>
+							<video muted={false}>
 								<source src={data.content} type="video/mp4" />
 								<source src={data.content} type="video/webm" />
 								Your browser does not support the video tag.

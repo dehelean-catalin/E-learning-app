@@ -2,12 +2,11 @@ import { NextFunction, Request, Response } from "express";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import db from "../../config/firebase";
 import { Category, CreatedLectureModel } from "../../models/creator.model";
-import { LectureCard } from "../../models/search-model";
 import { ValidatedRequest } from "./../../models/request";
 
 export const getLectures = async (
 	req: Request,
-	res: Response<LectureCard[]>,
+	res: Response,
 	next: NextFunction
 ) => {
 	const validatedRequest = req as ValidatedRequest;
@@ -58,6 +57,6 @@ export const getLectures = async (
 
 		res.status(200).json(formattedLectures);
 	} catch (err) {
-		next(err);
+		res.status(400).json(err);
 	}
 };

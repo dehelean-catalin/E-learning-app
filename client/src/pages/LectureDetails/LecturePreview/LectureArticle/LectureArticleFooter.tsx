@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa";
 import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
@@ -6,14 +6,9 @@ import { useNavigate } from "react-router";
 import PRButton from "../../../../components/PRButton/PRButton";
 import { Content } from "../../../../data/models/createdLecture.model";
 import { NotificationActions } from "../../../../data/redux/notificationReducer";
-import {
-	getLastChapter,
-	getLectureProgress,
-	putLectureLastDate,
-} from "../../../../data/services/lecture.service";
+import { putLectureLastDate } from "../../../../data/services/lecture.service";
 import { postLectureProgress } from "../../../../data/services/progress.service";
 import { useAxios } from "../../../../hooks/useAxios";
-import { useFetchData } from "../../../../hooks/useFetchData";
 
 type LectureArticleFooterProps = {
 	id: string;
@@ -27,10 +22,13 @@ const LectureArticleFooter: FC<LectureArticleFooterProps> = ({
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const axios = useAxios();
+	const [isEnrolled, setIsEnrolled] = useState(false);
 
-	const { data: isEnrolled } = useFetchData("getLectureProgress", () =>
-		getLectureProgress(axios, id)
-	);
+	useEffect(() => {
+		axios.get(`lecture/${id}/progress`).then((res) => {
+			setIsEnrolled(!!res.data.length);
+		});
+	}, []);
 
 	const handleSuccess = () => {
 		navigate(`/lecture/${id}/overview/${content[0].children[0].data.id}`);
@@ -51,20 +49,16 @@ const LectureArticleFooter: FC<LectureArticleFooterProps> = ({
 		);
 	};
 
-	const { data: chapterId, isLoading } = useFetchData(
-		"getLastViewedPage",
-		() => getLastChapter(axios, id),
-		{
-			enabled: !!isEnrolled,
-		}
-	);
-
-	const chapterIds = content
-		.map((c) => c.children.map((d) => d.data.id))
-		.flat();
-
 	const { mutate: addWatchingLecture, isLoading: isStartLoading } = useMutation(
-		() => postLectureProgress(axios, id, chapterIds),
+		() => {
+			const chapterIds = content
+				.map((c) => c.children.map((d) => d.data.id))
+				.flat();
+			const firstChapter = content
+				.map((c) => c.children.map((d) => d.label))
+				.flat();
+			return postLectureProgress(axios, id, chapterIds, firstChapter[0]);
+		},
 		{
 			onSuccess: handleSuccess,
 			onError: handleError,
@@ -73,7 +67,7 @@ const LectureArticleFooter: FC<LectureArticleFooterProps> = ({
 	const { mutate: handleContinue } = useMutation(
 		() => putLectureLastDate(axios, id),
 		{
-			onSuccess: () => navigate(`/lecture/${id}/overview/${chapterId}`),
+			onSuccess: (res) => navigate(`/lecture/${id}/overview/${res}`),
 			onError: handleError,
 		}
 	);
@@ -85,7 +79,6 @@ const LectureArticleFooter: FC<LectureArticleFooterProps> = ({
 					label="Continue"
 					onClick={() => handleContinue()}
 					icon={<FaPlay className="mr-2" />}
-					loading={isLoading}
 				/>
 			</footer>
 		);

@@ -4,15 +4,14 @@ import db from "../../config/firebase";
 import { VideoProgress } from "../../models/creator.model";
 import { ValidatedRequest } from "../../models/request";
 
-export const putLectureProgress = async (
-	req: Request<any, any, { chapterId: string; progress: number }>,
+export const putLectureLastChapter = async (
+	req: Request,
 	res: Response,
 	next: NextFunction
 ) => {
 	const validatedReq = req as ValidatedRequest;
 	const { userId } = validatedReq.userData;
 	const { id } = req.params;
-	const { chapterId, progress } = req.body;
 
 	const userRef = doc(db, "users", userId);
 
@@ -26,25 +25,14 @@ export const putLectureProgress = async (
 
 		for (const key in history) {
 			if (history[key].id === id) {
-				const historyItems = history[key].videoProgress.items;
-				history[key].videoProgress.lastDate = new Date().toISOString();
-				for (const j in historyItems) {
-					if (historyItems[j].id === chapterId) {
-						historyItems[j].current = progress;
-
-						if (historyItems[j].total < progress) {
-							historyItems[j].total = progress;
-						}
-					}
-				}
+				history[key].videoProgress.lastChapter = req.body.lastChapter;
+				history[key].videoProgress.lastName = req.body.lastName;
 			}
 		}
 
-		await updateDoc(userRef, {
-			history,
-		});
+		await updateDoc(userRef, { history });
 
-		res.status(200).json("Successfully updated");
+		res.status(200).json("Success");
 	} catch (err) {
 		next(err);
 	}

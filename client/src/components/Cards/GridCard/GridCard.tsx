@@ -1,4 +1,5 @@
 import { CustomRating } from "components/CustomRating/CustomRating";
+import { ProgressBar } from "primereact/progressbar";
 import { classNames } from "primereact/utils";
 import { FC } from "react";
 import { useNavigate } from "react-router";
@@ -36,17 +37,20 @@ const GridCard: FC<Props> = ({ value, icon, showProgress }) => {
 				</div>
 
 				{icon}
-				{/* {showProgress && (
+				{showProgress && (
 					<div
 						className="progress-wrapper"
 						onClick={() =>
-							navigate(`/lecture/${id}/overview?page=${value.page}`)
+							navigate(`/lecture/${id}/overview/${value.lastChapter}`)
 						}
 					>
-						<h3 className="ml-3">{value.chapterName}</h3>
-						<progress value={value.progress * 10} max="100"></progress>
+						<h3 className="ml-3 mb-2">{value.lastName}</h3>
+						<ProgressBar
+							value={value.progress}
+							className="progress"
+						></ProgressBar>
 					</div>
-				)} */}
+				)}
 			</div>
 		</article>
 	);

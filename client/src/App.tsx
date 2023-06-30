@@ -45,15 +45,30 @@ import {
 } from "./routes/baseRoutes";
 
 function App() {
-	const { handleEmailVerified, handleProviderId } = useContext(AuthContext);
+	const { handleEmailVerified, handleProviderId, logout } =
+		useContext(AuthContext);
 
 	onAuthStateChanged(getAuth(), (user) => {
 		if (!user) return;
-
+		let userSessionTimeout = null;
 		const { emailVerified } = user;
-		const { creationTime } = user.metadata;
 
-		localStorage.setItem("exp_time", creationTime);
+		if (user === null && userSessionTimeout) {
+			clearTimeout(userSessionTimeout);
+			userSessionTimeout = null;
+		} else {
+			user.getIdTokenResult().then((idTokenResult) => {
+				const authTime =
+					new Date(idTokenResult.claims.auth_time).getTime() * 1000;
+				const sessionDurationInMilliseconds = 3600 * 1000;
+				const expirationInMilliseconds =
+					sessionDurationInMilliseconds - (Date.now() - authTime);
+				userSessionTimeout = setTimeout(
+					() => logout(),
+					expirationInMilliseconds
+				);
+			});
+		}
 
 		if (!emailVerified) sendEmailVerification(user);
 

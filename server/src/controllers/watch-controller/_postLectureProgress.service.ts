@@ -1,17 +1,12 @@
 import { NextFunction, Request, Response } from "express";
-import {
-	arrayUnion,
-	doc,
-	increment,
-	setDoc,
-	updateDoc,
-} from "firebase/firestore";
+import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
 import db from "../../config/firebase";
-import { VideoProgress, VideoProgressItem } from "../../models/creator.model";
+import { VideoProgressItem } from "../../models/creator.model";
 import { ValidatedRequest } from "../../models/request";
+import { VideoProgress } from "./../../models/creator.model";
 
 export const postLectureProgress = async (
-	req: Request<any, any, string[]>,
+	req: Request<any, any, { items: string[]; lastName: string }>,
 	res: Response,
 	next: NextFunction
 ) => {
@@ -19,24 +14,33 @@ export const postLectureProgress = async (
 	const { userId } = validatedReq.userData;
 	const { id } = req.params;
 
-	const lectureProgressRef = doc(db, `lectures/${id}/enrolledUsers`, userId);
 	const lectureRef = doc(db, `lectures`, id);
 	const userRef = doc(db, "users", userId);
 
-	const items: VideoProgressItem[] = req.body.map((i) =>
+	const items: VideoProgressItem[] = req.body.items.map((i) =>
 		Object.assign({ id: i }, { current: 0, total: 0 })
 	);
 
 	const videoProgress: VideoProgress = {
-		lastChapter: req.body[0],
+		lastChapter: req.body.items[0],
+		lastName: req.body.lastName,
 		lastDate: new Date().toLocaleString(),
 		items,
 	};
 
 	try {
-		await setDoc(lectureProgressRef, videoProgress);
-		await updateDoc(lectureRef, { enrolledUsers: increment(1) });
-		await updateDoc(userRef, { history: arrayUnion(id) });
+		await updateDoc(lectureRef, { enrolledUsers: arrayUnion(id) });
+		const userSnap = await getDoc(userRef);
+		if (!userSnap.exists()) throw new Error("This user don't exists");
+
+		const history = userSnap.get("history") as {
+			id: string;
+			videoProgress: VideoProgress;
+		}[];
+
+		history.push({ id, videoProgress });
+
+		await updateDoc(userRef, { history });
 
 		res.status(200).json("Successfully enrolled");
 	} catch (err) {

@@ -1,34 +1,40 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import { doc, getDoc } from "firebase/firestore";
 import db from "../../config/firebase";
-import { VideoProgressItem } from "../../models/creator.model";
+import { tryAgainError } from "../../constant";
+import { VideoProgress } from "../../models/creator.model";
 import { ValidatedRequest } from "../../models/request";
 
 export const getLectureCurrentProgress = async (
 	req: Request,
-	res: Response<Omit<VideoProgressItem, "id">>,
-	next: NextFunction
+	res: Response
 ) => {
 	const validatedReq = req as ValidatedRequest;
 	const { userId } = validatedReq.userData;
 	const { id, chapterId } = req.params;
 
-	const lectureRef = doc(db, `lectures/${id}/enrolledUsers`, userId);
+	const userRef = doc(db, "users", userId);
 
 	try {
-		const lectureSnap = await getDoc(lectureRef);
+		const userSnap = await getDoc(userRef);
 
-		if (!lectureSnap.exists())
-			throw new Error("Try again! Something went wrong");
+		if (!userSnap.exists()) throw new Error("Try again! Something went wrong");
 
-		const data = lectureSnap.get("items") as VideoProgressItem[];
-		const index = data.findIndex((d) => d.id === chapterId);
+		const history = userSnap.get("history") as {
+			id: string;
+			videoProgress: VideoProgress;
+		}[];
 
-		res.status(200).json({
-			total: data[index].total,
-			current: data[index].current,
-		});
+		const currentProgress = history.find((d) => d.id === id);
+
+		if (!currentProgress) throw new Error(tryAgainError);
+
+		const progress = currentProgress.videoProgress.items.find(
+			(i) => i.id === chapterId
+		);
+
+		res.status(200).json(progress);
 	} catch (err) {
-		next(err);
+		res.status(400).json(err);
 	}
 };

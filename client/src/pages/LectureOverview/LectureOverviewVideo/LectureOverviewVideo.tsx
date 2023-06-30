@@ -1,7 +1,14 @@
 import { FC, useEffect, useRef, useState } from "react";
 import ReactPlayer from "react-player/lazy";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import { Content, Publish } from "../../../data/models/createdLecture.model";
+import {
+	Content,
+	Publish,
+	VideoProgressItem,
+} from "../../../data/models/createdLecture.model";
+import { ProgressActions } from "../../../data/redux/ProgressReducer";
+import { RootState } from "../../../data/redux/reducers";
 import { useAxios } from "../../../hooks/useAxios";
 import "./LectureOverviewVideo.scss";
 import { getChapterVideoWithProgress } from "./lectureOverview.helper";
@@ -9,7 +16,6 @@ import { getChapterVideoWithProgress } from "./lectureOverview.helper";
 type LectureOverviewVideoProps = {
 	value: Content[];
 	publish: Publish;
-	id: string;
 };
 
 const LectureOverviewVideo: FC<LectureOverviewVideoProps> = ({
@@ -18,7 +24,12 @@ const LectureOverviewVideo: FC<LectureOverviewVideoProps> = ({
 }) => {
 	const { chapterId, id } = useParams();
 	const axios = useAxios();
+	const dispatch = useDispatch();
 	const playerRef = useRef<ReactPlayer>(null);
+
+	const progress = useSelector<RootState, VideoProgressItem[]>(
+		(s) => s.progressReducer.data
+	);
 
 	const [playerReady, setPlayerReady] = useState(false);
 
@@ -28,7 +39,9 @@ const LectureOverviewVideo: FC<LectureOverviewVideoProps> = ({
 
 	useEffect(() => {
 		axios.get(`lecture/${id}/progress/${chapterId}`).then((res) => {
-			if (playerReady) playerRef.current.seekTo(res.data.current);
+			if (playerReady) {
+				playerRef.current.seekTo(res.data.current);
+			}
 		});
 	}, [chapterId, playerReady]);
 
@@ -73,14 +86,21 @@ const LectureOverviewVideo: FC<LectureOverviewVideoProps> = ({
 						chapterId,
 						progress: e.playedSeconds,
 					});
+					const updatedArray = [...progress];
+					const index = updatedArray.findIndex((item) => item.id === chapterId);
+					updatedArray[index] = {
+						id: chapterId,
+						current: e.playedSeconds,
+						total: e.playedSeconds,
+					};
+					dispatch(ProgressActions.setProgress(updatedArray));
 				}}
 				onReady={handleReady}
 				playing={false}
 			/>
-			<p>
-				<h2>{publish.title}</h2>
-				{publish.author}
-			</p>
+
+			<h3>{publish.title}</h3>
+			{publish.author}
 		</div>
 	);
 };

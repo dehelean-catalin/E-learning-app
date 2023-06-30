@@ -19,13 +19,14 @@ export default function authorization(model: ObjectSchema) {
 				throw new Error(`${error.details.map((x) => x.message).join(" ")}`);
 
 			const decodedToken = await adminAuth.verifyIdToken(token);
-			console.log(decodedToken.uid);
+
 			validatedReq.userData = { userId: decodedToken.uid };
 			next();
 		} catch (err: any) {
 			if (err instanceof jwt.JsonWebTokenError) {
 				return res.status(401).json({ code: 401, message: err.message });
 			}
+
 			return res.status(400).json({ code: 400, message: err.message });
 		}
 	};

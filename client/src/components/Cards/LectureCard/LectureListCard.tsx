@@ -48,7 +48,7 @@ const LectureListCard: FC<Props> = ({
 				<CustomRating
 					rating={rating}
 					numberOfRates={numberOfRatings}
-					enrolledUsers={enrolledUsers}
+					enrolledUsers={enrolledUsers.length}
 				/>
 				<p className="desc">{description}</p>
 			</div>

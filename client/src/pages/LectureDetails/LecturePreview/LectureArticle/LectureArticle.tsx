@@ -15,48 +15,32 @@ type Props = {
 };
 
 const LectureArticle: FC<Props> = ({ value }) => {
-	const {
-		id,
-		publish: {
-			category,
-			caption,
-			title,
-			description,
-			author,
-			language,
-			promoVideo,
-		},
-		content,
-		lastUpdate,
-		rating,
-		numberOfRatings,
-		enrolledUsers,
-	} = value;
+	const { id, publish } = value;
 
 	return (
 		<Card
 			className="lecture-card"
-			title={title.toUpperCase()}
+			title={publish.title.toUpperCase()}
 			header={
 				<Header
-					title={title.toUpperCase()}
-					caption={caption}
-					promoVideo={promoVideo}
+					title={publish.title.toUpperCase()}
+					caption={publish.caption}
+					promoVideo={publish.promoVideo}
 				/>
 			}
 			subTitle={
 				<Subtitle
-					enrolledUsers={enrolledUsers}
-					rating={rating}
-					numberOfRatings={numberOfRatings}
-					lastUpdate={lastUpdate}
-					author={author}
-					category={category}
-					description={description}
-					language={language}
+					enrolledUsers={value.enrolledUsers.length}
+					rating={value.rating}
+					numberOfRatings={value.numberOfRatings}
+					lastUpdate={value.lastUpdate}
+					author={publish.author}
+					category={publish.category}
+					description={publish.description}
+					language={publish.language}
 				/>
 			}
-			footer={<LectureArticleFooter id={id} content={content} />}
+			footer={<LectureArticleFooter id={id} content={value.content} />}
 		></Card>
 	);
 };

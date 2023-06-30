@@ -1,8 +1,8 @@
 import { CreatedLectureModel } from "data/models/createdLecture.model";
 import { useFormikContext } from "formik";
 import { isEqual } from "lodash";
-import { FC } from "react";
-import { useMutation, useQueryClient } from "react-query";
+import { FC, useEffect } from "react";
+import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import PRButton from "../../../../components/PRButton/PRButton";
@@ -17,13 +17,12 @@ import "./EditLectureHeader.scss";
 type EditLectureHeaderProps = { isLoading: boolean };
 
 const EditLectureHeader: FC<EditLectureHeaderProps> = ({ isLoading }) => {
-	const { submitForm, values, initialValues } =
+	const { submitForm, values, initialValues, setFieldValue } =
 		useFormikContext<CreatedLectureModel>();
 	const { id } = useParams();
 	const axios = useAxios();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const queryClient = useQueryClient();
 
 	const isFormDirty = !isEqual(initialValues, values);
 
@@ -72,6 +71,10 @@ const EditLectureHeader: FC<EditLectureHeaderProps> = ({ isLoading }) => {
 		},
 		{ onSuccess: handleUpdateSuccess, onError: handleError }
 	);
+
+	useEffect(() => {
+		setFieldValue("duration", lectureDuration);
+	}, [lectureDuration, setFieldValue]);
 
 	const saveBtnDisabled = !isFormDirty;
 
