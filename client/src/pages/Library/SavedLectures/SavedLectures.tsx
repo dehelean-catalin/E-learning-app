@@ -16,14 +16,14 @@ const SavedLectures = () => {
 		getSavedLectures(axios)
 	);
 
-	if (isLoading) return <Spinner />;
-
 	if (isError) return <NotFoundError />;
 
 	return (
 		<div className="saved-lectures">
-			<div className="title">Saved Lectures</div>
-			{data.length ? (
+			<h2>Saved Lectures</h2>
+			{isLoading ? (
+				<Spinner />
+			) : data.length ? (
 				<div className="container">
 					{data.map((l) => (
 						<LectureListCard

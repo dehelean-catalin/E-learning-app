@@ -1,4 +1,5 @@
 import { FC, useEffect, useRef, useState } from "react";
+import { OnProgressProps } from "react-player/base";
 import ReactPlayer from "react-player/lazy";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
@@ -38,11 +39,10 @@ const LectureOverviewVideo: FC<LectureOverviewVideoProps> = ({
 	const contentData = getChapterVideoWithProgress(value, chapterId);
 
 	useEffect(() => {
-		axios.get(`lecture/${id}/progress/${chapterId}`).then((res) => {
-			if (playerReady) {
-				playerRef.current.seekTo(res.data.current);
-			}
-		});
+		if (playerReady)
+			playerRef.current.seekTo(
+				progress.find((p) => p.id === chapterId).current
+			);
 	}, [chapterId, playerReady]);
 
 	useEffect(() => {
@@ -56,12 +56,14 @@ const LectureOverviewVideo: FC<LectureOverviewVideoProps> = ({
 				const data = await response.blob();
 				const url = URL.createObjectURL(data);
 
-				const trackElement = document.createElement("track");
+				let trackElement = document.querySelector("track");
+
+				if (!trackElement) trackElement = document.createElement("track");
 				trackElement.src = url;
 				trackElement.kind = "captions";
 				trackElement.srclang = "en";
 				trackElement.label = "English";
-				trackElement.default = true;
+				trackElement.default = false;
 
 				const videoElement = document.querySelector("video");
 				videoElement.appendChild(trackElement);
@@ -71,7 +73,18 @@ const LectureOverviewVideo: FC<LectureOverviewVideoProps> = ({
 		};
 
 		fetchVTTFile();
-	}, [chapterId, contentData.track]);
+	}, [chapterId]);
+
+	const handleProgress = async ({ playedSeconds }: OnProgressProps) => {
+		if (!playerReady) return;
+
+		await axios
+			.put(`lecture/${id}/progress`, {
+				chapterId,
+				progress: playedSeconds,
+			})
+			.then((res) => dispatch(ProgressActions.setProgress(res.data)));
+	};
 
 	return (
 		<div className="lecture-video">
@@ -79,26 +92,12 @@ const LectureOverviewVideo: FC<LectureOverviewVideoProps> = ({
 				ref={playerRef}
 				url={contentData?.content}
 				controls
-				progressInterval={5000}
-				onProgress={(e) => {
-					if (!playerReady) return;
-					axios.put(`lecture/${id}/progress`, {
-						chapterId,
-						progress: e.playedSeconds,
-					});
-					const updatedArray = [...progress];
-					const index = updatedArray.findIndex((item) => item.id === chapterId);
-					updatedArray[index] = {
-						id: chapterId,
-						current: e.playedSeconds,
-						total: e.playedSeconds,
-					};
-					dispatch(ProgressActions.setProgress(updatedArray));
-				}}
+				progressInterval={2000}
+				onProgress={handleProgress}
 				onReady={handleReady}
 				playing={false}
+				muted={false}
 			/>
-
 			<h3>{publish.title}</h3>
 			{publish.author}
 		</div>

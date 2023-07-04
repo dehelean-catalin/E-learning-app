@@ -26,7 +26,6 @@ const useDragAndDropContent = () => {
 		}
 
 		if (typeof subIndex !== "undefined" && draggableIndex !== subIndex) {
-			console.log(subIndex, draggableIndex);
 			const newItems = [...formik.values.content];
 			const [removed] = newItems[index].children.splice(draggableIndex, 1);
 			newItems[index].children.splice(subIndex, 0, removed);

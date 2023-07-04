@@ -143,6 +143,3 @@ const LectureItemForm: FC<Props> = ({ onSubmit, toggleVisibility, index }) => {
 };
 
 export default LectureItemForm;
-function onVideoDurationLoaded(duration: number) {
-	throw new Error("Function not implemented.");
-}

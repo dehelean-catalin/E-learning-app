@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { doc, updateDoc } from "firebase/firestore";
 import db from "../../config/firebase";
 import { tryAgainError } from "../../constant";
-import { Content, CreatedLectureModel } from "../../models/creator.model";
+import { CreatedLectureModel } from "../../models/creator.model";
 import { ValidatedRequest } from "../../models/request";
 
 export const putLecture = async (
@@ -20,7 +20,6 @@ export const putLecture = async (
 
 		await updateDoc(lectureRef, {
 			...req.body,
-			duration: lectureDurationBasedOnContent(req.body.content),
 			lastUpdate: new Date().getTime(),
 		});
 
@@ -29,16 +28,4 @@ export const putLecture = async (
 		console.error(err);
 		res.status(400).json(tryAgainError);
 	}
-};
-
-const lectureDurationBasedOnContent = (data: Content[]) => {
-	let seconds = 0;
-
-	for (const i in data) {
-		for (const j in data[i].children) {
-			seconds += data[i].children[j].data.duration;
-		}
-	}
-
-	return seconds;
 };

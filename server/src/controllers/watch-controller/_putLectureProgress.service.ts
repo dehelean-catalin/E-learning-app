@@ -24,27 +24,24 @@ export const putLectureProgress = async (
 			videoProgress: VideoProgress;
 		}[];
 
-		for (const key in history) {
-			if (history[key].id === id) {
-				const historyItems = history[key].videoProgress.items;
-				history[key].videoProgress.lastDate = new Date().toISOString();
-				for (const j in historyItems) {
-					if (historyItems[j].id === chapterId) {
-						historyItems[j].current = progress;
+		let currentLecture = history.find((h) => h.id === id)?.videoProgress;
+		if (!currentLecture) throw new Error("Lecture not found");
 
-						if (historyItems[j].total < progress) {
-							historyItems[j].total = progress;
-						}
-					}
-				}
+		currentLecture.lastDate = new Date().toISOString();
+
+		currentLecture.items.forEach((i) => {
+			if (i.id === chapterId) {
+				i.current = progress;
+
+				if (i.total < i.current) i.total = i.current;
 			}
-		}
+		});
 
 		await updateDoc(userRef, {
 			history,
 		});
 
-		res.status(200).json("Successfully updated");
+		res.status(200).json(currentLecture.items);
 	} catch (err) {
 		next(err);
 	}

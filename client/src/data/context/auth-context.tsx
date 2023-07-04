@@ -14,6 +14,7 @@ export interface IAuthContext {
 	handleEmailVerified: () => void;
 	logout: () => void;
 	handleProviderId: (providerId: string) => void;
+	handleDeleteUser: () => void;
 }
 
 const AuthContext = createContext<IAuthContext>({
@@ -25,6 +26,7 @@ const AuthContext = createContext<IAuthContext>({
 	login: () => {},
 	logout: () => {},
 	handleProviderId: () => {},
+	handleDeleteUser() {},
 });
 
 export const AuthContextProvider: FC<Props> = ({ children }) => {
@@ -65,6 +67,11 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
 			window.location.replace("/login");
 		});
 	};
+	const handleDeleteUser = () => {
+		setToken(null);
+		localStorage.clear();
+		window.location.replace("/login");
+	};
 
 	const contexValue = {
 		userId,
@@ -75,6 +82,7 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
 		logout: logoutHandler,
 		providerId,
 		handleProviderId,
+		handleDeleteUser,
 	};
 	return (
 		<AuthContext.Provider value={contexValue}>{children}</AuthContext.Provider>

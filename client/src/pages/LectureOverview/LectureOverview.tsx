@@ -16,25 +16,21 @@ import LectureOverviewVideo from "./LectureOverviewVideo/LectureOverviewVideo";
 
 const LectureOverview = () => {
 	const axios = useAxios();
+	const dispatch = useDispatch();
 	const { id } = useParams();
 
 	const { data, isLoading, isError } = useFetchData("getLectureOverview", () =>
 		getLecture(axios, id)
 	);
 
-	const dispatch = useDispatch();
-
-	const { isLoading: isProgressLoading } = useFetchData(
-		"getLectureProgress",
-		() => getLectureProgress(axios, id),
-		{
+	const { isLoading: isProgressLoading, isError: isProgressError } =
+		useFetchData("getLectureProgress", () => getLectureProgress(axios, id), {
 			initialData: [],
 			onSuccess: (res) => dispatch(ProgressActions.setProgress(res)),
-		}
-	);
+		});
 
-	if (isLoading) return <Spinner />;
-	if (isError) return <NotFoundError />;
+	if (isLoading || isProgressLoading) return <Spinner />;
+	if (isError || isProgressError) return <NotFoundError />;
 
 	return (
 		<div className="lecture-overview">
@@ -42,11 +38,7 @@ const LectureOverview = () => {
 				<LectureOverviewVideo value={data.content} publish={data.publish} />
 				<LectureOverviewReviews />
 			</div>
-			{isProgressLoading ? (
-				<Spinner />
-			) : (
-				<LectureOverviewChapters id={id} data={data.content} />
-			)}
+			<LectureOverviewChapters id={id} data={data.content} />
 		</div>
 	);
 };

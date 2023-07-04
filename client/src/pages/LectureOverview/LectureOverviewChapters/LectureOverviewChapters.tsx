@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import {
 	Content,
+	ContentData,
 	VideoProgressItem,
 } from "../../../data/models/createdLecture.model";
 import { RootState } from "../../../data/redux/reducers";
@@ -25,9 +26,19 @@ const LectureOverviewChapters: FC<LectureOverviewChaptersProps> = ({
 	const navigate = useNavigate();
 	const { chapterId } = useParams();
 	const axios = useAxios();
+
 	const progress = useSelector<RootState, VideoProgressItem[]>(
 		(s) => s.progressReducer.data
 	);
+
+	const handleTabNavigation = (label: string, data: ContentData) => {
+		if (data.id === chapterId) return;
+		navigate(`/lecture/${id}/overview/${data.id}`);
+		axios.put(`lectures/${id}/last-chapter`, {
+			lastChapter: data.id,
+			lastName: label,
+		});
+	};
 
 	return (
 		<Accordion multiple className="lecture-overview-chapters">
@@ -42,14 +53,8 @@ const LectureOverviewChapters: FC<LectureOverviewChaptersProps> = ({
 				>
 					{children.map(({ label, data }, index2) => (
 						<article
-							onClick={() => {
-								navigate(`/lecture/${id}/overview/${data.id}`);
-								axios.put(`lectures/${id}/last-chapter`, {
-									lastChapter: data.id,
-									lastName: label,
-								});
-							}}
 							key={index2}
+							onClick={() => handleTabNavigation(label, data)}
 							className={classNames({
 								"surface-hover": data.id === chapterId,
 							})}

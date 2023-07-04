@@ -15,7 +15,6 @@ import { useFetchData } from "../../../hooks/useFetchData";
 import NotFoundError from "../../NotFound/NotFoundError/NotFoundError";
 import "./EditLecture.scss";
 import EditLectureHeader from "./EditLectureHeader/EditLectureHeader";
-import GenericConfirmDialog from "./GenericConfirmDialog";
 import NavMenu from "./NavMenu/NavMenu";
 
 const EditLecture = () => {
@@ -76,7 +75,6 @@ const EditLecture = () => {
 					</Form>
 				)}
 			</Formik>
-			<GenericConfirmDialog />
 		</>
 	);
 };

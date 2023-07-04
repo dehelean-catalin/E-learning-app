@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { doc, getDoc } from "firebase/firestore";
+import { doc } from "firebase/firestore";
 import db from "../../config/firebase";
+import { firestoreDb } from "../../config/firebase-admin";
 import { ValidatedRequest } from "../../models/request";
 import { Profile, UserDataModel } from "../../models/user-model";
 
@@ -10,10 +11,12 @@ export const getProfileData = async (
 	next: NextFunction
 ) => {
 	const validatedReq = req as ValidatedRequest;
+	const { userId } = validatedReq.userData;
 	const userRef = doc(db, "users", validatedReq.userData.userId);
 	try {
-		const userSnap = await getDoc(userRef);
-		if (!userSnap.exists()) throw new Error("This user don't exist");
+		const userRef = firestoreDb.collection("users").doc(userId);
+		const userSnap = await userRef.get();
+		if (!userSnap.exists) throw new Error("This user don't exist");
 
 		const userData = userSnap.data() as UserDataModel;
 

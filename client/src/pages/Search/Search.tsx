@@ -37,7 +37,9 @@ const Search = () => {
 		<div className="search">
 			<div className="wrapper">
 				<SearchFilterSection />
-				{data.length ? (
+				{isLoading ? (
+					<Spinner />
+				) : data.length ? (
 					data.map((lecture, key) => (
 						<LectureListCard
 							key={key}

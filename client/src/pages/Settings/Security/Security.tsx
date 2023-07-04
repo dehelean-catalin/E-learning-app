@@ -1,5 +1,10 @@
+import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import PRButton from "../../../components/PRButton/PRButton";
 import Spinner from "../../../components/Spinner/Spinner";
+import AuthContext from "../../../data/context/auth-context";
+import { ConfirmDialogActions } from "../../../data/redux/confirmDialog.reducer";
 import { NotificationActions } from "../../../data/redux/notificationReducer";
 import { RootState } from "../../../data/redux/reducers";
 import { useAxios } from "../../../hooks/useAxios";
@@ -9,6 +14,8 @@ import ConnectionSection from "./ConnectionsSection/ConnectionsSection";
 const Security = () => {
 	const axios = useAxios();
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const { handleDeleteUser } = useContext(AuthContext);
 	const email = useSelector<RootState, string>(
 		(s) => s.accountReducer.data.email
 	);
@@ -47,11 +54,11 @@ const Security = () => {
 
 	return (
 		<div className="flex-1 flex flex-column gap-2">
-			<h2>Activity log</h2>
+			<h3 className="mb-2">Activity log</h3>
 			<ConnectionSection value={connectinList} />
-			<div className="flex align-items-end bg-primary justify-content-right">
+			<div className="ml-auto">
 				Suspicious activity?
-				{localStorage.getItem("providerId") !== "password" ? (
+				{localStorage.getItem("providerId") === "password" ? (
 					<span
 						className="ml-2 text-primary underline cursor-pointer"
 						onClick={handleChangePassword}
@@ -63,6 +70,32 @@ const Security = () => {
 						Check your {localStorage.getItem("providerId")} account password
 					</span>
 				)}
+			</div>
+			<h3 className="my-2">Delete account</h3>
+			<div className="flex gap-2 align-items-center">
+				<i className="pi pi-exclamation-triangle mr-2 text-2xl" />
+				<p>
+					This will permanently delete the data related to this course and the
+					information will no longer be retrievable.
+				</p>
+				<PRButton
+					className="surface-card text-white w-2"
+					label="Delete"
+					type="button"
+					iconPos="left"
+					icon="pi pi-trash"
+					onClick={() => {
+						dispatch(
+							ConfirmDialogActions.show({
+								accept: () =>
+									axios.delete("/delete-user").then(() => {
+										handleDeleteUser();
+									}),
+							})
+						);
+					}}
+					loading={isLoading}
+				/>
 			</div>
 		</div>
 	);

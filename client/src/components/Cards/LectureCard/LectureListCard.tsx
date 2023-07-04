@@ -6,51 +6,32 @@ import "./LectureListCard.scss";
 
 type Props = {
 	value: LectureCard;
-	className?: string;
 	captionClassName?: string;
 	icon: JSX.Element;
 };
 
-const LectureListCard: FC<Props> = ({
-	value,
-	className,
-	captionClassName,
-	icon,
-}) => {
+const LectureListCard: FC<Props> = ({ value, captionClassName, icon }) => {
 	const navigate = useNavigate();
-
-	const {
-		id,
-		title,
-		author,
-		caption,
-		rating,
-		enrolledUsers,
-		numberOfRatings,
-		description,
-	} = value;
 
 	return (
 		<div className="lecture-list-card">
 			<img
-				className={`${captionClassName ? captionClassName : "lg:h-10rem"}`}
-				src={caption}
+				className={`${captionClassName ? captionClassName : ""}`}
+				src={value.caption}
 				alt="caption"
-				onClick={() => navigate(`/lecture/${id}`)}
+				onClick={() => navigate(`/lecture/${value.id}`)}
 			/>
 
 			<div className="content">
-				<h2>
-					<span>{title}</span>
-				</h2>
-				<p>{author}</p>
+				<h3>{value.title}</h3>
+				<p className="text-color-secondary">{value.author}</p>
 
 				<CustomRating
-					rating={rating}
-					numberOfRates={numberOfRatings}
-					enrolledUsers={enrolledUsers.length}
+					rating={value.rating}
+					numberOfRates={value.numberOfRatings}
+					enrolledUsers={value.enrolledUsers.length}
 				/>
-				<p className="desc">{description}</p>
+				<h4 className="desc">{value.description}</h4>
 			</div>
 			{icon}
 		</div>

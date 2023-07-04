@@ -4,14 +4,13 @@ Articole licenta:
 
 # In Development:
 
-- monitorizare - afișarea progresului și a ultimului capitol;
-- monitorizare - afișarea progresului în cadrul cursului;
-- delete user;
-- forgot password la connection
-- updating check mark;
+- firestore security rules;
+- refactor server controlers,models,routes,schemas and services into : user, lectures, progress, auth, creator;
+- fix leave rating button;
 
 # Nice to have:
 
+- revoke password;
 - LO additional info;
 - LO comment section;
 - link email with provider;

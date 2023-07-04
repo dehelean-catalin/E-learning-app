@@ -44,7 +44,7 @@ export const getHistoryLectureList = async (req: Request, res: Response) => {
 			videoProgress: VideoProgress;
 		}[];
 
-		if (!progress.length) res.status(200).json([]);
+		if (!progress.length) return res.status(200).json([]);
 
 		const ids = progress.map((h) => h.id);
 		const q = query(collection(db, "lectures"), where("id", "in", ids));

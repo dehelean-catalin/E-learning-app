@@ -10,3 +10,7 @@ export type HistoryModel = {
 	page: string;
 	chapterName: string;
 };
+export type LectureProgress = {
+	items: string[];
+	lastName: string;
+};

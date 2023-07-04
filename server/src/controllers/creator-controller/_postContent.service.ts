@@ -19,13 +19,14 @@ export const postContent = async (req: Request, res: Response) => {
 	const fileReq = req as FileRequest;
 	const storage = getStorage();
 	const storageRef = ref(storage, `content/` + fileReq.file?.originalname);
-	const audioSource = { buffer: fileReq.file.buffer, mimetype: "video" };
 	const trackRef = ref(storage, `track/` + fileReq.file?.originalname + uuid());
+	const audioSource = { buffer: fileReq.file.buffer, mimetype: "video" };
 
 	try {
 		await uploadBytes(storageRef, fileReq.file.buffer, {
 			contentType: "video/*",
 		});
+
 		const response: any = await deepgram.transcription.preRecorded(
 			audioSource,
 			{

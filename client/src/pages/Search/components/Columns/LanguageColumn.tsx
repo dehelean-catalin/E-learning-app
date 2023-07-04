@@ -19,25 +19,25 @@ const LanguageColumn: FC<FilterColumnProps> = ({ values, setValues }) => {
 			<li>Language</li>
 			<Divider margin="0.5rem" />
 			<li
-				className={values?.language === "romanian" ? "active" : ""}
-				onClick={() => handleChange("romanian")}
+				className={values?.language === "Romanian" ? "active" : ""}
+				onClick={() => handleChange("Romanian")}
 			>
 				Romanian
-				{values?.language === "romanian" && <IoClose onClick={handleClose} />}
+				{values?.language === "Romanian" && <IoClose onClick={handleClose} />}
 			</li>
 			<li
-				className={values?.language === "english" ? "active" : ""}
-				onClick={() => handleChange("english")}
+				className={values?.language === "English" ? "active" : ""}
+				onClick={() => handleChange("English")}
 			>
 				English
-				{values?.language === "english" && <IoClose onClick={handleClose} />}
+				{values?.language === "English" && <IoClose onClick={handleClose} />}
 			</li>
 			<li
-				className={values?.language === "french" ? "active" : ""}
-				onClick={() => handleChange("french")}
+				className={values?.language === "French" ? "active" : ""}
+				onClick={() => handleChange("French")}
 			>
 				French
-				{values?.language === "french" && <IoClose onClick={handleClose} />}
+				{values?.language === "French" && <IoClose onClick={handleClose} />}
 			</li>
 		</ul>
 	);

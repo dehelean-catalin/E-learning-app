@@ -1,5 +1,5 @@
 export type RatingParams = "9g" | "8-9b" | "8u";
-export type LangParams = "english" | "french" | "romanian";
+export type LangParams = "English" | "French" | "Romanian";
 export type DurationParams = "4u" | "4-16b" | "16-40b" | "40g";
 export type DateParams = "lh" | "td" | "lw" | "lm" | "ly";
 

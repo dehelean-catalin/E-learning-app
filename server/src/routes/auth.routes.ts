@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
 	changePassword,
+	deleteUser,
 	forgotPassword,
 	getConnectionsList,
 	login,
@@ -24,5 +25,6 @@ router.post(
 router.post("/forgot-password", forgotPassword);
 router.post("/change-password", tokenAuthMiddleware, changePassword);
 router.get("/connections-list", tokenAuthMiddleware, getConnectionsList);
+router.delete("/delete-user", tokenAuthMiddleware, deleteUser);
 
 export default router;

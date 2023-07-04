@@ -43,7 +43,7 @@ const UploadLectureItem: FC<Props> = ({ arrayHelpers, children, index }) => {
 							track: res.data.track,
 							duration,
 							status: "Success",
-							date: new Date().toUTCString(),
+							date: new Date().toISOString(),
 							type,
 						},
 					})

@@ -1,5 +1,3 @@
-export * from "./_deleteLectureReview.service";
-export * from "./_getLectureCurrentProgress.service";
 export * from "./_getLectureProgress.service";
 export * from "./_postLectureProgress.service";
 export * from "./_putLectureLastDate.service";

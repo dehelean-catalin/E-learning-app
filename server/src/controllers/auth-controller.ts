@@ -3,6 +3,7 @@ import { FirebaseError } from "firebase/app";
 import { sendPasswordResetEmail, updatePassword } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import db, { auth } from "../config/firebase";
+import { adminAuth } from "../config/firebase-admin";
 import { ValidatedRequest } from "../models/request";
 import { ConnectionItem, UserModel } from "../models/user-model";
 import { tryAgainError } from "./../constant";
@@ -211,5 +212,17 @@ export const loginWithProvider: RequestHandler<
 		res
 			.status(400)
 			.json({ code: 400, message: "Try again something went wrong" });
+	}
+};
+
+export const deleteUser: RequestHandler = async (req, res, next) => {
+	const validatedReq = req as ValidatedRequest;
+	const { userId } = validatedReq.userData;
+
+	try {
+		await adminAuth.deleteUser(userId);
+		res.status(200).json("Success");
+	} catch (error) {
+		res.json(400).json(tryAgainError);
 	}
 };

@@ -11,12 +11,13 @@ import Header from "../components/Header/Header";
 import Notification from "../components/Notification/Notification";
 import SideBar from "../components/SideBar/SideBar";
 import AuthContext from "../data/context/auth-context";
+import GenericConfirmDialog from "../pages/Creator/EditLecture/GenericConfirmDialog";
 
 const RootLayout = () => {
 	const { token, emailVerified } = useContext(AuthContext);
 	const dispatch = useDispatch();
 	const axios = useAxios();
-	console.log(emailVerified);
+
 	const onSuccess = (e) => dispatch(AccountDataActions.setAccountData(e));
 
 	const { isLoading, isError } = useFetchData(
@@ -52,6 +53,7 @@ const RootLayout = () => {
 				</div>
 			</main>
 			<Notification />
+			<GenericConfirmDialog />
 		</div>
 	);
 };

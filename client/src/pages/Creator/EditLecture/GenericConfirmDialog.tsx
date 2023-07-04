@@ -15,7 +15,7 @@ const GenericConfirmDialog: FC<ConfirmDialogProps> = () => {
 		<ConfirmDialog
 			visible={visible}
 			onHide={() => dispatch(ConfirmDialogActions.hide())}
-			message="Are you sure you want to proceed?"
+			message="Are you sure you want to finish your action?"
 			header="Confirmation"
 			icon="pi pi-exclamation-triangle"
 			accept={accept}
