@@ -3,11 +3,11 @@ import { ProgressBar } from "primereact/progressbar";
 import { classNames } from "primereact/utils";
 import { FC } from "react";
 import { useNavigate } from "react-router";
-import { LectureCard } from "../../../data/models/lectureModel";
+import { BasicLecture } from "../../../data/models/lectureModel";
 import "./GridCard.scss";
 
 type Props = {
-	value: LectureCard;
+	value: BasicLecture;
 	icon?: JSX.Element;
 	showProgress?: boolean;
 };

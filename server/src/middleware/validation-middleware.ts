@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { ObjectSchema } from "joi";
 import jwt from "jsonwebtoken";
 import { adminAuth } from "../config/firebase-admin";
-import { ValidatedRequest } from "../models/request";
+import { ValidatedRequest } from "../models/genericModels";
 
 export default function authorization(model: ObjectSchema) {
 	return async (req: Request, res: Response, next: NextFunction) => {

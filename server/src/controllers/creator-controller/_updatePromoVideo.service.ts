@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { ValidatedRequest } from "../../models/request";
+import { ValidatedRequest } from "../../models/genericModels";
 
 export const updatePromoVideo = async (req: any, res: Response) => {
 	const validatedReq = req as ValidatedRequest;

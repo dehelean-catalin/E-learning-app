@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { doc, getDoc } from "firebase/firestore";
 import db from "../../config/firebase";
-import { ValidatedRequest } from "../../models/request";
+import { ValidatedRequest } from "../../models/genericModels";
 import { UserDataModel } from "../../models/user-model";
 
 export const getProfilePicture = async (req: Request, res: Response) => {

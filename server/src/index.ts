@@ -5,8 +5,7 @@ import multer from "multer";
 import authRoutes from "./routes/auth.routes";
 import creatorRoutes from "./routes/creator.routes";
 import lectureRoutes from "./routes/lecture.routes";
-import profileRoutes from "./routes/profile.routes";
-import progressRoutes from "./routes/progress.routes";
+import monitoringRoutes from "./routes/monitoring.routes";
 import userRoutes from "./routes/user.routes";
 
 require("dotenv").config();
@@ -19,9 +18,8 @@ app.use(json());
 
 app.use(authRoutes);
 app.use(lectureRoutes);
-app.use(progressRoutes);
+app.use(monitoringRoutes);
 app.use(userRoutes);
-app.use(profileRoutes);
 app.use(creatorRoutes);
 
 app.all("*", (req, res) => {

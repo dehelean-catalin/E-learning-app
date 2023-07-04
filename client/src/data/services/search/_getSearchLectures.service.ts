@@ -1,11 +1,11 @@
 import { AxiosInstance } from "axios";
 import { QueryFilterParams } from "data/models/search/searchFilterModel";
-import { LectureCard } from "../../models/lectureModel";
+import { BasicLecture } from "../../models/lectureModel";
 
 export const getSearchLectures = async (
 	axios: AxiosInstance,
 	params: QueryFilterParams
-): Promise<LectureCard[]> => {
+): Promise<BasicLecture[]> => {
 	return await axios
 		.get("/search", {
 			params,

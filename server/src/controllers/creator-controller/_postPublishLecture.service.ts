@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { deleteDoc, doc, setDoc } from "firebase/firestore";
 import db from "../../config/firebase";
-import { ValidatedRequest } from "../../models/request";
+import { ValidatedRequest } from "../../models/genericModels";
 
 export const postLecture = async (req: Request, res: Response) => {
 	const validatedReq = req as ValidatedRequest;

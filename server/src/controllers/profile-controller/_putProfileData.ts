@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { doc, updateDoc } from "firebase/firestore";
 import db from "../../config/firebase";
-import { ValidatedRequest } from "../../models/request";
+import { ValidatedRequest } from "../../models/genericModels";
 
 export const putProfileData = async (req: Request, res: Response) => {
 	const validatedReq = req as ValidatedRequest;

@@ -1,8 +1,8 @@
 import { RequestHandler } from "express";
 import { tryAgainError } from "../constant";
 import { Category } from "../models/creator.model";
-import { ValidatedRequest } from "../models/request";
-import { QueryFilterParams } from "../models/search-model";
+import { ValidatedRequest } from "../models/genericModels";
+import { QueryFilterParams } from "../models/lectureModels";
 import {
 	addLectureReviewData,
 	addSavedLectureIdData,
@@ -83,6 +83,7 @@ export const deleteSavedLectureId: RequestHandler = async (req, res) => {
 		if (!lectureId) throw new Error("Lecture id not found");
 
 		const data = await deleteSavedLectureIdData(userId, lectureId);
+
 		res.status(200).json(data);
 	} catch (err: any) {
 		res.status(400).json({ code: 400, message: err.message });
@@ -99,6 +100,7 @@ export const getAllSearchedLectures: RequestHandler<
 		if (!req.query?.searchQuery) throw new Error("Search query can't be empty");
 
 		const data = await getAllSearchedLecturesData(req.query);
+
 		res.status(200).json(data);
 	} catch (err: any) {
 		res.status(400).json({ code: 400, message: err.message });
@@ -106,13 +108,10 @@ export const getAllSearchedLectures: RequestHandler<
 };
 
 export const getLectureReviews: RequestHandler = async (req, res) => {
-	const validatedReq = req as ValidatedRequest;
-	const { userId } = validatedReq.userData;
-	const { id } = req.params;
-
 	try {
 		const id = req.params.id;
 		if (!id) throw new Error("Lecture not found");
+
 		const data = await getLectureReviewsData(id);
 
 		res.status(200).json(data);
@@ -133,9 +132,9 @@ export const addLectureReview: RequestHandler<
 		const { id } = req.params;
 		if (!id) throw new Error("Lecture not found");
 
-		await addLectureReviewData(id, userId, req.body);
+		const data = await addLectureReviewData(id, userId, req.body);
 
-		res.status(200).json("Success");
+		res.status(200).json(data);
 	} catch (err: any) {
 		res.status(400).json({ code: 400, message: err.message });
 	}
@@ -152,9 +151,9 @@ export const deleteLectureReview: RequestHandler = async (req, res) => {
 		if (!id) throw new Error("Lecture not found");
 		if (!rating) throw new Error(tryAgainError);
 
-		await deleteLectureReviewData(id, userId, rating);
+		const data = await deleteLectureReviewData(id, userId, rating);
 
-		res.status(200).json("Success");
+		res.status(200).json(data);
 	} catch (err: any) {
 		res.status(400).json({ code: 400, message: err.message });
 	}

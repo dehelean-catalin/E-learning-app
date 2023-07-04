@@ -1,5 +1,6 @@
 import admin from "firebase-admin";
 import { getAuth } from "firebase-admin/auth";
+
 const secrets = require("./secrets.json");
 
 export const adminDb = admin.initializeApp({

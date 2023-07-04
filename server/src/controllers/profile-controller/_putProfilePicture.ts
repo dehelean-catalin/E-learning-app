@@ -2,7 +2,7 @@ import { Response } from "express";
 import { doc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import db from "../../config/firebase";
-import { ValidatedRequest } from "../../models/request";
+import { ValidatedRequest } from "../../models/genericModels";
 
 export const putProfilePicture = async (req: any, res: Response) => {
 	const validatedReq = req as ValidatedRequest;

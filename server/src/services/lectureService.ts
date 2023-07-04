@@ -1,15 +1,14 @@
 import { FieldValue } from "firebase-admin/firestore";
 import { DocumentData, QuerySnapshot } from "firebase/firestore";
 import { firestoreDb } from "../config/firebase-admin";
+import { applyFilters } from "../helpers/lecture.helper";
+import { Category, CreatedLectureModel, Review } from "../models/creator.model";
 import {
-	lastHourCheck,
-	lastMonthCheck,
-	lastWeekCheck,
-	lastYearCheck,
-	todayCheck,
-} from "../helpers/search-helpers";
-import { Category, Review } from "../models/creator.model";
-import { QueryFilterParams, SearchCard } from "../models/search-model";
+	BasicLecture,
+	QueryFilterParams,
+	SavedLecture,
+	SearchedLecture,
+} from "../models/lectureModels";
 
 export const getAllLecturesData = async (
 	userId: string,
@@ -24,7 +23,6 @@ export const getAllLecturesData = async (
 			.where("publish.authorId", "!=", userId)
 			.select(
 				"publish.title",
-				"publish.description",
 				"publish.caption",
 				"publish.author",
 				"rating",
@@ -38,7 +36,6 @@ export const getAllLecturesData = async (
 			.where("publish.authorId", "!=", userId)
 			.select(
 				"publish.title",
-				"publish.description",
 				"publish.caption",
 				"publish.author",
 				"rating",
@@ -49,9 +46,9 @@ export const getAllLecturesData = async (
 
 	const querySnapshot: QuerySnapshot<DocumentData> = await query.get();
 
-	const data = querySnapshot.docs.map((doc) => {
+	const data: BasicLecture[] = querySnapshot.docs.map((doc) => {
 		const {
-			publish: { title, description, caption, author },
+			publish: { title, caption, author },
 			rating,
 			numberOfRatings,
 			enrolledUsers,
@@ -60,7 +57,6 @@ export const getAllLecturesData = async (
 		return {
 			id: doc.id,
 			title,
-			description,
 			caption,
 			author,
 			rating,
@@ -79,7 +75,7 @@ export const getLectureByIdData = async (id: string) => {
 
 	if (!lectureSnap.exists) throw new Error("Lecture not found");
 
-	const data = lectureSnap.data();
+	const data = lectureSnap.data() as CreatedLectureModel;
 
 	return data;
 };
@@ -108,7 +104,7 @@ export const getSavedLecturesData = async (id: string) => {
 		)
 		.get();
 
-	const data = querySnapshot.docs.map((doc) => {
+	const data: SavedLecture[] = querySnapshot.docs.map((doc) => {
 		const {
 			publish: { title, description, caption, author },
 			rating,
@@ -174,7 +170,7 @@ export const getAllSearchedLecturesData = async (
 		)
 		.get();
 
-	let lectures: SearchCard[] = querySnapshot.docs.map((doc) => {
+	let lectures: SearchedLecture[] = querySnapshot.docs.map((doc) => {
 		const {
 			publish: { title, description, caption, author, category, language },
 			rating,
@@ -211,73 +207,6 @@ export const getAllSearchedLecturesData = async (
 	const filteredLectures = applyFilters(searchedLectures, filterValue);
 
 	return filteredLectures;
-};
-
-const applyFilters = (lectures: SearchCard[], filters: QueryFilterParams) => {
-	if (filters.rating) {
-		const { rating } = filters;
-
-		if (rating === "9g")
-			lectures = lectures.filter(
-				({ rating, numberOfRatings }) => rating / numberOfRatings >= 4.5
-			);
-
-		if (rating === "8-9b")
-			lectures = lectures.filter(
-				({ rating, numberOfRatings }) => rating / numberOfRatings >= 3
-			);
-
-		if (rating === "8u")
-			lectures = lectures.filter(
-				({ numberOfRatings, rating }) => rating / numberOfRatings < 3
-			);
-	}
-
-	if (filters.language)
-		lectures = lectures.filter((doc) => doc.language === filters.language);
-
-	if (filters.duration) {
-		const { duration } = filters;
-		if (duration === "4u") {
-			lectures = lectures.filter(({ duration }) => duration / 3600 < 240);
-		}
-		if (duration === "4-16b") {
-			lectures = lectures.filter(
-				({ duration }) => duration / 3600 >= 240 && duration / 3600 < 960
-			);
-		}
-		if (duration === "16-40b") {
-			lectures = lectures.filter(
-				({ duration }) => duration / 3600 >= 960 && duration / 3600 < 2400
-			);
-		}
-		if (duration === "40g") {
-			lectures = lectures.filter(({ duration }) => duration / 3600 >= 2400);
-		}
-	}
-
-	if (filters.date) {
-		const { date } = filters;
-		if (date === "lh") {
-			lectures = lectures.filter(({ lastUpdate }) => lastHourCheck(lastUpdate));
-		}
-		if (date === "td") {
-			lectures = lectures.filter(({ lastUpdate }) => todayCheck(lastUpdate));
-		}
-		if (date === "lw") {
-			lectures = lectures.filter(({ lastUpdate }) => lastWeekCheck(lastUpdate));
-		}
-		if (date === "lm") {
-			lectures = lectures.filter(({ lastUpdate }) =>
-				lastMonthCheck(lastUpdate)
-			);
-		}
-		if (date === "ly") {
-			lectures = lectures.filter(({ lastUpdate }) => lastYearCheck(lastUpdate));
-		}
-	}
-
-	return lectures;
 };
 
 export const getLectureReviewsData = async (id: string) => {

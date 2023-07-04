@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { useNavigate } from "react-router";
-import { LectureCard } from "../../../data/models/lectureModel";
+import { BasicLecture } from "../../../data/models/lectureModel";
 import { CustomRating } from "../../CustomRating/CustomRating";
 import "./LectureListCard.scss";
 
 type Props = {
-	value: LectureCard;
+	value: BasicLecture;
 	captionClassName?: string;
 	icon: JSX.Element;
 };

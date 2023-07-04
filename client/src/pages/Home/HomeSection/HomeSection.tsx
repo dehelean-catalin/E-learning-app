@@ -2,12 +2,12 @@ import GridCard from "components/Cards/GridCard/GridCard";
 import { FC } from "react";
 import GridCardIcon from "../../../components/Cards/GridCard/GridCardIcon";
 import Divider from "../../../components/Divider/Divider";
-import { LectureCard } from "../../../data/models/lectureModel";
+import { BasicLecture } from "../../../data/models/lectureModel";
 import styles from "./HomeSection.module.scss";
 
 type Props = {
 	title?: string;
-	value: LectureCard[];
+	value: BasicLecture[];
 	showDivider?: boolean;
 };
 const HomeSection: FC<Props> = ({ value, title, showDivider }) => {

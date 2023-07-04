@@ -59,3 +59,17 @@ export type ConnectionItem = {
 	location: string;
 	date: string;
 };
+
+export type HistoryModel = {
+	id: string;
+	videoProgress: VideoProgress;
+};
+
+export type VideoProgress = {
+	lastChapter: string;
+	lastDate: string;
+	lastName: string;
+	items: VideoProgressItem[];
+};
+
+export type VideoProgressItem = { id: string; current: number; total: number };

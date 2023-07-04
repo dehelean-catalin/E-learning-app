@@ -1,4 +1,4 @@
-export type LectureCard = {
+export type BasicLecture = {
 	id: string;
 	title: string;
 	caption: string;

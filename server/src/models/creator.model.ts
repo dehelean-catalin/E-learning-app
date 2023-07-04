@@ -78,11 +78,3 @@ export type Review = {
 	message: string;
 	rating: number;
 };
-export type VideoProgress = {
-	lastChapter: string;
-	lastDate: string;
-	lastName: string;
-	items: VideoProgressItem[];
-};
-
-export type VideoProgressItem = { id: string; current: number; total: number };

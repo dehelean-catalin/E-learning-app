@@ -4,7 +4,7 @@ import { sendPasswordResetEmail, updatePassword } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import db, { auth } from "../config/firebase";
 import { adminAuth } from "../config/firebase-admin";
-import { ValidatedRequest } from "../models/request";
+import { ValidatedRequest } from "../models/genericModels";
 import { ConnectionItem, UserModel } from "../models/user-model";
 import { tryAgainError } from "./../constant";
 

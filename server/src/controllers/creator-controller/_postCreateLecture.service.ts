@@ -7,7 +7,7 @@ import {
 	CreateLecturePayload,
 	CreatedLectureModel,
 } from "../../models/creator.model";
-import { ValidatedRequest } from "../../models/request";
+import { ValidatedRequest } from "../../models/genericModels";
 
 const INITIAL_REQUIREMENTS = [
 	{

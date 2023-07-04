@@ -3,7 +3,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import db from "../../config/firebase";
 import { tryAgainError } from "../../constant";
 import { CreatedLectureModel } from "../../models/creator.model";
-import { ValidatedRequest } from "../../models/request";
+import { ValidatedRequest } from "../../models/genericModels";
 
 export const putLecture = async (
 	req: Request<any, any, CreatedLectureModel>,

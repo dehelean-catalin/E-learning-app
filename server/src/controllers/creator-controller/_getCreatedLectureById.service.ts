@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { doc, getDoc } from "firebase/firestore";
 import db from "../../config/firebase";
 import { CreatedLectureModel } from "../../models/creator.model";
-import { ValidatedRequest } from "../../models/request";
+import { ValidatedRequest } from "../../models/genericModels";
 
 export const getCreatedLectureById = async (
 	req: Request<any, any, CreatedLectureModel>,

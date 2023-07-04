@@ -1,6 +1,6 @@
 import Joi from "joi";
 import { Review } from "../models/creator.model";
-import { LectureProgress } from "../models/lecture-model";
+import { LectureProgress } from "../models/lectureModels";
 
 export const reviewSchema = Joi.object<Review, true>().keys({
 	author: Joi.string().required().messages({

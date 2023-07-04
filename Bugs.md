@@ -4,9 +4,11 @@ Articole licenta:
 
 # In Development:
 
+- refactor server controlers,models,routes,schemas and services into : user, lectures, monitoring, auth, creator;
+- remove placeholder from requirements and goals
 - firestore security rules;
-- refactor server controlers,models,routes,schemas and services into : user, lectures, progress, auth, creator;
 - fix leave rating button;
+- Remove constant file from server
 
 # Nice to have:
 

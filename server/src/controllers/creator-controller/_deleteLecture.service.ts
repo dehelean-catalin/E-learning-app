@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { deleteDoc, doc, getDoc } from "firebase/firestore";
 import db from "../../config/firebase";
 import { tryAgainError } from "../../constant";
-import { ValidatedRequest } from "../../models/request";
+import { ValidatedRequest } from "../../models/genericModels";
 
 export const deleteLecture = async (req: Request, res: Response<string>) => {
 	const validatedReq = req as ValidatedRequest;

@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { doc } from "firebase/firestore";
 import db from "../../config/firebase";
 import { firestoreDb } from "../../config/firebase-admin";
-import { ValidatedRequest } from "../../models/request";
+import { ValidatedRequest } from "../../models/genericModels";
 import { Profile, UserDataModel } from "../../models/user-model";
 
 export const getProfileData = async (

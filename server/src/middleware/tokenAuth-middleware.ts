@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { adminAuth } from "../config/firebase-admin";
-import { ValidatedRequest } from "./../models/request";
+import { ValidatedRequest } from "../models/genericModels";
 
 export type DecodedToken = {
 	userId: string;
