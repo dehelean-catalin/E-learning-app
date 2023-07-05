@@ -1,12 +1,15 @@
+import { AxiosResponse } from "axios";
 import { FC, useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa";
 import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import PRButton from "../../../../components/PRButton/PRButton";
-import { Content } from "../../../../data/models/createdLecture.model";
+import {
+	Content,
+	VideoProgress,
+} from "../../../../data/models/createdLecture.model";
 import { NotificationActions } from "../../../../data/redux/notificationReducer";
-import { putLectureLastDate } from "../../../../data/services/lecture.service";
 import { postLectureProgress } from "../../../../data/services/progress.service";
 import { useAxios } from "../../../../hooks/useAxios";
 
@@ -22,13 +25,15 @@ const LectureArticleFooter: FC<LectureArticleFooterProps> = ({
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const axios = useAxios();
-	const [isEnrolled, setIsEnrolled] = useState(false);
+	const [isEnrolled, setIsEnrolled] = useState("");
 
 	useEffect(() => {
-		axios.get(`lecture/${id}/progress`).then((res) => {
-			setIsEnrolled(!!res.data.length);
-		});
-	}, []);
+		axios
+			.get(`lecture/${id}/progress`)
+			.then((res: AxiosResponse<VideoProgress>) => {
+				setIsEnrolled(res.data.lastChapter);
+			});
+	}, [id]);
 
 	const handleSuccess = () => {
 		navigate(`/lecture/${id}/overview/${content[0].children[0].data.id}`);
@@ -64,15 +69,10 @@ const LectureArticleFooter: FC<LectureArticleFooterProps> = ({
 			onError: handleError,
 		}
 	);
-	const { mutate: handleContinue } = useMutation(
-		() => putLectureLastDate(axios, id),
-		{
-			onSuccess: (res) => navigate(`/lecture/${id}/overview/${res}`),
-			onError: handleError,
-		}
-	);
+	const handleContinue = () =>
+		navigate(`/lecture/${id}/overview/${isEnrolled}`);
 
-	if (isEnrolled)
+	if (!!isEnrolled)
 		return (
 			<footer>
 				<PRButton

@@ -1,12 +1,11 @@
 import { Accordion, AccordionTab } from "primereact/accordion";
 import { FC } from "react";
 import { FaBrain, FaTools } from "react-icons/fa";
-import { PlanFieldModel } from "../../../../data/models/createdLecture.model";
 import "./LectureGoals.scss";
 
 type LectureGoalsProps = {
-	goals: PlanFieldModel[];
-	requirements: PlanFieldModel[];
+	goals: string[];
+	requirements: string[];
 };
 
 const LectureGoals: FC<LectureGoalsProps> = ({ goals, requirements }) => {
@@ -21,10 +20,10 @@ const LectureGoals: FC<LectureGoalsProps> = ({ goals, requirements }) => {
 						</header>
 					}
 				>
-					{goals.map((r, key) => (
+					{goals.map((goal, key) => (
 						<div className="row" key={key}>
 							<i className="pi pi-check mr-2" />
-							<p>{r.value}</p>
+							<p>{goal}</p>
 						</div>
 					))}
 				</AccordionTab>
@@ -40,10 +39,10 @@ const LectureGoals: FC<LectureGoalsProps> = ({ goals, requirements }) => {
 					}
 					contentClassName="tab"
 				>
-					{requirements.map((r, key) => (
+					{requirements.map((req, key) => (
 						<div className="row" key={key}>
 							<i className="pi pi-check mr-2" />
-							<p>{r.value}</p>
+							<p>{req}</p>
 						</div>
 					))}
 				</AccordionTab>

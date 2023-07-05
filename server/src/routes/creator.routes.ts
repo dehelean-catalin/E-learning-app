@@ -1,19 +1,21 @@
 import { Router } from "express";
 import {
 	deleteLecture,
-	getCreatedLectures,
 	postContent,
-	postCreateLecture,
 	updateCaption,
 	updateCreatedLecture,
 	updatePromoVideo,
 } from "../controllers/creator-controller";
-import { getCreatedLectureById } from "../controllers/creator-controller/_getCreatedLectureById.service";
 import { postLecture } from "../controllers/creator-controller/_postPublishLecture.service";
 import { putLecture } from "../controllers/creator-controller/_putLecture.service";
+import {
+	createLectureTemplate,
+	getAllCreatedLectures,
+	getCreatedLectureById,
+} from "../controllers/creatorController";
 import { default as tokenAuthMiddleware } from "../middleware/tokenAuth-middleware";
 import validation from "../middleware/validation-middleware";
-import { createLectureSchema } from "../schema/creator/create.schema";
+import { lectureTemplateSchema } from "../schema/creator.schema";
 import {
 	LectureSchema,
 	PublicLectureSchema,
@@ -21,11 +23,16 @@ import {
 
 const router = Router();
 
-router.post("/create", validation(createLectureSchema), postCreateLecture);
+router.post(
+	"/create",
+	validation(lectureTemplateSchema),
+	createLectureTemplate
+);
 
-router.get("/created-lectures", tokenAuthMiddleware, getCreatedLectures);
+router.get("/created-lectures", tokenAuthMiddleware, getAllCreatedLectures);
 router.get("/created-lectures/:id", tokenAuthMiddleware, getCreatedLectureById);
 
+// aici ai ramas + creaza o lectura noua
 router.post(
 	"/created-lectures/:id",
 	validation(LectureSchema),

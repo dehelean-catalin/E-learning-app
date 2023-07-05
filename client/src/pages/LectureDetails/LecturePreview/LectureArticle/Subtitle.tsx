@@ -25,7 +25,7 @@ const Subtitle: FC<SubtitleProps> = ({
 }) => {
 	return (
 		<div className="subtitle">
-			<h3>{description}</h3>
+			<p className="description">{description}</p>
 			<CustomRating
 				rating={rating}
 				numberOfRates={numberOfRatings}

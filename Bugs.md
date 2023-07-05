@@ -4,14 +4,18 @@ Articole licenta:
 
 # In Development:
 
-- refactor server controlers,models,routes,schemas and services into : user, lectures, monitoring, auth, creator;
-- remove placeholder from requirements and goals
-- firestore security rules;
+- refactor server controlers,models,routes,schemas and services into : user, auth, creator + firestore security rules;;
+- update frontend structure;
 - fix leave rating button;
-- Remove constant file from server
+- check what happens with a deleted lecture
+- delete storage data
+- update storage paths
+- set active index
 
 # Nice to have:
 
+- Remove constant file from server;
+- check empty req and goals
 - revoke password;
 - LO additional info;
 - LO comment section;

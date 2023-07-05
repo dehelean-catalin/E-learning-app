@@ -2,17 +2,8 @@ import { Deepgram } from "@deepgram/sdk";
 import { Request, Response } from "express";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { v4 as uuid } from "uuid";
+import { FileRequest } from "../../models/genericModels";
 
-export interface FileRequest extends Request {
-	file: {
-		fieldname: string;
-		originalname: string;
-		encoding: string;
-		mimetype: string;
-		size: number;
-		buffer: Buffer;
-	};
-}
 const deepgram = new Deepgram("2a13dd5e7f255c33ce8556d7544f7ce7226b8d51");
 
 export const postContent = async (req: Request, res: Response) => {

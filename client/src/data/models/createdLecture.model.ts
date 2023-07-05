@@ -1,13 +1,16 @@
-export type CreatedLectureModel = {
+export type DashboardLecture = {
 	id: string;
 	lastUpdate: number;
 	publish: Publish;
-	content: Content[];
-	goals: PlanFieldModel[];
-	requirements: PlanFieldModel[];
-	rating: number | null;
-	numberOfRatings: number;
+	rating: number;
 	enrolledUsers: string[];
+	numberOfRatings: number;
+};
+
+export type CreatedLectureModel = DashboardLecture & {
+	content: Content[];
+	goals: string[];
+	requirements: string[];
 	duration: number;
 };
 
@@ -44,11 +47,6 @@ export type ContentData = {
 export type ContentChildren = {
 	label: string;
 	data: ContentData;
-};
-
-export type PlanFieldModel = {
-	value: string;
-	placeholder: string;
 };
 
 export type Review = {
@@ -107,6 +105,7 @@ export type CreateLecturePayload = {
 
 export type VideoProgress = {
 	lastChapter: string;
+	lastName: string;
 	lastDate: string;
 	items: VideoProgressItem[];
 };

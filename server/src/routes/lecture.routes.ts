@@ -10,7 +10,6 @@ import {
 	getLectureReviews,
 	getSavedLectures,
 } from "../controllers/lectureController";
-
 import tokenAuth from "../middleware/tokenAuth-middleware";
 import validation from "../middleware/validation-middleware";
 import { reviewSchema } from "../schema/lecture.schema";

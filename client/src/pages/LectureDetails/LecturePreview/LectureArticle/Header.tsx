@@ -12,7 +12,9 @@ const Header: FC<{ caption: string; promoVideo; title }> = ({
 	return (
 		<header
 			className="caption-container"
-			onClick={() => dispatch(DialogActions.show({ src: promoVideo, title }))}
+			onClick={() =>
+				dispatch(DialogActions.showDialog({ src: promoVideo, title }))
+			}
 		>
 			<img className="caption" src={caption} alt="not found" />
 			<div className="preview-wrapper">

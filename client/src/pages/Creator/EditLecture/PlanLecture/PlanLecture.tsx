@@ -1,8 +1,5 @@
 import { useField } from "formik";
-import {
-	CreatedLectureModel,
-	PlanFieldModel,
-} from "../../../../data/models/createdLecture.model";
+import { CreatedLectureModel } from "../../../../data/models/createdLecture.model";
 import { keyOf } from "../../../../helpers";
 import PlanLectureField from "./PlanLectureField";
 
@@ -10,8 +7,8 @@ const PlanLecture = () => {
 	const goalsProperty = keyOf<CreatedLectureModel>("goals");
 	const requirementsProperty = keyOf<CreatedLectureModel>("requirements");
 
-	const [goalsField] = useField<PlanFieldModel[]>(goalsProperty);
-	const [requirementsField] = useField<PlanFieldModel[]>(requirementsProperty);
+	const [goalsField] = useField<string[]>(goalsProperty);
+	const [requirementsField] = useField<string[]>(requirementsProperty);
 
 	return (
 		<>

@@ -19,13 +19,6 @@ export const getLectureProgress = (axios: AxiosInstance, id: string) => {
 	return axios.get(`lecture/${id}/progress`).then((res) => res.data);
 };
 
-export const putLectureLastDate = (
-	axios: AxiosInstance,
-	id: string
-): Promise<string> => {
-	return axios.put(`lecture/${id}/last-date`).then((res) => res.data);
-};
-
 export const getLectureReviews = (
 	axios: AxiosInstance,
 	id: string

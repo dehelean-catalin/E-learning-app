@@ -24,8 +24,8 @@ const LectureOverviewChapters: FC<LectureOverviewChaptersProps> = ({
 	data,
 }) => {
 	const navigate = useNavigate();
-	const { chapterId } = useParams();
 	const axios = useAxios();
+	const { chapterId } = useParams();
 
 	const progress = useSelector<RootState, VideoProgressItem[]>(
 		(s) => s.progressReducer.data
@@ -41,7 +41,13 @@ const LectureOverviewChapters: FC<LectureOverviewChaptersProps> = ({
 	};
 
 	return (
-		<Accordion multiple className="lecture-overview-chapters">
+		<Accordion
+			multiple
+			className="lecture-overview-chapters"
+			activeIndex={[0]}
+			onTabOpen={(e) => console.log(e.index)}
+			onTabClose={(e) => console.log(e.index)}
+		>
 			{data.map(({ label, children }, index) => (
 				<AccordionTab
 					header={

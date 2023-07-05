@@ -110,9 +110,9 @@ export const getLectureProgressData = async (id: string, userId: string) => {
 
 	const historyItem = history.find((i) => i.id === id);
 
-	if (!historyItem) return [];
+	if (!historyItem) throw new Error("Progress not found");
 
-	return historyItem.videoProgress.items;
+	return historyItem.videoProgress;
 };
 
 export const createLectureProgressData = async (
@@ -148,7 +148,7 @@ export const createLectureProgressData = async (
 
 	history.push({ id, videoProgress });
 
-	lectureRef.update({ history });
+	userRef.update({ history: history });
 
 	return "Successfully enrolled";
 };
@@ -184,4 +184,42 @@ export const updateLectureProgressData = async (
 	userRef.update({ history });
 
 	return currentLecture.items;
+};
+
+export const getLastChapterIdData = async (id: string, userId: string) => {
+	const userRef = firestoreDb.collection("users").doc(userId);
+
+	const userSnap = await userRef.get();
+
+	if (!userSnap.exists) throw new Error("Document not found");
+
+	const history: HistoryModel[] = userSnap.get("history");
+	const lastChapterId = history.find((doc) => doc.id === id);
+
+	if (!lastChapterId) throw new Error("Document not found");
+
+	return lastChapterId.videoProgress.lastChapter;
+};
+
+export const updateLastChapterData = async (
+	id: string,
+	userId: string,
+	data: { lastChapter: string; lastName: string }
+) => {
+	const userRef = firestoreDb.collection("users").doc(userId);
+
+	const userSnap = await userRef.get();
+	const history: HistoryModel[] = userSnap.get("history");
+
+	history.forEach((doc) => {
+		if (doc.id === id) {
+			doc.videoProgress.lastDate = new Date().toISOString();
+			doc.videoProgress.lastName = data.lastName;
+			doc.videoProgress.lastChapter = data.lastChapter;
+		}
+	});
+
+	await userRef.update({ history });
+
+	return "Success";
 };

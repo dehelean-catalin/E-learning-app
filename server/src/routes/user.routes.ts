@@ -2,10 +2,10 @@ import { Router } from "express";
 import {
 	getProfileData,
 	getProfilePicture,
+	getUserByID,
 	putProfileData,
 	putProfilePicture,
-} from "../controllers/profile-controller";
-import { getUserByID } from "../controllers/user-controller";
+} from "../controllers/user-controller";
 import {
 	default as tokenAuth,
 	default as tokenAuthMiddleware,

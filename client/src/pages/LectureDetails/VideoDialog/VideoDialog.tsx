@@ -10,10 +10,10 @@ const VideoDialog = () => {
 	);
 
 	const handleHide = () => {
-		dispatch(DialogActions.hide());
+		dispatch(DialogActions.hideDialog());
 	};
 
-	if (!visible) return <></>;
+	if (!visible) return;
 
 	return (
 		<PRDialog

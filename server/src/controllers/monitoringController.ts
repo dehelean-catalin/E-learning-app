@@ -1,25 +1,27 @@
 import { RequestHandler } from "express";
-import { doc, getDoc, updateDoc } from "firebase/firestore";
-import db from "../config/firebase";
 import { ValidatedRequest } from "../models/genericModels";
-import { VideoProgress } from "../models/user-model";
 import {
 	createLectureProgressData,
+	getLastChapterIdData,
 	getLectureProgressData,
 	getMonitoringHistoryListData,
+	updateLastChapterData,
 	updateLectureProgressData,
 } from "../services/monitoringService";
 
-export const getMonitoringHistoryList: RequestHandler = async (req, res) => {
+export const getMonitoringHistoryList: RequestHandler = async (
+	req,
+	res,
+	next
+) => {
 	const validatedReq = req as ValidatedRequest;
 	const { userId } = validatedReq.userData;
-
 	try {
 		const data = await getMonitoringHistoryListData(userId);
 
 		res.status(200).json(data);
-	} catch (err: any) {
-		return res.status(400).json({ code: 400, message: err.message });
+	} catch (err) {
+		next(err);
 	}
 };
 
@@ -79,97 +81,38 @@ export const updateLectureProgress: RequestHandler<
 	}
 };
 
-// AICI AM RAMAS
-
-export const putLectureLastChapter: RequestHandler = async (req, res, next) => {
+export const getLastChapterId: RequestHandler = async (req, res, next) => {
 	const validatedReq = req as ValidatedRequest;
 	const { userId } = validatedReq.userData;
-	const { id } = req.params;
-
-	const userRef = doc(db, "users", userId);
 
 	try {
-		const userSnap = await getDoc(userRef);
+		const id = req.params?.id;
+		if (!id) throw new Error("Lecture not found");
 
-		const history = userSnap.get("history") as {
-			id: string;
-			videoProgress: VideoProgress;
-		}[];
+		const data = await getLastChapterIdData(id, userId);
 
-		for (const key in history) {
-			if (history[key].id === id) {
-				history[key].videoProgress.lastChapter = req.body.lastChapter;
-				history[key].videoProgress.lastName = req.body.lastName;
-			}
-		}
-
-		await updateDoc(userRef, { history });
-
-		res.status(200).json("Success");
-	} catch (err) {
-		next(err);
+		res.status(200).json(data);
+	} catch (err: any) {
+		res.status(400).json({ code: 400, message: err.message });
 	}
 };
 
-export const putLectureLastDate: RequestHandler<
+export const updateLastChapter: RequestHandler<
 	any,
 	any,
-	{ chapterId: string; progress: number }
+	{ lastChapter: string; lastName: string }
 > = async (req, res, next) => {
 	const validatedReq = req as ValidatedRequest;
 	const { userId } = validatedReq.userData;
-	const { id } = req.params;
-
-	const userRef = doc(db, "users", userId);
-	let lastChapter;
 
 	try {
-		const userSnap = await getDoc(userRef);
+		const id = req.params?.id;
+		if (!id) throw new Error("Lecture not found");
 
-		const history = userSnap.get("history") as {
-			id: string;
-			videoProgress: VideoProgress;
-		}[];
-		for (const key in history) {
-			if (history[key].id === id) {
-				history[key].videoProgress.lastDate = new Date().toISOString();
-				lastChapter = history[key].videoProgress.lastChapter;
-			}
-		}
+		const data = await updateLastChapterData(id, userId, req.body);
 
-		await updateDoc(userRef, { history });
-
-		res.status(200).json(lastChapter);
-	} catch (err) {
-		next(err);
-	}
-};
-
-interface Params {
-	id: string;
-}
-
-export const getLastChapter: RequestHandler = async (req, res, next) => {
-	const validatedReq = req as ValidatedRequest;
-	const { id } = req.params;
-	const { userId } = validatedReq.userData;
-	const userRef = doc(db, "users", userId);
-	let lastChapter;
-	try {
-		const userSnap = await getDoc(userRef);
-		if (!userSnap.exists()) throw new Error("Something went wrong");
-		const history = userSnap.get("history") as {
-			id: string;
-			videoProgress: VideoProgress;
-		}[];
-
-		for (const key in history) {
-			if (history[key].id === id) {
-				lastChapter = history[key].videoProgress.lastChapter;
-			}
-		}
-		res.status(200).json(lastChapter);
+		res.status(200).json(data);
 	} catch (err: any) {
-		next(err);
+		res.status(400).json({ code: 400, message: err.message });
 	}
 };

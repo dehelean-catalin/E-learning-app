@@ -1,16 +1,15 @@
 import { Router } from "express";
 import {
 	createLectureProgress,
-	getLastChapter,
+	getLastChapterId,
 	getLectureProgress,
 	getMonitoringHistoryList,
-	putLectureLastChapter,
-	putLectureLastDate,
+	updateLastChapter,
 	updateLectureProgress,
 } from "../controllers/monitoringController";
 import tokenAuth from "../middleware/tokenAuth-middleware";
 import validation from "../middleware/validation-middleware";
-import { progressSchema } from "../schema/lecture.schema";
+import { chapterNameSchema, progressSchema } from "../schema/lecture.schema";
 
 const router = Router();
 
@@ -24,9 +23,11 @@ router.post(
 );
 router.put("/lecture/:id/progress", tokenAuth, updateLectureProgress);
 
-// update this
-router.put("/lecture/:id/last-date", tokenAuth, putLectureLastDate);
-router.get("/lectures/:id/last-chapter", tokenAuth, getLastChapter);
-router.put("/lectures/:id/last-chapter", tokenAuth, putLectureLastChapter);
+router.get("/lectures/:id/last-chapter", tokenAuth, getLastChapterId);
+router.put(
+	"/lectures/:id/last-chapter",
+	validation(chapterNameSchema),
+	updateLastChapter
+);
 
 export default router;

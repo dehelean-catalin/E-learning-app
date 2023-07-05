@@ -8,7 +8,6 @@ import { useAxios } from "../../hooks/useAxios";
 import { useFetchData } from "../../hooks/useFetchData";
 import LectureReviewCard from "../LectureOverview/LectureOverviewTabs/LectureReviewCard/LectureReviewCard";
 import ReviewChart from "../LectureOverview/ReviewChart/ReviewChart";
-import NotFound from "../NotFound/NotFound";
 import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
 import LectureContent from "./LectureContent/LectureContent";
 import "./LectureDetails.scss";
@@ -55,7 +54,7 @@ const LectureDetails = () => {
 							))}
 						</>
 					) : (
-						<NotFound>No reviews yet</NotFound>
+						<h3 className="mx-auto mt-5">No reviews yet</h3>
 					)}
 				</div>
 			</div>

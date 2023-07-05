@@ -1,10 +1,5 @@
 import { Category } from "./creator.model";
 
-export type LectureProgress = {
-	items: string[];
-	lastName: string;
-};
-
 export type BasicLecture = {
 	id: string;
 	title: string;
@@ -16,6 +11,11 @@ export type BasicLecture = {
 };
 
 export type SavedLecture = BasicLecture & { description: string };
+
+export type LectureProgress = {
+	items: string[];
+	lastName: string;
+};
 
 export type RatingParams = "9g" | "8-9b" | "8u";
 export type LangParams = "English" | "French" | "Romanian";

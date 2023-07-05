@@ -60,7 +60,7 @@ const PublishLecture = () => {
 			</label>
 			<Field
 				as="textarea"
-				rows="3"
+				rows="10"
 				name={`publish.description`}
 				placeholder="Enter a description for your lecture"
 			/>

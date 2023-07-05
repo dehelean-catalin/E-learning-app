@@ -39,7 +39,7 @@ const LectureButtons = () => {
 			.map((c) => c.children.map((i) => i.data?.duration))
 			.flat() ?? [];
 
-	const totalProgress = progress.map((p) => p.total);
+	const totalProgress = progress?.map((p) => p.total);
 
 	const completed = duration?.filter(
 		(d, index) => Math.round(d - d / 20) <= Math.round(totalProgress[index])

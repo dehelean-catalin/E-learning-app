@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import { tryAgainError } from "../constant";
-import { Category } from "../models/creator.model";
+import { Category, ReviewData } from "../models/creator.model";
 import { ValidatedRequest } from "../models/genericModels";
 import { QueryFilterParams } from "../models/lectureModels";
 import {
@@ -38,7 +38,7 @@ export const getAllLectures: RequestHandler = async (req, res) => {
 export const getLectureById: RequestHandler = async (req, res) => {
 	try {
 		const lectureId = req.params.id;
-		if (!lectureId) throw new Error("Lecture id not found");
+		if (!lectureId) throw new Error("Lecture not found");
 
 		const data = await getLectureByIdData(lectureId);
 		res.status(200).json(data);
@@ -120,11 +120,10 @@ export const getLectureReviews: RequestHandler = async (req, res) => {
 	}
 };
 
-export const addLectureReview: RequestHandler<
-	any,
-	any,
-	{ message: string; rating: number }
-> = async (req, res) => {
+export const addLectureReview: RequestHandler<any, any, ReviewData> = async (
+	req,
+	res
+) => {
 	const validatedReq = req as ValidatedRequest;
 	const { userId } = validatedReq.userData;
 

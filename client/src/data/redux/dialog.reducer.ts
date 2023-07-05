@@ -1,11 +1,11 @@
 import { ActionType, Reducer, createAction, getType } from "typesafe-actions";
 
 export const DialogActions = {
-	show: createAction(
-		"show",
+	showDialog: createAction(
+		"showDialog",
 		(payload: { src: string; title: string }) => payload
 	)(),
-	hide: createAction("hide")(),
+	hideDialog: createAction("hideDialog")(),
 };
 
 export type DialogAction = ActionType<typeof DialogActions>;
@@ -22,14 +22,14 @@ export const dialogReducer: Reducer<DialogState, DialogAction> = (
 	action: DialogAction
 ) => {
 	switch (action.type) {
-		case getType(DialogActions.show):
+		case getType(DialogActions.showDialog):
 			return {
 				...state,
 				visible: true,
 				src: action.payload.src,
 				title: action.payload.title,
 			};
-		case getType(DialogActions.hide):
+		case getType(DialogActions.hideDialog):
 			return {
 				...state,
 				visible: false,

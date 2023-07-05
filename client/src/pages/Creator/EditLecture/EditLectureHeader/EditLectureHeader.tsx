@@ -80,13 +80,14 @@ const EditLectureHeader: FC<EditLectureHeaderProps> = ({ isLoading }) => {
 
 	const publishDisabled =
 		!!publish.title &&
+		!!publish.description &&
 		!!publish.caption &&
 		!!publish.promoVideo &&
-		!requirements.filter((i) => i.value.length >= 80).length &&
-		!goals.filter((i) => i.value.length >= 80).length &&
-		goals.filter((i) => i.value.length > 0).length > 2 &&
-		requirements.filter((i) => i.value.length > 0).length > 2 &&
-		lectureDuration > 100;
+		!requirements.filter((i) => i.length >= 160).length &&
+		!goals.filter((i) => i.length >= 160).length &&
+		goals.filter((i) => i.length > 0).length > 2 &&
+		requirements.filter((i) => i.length > 0).length > 2 &&
+		lectureDuration > 600;
 
 	return (
 		<header className="edit-lecture-header">
@@ -99,11 +100,12 @@ const EditLectureHeader: FC<EditLectureHeaderProps> = ({ isLoading }) => {
 					<div>{convertSecondsToTime(lectureDuration)} of content uploaded</div>
 				)}
 			</div>
+
 			{values.publish.status === "Draft" ? (
 				<div>
 					<PRButton
 						label="Save changes"
-						className="mr-2"
+						className="tooltip mr-2"
 						icon="pi pi-bookmark"
 						onClick={submitForm}
 						loading={isLoading}

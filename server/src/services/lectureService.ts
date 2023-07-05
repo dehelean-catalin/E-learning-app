@@ -2,7 +2,12 @@ import { FieldValue } from "firebase-admin/firestore";
 import { DocumentData, QuerySnapshot } from "firebase/firestore";
 import { firestoreDb } from "../config/firebase-admin";
 import { applyFilters } from "../helpers/lecture.helper";
-import { Category, CreatedLectureModel, Review } from "../models/creator.model";
+import {
+	Category,
+	CreatedLectureModel,
+	Review,
+	ReviewData,
+} from "../models/creator.model";
 import {
 	BasicLecture,
 	QueryFilterParams,
@@ -221,7 +226,7 @@ export const getLectureReviewsData = async (id: string) => {
 export const addLectureReviewData = async (
 	id: string,
 	userId: string,
-	data: { message: string; rating: number }
+	data: ReviewData
 ) => {
 	const reviewsRef = firestoreDb
 		.collection(`lectures/${id}/reviews`)

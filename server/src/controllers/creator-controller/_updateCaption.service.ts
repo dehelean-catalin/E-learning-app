@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { FileRequest } from "./_postContent.service";
+import { FileRequest } from "../../models/genericModels";
 
 export const updateCaption = async (req: Request, res: Response) => {
 	const fileReq = req as FileRequest;
