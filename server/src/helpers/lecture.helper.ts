@@ -1,6 +1,6 @@
 import { QueryFilterParams, SearchedLecture } from "../models/lectureModels";
 
-const lastHourCheck = (createdAt) => {
+const lastHourCheck = (createdAt: number) => {
 	const endTime = new Date().getTime();
 	const checkTime = new Date(createdAt).getTime();
 	const beginTime = new Date();
@@ -9,7 +9,7 @@ const lastHourCheck = (createdAt) => {
 	return checkTime >= beginTime.getTime() && checkTime <= endTime;
 };
 
-const todayCheck = (createdAt) => {
+const todayCheck = (createdAt: number) => {
 	const currentDay = new Date();
 
 	return currentDay.toDateString() === new Date(createdAt).toDateString();

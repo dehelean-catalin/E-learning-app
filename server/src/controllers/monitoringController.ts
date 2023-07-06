@@ -28,11 +28,9 @@ export const getMonitoringHistoryList: RequestHandler = async (
 export const getLectureProgress: RequestHandler = async (req, res) => {
 	const validatedReq = req as ValidatedRequest;
 	const { userId } = validatedReq.userData;
+	const { id } = req.params;
 
 	try {
-		const id = req.params.id;
-		if (!id) throw new Error("Lecture not found");
-
 		const data = await getLectureProgressData(id, userId);
 
 		res.status(200).json(data);
@@ -48,11 +46,9 @@ export const createLectureProgress: RequestHandler<
 > = async (req, res) => {
 	const validatedReq = req as ValidatedRequest;
 	const { userId } = validatedReq.userData;
+	const { id } = req.params;
 
 	try {
-		const id = req.params.id;
-		if (!id) throw new Error("Lecture not found");
-
 		const data = await createLectureProgressData(id, userId, req.body);
 
 		res.status(200).json(data);
@@ -68,11 +64,9 @@ export const updateLectureProgress: RequestHandler<
 > = async (req, res) => {
 	const validatedReq = req as ValidatedRequest;
 	const { userId } = validatedReq.userData;
+	const { id } = req.params;
 
 	try {
-		const id = req.params.id;
-		if (!id) throw new Error("Lecture not found");
-
 		const data = await updateLectureProgressData(id, userId, req.body);
 
 		res.status(200).json(data);
@@ -81,14 +75,12 @@ export const updateLectureProgress: RequestHandler<
 	}
 };
 
-export const getLastChapterId: RequestHandler = async (req, res, next) => {
+export const getLastChapterId: RequestHandler = async (req, res) => {
 	const validatedReq = req as ValidatedRequest;
 	const { userId } = validatedReq.userData;
+	const { id } = req.params;
 
 	try {
-		const id = req.params?.id;
-		if (!id) throw new Error("Lecture not found");
-
 		const data = await getLastChapterIdData(id, userId);
 
 		res.status(200).json(data);
@@ -101,14 +93,12 @@ export const updateLastChapter: RequestHandler<
 	any,
 	any,
 	{ lastChapter: string; lastName: string }
-> = async (req, res, next) => {
+> = async (req, res) => {
 	const validatedReq = req as ValidatedRequest;
 	const { userId } = validatedReq.userData;
+	const { id } = req.params;
 
 	try {
-		const id = req.params?.id;
-		if (!id) throw new Error("Lecture not found");
-
 		const data = await updateLastChapterData(id, userId, req.body);
 
 		res.status(200).json(data);

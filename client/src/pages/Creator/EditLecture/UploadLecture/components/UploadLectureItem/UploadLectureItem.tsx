@@ -2,6 +2,7 @@ import { FieldArrayRenderProps } from "formik";
 import { Button } from "primereact/button";
 import { FC, useState } from "react";
 import { useMutation } from "react-query";
+import { useParams } from "react-router";
 import Spinner from "../../../../../../components/Spinner/Spinner";
 import { ContentChildren } from "../../../../../../data/models/createdLecture.model";
 import { generateRandomId } from "../../../../../../helpers";
@@ -28,11 +29,12 @@ export type LectureItemFormState = {
 const UploadLectureItem: FC<Props> = ({ arrayHelpers, children, index }) => {
 	const axios = useAxios();
 	const [isOpen, setIsOpen] = useState(false);
+	const { id } = useParams();
 
 	const { mutate, isLoading } = useMutation(
 		({ label, description, content, duration, type }: LectureItemFormState) => {
 			return axios
-				.post<{ content: string; track: string }>(`/content/${index}`, content)
+				.post<{ content: string; track: string }>(`/content/${id}`, content)
 				.then((res) =>
 					arrayHelpers.push({
 						label: firstLetterToUpperCase(label),

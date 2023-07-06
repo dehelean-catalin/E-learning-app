@@ -43,7 +43,7 @@ const AccountSection = () => {
 			e.preventDefault();
 			if (disabled) return;
 
-			return axios.put("profile-data", values);
+			return axios.put("/account", values);
 		},
 		{ onSuccess: () => queryClient.invalidateQueries("getProfileData") }
 	);

@@ -1,6 +1,6 @@
 import { Request } from "express";
 
-export interface ValidatedRequest extends Request {
+export interface ValidatedRequest extends Request<any> {
 	userData: {
 		userId: string;
 	};

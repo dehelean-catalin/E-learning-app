@@ -14,53 +14,54 @@ import "./AccountDataCard.scss";
 const AccountDataCard = () => {
 	const axios = useAxios();
 	const dispatch = useDispatch();
+
 	const data = useSelector<RootState, AccountDataState>(
 		(s) => s.accountReducer.data
 	);
 
 	const { mutate: handleChangeProfilePicture, isLoading } = useMutation(
 		"putProfilePicture",
-		(e: ChangeEvent<HTMLInputElement>) => {
+		async (e: ChangeEvent<HTMLInputElement>) => {
 			e.preventDefault();
 			if (e.target.files?.length) {
 				const file = e.target.files[0];
 				const formData = new FormData();
 				formData.append("file", file);
-				return axios
-					.put("/profile-picture", formData)
-					.then((res) =>
-						dispatch(AccountDataActions.setProfilePictureSucces(res.data))
-					);
+				return await axios.put("/profile-picture", formData);
 			}
+		},
+		{
+			onSuccess: (res: any) => {
+				dispatch(AccountDataActions.setProfilePictureSucces(res.data));
+			},
 		}
-	);
-
-	const profilePicture = isLoading ? (
-		<Spinner />
-	) : (
-		<>
-			<ProfilePicture
-				initials={data.displayName}
-				size="large"
-				picture={data.profilePicture}
-			/>
-			<input
-				id="take-photo"
-				type="file"
-				accept="image/*"
-				onChange={handleChangeProfilePicture}
-			/>
-			<i className="pi pi-plus" aria-label="icon" />
-		</>
 	);
 
 	return (
 		<article className="account-data-card">
-			<div className="picture-container">{profilePicture}</div>
+			<div className="picture-container">
+				{isLoading ? (
+					<Spinner />
+				) : (
+					<>
+						<ProfilePicture
+							initials={data.displayName}
+							size="large"
+							picture={data.profilePicture}
+						/>
+						<input
+							id="take-photo"
+							type="file"
+							accept="image/*"
+							onChange={handleChangeProfilePicture}
+						/>
+						<i className="pi pi-plus" aria-label="icon" />
+					</>
+				)}
+			</div>
 			<div>
 				<h2>{data.displayName}</h2>
 				<p>{data.email}</p>
-
 				{data.address && <span>{data.address}</span>}
 			</div>
 		</article>

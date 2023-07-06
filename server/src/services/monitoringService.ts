@@ -1,5 +1,4 @@
 import { firestoreDb } from "../config/firebase-admin";
-import { tryAgainError } from "../constant";
 
 import { FieldValue } from "firebase-admin/firestore";
 import { HistoryLecture } from "../models/lectureModels";
@@ -7,7 +6,7 @@ import {
 	HistoryModel,
 	VideoProgress,
 	VideoProgressItem,
-} from "../models/user-model";
+} from "../models/userModels";
 
 export const getMonitoringHistoryListData = async (id: string) => {
 	const userRef = firestoreDb.collection("users").doc(id);
@@ -73,7 +72,7 @@ export const getMonitoringHistoryListData = async (id: string) => {
 			(p) => p.id === doc.id
 		)?.videoProgress;
 
-		if (!currentVideoProgress) throw new Error(tryAgainError);
+		if (!currentVideoProgress) throw new Error("Progress not found");
 
 		const totalProgress = currentVideoProgress.items.map((i) => i.total);
 
@@ -104,7 +103,7 @@ export const getLectureProgressData = async (id: string, userId: string) => {
 	const userRef = firestoreDb.collection("users").doc(userId);
 	const userSnap = await userRef.get();
 
-	if (!userSnap.exists) throw new Error(tryAgainError);
+	if (!userSnap.exists) throw new Error("User not found");
 
 	const history: HistoryModel[] = userSnap.get("history");
 

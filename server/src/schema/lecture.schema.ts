@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { ReviewData } from "../models/creator.model";
+import { ReviewData } from "../models/creatorModels";
 import { LectureProgress } from "../models/lectureModels";
 
 export const reviewSchema = Joi.object<ReviewData, true>().keys({

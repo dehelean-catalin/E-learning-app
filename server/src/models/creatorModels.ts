@@ -19,10 +19,10 @@ export type Publish = {
 	authorId: string;
 	title: string;
 	category: Category;
-	description?: string;
+	description: string;
 	language: string;
 	status: Status;
-	level?: Level;
+	level: Level;
 	caption: string;
 	promoVideo: string;
 };

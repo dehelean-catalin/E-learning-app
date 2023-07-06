@@ -8,6 +8,7 @@ type Props = {
 	size?: "small" | "medium" | "large";
 };
 const ProfilePicture: FC<Props> = ({ picture, initials, size }) => {
+	if (!initials) return;
 	if (picture) {
 		return (
 			<img

@@ -2,20 +2,22 @@ Articole licenta:
 
 "https://digitalcommons.kennesaw.edu/cgi/viewcontent.cgi?article=4443&context=facpubs",
 
-# In Development:
+# DB: done
 
-- refactor server controlers,models,routes,schemas and services into : user, auth, creator + firestore security rules;;
-- update frontend structure;
+# Server: done
+
+# FE:
+
+- update frontend folder structure;
 - fix leave rating button;
-- check what happens with a deleted lecture
-- delete storage data
-- update storage paths
-- set active index
+- set active index for lecture overview tabs; ???
+- fix create account
+- fix settings lecture privacy
+- navigate directu to overview form history
 
 # Nice to have:
 
-- Remove constant file from server;
-- check empty req and goals
+- check empty req and goals; ???
 - revoke password;
 - LO additional info;
 - LO comment section;

@@ -1,5 +1,8 @@
-import { FieldValue } from "firebase-admin/firestore";
-import { DocumentData, QuerySnapshot } from "firebase/firestore";
+import {
+	DocumentData,
+	FieldValue,
+	QuerySnapshot,
+} from "firebase-admin/firestore";
 import { firestoreDb } from "../config/firebase-admin";
 import { applyFilters } from "../helpers/lecture.helper";
 import {
@@ -7,7 +10,7 @@ import {
 	CreatedLectureModel,
 	Review,
 	ReviewData,
-} from "../models/creator.model";
+} from "../models/creatorModels";
 import {
 	BasicLecture,
 	QueryFilterParams,

@@ -1,8 +1,7 @@
-import axios from "axios";
 import {
-	postConnectionDetails,
 	postLoginProvider,
 	postRegister,
+	updateConnection,
 } from "data/services";
 import {
 	GithubAuthProvider,
@@ -13,17 +12,17 @@ import {
 } from "firebase/auth";
 import platform from "platform";
 import { useContext, useState } from "react";
-import { useDispatch } from "react-redux";
 import { auth } from "../config/firebase.config";
 import AuthContext from "../data/context/auth-context";
 import { RegisterModel } from "../data/models/_auth.model";
 import { findTypeOfDevice } from "../helpers/_findTypeOfDevice.helper";
 import authenticationErrorService from "./services/authenticationErrorService";
+import { useAxios } from "./useAxios";
 
 type ErrorState = { code: string; message: string } | undefined;
 
 export const useAuthentication = () => {
-	const dispatch = useDispatch();
+	const axios = useAxios();
 	const { login } = useContext(AuthContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<ErrorState>();
@@ -35,13 +34,10 @@ export const useAuthentication = () => {
 		try {
 			const response = await signInWithEmailAndPassword(auth, email, password);
 			const { uid } = response.user;
-
 			const tokenID = await response.user.getIdToken();
 			const location = await axios.get("https://ipapi.co/json/");
-
-			await postConnectionDetails(uid, device, location.data.city);
-
 			login(tokenID, uid);
+			await updateConnection(axios, device, location.data.city);
 		} catch (err) {
 			console.log(err);
 			const { getLoginError } = authenticationErrorService();
@@ -66,15 +62,14 @@ export const useAuthentication = () => {
 			const { uid } = response.user;
 			const token = await response.user.getIdToken();
 			const loc = await axios.get("https://ipapi.co/json/");
+			login(token, uid);
 
-			await postRegister({
+			await postRegister(axios, {
 				displayName,
 				email,
-				uid,
 				device,
-				city: loc.data.city,
+				location: loc.data.city,
 			});
-			login(token, uid);
 		} catch (err) {
 			console.log(err);
 			const { getRegisterError } = authenticationErrorService();
@@ -95,18 +90,15 @@ export const useAuthentication = () => {
 			const token = await res.user.getIdToken();
 			const { email, displayName, photoURL } = res.user.providerData[0];
 			const location = await axios.get("https://ipapi.co/json/");
-
-			await postLoginProvider({
+			login(token, uid);
+			localStorage.setItem("emailVerified", "true");
+			await postLoginProvider(axios, {
 				email,
 				displayName,
 				photoURL,
-				uid,
 				device,
-				city: location.data.city,
+				location: location.data.city,
 			});
-
-			login(token, uid);
-			localStorage.setItem("emailVerified", "true");
 		} catch (err) {
 			console.log(err);
 			const { getLoginError } = authenticationErrorService();

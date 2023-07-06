@@ -16,7 +16,7 @@ const LectureReviewCard: FC<Props> = ({ value, canEdit }) => {
 	const { id } = useParams();
 	const axios = useAxios();
 	const queryClient = useQueryClient();
-	console.log(rating);
+
 	const { mutate: handleDelete } = useMutation(
 		"deleteLectureReview",
 		() => deleteLectureReview(axios, id, rating),

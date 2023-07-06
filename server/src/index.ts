@@ -2,7 +2,6 @@ import cors from "cors";
 import express, { json } from "express";
 import { createServer } from "http";
 import multer from "multer";
-import authRoutes from "./routes/auth.routes";
 import creatorRoutes from "./routes/creator.routes";
 import lectureRoutes from "./routes/lecture.routes";
 import monitoringRoutes from "./routes/monitoring.routes";
@@ -16,10 +15,9 @@ app.use(cors());
 app.use(multer().single("file"));
 app.use(json());
 
-app.use(authRoutes);
+app.use(userRoutes);
 app.use(lectureRoutes);
 app.use(monitoringRoutes);
-app.use(userRoutes);
 app.use(creatorRoutes);
 
 app.all("*", (req, res) => {

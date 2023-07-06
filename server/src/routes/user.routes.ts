@@ -1,25 +1,40 @@
 import { Router } from "express";
 import {
-	getProfileData,
-	getProfilePicture,
-	getUserByID,
-	putProfileData,
-	putProfilePicture,
-} from "../controllers/user-controller";
-import {
-	default as tokenAuth,
-	default as tokenAuthMiddleware,
-} from "../middleware/tokenAuth-middleware";
+	createAccount,
+	deleteAccount,
+	getAccount,
+	getConnectionList,
+	loginWithProvider,
+	updateAccount,
+	updateConnectionList,
+	uploadProfilePicture,
+} from "../controllers/userController";
+import { getSignedUrl } from "../middleware/getSignedUrl";
+import { default as tokenAuth } from "../middleware/tokenAuth-middleware";
 import validation from "../middleware/validation-middleware";
-import { ProfileSchema } from "../schema/users-schema";
+import {
+	AccountSchema,
+	connectionSchema,
+	createAccountSchema,
+	providerAccountSchema,
+} from "../schema/user.schema";
 
 const router = Router();
 
-router.get("/user", tokenAuth, getUserByID);
-router.get("/profile-data", tokenAuthMiddleware, getProfileData);
-router.put("/profile-data", validation(ProfileSchema), putProfileData);
+router.get("/account", tokenAuth, getAccount);
+router.post("/account", validation(createAccountSchema), createAccount);
+router.put("/account", validation(AccountSchema), updateAccount);
+router.delete("/account", tokenAuth, deleteAccount);
 
-router.get("/profile-picture", tokenAuth, getProfilePicture);
-router.put("/profile-picture", tokenAuth, putProfilePicture);
+router.put("/profile-picture", tokenAuth, uploadProfilePicture, getSignedUrl);
+
+router.get("/connections", tokenAuth, getConnectionList);
+router.post("/connections", validation(connectionSchema), updateConnectionList);
+
+router.post(
+	"/login-provider",
+	validation(providerAccountSchema),
+	loginWithProvider
+);
 
 export default router;

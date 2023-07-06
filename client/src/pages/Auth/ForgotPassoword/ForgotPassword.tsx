@@ -1,10 +1,11 @@
+import { sendPasswordResetEmail } from "firebase/auth";
 import { FormEvent, useState } from "react";
 import { useMutation } from "react-query";
 import { NavLink } from "react-router-dom";
 import InfoBoxEmail from "../../../components/InfoBoxEmail/InfoBoxEmail";
 import InputTextField from "../../../components/Inputs/InputTextField/InputTextField";
 import PRButton from "../../../components/PRButton/PRButton";
-import { postForgotPassword } from "../../../data/services";
+import { auth } from "../../../config/firebase.config";
 import styles from "./ForgotPassword.module.scss";
 
 const ForgotPassword = () => {
@@ -17,7 +18,7 @@ const ForgotPassword = () => {
 			e.preventDefault();
 			if (!email.length) return;
 
-			return postForgotPassword(email);
+			return sendPasswordResetEmail(auth, email);
 		},
 		{
 			onSuccess: () => {

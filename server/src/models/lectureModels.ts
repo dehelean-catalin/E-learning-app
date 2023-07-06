@@ -1,4 +1,4 @@
-import { Category } from "./creator.model";
+import { Category } from "./creatorModels";
 
 export type BasicLecture = {
 	id: string;

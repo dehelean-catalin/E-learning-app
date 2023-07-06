@@ -1,6 +1,5 @@
 import { RequestHandler } from "express";
-import { tryAgainError } from "../constant";
-import { Category, ReviewData } from "../models/creator.model";
+import { Category, ReviewData } from "../models/creatorModels";
 import { ValidatedRequest } from "../models/genericModels";
 import { QueryFilterParams } from "../models/lectureModels";
 import {
@@ -36,11 +35,10 @@ export const getAllLectures: RequestHandler = async (req, res) => {
 };
 
 export const getLectureById: RequestHandler = async (req, res) => {
+	const { id } = req.params;
 	try {
-		const lectureId = req.params.id;
-		if (!lectureId) throw new Error("Lecture not found");
+		const data = await getLectureByIdData(id);
 
-		const data = await getLectureByIdData(lectureId);
 		res.status(200).json(data);
 	} catch (err: any) {
 		res.status(400).json({ code: 400, message: err.message });
@@ -62,12 +60,9 @@ export const getSavedLectures: RequestHandler = async (req, res) => {
 export const addSavedLectureId: RequestHandler = async (req, res) => {
 	const validatedRequest = req as ValidatedRequest;
 	const { userId } = validatedRequest.userData;
-
+	const { id } = req.params;
 	try {
-		const lectureId = req.params.id;
-		if (!lectureId) throw new Error("Lecture id not found");
-
-		const data = await addSavedLectureIdData(userId, lectureId);
+		const data = await addSavedLectureIdData(userId, id);
 		res.status(200).json(data);
 	} catch (err: any) {
 		res.status(400).json({ code: 400, message: err.message });
@@ -77,12 +72,9 @@ export const addSavedLectureId: RequestHandler = async (req, res) => {
 export const deleteSavedLectureId: RequestHandler = async (req, res) => {
 	const validatedRequest = req as ValidatedRequest;
 	const { userId } = validatedRequest.userData;
-
+	const { id } = req.params;
 	try {
-		const lectureId = req.params.id;
-		if (!lectureId) throw new Error("Lecture id not found");
-
-		const data = await deleteSavedLectureIdData(userId, lectureId);
+		const data = await deleteSavedLectureIdData(userId, id);
 
 		res.status(200).json(data);
 	} catch (err: any) {
@@ -108,10 +100,8 @@ export const getAllSearchedLectures: RequestHandler<
 };
 
 export const getLectureReviews: RequestHandler = async (req, res) => {
+	const { id } = req.params;
 	try {
-		const id = req.params.id;
-		if (!id) throw new Error("Lecture not found");
-
 		const data = await getLectureReviewsData(id);
 
 		res.status(200).json(data);
@@ -126,11 +116,9 @@ export const addLectureReview: RequestHandler<any, any, ReviewData> = async (
 ) => {
 	const validatedReq = req as ValidatedRequest;
 	const { userId } = validatedReq.userData;
+	const { id } = req.params;
 
 	try {
-		const { id } = req.params;
-		if (!id) throw new Error("Lecture not found");
-
 		const data = await addLectureReviewData(id, userId, req.body);
 
 		res.status(200).json(data);
@@ -142,13 +130,12 @@ export const addLectureReview: RequestHandler<any, any, ReviewData> = async (
 export const deleteLectureReview: RequestHandler = async (req, res) => {
 	const validatedReq = req as ValidatedRequest;
 	const { userId } = validatedReq.userData;
+	const { id } = req.params;
 
 	try {
-		const { id } = req.params;
 		const rating = req.body?.rating;
 
-		if (!id) throw new Error("Lecture not found");
-		if (!rating) throw new Error(tryAgainError);
+		if (!rating) throw new Error("Rating not found");
 
 		const data = await deleteLectureReviewData(id, userId, rating);
 
