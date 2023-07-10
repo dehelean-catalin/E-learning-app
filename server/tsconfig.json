@@ -6,10 +6,10 @@
 		"moduleResolution": "node",
 		"noEmitOnError": false,
 		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
-		"strict": true /* Enable all strict type-checking options. */,
-		"noImplicitAny": false /* Enable error reporting for expressions and declarations with an implied 'any' type. */,
-		"alwaysStrict": true /* Ensure 'use strict' is always emitted. */,
-		"skipLibCheck": true /* Skip type checking all .d.ts files. */
+		"forceConsistentCasingInFileNames": true,
+		"strict": true,
+		"noImplicitAny": false,
+		"alwaysStrict": true,
+		"skipLibCheck": true
 	}
 }

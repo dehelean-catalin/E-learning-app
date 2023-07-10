@@ -39,12 +39,6 @@ export type VideoProgress = {
 
 export type VideoProgressItem = { id: string; current: number; total: number };
 
-export type LoginModel = {
-	city: string;
-	uid: string;
-	device: string;
-};
-
 export type CreateAccount = {
 	displayName: string;
 	email: string;
