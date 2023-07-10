@@ -8,12 +8,15 @@ Articole licenta:
 
 # FE:
 
+- profile picture min-width;
+- remove userId;
 - update frontend folder structure;
 - fix leave rating button;
 - set active index for lecture overview tabs; ???
 - fix create account
 - fix settings lecture privacy
 - navigate directu to overview form history
+- check what happens if you enter unothorize pages
 
 # Nice to have:
 
