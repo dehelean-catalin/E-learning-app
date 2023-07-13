@@ -1,10 +1,10 @@
 import Spinner from "components/Spinner/Spinner";
+import { ProgressActions } from "data/redux/progressReducer";
 import { useFetchData } from "hooks/useFetchData";
 import NotFoundError from "pages/NotFound/NotFoundError/NotFoundError";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
-import { ProgressActions } from "../../data/redux/ProgressReducer";
 import {
 	getLecture,
 	getLectureProgress,

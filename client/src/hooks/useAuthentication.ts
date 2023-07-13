@@ -14,8 +14,7 @@ import {
 	postRegister,
 	updateConnection,
 } from "../data/services/userService";
-import { findTypeOfDevice } from "../helpers/_findTypeOfDevice.helper";
-import authenticationErrorService from "./services/authenticationErrorService";
+import authenticationErrorService from "./authError.helper";
 import { useAxios } from "./useAxios";
 
 type ErrorState = { code: string; message: string } | undefined;
@@ -26,7 +25,7 @@ export const useAuthentication = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<ErrorState>();
 
-	const device = findTypeOfDevice(platform);
+	const device = platform.product ? platform.product : platform.name;
 
 	const handleLogin = async (email: string, password: string) => {
 		setIsLoading(true);

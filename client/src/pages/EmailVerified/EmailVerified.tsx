@@ -1,5 +1,5 @@
 import InfoBoxEmail from "components/InfoBoxEmail/InfoBoxEmail";
-import { RootState } from "data/redux/reducers";
+import { RootState } from "data/redux/store";
 import { useSelector } from "react-redux";
 
 const EmailVerified = () => {

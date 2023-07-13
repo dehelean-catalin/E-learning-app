@@ -8,7 +8,7 @@ import {
 	BannerNotificationState,
 	NotificationActions,
 } from "../../data/redux/notificationReducer";
-import { RootState } from "../../data/redux/reducers";
+import { RootState } from "../../data/redux/store";
 import styles from "./Notification.module.scss";
 
 const Notification = () => {

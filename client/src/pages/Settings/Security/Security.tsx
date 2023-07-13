@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import PRButton from "../../../components/PRButton/PRButton";
 import Spinner from "../../../components/Spinner/Spinner";
 import AuthContext from "../../../data/context/auth-context";
-import { ConfirmDialogActions } from "../../../data/redux/confirmDialog.reducer";
+import { showConfirmDialog } from "../../../data/redux/dialogReducer";
 import { NotificationActions } from "../../../data/redux/notificationReducer";
-import { RootState } from "../../../data/redux/reducers";
+import { RootState } from "../../../data/redux/store";
 import { useAxios } from "../../../hooks/useAxios";
 import { useFetchData } from "../../../hooks/useFetchData";
 import ConnectionSection from "./ConnectionsSection/ConnectionsSection";
@@ -84,8 +84,8 @@ const Security = () => {
 					icon="pi pi-trash"
 					onClick={() => {
 						dispatch(
-							ConfirmDialogActions.show({
-								accept: () =>
+							showConfirmDialog({
+								onConfirm: () =>
 									axios.delete("/account").then(() => {
 										handleDeleteUser();
 									}),

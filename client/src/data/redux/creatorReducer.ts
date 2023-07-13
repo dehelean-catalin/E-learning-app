@@ -42,7 +42,7 @@ const INITIAL_STATE: UploadLectureState = {
 	selectedNodeKey: null,
 };
 
-const uploadLectureReducer: Reducer<UploadLectureState, UploadLectureAction> = (
+const creatorReducer: Reducer<UploadLectureState, UploadLectureAction> = (
 	state: UploadLectureState = INITIAL_STATE,
 	action: UploadLectureAction
 ) => {
@@ -100,4 +100,4 @@ const uploadLectureReducer: Reducer<UploadLectureState, UploadLectureAction> = (
 			return state;
 	}
 };
-export default uploadLectureReducer;
+export default creatorReducer;

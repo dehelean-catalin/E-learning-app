@@ -6,8 +6,8 @@ import Spinner from "../../../../components/Spinner/Spinner";
 import {
 	AccountDataActions,
 	AccountDataState,
-} from "../../../../data/redux/AccountReducer";
-import { RootState } from "../../../../data/redux/reducers";
+} from "../../../../data/redux/accountReducer";
+import { RootState } from "../../../../data/redux/store";
 import { useAxios } from "../../../../hooks/useAxios";
 import "./AccountDataCard.scss";
 

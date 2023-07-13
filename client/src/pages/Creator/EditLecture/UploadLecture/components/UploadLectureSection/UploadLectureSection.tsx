@@ -4,7 +4,7 @@ import { classNames } from "primereact/utils";
 import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Content } from "../../../../../../data/models/creatorModel";
-import { ConfirmDialogActions } from "../../../../../../data/redux/confirmDialog.reducer";
+import { showConfirmDialog } from "../../../../../../data/redux/dialogReducer";
 import useDragAndDropContent from "../../hooks/useUploadContent";
 import NewSectionTag from "../NewSectionTag";
 import UploadLectureItem from "../UploadLectureItem/UploadLectureItem";
@@ -109,8 +109,8 @@ const UploadLectureSection: FC<Props> = ({ index, arrayHelpers, content }) => {
 						onClick={(e) => {
 							e.preventDefault();
 							dispatch(
-								ConfirmDialogActions.show({
-									accept: () => arrayHelpers.remove(index),
+								showConfirmDialog({
+									onConfirm: () => arrayHelpers.remove(index),
 								})
 							);
 						}}

@@ -8,9 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import PRButton from "../../../components/PRButton/PRButton";
 import { Category, LanguageEnum } from "../../../data/models/creatorModel";
-import { AccountDataState } from "../../../data/redux/AccountReducer";
+import { AccountDataState } from "../../../data/redux/accountReducer";
 import { NotificationActions } from "../../../data/redux/notificationReducer";
-import { RootState } from "../../../data/redux/reducers";
+import { RootState } from "../../../data/redux/store";
 import { postCreateLecture } from "../../../data/services/creatorService";
 import "./Create.scss";
 

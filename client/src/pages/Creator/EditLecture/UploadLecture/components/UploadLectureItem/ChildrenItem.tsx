@@ -1,10 +1,10 @@
 import { ContentData, CreatedLectureModel } from "data/models/creatorModel";
-import { ConfirmDialogActions } from "data/redux/confirmDialog.reducer";
 import { useFormikContext } from "formik";
 import { formattedDate } from "helpers";
 import { classNames } from "primereact/utils";
 import { FC, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
+import { showConfirmDialog } from "../../../../../../data/redux/dialogReducer";
 import useDragAndDropContent from "../../hooks/useUploadContent";
 import "./ChildrenItem.scss";
 
@@ -142,8 +142,8 @@ const ChildrenItem: FC<{
 				className="pi pi-trash align-self-center cursor-pointer"
 				onClick={() =>
 					dispatch(
-						ConfirmDialogActions.show({
-							accept: () => arrayHelpers.remove(index),
+						showConfirmDialog({
+							onConfirm: () => arrayHelpers.remove(index),
 						})
 					)
 				}

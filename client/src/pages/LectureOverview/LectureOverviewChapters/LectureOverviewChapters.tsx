@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { Content, ContentData } from "../../../data/models/creatorModel";
 import { VideoProgressItem } from "../../../data/models/usersModel";
-import { RootState } from "../../../data/redux/reducers";
+import { RootState } from "../../../data/redux/store";
 import { convertSecondsToTime } from "../../../helpers";
 import { useAxios } from "../../../hooks/useAxios";
 import "./LectureOverviewChapters.scss";

@@ -2,13 +2,13 @@ import Divider from "components/Divider/Divider";
 import ProfilePicture from "components/ProfilePicture/ProfilePicture";
 import AuthContext from "data/context/auth-context";
 
-import { RootState } from "data/redux/reducers";
+import { RootState } from "data/redux/store";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useContext, useRef } from "react";
 import { BiVideoPlus } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { NavLink, useLocation } from "react-router-dom";
-import { AccountDataState } from "../../../data/redux/AccountReducer";
+import { AccountDataState } from "../../../data/redux/accountReducer";
 import "./HeaderButtons.scss";
 import LectureButtons from "./LectureButtons";
 

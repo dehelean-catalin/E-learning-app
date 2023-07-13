@@ -1,7 +1,7 @@
 import AuthContext from "data/context/auth-context";
 import { CreatedLectureModel, Review } from "data/models/creatorModel";
 import { VideoProgressItem } from "data/models/usersModel";
-import { RootState } from "data/redux/reducers";
+import { RootState } from "data/redux/store";
 import { Knob } from "primereact/knob";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useContext, useRef, useState } from "react";

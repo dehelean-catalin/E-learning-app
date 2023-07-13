@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { FaPlay } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { DialogActions } from "../../../../data/redux/dialog.reducer";
+import { showVideoDialog } from "../../../../data/redux/dialogReducer";
 
 const Header: FC<{ caption: string; promoVideo; title }> = ({
 	caption,
@@ -12,9 +12,7 @@ const Header: FC<{ caption: string; promoVideo; title }> = ({
 	return (
 		<header
 			className="caption-container"
-			onClick={() =>
-				dispatch(DialogActions.showDialog({ src: promoVideo, title }))
-			}
+			onClick={() => dispatch(showVideoDialog({ src: promoVideo, title }))}
 		>
 			<img className="caption" src={caption} alt="not found" />
 			<div className="preview-wrapper">

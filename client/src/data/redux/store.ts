@@ -1,16 +1,29 @@
 import { configureStore } from "@reduxjs/toolkit";
-import createSagaMiddleware from "redux-saga";
-import { rootReducer } from "./reducers";
-export const sagaMiddleware = createSagaMiddleware();
+import { combineReducers } from "redux";
+import { StateType } from "typesafe-actions";
+import accountReducer, { AccountDataAction } from "./accountReducer";
+import creatorReducer, { UploadLectureAction } from "./creatorReducer";
+import dialogReducer from "./dialogReducer";
+import notificationReducer, { NotificationAction } from "./notificationReducer";
+import progressReducer, { ProgressAction } from "./progressReducer";
 
-const configStore = () => {
-	const _store = configureStore({
-		reducer: rootReducer,
-		middleware: (getDefaultMiddleware) =>
-			getDefaultMiddleware({ serializableCheck: false }).concat(sagaMiddleware),
-	});
-	return _store;
+const reducers = {
+	notificationReducer,
+	accountReducer,
+	creatorReducer,
+	dialogReducer,
+	progressReducer,
 };
 
-const store = configStore();
-export default store;
+export const rootReducer = combineReducers(reducers);
+
+export default configureStore({
+	reducer: rootReducer,
+});
+
+export type RootState = StateType<typeof rootReducer>;
+export type RootAction =
+	| NotificationAction
+	| AccountDataAction
+	| UploadLectureAction
+	| ProgressAction;

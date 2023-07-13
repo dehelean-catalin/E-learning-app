@@ -6,8 +6,8 @@ import { useSelector } from "react-redux";
 import InputTextField from "../../../../components/Inputs/InputTextField/InputTextField";
 import InputTextareaField from "../../../../components/Inputs/InputTextareaField/InputTextareaField";
 import PRButton from "../../../../components/PRButton/PRButton";
-import { AccountDataState } from "../../../../data/redux/AccountReducer";
-import { RootState } from "../../../../data/redux/reducers";
+import { AccountDataState } from "../../../../data/redux/accountReducer";
+import { RootState } from "../../../../data/redux/store";
 import { useAxios } from "../../../../hooks/useAxios";
 import styles from "./AccountSection.module.scss";
 

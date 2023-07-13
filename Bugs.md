@@ -12,7 +12,6 @@ Articole licenta:
 - profile picture min-width;
 - fix review rerender;
 - remove userId;
-- update frontend folder structure;
 - fix leave rating button;
 - set active index for lecture overview tabs;
 - fix create account

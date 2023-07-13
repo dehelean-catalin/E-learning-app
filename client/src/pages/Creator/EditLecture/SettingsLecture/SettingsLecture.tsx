@@ -1,12 +1,12 @@
 import Divider from "components/Divider/Divider";
 import { CreatedLectureModel, StatusEnum } from "data/models/creatorModel";
-import { ConfirmDialogActions } from "data/redux/confirmDialog.reducer";
 import { Field, useFormikContext } from "formik";
 import { useAxios } from "hooks/useAxios";
 import { Button } from "primereact/button";
 import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import { showConfirmDialog } from "../../../../data/redux/dialogReducer";
 import "./SettingsLecture.scss";
 
 const SettingsLecture = () => {
@@ -67,7 +67,7 @@ const SettingsLecture = () => {
 					iconPos="left"
 					icon="pi pi-trash"
 					onClick={() => {
-						dispatch(ConfirmDialogActions.show({ accept: deleteLecture }));
+						dispatch(showConfirmDialog({ onConfirm: deleteLecture }));
 					}}
 					loading={isLoading}
 				/>

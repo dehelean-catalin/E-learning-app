@@ -1,4 +1,4 @@
-import { AccountDataActions } from "data/redux/AccountReducer";
+import { AccountDataActions } from "data/redux/accountReducer";
 import { useAxios } from "hooks/useAxios";
 import { useFetchData } from "hooks/useFetchData";
 import NotFoundError from "pages/NotFound/NotFoundError/NotFoundError";

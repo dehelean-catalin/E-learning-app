@@ -16,7 +16,7 @@ const INITIAL_STATE: { data: VideoProgressItem[] } = {
 	data: [],
 };
 
-export const progressReducer: Reducer<
+const progressReducer: Reducer<
 	{ data: VideoProgressItem[] },
 	ProgressAction
 > = (
@@ -33,3 +33,4 @@ export const progressReducer: Reducer<
 			return state;
 	}
 };
+export default progressReducer;
