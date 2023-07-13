@@ -1,5 +1,4 @@
 import { AccountDataActions } from "data/redux/AccountReducer";
-import { getAccountData } from "data/services";
 import { useAxios } from "hooks/useAxios";
 import { useFetchData } from "hooks/useFetchData";
 import NotFoundError from "pages/NotFound/NotFoundError/NotFoundError";
@@ -11,6 +10,7 @@ import Header from "../components/Header/Header";
 import Notification from "../components/Notification/Notification";
 import SideBar from "../components/SideBar/SideBar";
 import AuthContext from "../data/context/auth-context";
+import { getAccountData } from "../data/services/userService";
 import GenericConfirmDialog from "../pages/Creator/EditLecture/GenericConfirmDialog";
 
 const RootLayout = () => {

@@ -1,4 +1,4 @@
-import { Content } from "../data/models/createdLecture.model";
+import { Content } from "../data/models/creatorModel";
 
 export const toRelativeTime = (time: number) => {
 	const timeNow = new Date().getTime();

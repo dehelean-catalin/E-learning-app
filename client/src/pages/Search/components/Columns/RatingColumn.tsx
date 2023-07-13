@@ -1,7 +1,7 @@
 import Divider from "components/Divider/Divider";
-import { RatingParams } from "data/models/search/searchFilterModel";
 import { FC } from "react";
 import { IoClose } from "react-icons/io5";
+import { RatingParams } from "../../../../data/models/lectureModel";
 import "../FilterSection.scss";
 import { FilterColumnProps } from "./DurationColumn";
 

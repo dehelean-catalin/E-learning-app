@@ -7,23 +7,32 @@ import {
 	updateLastChapter,
 	updateLectureProgress,
 } from "../controllers/monitoringController";
-import tokenAuth from "../middleware/tokenAuth-middleware";
 import validation from "../middleware/validation-middleware";
-import { chapterNameSchema, progressSchema } from "../schema/lecture.schema";
+import {
+	chapterNameSchema,
+	createProgressSchema,
+	updateProgressSchema,
+} from "../schema/monitor.schema";
 
 const router = Router();
 
-router.get("/history", tokenAuth, getMonitoringHistoryList);
+router.get("/history", getMonitoringHistoryList);
 
-router.get("/lecture/:id/progress", tokenAuth, getLectureProgress);
+router.get("/lecture/:id/progress", getLectureProgress);
+
 router.post(
 	"/lecture/:id/progress",
-	validation(progressSchema),
+	validation(createProgressSchema),
 	createLectureProgress
 );
-router.put("/lecture/:id/progress", tokenAuth, updateLectureProgress);
 
-router.get("/lectures/:id/last-chapter", tokenAuth, getLastChapterId);
+router.put(
+	"/lecture/:id/progress",
+	validation(updateProgressSchema),
+	updateLectureProgress
+);
+
+router.get("/lectures/:id/last-chapter", getLastChapterId);
 router.put(
 	"/lectures/:id/last-chapter",
 	validation(chapterNameSchema),

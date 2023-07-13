@@ -3,7 +3,7 @@ import { Button } from "primereact/button";
 import { classNames } from "primereact/utils";
 import { FC, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Content } from "../../../../../../data/models/createdLecture.model";
+import { Content } from "../../../../../../data/models/creatorModel";
 import { ConfirmDialogActions } from "../../../../../../data/redux/confirmDialog.reducer";
 import useDragAndDropContent from "../../hooks/useUploadContent";
 import NewSectionTag from "../NewSectionTag";

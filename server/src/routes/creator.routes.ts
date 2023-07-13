@@ -12,7 +12,6 @@ import {
 	uploadPromoVideo,
 } from "../controllers/creatorController";
 import { getSignedUrl } from "../middleware/getSignedUrl";
-import { default as tokenAuthMiddleware } from "../middleware/tokenAuth-middleware";
 import validation from "../middleware/validation-middleware";
 import {
 	LectureSchema,
@@ -28,31 +27,21 @@ router.post(
 	createLectureTemplate
 );
 
-router.get("/created-lectures", tokenAuthMiddleware, getAllCreatedLectures);
-router.get("/created-lectures/:id", tokenAuthMiddleware, getCreatedLectureById);
+router.get("/created-lectures", getAllCreatedLectures);
+router.get("/created-lectures/:id", getCreatedLectureById);
 router.post(
 	"/created-lectures/:id",
 	validation(LectureSchema),
 	updateCreatedLecture
 );
 
-router.post(
-	"/caption/:id",
-	tokenAuthMiddleware,
-	uploadLectureCaption,
-	getSignedUrl
-);
-router.post(
-	"/promoVideo/:id",
-	tokenAuthMiddleware,
-	uploadPromoVideo,
-	getSignedUrl
-);
+router.post("/caption/:id", uploadLectureCaption, getSignedUrl);
+router.post("/promoVideo/:id", uploadPromoVideo, getSignedUrl);
 
-router.post("/content/:id", tokenAuthMiddleware, uploadLesson);
+router.post("/content/:id", uploadLesson);
 
 router.post("/lecture/:id", validation(PublicLectureSchema), publishLecture);
 router.put("/lecture/:id", validation(PublicLectureSchema), updateLecture);
-router.delete("/lecture/:id", tokenAuthMiddleware, deleteLecture);
+router.delete("/lecture/:id", deleteLecture);
 
 export default router;

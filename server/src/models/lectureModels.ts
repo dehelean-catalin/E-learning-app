@@ -7,14 +7,23 @@ export type BasicLecture = {
 	author: string;
 	rating: number;
 	numberOfRatings: number;
-	enrolledUsers: number;
+	enrolledUsers: string[];
 };
 
 export type SavedLecture = BasicLecture & { description: string };
 
-export type LectureProgress = {
-	items: string[];
+export type SearchedLecture = SavedLecture & {
+	category: Category;
+	language: LangParams;
+	duration: number;
+	lastUpdate: number;
+};
+
+export type HistoryLecture = BasicLecture & {
+	progress: number;
+	lastChapter: string;
 	lastName: string;
+	date: string;
 };
 
 export type RatingParams = "9g" | "8-9b" | "8u";
@@ -30,16 +39,9 @@ export type QueryFilterParams = {
 	searchQuery: string;
 };
 
-export type SearchedLecture = SavedLecture & {
-	category: Category;
-	language: LangParams;
-	duration: number;
-	lastUpdate: number;
-};
+//monitor
 
-export type HistoryLecture = BasicLecture & {
-	progress: number;
-	lastChapter: string;
+export type LectureProgress = {
+	items: string[];
 	lastName: string;
-	date: string;
 };

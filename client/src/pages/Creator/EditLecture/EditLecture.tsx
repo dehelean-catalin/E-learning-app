@@ -1,17 +1,17 @@
+import Spinner from "components/Spinner/Spinner";
+import { CreatedLectureModel } from "data/models/creatorModel";
+import { NotificationActions } from "data/redux/notificationReducer";
+import {
+	getCreatedLecture,
+	updateCreatedLecturePlan,
+} from "data/services/creatorService";
 import { Formik } from "formik";
+import { useAxios } from "hooks/useAxios";
+import { useFetchData } from "hooks/useFetchData";
 import { useMutation, useQueryClient } from "react-query";
 import { useDispatch } from "react-redux";
 import { Outlet, useParams } from "react-router";
 import { Form } from "react-router-dom";
-import Spinner from "../../../components/Spinner/Spinner";
-import { CreatedLectureModel } from "../../../data/models/createdLecture.model";
-import { NotificationActions } from "../../../data/redux/notificationReducer";
-import {
-	getCreatedLecture,
-	updateCreatedLecturePlan,
-} from "../../../data/services/creator";
-import { useAxios } from "../../../hooks/useAxios";
-import { useFetchData } from "../../../hooks/useFetchData";
 import NotFoundError from "../../NotFound/NotFoundError/NotFoundError";
 import "./EditLecture.scss";
 import EditLectureHeader from "./EditLectureHeader/EditLectureHeader";

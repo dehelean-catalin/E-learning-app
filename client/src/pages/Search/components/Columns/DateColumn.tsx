@@ -1,7 +1,7 @@
 import Divider from "components/Divider/Divider";
-import { DateParams } from "data/models/search/searchFilterModel";
 import { FC } from "react";
 import { IoClose } from "react-icons/io5";
+import { DateParams } from "../../../../data/models/lectureModel";
 import { FilterColumnProps } from "./DurationColumn";
 
 const DateColumn: FC<FilterColumnProps> = ({ values, setValues }) => {

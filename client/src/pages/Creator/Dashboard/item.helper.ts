@@ -1,4 +1,4 @@
-import { Status } from "data/models/createdLecture.model";
+import { Status } from "data/models/creatorModel";
 
 export const itemStatus = (status: Status) => {
 	if (status === "Public") return "bg-primary-400";

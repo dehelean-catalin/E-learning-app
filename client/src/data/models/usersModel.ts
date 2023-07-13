@@ -5,42 +5,57 @@ export type UserModel = {
 	address: string;
 	aboutYou: string;
 	profilePicture: string;
+	connections: ConnectionItem[];
 	savedLectures: string[];
-	watchingLectures: [];
+	history: HistoryModel[];
 };
 
-export type UserDataModel = Omit<
-	UserModel,
-	"savedLectures" | "watchingLectures"
->;
-export type AcountDataModel = Omit<UserDataModel, "email" | "profilePicture">;
-export type HeaderDataModel = Omit<
-	UserDataModel,
-	"aboutYou" | "phoneNumber" | "address"
->;
+export type ConnectionItem = {
+	device: string;
+	location: string;
+	date: string;
+};
 
-export type WatchingLectureModel = {
+export type HistoryModel = {
 	id: string;
-	items: WatchingLectureItem[];
-};
-export type WatchingLectureItem = {
-	title: string;
-	url: string;
-	page: string;
-	duration: number;
-	currentProgress: number;
-	confirmedProgress: number;
+	videoProgress: VideoProgress;
 };
 
-export interface IMessage {
-	roomId?: string;
-	message: string;
-	userId: string;
-	firstName: string;
-	avatar: string;
-	messageDate: {
-		minutes: number;
-		hours: number;
-		day: string;
-	};
+export type VideoProgress = {
+	lastChapter: string;
+	lastDate: string;
+	lastName: string;
+	items: VideoProgressItem[];
+};
+
+export type VideoProgressItem = { id: string; current: number; total: number };
+
+export type AccountData = Omit<
+	UserModel,
+	"savedLectures" | "history" | "connections"
+>;
+
+export type CreateAccount = {
+	displayName: string;
+	email: string;
+	device: string;
+	location: string;
+};
+
+export interface ProviderAccount extends CreateAccount {
+	photoURL: string;
 }
+
+export type AuthModel = {
+	displayName: string;
+	email: string;
+	device: string;
+	photoURL?: string;
+	uid?: string;
+	location: string;
+};
+export type LoginModel = {
+	email: string;
+	password: string;
+	device: string;
+};

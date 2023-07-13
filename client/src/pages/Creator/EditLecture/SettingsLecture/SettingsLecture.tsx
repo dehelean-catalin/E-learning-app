@@ -1,15 +1,12 @@
+import Divider from "components/Divider/Divider";
+import { CreatedLectureModel, StatusEnum } from "data/models/creatorModel";
+import { ConfirmDialogActions } from "data/redux/confirmDialog.reducer";
 import { Field, useFormikContext } from "formik";
+import { useAxios } from "hooks/useAxios";
 import { Button } from "primereact/button";
 import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
-import Divider from "../../../../components/Divider/Divider";
-import {
-	CreatedLectureModel,
-	Privacy,
-} from "../../../../data/models/createdLecture.model";
-import { ConfirmDialogActions } from "../../../../data/redux/confirmDialog.reducer";
-import { useAxios } from "../../../../hooks/useAxios";
 import "./SettingsLecture.scss";
 
 const SettingsLecture = () => {
@@ -43,7 +40,7 @@ const SettingsLecture = () => {
 							unlisted courses cannot be accessed.
 						</label>
 						<Field as="select" name="publish.status">
-							{Object.values(Privacy).map((o) => (
+							{Object.values(StatusEnum).map((o) => (
 								<option key={o} value={o}>
 									{o}
 								</option>

@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { AccountDataState } from "../../../data/redux/AccountReducer";
 import { RootState } from "../../../data/redux/reducers";
-import { postLectureReview } from "../../../data/services/lecture.service";
+import { postLectureReview } from "../../../data/services/lectureService";
 import { useAxios } from "../../../hooks/useAxios";
 import PRButton from "../../PRButton/PRButton";
 import PRDialog from "../../PRDialog/PRDialog";

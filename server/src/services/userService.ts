@@ -25,6 +25,7 @@ export const getAccountData = async (userId: string) => {
 		aboutYou,
 	};
 };
+
 export const createAccountData = async (
 	userId: string,
 	data: CreateAccount

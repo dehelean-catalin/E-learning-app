@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { Navigate, Outlet } from "react-router";
 import AuthContext from "../../../data/context/auth-context";
-import { Category } from "../../../data/models/createdLecture.model";
+import { Category } from "../../../data/models/creatorModel";
 
 const AuthLayout = () => {
 	const { token } = useContext(AuthContext);

@@ -1,20 +1,17 @@
-import { postCreateLecture } from "data/services/creator/_postCreateLecture.service";
+import { AxiosError } from "axios";
 import { useAxios } from "hooks/useAxios";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { FormEvent, useState } from "react";
+import { useMutation } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-
-import { useMutation } from "react-query";
 import PRButton from "../../../components/PRButton/PRButton";
-import {
-	Category,
-	CreateLecturePayload,
-	Language,
-} from "../../../data/models/createdLecture.model";
+import { Category, LanguageEnum } from "../../../data/models/creatorModel";
 import { AccountDataState } from "../../../data/redux/AccountReducer";
+import { NotificationActions } from "../../../data/redux/notificationReducer";
 import { RootState } from "../../../data/redux/reducers";
+import { postCreateLecture } from "../../../data/services/creatorService";
 import "./Create.scss";
 
 const Create = () => {
@@ -25,9 +22,9 @@ const Create = () => {
 		(s) => s.accountReducer.data
 	);
 
-	const initialState: CreateLecturePayload = {
+	const initialState = {
 		title: "",
-		language: Language.English,
+		language: LanguageEnum.English,
 		category: Category.ALL,
 		author,
 	};
@@ -43,11 +40,32 @@ const Create = () => {
 		setValue({ ...value, [`${prop}`]: e.target.value });
 	};
 
-	const { mutate: handleSubmit, isLoading } = useMutation((e: FormEvent) => {
-		e.preventDefault();
-		if (disabled) return;
-		return postCreateLecture(axios, dispatch, navigate, value);
-	});
+	const { mutate: handleSubmit, isLoading } = useMutation(
+		(e: FormEvent) => {
+			e.preventDefault();
+			if (disabled) return;
+			return postCreateLecture(axios, value);
+		},
+		{
+			onSuccess: (res) => {
+				dispatch(
+					NotificationActions.showBannerNotification({
+						message: res,
+						type: "info",
+					})
+				);
+				navigate("/creator/dashboard", { replace: true });
+			},
+			onError: (err: AxiosError<{ message: string }>) => {
+				dispatch(
+					NotificationActions.showBannerNotification({
+						message: err.response.data.message,
+						type: "warning",
+					})
+				);
+			},
+		}
+	);
 
 	return (
 		<div className="create-page">
@@ -85,7 +103,7 @@ const Create = () => {
 					<Dropdown
 						value={value.language}
 						onChange={(e) => handleChange("language", e)}
-						options={Object.values(Language)}
+						options={Object.values(LanguageEnum)}
 						placeholder={"Chose a language"}
 					></Dropdown>
 				</div>

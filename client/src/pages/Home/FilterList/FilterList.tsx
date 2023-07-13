@@ -1,4 +1,4 @@
-import { Category } from "data/models/createdLecture.model";
+import { Category } from "data/models/creatorModel";
 import { FC } from "react";
 import { useLocation } from "react-router";
 import styles from "./FilterList.module.scss";

@@ -43,7 +43,6 @@ export const getMonitoringHistoryListData = async (id: string) => {
 			publish: { title, caption, author },
 			rating,
 			duration,
-			lastUpdate,
 			numberOfRatings,
 			enrolledUsers,
 			content,
@@ -57,9 +56,8 @@ export const getMonitoringHistoryListData = async (id: string) => {
 			rating,
 			numberOfRatings,
 			enrolledUsers,
-			content,
 			duration,
-			lastUpdate,
+			content,
 		};
 	});
 
@@ -79,6 +77,8 @@ export const getMonitoringHistoryListData = async (id: string) => {
 		const completed = duration?.filter(
 			(d, index) => Math.round(d - d / 20) <= Math.round(totalProgress[index])
 		).length;
+
+		delete doc["content"];
 
 		return {
 			...doc,
@@ -120,8 +120,8 @@ export const createLectureProgressData = async (
 	data: { items: string[]; lastName: string }
 ) => {
 	const { items, lastName } = data;
-	const lectureRef = firestoreDb.collection("lectures").doc(id);
 	const userRef = firestoreDb.collection("users").doc(userId);
+	const lectureRef = firestoreDb.collection("lectures").doc(id);
 
 	await lectureRef.update({ enrolledUsers: FieldValue.arrayUnion(id) });
 

@@ -1,9 +1,9 @@
 import {
 	Category,
 	CreatedLectureModel,
-	Language,
-	Level,
-} from "data/models/createdLecture.model";
+	LanguageEnum,
+	LevelEnum,
+} from "data/models/creatorModel";
 import { Field, FormikProps, useFormikContext } from "formik";
 import { ChangeEvent } from "react";
 import { FaPhotoVideo } from "react-icons/fa";
@@ -82,7 +82,7 @@ const PublishLecture = () => {
 						Language
 					</label>
 					<Field as="select" name="publish.language">
-						{Object.values(Language).map((o) => (
+						{Object.values(LanguageEnum).map((o) => (
 							<option key={o} value={o}>
 								{o}
 							</option>
@@ -94,7 +94,7 @@ const PublishLecture = () => {
 						Level
 					</label>
 					<Field as="select" name="publish.level">
-						{Object.values(Level).map((o) => (
+						{Object.values(LevelEnum).map((o) => (
 							<option key={o} value={o}>
 								{o}
 							</option>

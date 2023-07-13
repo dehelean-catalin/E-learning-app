@@ -30,6 +30,7 @@ export const getAllLectures: RequestHandler = async (req, res) => {
 
 		res.status(200).json(data);
 	} catch (err: any) {
+		console.log(err);
 		res.status(400).json({ code: 400, message: err.message });
 	}
 };
@@ -38,7 +39,6 @@ export const getLectureById: RequestHandler = async (req, res) => {
 	const { id } = req.params;
 	try {
 		const data = await getLectureByIdData(id);
-
 		res.status(200).json(data);
 	} catch (err: any) {
 		res.status(400).json({ code: 400, message: err.message });

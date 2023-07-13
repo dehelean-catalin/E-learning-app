@@ -1,6 +1,6 @@
 import { FormikProps } from "formik";
 import { useOutletContext } from "react-router";
-import { CreatedLectureModel } from "../../../../../data/models/createdLecture.model";
+import { CreatedLectureModel } from "../../../../../data/models/creatorModel";
 
 const useDragAndDropContent = () => {
 	const formik = useOutletContext<FormikProps<CreatedLectureModel>>();

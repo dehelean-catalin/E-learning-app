@@ -8,14 +8,15 @@ Articole licenta:
 
 # FE:
 
+- history lecture card title max limit of characters;
 - profile picture min-width;
+- fix review rerender;
 - remove userId;
 - update frontend folder structure;
 - fix leave rating button;
-- set active index for lecture overview tabs; ???
+- set active index for lecture overview tabs;
 - fix create account
 - fix settings lecture privacy
-- navigate directu to overview form history
 - check what happens if you enter unothorize pages
 
 # Nice to have:

@@ -1,7 +1,7 @@
 import Divider from "components/Divider/Divider";
-import { LangParams } from "data/models/search/searchFilterModel";
 import { FC } from "react";
 import { IoClose } from "react-icons/io5";
+import { LangParams } from "../../../../data/models/lectureModel";
 import { FilterColumnProps } from "./DurationColumn";
 
 const LanguageColumn: FC<FilterColumnProps> = ({ values, setValues }) => {

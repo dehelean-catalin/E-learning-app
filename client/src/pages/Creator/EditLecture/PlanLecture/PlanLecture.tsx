@@ -1,5 +1,5 @@
 import { useField } from "formik";
-import { CreatedLectureModel } from "../../../../data/models/createdLecture.model";
+import { CreatedLectureModel } from "../../../../data/models/creatorModel";
 import { keyOf } from "../../../../helpers";
 import PlanLectureField from "./PlanLectureField";
 

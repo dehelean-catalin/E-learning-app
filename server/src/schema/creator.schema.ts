@@ -188,6 +188,8 @@ export const PublicLectureSchema = LectureSchema.custom(
 			throw new Error("Not enough goals");
 		if (value.duration < 600)
 			throw new Error("Content duration exceeds the allowed limits");
+
+		if (!value.publish.author) throw new Error("Author is missing");
 		if (!value.publish.title) throw new Error("Title is missing");
 		if (!value.publish.description) throw new Error("Description is missing");
 		if (!value.publish.caption) throw new Error("Caption is missing");

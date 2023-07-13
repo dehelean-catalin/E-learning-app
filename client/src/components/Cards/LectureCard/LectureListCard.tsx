@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { useNavigate } from "react-router";
-import { BasicLecture } from "../../../data/models/lectureModel";
+import { SavedLecture } from "../../../data/models/lectureModel";
 import { CustomRating } from "../../CustomRating/CustomRating";
 import "./LectureListCard.scss";
 
 type Props = {
-	value: BasicLecture;
+	value: SavedLecture;
 	captionClassName?: string;
 	icon: JSX.Element;
 };
@@ -31,7 +31,7 @@ const LectureListCard: FC<Props> = ({ value, captionClassName, icon }) => {
 					numberOfRates={value.numberOfRatings}
 					enrolledUsers={value.enrolledUsers.length}
 				/>
-				<h4 className="desc">{value.description}</h4>
+				<h4 className="desc">{value?.description}</h4>
 			</div>
 			{icon}
 		</div>

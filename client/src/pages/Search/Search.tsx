@@ -1,11 +1,3 @@
-import {
-	DateParams,
-	DurationParams,
-	LangParams,
-	QueryFilterParams,
-	RatingParams,
-} from "data/models/search/searchFilterModel";
-import { getSearchLectures } from "data/services/search/_getSearchLectures.service";
 import { useAxios } from "hooks/useAxios";
 import { useFetchData } from "hooks/useFetchData";
 import NotFoundError from "pages/NotFound/NotFoundError/NotFoundError";
@@ -13,6 +5,14 @@ import { useSearchParams } from "react-router-dom";
 import LectureListActionBar from "../../components/Cards/LectureCard/LectureListActionBar";
 import LectureListCard from "../../components/Cards/LectureCard/LectureListCard";
 import Spinner from "../../components/Spinner/Spinner";
+import {
+	DateParams,
+	DurationParams,
+	LangParams,
+	QueryFilterParams,
+	RatingParams,
+} from "../../data/models/lectureModel";
+import { getSearchLectures } from "../../data/services/lectureService";
 import "./Search.scss";
 import SearchFilterSection from "./components/SearchFilterSection";
 

@@ -144,6 +144,7 @@ export const uploadLessonData = async (id, buffer, originalname) => {
 		action: "read",
 		expires: "2050-12-12",
 	});
+
 	const [track] = await file.getSignedUrl({
 		action: "read",
 		expires: "2050-12-12",
@@ -166,6 +167,7 @@ export const publishLectureData = async (
 		...data,
 		publish: { ...data.publish, status: "Public" },
 	});
+
 	await createdLectureRef.delete();
 
 	return "Successfully published";

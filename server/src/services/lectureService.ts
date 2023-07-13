@@ -137,7 +137,6 @@ export const getSavedLecturesData = async (id: string) => {
 
 export const addSavedLectureIdData = async (id: string, lectureId: string) => {
 	const userRef = firestoreDb.collection("users").doc(id);
-
 	await userRef.update({ savedLectures: FieldValue.arrayUnion(lectureId) });
 
 	return "Succesfully saved";
@@ -148,7 +147,6 @@ export const deleteSavedLectureIdData = async (
 	lectureId: string
 ) => {
 	const userRef = firestoreDb.collection("users").doc(id);
-
 	await userRef.update({ savedLectures: FieldValue.arrayRemove(lectureId) });
 
 	return "Succesfully deleted";

@@ -1,5 +1,5 @@
 import { FieldArray, useFormikContext } from "formik";
-import { CreatedLectureModel } from "../../../../data/models/createdLecture.model";
+import { CreatedLectureModel } from "../../../../data/models/creatorModel";
 import NewSectionTag from "./components/NewSectionTag";
 import UploadLectureSection from "./components/UploadLectureSection/UploadLectureSection";
 

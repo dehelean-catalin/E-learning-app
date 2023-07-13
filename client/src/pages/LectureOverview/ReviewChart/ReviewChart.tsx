@@ -1,7 +1,7 @@
 import { Chart } from "primereact/chart";
 import { Rating } from "primereact/rating";
 import { FC } from "react";
-import { Review } from "../../../data/models/createdLecture.model";
+import { Review } from "../../../data/models/creatorModel";
 import "./ReviewChart.scss";
 
 const ReviewChart: FC<{ value: Review[]; chartClassName?: string }> = ({

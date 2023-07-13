@@ -8,7 +8,7 @@ import { ProgressActions } from "../../data/redux/ProgressReducer";
 import {
 	getLecture,
 	getLectureProgress,
-} from "../../data/services/lecture.service";
+} from "../../data/services/lectureService";
 import { useAxios } from "../../hooks/useAxios";
 import "./LectureOverview.scss";
 import LectureOverviewChapters from "./LectureOverviewChapters/LectureOverviewChapters";

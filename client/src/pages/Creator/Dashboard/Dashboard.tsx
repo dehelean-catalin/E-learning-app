@@ -1,10 +1,9 @@
+import { CreatedLectureModel } from "data/models/creatorModel";
+import { getCreatedLectures } from "data/services/creatorService";
 import { useAxios } from "hooks/useAxios";
-
+import { useFetchData } from "hooks/useFetchData";
 import { DataView, DataViewLayoutType } from "primereact/dataview";
 import { useState } from "react";
-import { CreatedLectureModel } from "../../../data/models/createdLecture.model";
-import { getCreatedLectures } from "../../../data/services/creator";
-import { useFetchData } from "../../../hooks/useFetchData";
 import NotFoundError from "../../NotFound/NotFoundError/NotFoundError";
 import "./Dashboard.scss";
 import RenderGridItem from "./RenderGridItem";

@@ -1,17 +1,14 @@
+import AuthContext from "data/context/auth-context";
+import { CreatedLectureModel, Review } from "data/models/creatorModel";
+import { VideoProgressItem } from "data/models/usersModel";
+import { RootState } from "data/redux/reducers";
 import { Knob } from "primereact/knob";
 import { OverlayPanel } from "primereact/overlaypanel";
 import { useContext, useRef, useState } from "react";
 import { useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
 import { useMatch } from "react-router";
-import AuthContext from "../../../data/context/auth-context";
-import {
-	CreatedLectureModel,
-	Review,
-	VideoProgressItem,
-} from "../../../data/models/createdLecture.model";
-import { RootState } from "../../../data/redux/reducers";
-import { LECTURE_OVERVIEW_ROUTE } from "../../../routes/baseRoutes";
+import { LECTURE_OVERVIEW_ROUTE } from "routes/baseRoutes";
 import PRButton from "../../PRButton/PRButton";
 import LeaveRatingDialog from "./LeaveRatingDialog";
 

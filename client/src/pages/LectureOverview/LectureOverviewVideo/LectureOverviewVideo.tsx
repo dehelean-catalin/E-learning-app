@@ -3,11 +3,8 @@ import { OnProgressProps } from "react-player/base";
 import ReactPlayer from "react-player/lazy";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
-import {
-	Content,
-	Publish,
-	VideoProgressItem,
-} from "../../../data/models/createdLecture.model";
+import { Content, Publish } from "../../../data/models/creatorModel";
+import { VideoProgressItem } from "../../../data/models/usersModel";
 import { ProgressActions } from "../../../data/redux/ProgressReducer";
 import { RootState } from "../../../data/redux/reducers";
 import { useAxios } from "../../../hooks/useAxios";

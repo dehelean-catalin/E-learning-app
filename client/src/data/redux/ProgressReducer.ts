@@ -1,6 +1,6 @@
 import { Reducer } from "redux";
 import { ActionType, createAction, getType } from "typesafe-actions";
-import { VideoProgressItem } from "../models/createdLecture.model";
+import { VideoProgressItem } from "../models/usersModel";
 
 const actions = {
 	setProgress: createAction(

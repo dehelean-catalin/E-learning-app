@@ -7,16 +7,7 @@ export type UserModel = {
 	profilePicture: string;
 	connections: ConnectionItem[];
 	savedLectures: string[];
-	history: string[];
-};
-
-export type AccountData = {
-	email: string;
-	displayName: string;
-	profilePicture: string;
-	phoneNumber: string;
-	address: string;
-	aboutYou: string;
+	history: HistoryModel[];
 };
 
 export type ConnectionItem = {
@@ -38,6 +29,11 @@ export type VideoProgress = {
 };
 
 export type VideoProgressItem = { id: string; current: number; total: number };
+
+export type AccountData = Omit<
+	UserModel,
+	"savedLectures" | "history" | "connections"
+>;
 
 export type CreateAccount = {
 	displayName: string;

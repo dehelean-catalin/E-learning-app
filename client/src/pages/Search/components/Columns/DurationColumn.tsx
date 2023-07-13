@@ -1,10 +1,10 @@
 import Divider from "components/Divider/Divider";
+import { FC } from "react";
+import { IoClose } from "react-icons/io5";
 import {
 	DurationParams,
 	QueryFilterParams,
-} from "data/models/search/searchFilterModel";
-import { FC } from "react";
-import { IoClose } from "react-icons/io5";
+} from "../../../../data/models/lectureModel";
 
 export type FilterColumnProps = {
 	values: QueryFilterParams;

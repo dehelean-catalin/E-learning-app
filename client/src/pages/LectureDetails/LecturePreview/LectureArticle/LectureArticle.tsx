@@ -3,7 +3,7 @@ import { FC } from "react";
 import {
 	CreatedLectureModel,
 	Review,
-} from "../../../../data/models/createdLecture.model";
+} from "../../../../data/models/creatorModel";
 import Header from "./Header";
 import "./LectureArticle.scss";
 import LectureArticleFooter from "./LectureArticleFooter";

@@ -3,7 +3,7 @@ import { useParams } from "react-router";
 import {
 	getLecture,
 	getLectureReviews,
-} from "../../data/services/lecture.service";
+} from "../../data/services/lectureService";
 import { useAxios } from "../../hooks/useAxios";
 import { useFetchData } from "../../hooks/useFetchData";
 import LectureReviewCard from "../LectureOverview/LectureOverviewTabs/LectureReviewCard/LectureReviewCard";

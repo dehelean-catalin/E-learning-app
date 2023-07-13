@@ -10,31 +10,26 @@ import {
 	uploadProfilePicture,
 } from "../controllers/userController";
 import { getSignedUrl } from "../middleware/getSignedUrl";
-import { default as tokenAuth } from "../middleware/tokenAuth-middleware";
 import validation from "../middleware/validation-middleware";
 import {
 	AccountSchema,
 	connectionSchema,
 	createAccountSchema,
-	providerAccountSchema,
+	providerSchema,
 } from "../schema/user.schema";
 
 const router = Router();
 
-router.get("/account", tokenAuth, getAccount);
+router.get("/account", getAccount);
 router.post("/account", validation(createAccountSchema), createAccount);
 router.put("/account", validation(AccountSchema), updateAccount);
-router.delete("/account", tokenAuth, deleteAccount);
+router.delete("/account", deleteAccount);
 
-router.put("/profile-picture", tokenAuth, uploadProfilePicture, getSignedUrl);
+router.put("/profile-picture", uploadProfilePicture, getSignedUrl);
 
-router.get("/connections", tokenAuth, getConnectionList);
+router.get("/connections", getConnectionList);
 router.post("/connections", validation(connectionSchema), updateConnectionList);
 
-router.post(
-	"/login-provider",
-	validation(providerAccountSchema),
-	loginWithProvider
-);
+router.post("/login-provider", validation(providerSchema), loginWithProvider);
 
 export default router;

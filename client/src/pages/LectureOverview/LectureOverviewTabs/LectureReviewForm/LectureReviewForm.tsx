@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Review } from "../../../../data/models/createdLecture.model";
+import { Review } from "../../../../data/models/creatorModel";
 import LectureReviewCard from "../LectureReviewCard/LectureReviewCard";
 import "./LectureReviewForm.scss";
 

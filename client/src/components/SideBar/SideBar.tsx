@@ -2,7 +2,7 @@ import { MdOutlineHistory } from "react-icons/md";
 import { RxDashboard } from "react-icons/rx";
 import { VscHome } from "react-icons/vsc";
 import { NavLink, useLocation } from "react-router-dom";
-import { Category } from "../../data/models/createdLecture.model";
+import { Category } from "../../data/models/creatorModel";
 import "./SideBar.scss";
 
 const NavigationHeader = () => {

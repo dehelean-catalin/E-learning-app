@@ -2,7 +2,7 @@ import { NavLink } from "react-router-dom";
 import LectureListCard from "../../../components/Cards/LectureCard/LectureListCard";
 import Empty from "../../../components/Empty/Empty";
 import Spinner from "../../../components/Spinner/Spinner";
-import { getSavedLectures } from "../../../data/services/saved-lectures/savedLectures.service";
+import { getSavedLectures } from "../../../data/services/lectureService";
 import { useAxios } from "../../../hooks/useAxios";
 import { useFetchData } from "../../../hooks/useFetchData";
 import NotFoundError from "../../NotFound/NotFoundError/NotFoundError";

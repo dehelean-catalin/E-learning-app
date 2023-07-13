@@ -1,4 +1,4 @@
-import { CreatedLectureModel } from "data/models/createdLecture.model";
+import { CreatedLectureModel } from "data/models/creatorModel";
 import { useFormikContext } from "formik";
 import { isEqual } from "lodash";
 import { FC, useEffect } from "react";

@@ -1,8 +1,5 @@
 import { FC } from "react";
-import {
-	CreatedLectureModel,
-	Review,
-} from "../../../data/models/createdLecture.model";
+import { CreatedLectureModel, Review } from "../../../data/models/creatorModel";
 import LectureArticle from "./LectureArticle/LectureArticle";
 import LectureGoals from "./LectureGoals/LectureGoals";
 import "./LecturePreview.scss";

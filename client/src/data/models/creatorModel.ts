@@ -32,17 +32,19 @@ export type Content = {
 	data: string;
 	children: {
 		label: string;
-		data: {
-			id: string;
-			description: string;
-			date: string;
-			duration: number;
-			content: string;
-			track: string;
-			type: string;
-			status: VideoStatus;
-		};
+		data: ContentData;
 	}[];
+};
+
+export type ContentData = {
+	id: string;
+	description: string;
+	date: string;
+	duration: number;
+	content: string;
+	track: string;
+	type: string;
+	status: VideoStatus;
 };
 
 export type LectureTemplateData = {
@@ -56,6 +58,23 @@ export type Language = "English" | "French" | "Romanian";
 export type VideoStatus = "Success" | "Failed";
 export type Status = "Draft" | "Public" | "Private" | "Unlisted";
 export type Level = "Beginner" | "Intermediate" | "Advanced" | "Expert";
+
+export enum StatusEnum {
+	Public = "Public",
+	Private = "Private",
+	Unlisted = "Unlisted",
+}
+export enum LevelEnum {
+	Beginner = "Beginner",
+	Intermediate = "Intermediate",
+	Advanced = "Advanced",
+	Expert = "Expert",
+}
+export enum LanguageEnum {
+	Romanian = "Romanian",
+	English = "English",
+	French = "French",
+}
 
 export enum Category {
 	ALL = "All",
@@ -72,6 +91,7 @@ export enum Category {
 
 export type Review = {
 	profilePicture: string;
+	authorId: string;
 	author: string;
 	date: string;
 	message: string;

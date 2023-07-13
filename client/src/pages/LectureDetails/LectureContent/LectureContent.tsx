@@ -1,7 +1,7 @@
 import { Accordion, AccordionTab } from "primereact/accordion";
 import { FC } from "react";
 import { RxVideo } from "react-icons/rx";
-import { Content } from "../../../data/models/createdLecture.model";
+import { Content } from "../../../data/models/creatorModel";
 import {
 	convertSecondsToTime,
 	convertSecondsToTimeString,

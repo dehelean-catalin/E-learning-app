@@ -1,6 +1,5 @@
 import Joi from "joi";
 import { ReviewData } from "../models/creatorModels";
-import { LectureProgress } from "../models/lectureModels";
 
 export const reviewSchema = Joi.object<ReviewData, true>().keys({
 	author: Joi.string().required().messages({
@@ -19,23 +18,4 @@ export const reviewSchema = Joi.object<ReviewData, true>().keys({
 		.messages({
 			"any.required": "rating is required",
 		}),
-});
-
-export const progressSchema = Joi.object<LectureProgress, true>().keys({
-	items: Joi.array().required(),
-	lastName: Joi.string().required().messages({
-		"any.required": "lastName is required",
-		"string.empty": "lastName cannot be empty",
-	}),
-});
-
-export const chapterNameSchema = Joi.object().keys({
-	lastChapter: Joi.string().required().messages({
-		"any.required": "Last chapter id is required",
-		"string.empty": "Last chapter id cannot be empty",
-	}),
-	lastName: Joi.string().required().messages({
-		"any.required": "lastName is required",
-		"string.empty": "lastName cannot be empty",
-	}),
 });

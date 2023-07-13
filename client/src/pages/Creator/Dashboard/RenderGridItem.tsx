@@ -4,7 +4,7 @@ import { Tag } from "primereact/tag";
 import { FC } from "react";
 import { useNavigate } from "react-router";
 import { CustomRating } from "../../../components/CustomRating/CustomRating";
-import { CreatedLectureModel } from "../../../data/models/createdLecture.model";
+import { CreatedLectureModel } from "../../../data/models/creatorModel";
 import { toRelativeTime } from "../../../helpers";
 import { itemIcon, itemStatus } from "./item.helper";
 

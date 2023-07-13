@@ -4,11 +4,8 @@ import { FC } from "react";
 import { BsFillPlayCircleFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
-import {
-	Content,
-	ContentData,
-	VideoProgressItem,
-} from "../../../data/models/createdLecture.model";
+import { Content, ContentData } from "../../../data/models/creatorModel";
+import { VideoProgressItem } from "../../../data/models/usersModel";
 import { RootState } from "../../../data/redux/reducers";
 import { convertSecondsToTime } from "../../../helpers";
 import { useAxios } from "../../../hooks/useAxios";

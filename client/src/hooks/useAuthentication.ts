@@ -1,9 +1,4 @@
 import {
-	postLoginProvider,
-	postRegister,
-	updateConnection,
-} from "data/services";
-import {
 	GithubAuthProvider,
 	GoogleAuthProvider,
 	createUserWithEmailAndPassword,
@@ -14,7 +9,11 @@ import platform from "platform";
 import { useContext, useState } from "react";
 import { auth } from "../config/firebase.config";
 import AuthContext from "../data/context/auth-context";
-import { RegisterModel } from "../data/models/_auth.model";
+import {
+	postLoginProvider,
+	postRegister,
+	updateConnection,
+} from "../data/services/userService";
 import { findTypeOfDevice } from "../helpers/_findTypeOfDevice.helper";
 import authenticationErrorService from "./services/authenticationErrorService";
 import { useAxios } from "./useAxios";
@@ -48,7 +47,7 @@ export const useAuthentication = () => {
 		}
 	};
 
-	const handleRegister = async (data: RegisterModel) => {
+	const handleRegister = async (data) => {
 		setIsLoading(true);
 		const { displayName, email, password } = data;
 

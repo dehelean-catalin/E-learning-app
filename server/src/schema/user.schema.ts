@@ -1,11 +1,9 @@
-import joiDate from "@joi/date";
-import coreJoi from "joi";
+import Joi from "joi";
 import {
 	AccountData,
 	ConnectionItem,
 	ProviderAccount,
 } from "../models/userModels";
-const Joi = coreJoi.extend(joiDate) as typeof coreJoi;
 
 export const AccountSchema = Joi.object<
 	Omit<AccountData, "email" | "profilePicture">,
@@ -50,6 +48,6 @@ export const createAccountSchema = Joi.object<ProviderAccount, true>().keys({
 	}),
 });
 
-export const providerAccountSchema = createAccountSchema.keys({
+export const providerSchema = createAccountSchema.keys({
 	photoURL: Joi.string().required(),
 });

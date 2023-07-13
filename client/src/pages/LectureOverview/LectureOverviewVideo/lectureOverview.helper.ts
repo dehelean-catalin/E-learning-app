@@ -1,7 +1,4 @@
-import {
-	Content,
-	ContentData,
-} from "../../../data/models/createdLecture.model";
+import { Content, ContentData } from "../../../data/models/creatorModel";
 
 export const getChapterVideoWithProgress = (
 	data: Content[],

@@ -1,13 +1,10 @@
-import {
-	ContentChildren,
-	CreatedLectureModel,
-} from "data/models/createdLecture.model";
+import { ContentData, CreatedLectureModel } from "data/models/creatorModel";
+import { ConfirmDialogActions } from "data/redux/confirmDialog.reducer";
 import { useFormikContext } from "formik";
 import { formattedDate } from "helpers";
 import { classNames } from "primereact/utils";
 import { FC, useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { ConfirmDialogActions } from "../../../../../../data/redux/confirmDialog.reducer";
 import useDragAndDropContent from "../../hooks/useUploadContent";
 import "./ChildrenItem.scss";
 
@@ -15,7 +12,10 @@ const ChildrenItem: FC<{
 	subIndex: number;
 	index: number;
 	arrayHelpers: any;
-	value: ContentChildren;
+	value: {
+		label: string;
+		data: ContentData;
+	};
 }> = ({ index, arrayHelpers, value, subIndex }) => {
 	const { setFieldValue } = useFormikContext<CreatedLectureModel>();
 	const dispatch = useDispatch();
