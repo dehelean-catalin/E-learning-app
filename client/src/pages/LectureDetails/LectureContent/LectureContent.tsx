@@ -1,12 +1,12 @@
 import { Accordion, AccordionTab } from "primereact/accordion";
 import { FC } from "react";
 import { RxVideo } from "react-icons/rx";
-import { Content } from "../../../data/models/creatorModel";
 import {
 	convertSecondsToTime,
 	convertSecondsToTimeString,
 	lectureDurationBasedOnContent,
-} from "../../../helpers";
+} from "../../../data/helpers";
+import { Content } from "../../../data/models/creatorModel";
 import AccordionTabHeader from "./AccordionTabHeader";
 import "./LectureContent.scss";
 

@@ -1,10 +1,10 @@
 import { OverlayPanel } from "primereact/overlaypanel";
-import { FC, useRef } from "react";
+import { FC, MouseEvent, useRef } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useDispatch } from "react-redux";
 import PRButton from "../../../components/PRButton/PRButton";
+import { useAxios } from "../../../data/hooks/useAxios";
 import { NotificationActions } from "../../../data/redux/notificationReducer";
-import { useAxios } from "../../../hooks/useAxios";
 
 const SavedLectureActionBar: FC<{ id: string }> = ({ id }) => {
 	const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const SavedLectureActionBar: FC<{ id: string }> = ({ id }) => {
 		);
 	};
 
-	const handleCopyLink = (e) => {
+	const handleCopyLink = (e: MouseEvent<HTMLElement>) => {
 		op.current.toggle(e);
 		navigator.clipboard.writeText(`http://localhost:3000/lecture/${id}`);
 		dispatch(

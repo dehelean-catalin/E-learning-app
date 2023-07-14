@@ -2,8 +2,8 @@ import { OverlayPanel } from "primereact/overlaypanel";
 import { FC, useRef } from "react";
 import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
+import { useAxios } from "../../../data/hooks/useAxios";
 import { NotificationActions } from "../../../data/redux/notificationReducer";
-import { useAxios } from "../../../hooks/useAxios";
 import PRButton from "../../PRButton/PRButton";
 
 const LectureListActionBar: FC<{ id: string }> = ({ id }) => {

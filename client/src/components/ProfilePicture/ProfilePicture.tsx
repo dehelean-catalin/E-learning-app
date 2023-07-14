@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { initialsHelper } from "../../helpers/initialsHelper";
+import { initialsHelper } from "../../data/helpers/initialsHelper";
 import styles from "./ProfilePicture.module.scss";
 
 type Props = {

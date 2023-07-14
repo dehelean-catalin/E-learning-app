@@ -1,14 +1,14 @@
+import { convertSecondsToTime } from "data/helpers";
+import { useAxios } from "data/hooks/useAxios";
+import { Content, ContentData } from "data/models/creatorModel";
+import { VideoProgressItem } from "data/models/usersModel";
+import { RootState } from "data/redux/store";
 import { Accordion, AccordionTab } from "primereact/accordion";
 import { classNames } from "primereact/utils";
 import { FC } from "react";
 import { BsFillPlayCircleFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
-import { Content, ContentData } from "../../../data/models/creatorModel";
-import { VideoProgressItem } from "../../../data/models/usersModel";
-import { RootState } from "../../../data/redux/store";
-import { convertSecondsToTime } from "../../../helpers";
-import { useAxios } from "../../../hooks/useAxios";
 import "./LectureOverviewChapters.scss";
 
 type LectureOverviewChaptersProps = {

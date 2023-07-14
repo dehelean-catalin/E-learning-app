@@ -5,6 +5,7 @@ import { auth } from "../../config/firebase.config";
 type Props = {
 	children: JSX.Element;
 };
+
 export interface IAuthContext {
 	userId: string;
 	token: string;

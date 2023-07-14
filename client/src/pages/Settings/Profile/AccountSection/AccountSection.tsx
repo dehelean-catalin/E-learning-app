@@ -1,4 +1,4 @@
-import { getGenericErrorMessage } from "helpers/formHelpers";
+import { getGenericErrorMessage } from "data/helpers/formHelpers";
 import { isEqual } from "lodash";
 import { FormEvent, useEffect, useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
@@ -6,9 +6,9 @@ import { useSelector } from "react-redux";
 import InputTextField from "../../../../components/Inputs/InputTextField/InputTextField";
 import InputTextareaField from "../../../../components/Inputs/InputTextareaField/InputTextareaField";
 import PRButton from "../../../../components/PRButton/PRButton";
+import { useAxios } from "../../../../data/hooks/useAxios";
 import { AccountDataState } from "../../../../data/redux/accountReducer";
 import { RootState } from "../../../../data/redux/store";
-import { useAxios } from "../../../../hooks/useAxios";
 import styles from "./AccountSection.module.scss";
 
 const AccountSection = () => {

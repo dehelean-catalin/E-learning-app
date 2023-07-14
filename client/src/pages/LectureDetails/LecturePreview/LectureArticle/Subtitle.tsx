@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { CustomRating } from "../../../../components/CustomRating/CustomRating";
-import { toRelativeTime } from "../../../../helpers";
+import { toRelativeTime } from "../../../../data/helpers";
 
 type SubtitleProps = {
 	lastUpdate: number;

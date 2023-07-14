@@ -1,6 +1,6 @@
 import { GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
 import { Button } from "primereact/button";
-import { useAuthentication } from "../../../hooks/useAuthentication";
+import { useAuthentication } from "../../../data/hooks/useAuthentication";
 import "./LoginProviderSection.scss";
 
 const LoginProviderSection = () => {

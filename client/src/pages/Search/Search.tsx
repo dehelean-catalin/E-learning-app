@@ -1,5 +1,5 @@
-import { useAxios } from "hooks/useAxios";
-import { useFetchData } from "hooks/useFetchData";
+import { useAxios } from "data/hooks/useAxios";
+import { useFetchData } from "data/hooks/useFetchData";
 import NotFoundError from "pages/NotFound/NotFoundError/NotFoundError";
 import { useSearchParams } from "react-router-dom";
 import LectureListActionBar from "../../components/Cards/LectureCard/LectureListActionBar";

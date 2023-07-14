@@ -1,7 +1,7 @@
 import Divider from "components/Divider/Divider";
+import { useAxios } from "data/hooks/useAxios";
 import { CreatedLectureModel, StatusEnum } from "data/models/creatorModel";
 import { Field, useFormikContext } from "formik";
-import { useAxios } from "hooks/useAxios";
 import { Button } from "primereact/button";
 import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";

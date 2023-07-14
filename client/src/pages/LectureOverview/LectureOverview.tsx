@@ -1,15 +1,15 @@
 import Spinner from "components/Spinner/Spinner";
+import { useFetchData } from "data/hooks/useFetchData";
 import { ProgressActions } from "data/redux/progressReducer";
-import { useFetchData } from "hooks/useFetchData";
 import NotFoundError from "pages/NotFound/NotFoundError/NotFoundError";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
+import { useAxios } from "../../data/hooks/useAxios";
 import {
 	getLecture,
 	getLectureProgress,
 } from "../../data/services/lectureService";
-import { useAxios } from "../../hooks/useAxios";
 import "./LectureOverview.scss";
 import LectureOverviewChapters from "./LectureOverviewChapters/LectureOverviewChapters";
 import LectureOverviewReviews from "./LectureOverviewTabs/LectureOverviewReviews";

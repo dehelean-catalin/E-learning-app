@@ -10,7 +10,7 @@ import { FaPhotoVideo } from "react-icons/fa";
 import { IoMdImages } from "react-icons/io";
 import { useMutation } from "react-query";
 import { useOutletContext } from "react-router";
-import { useAxios } from "../../../../hooks/useAxios";
+import { useAxios } from "../../../../data/hooks/useAxios";
 import ImageField from "./ImageField";
 
 const PublishLecture = () => {

@@ -1,11 +1,11 @@
-import baseImg from "images/test.png";
+import baseImg from "data/images/test.png";
 import { Button } from "primereact/button";
 import { Tag } from "primereact/tag";
 import { FC } from "react";
 import { useNavigate } from "react-router";
 import { CustomRating } from "../../../components/CustomRating/CustomRating";
+import { toRelativeTime } from "../../../data/helpers";
 import { CreatedLectureModel } from "../../../data/models/creatorModel";
-import { toRelativeTime } from "../../../helpers";
 import { itemIcon, itemStatus } from "./item.helper";
 
 const RenderListItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {

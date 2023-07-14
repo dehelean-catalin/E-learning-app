@@ -1,4 +1,4 @@
-import image from "images/no-results.png";
+import image from "data/images/no-results.png";
 import NotFound from "../NotFound";
 
 const NotFoundError = () => {

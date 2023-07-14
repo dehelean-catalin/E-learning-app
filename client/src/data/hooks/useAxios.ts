@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useContext } from "react";
-import AuthContext from "../data/context/auth-context";
+import AuthContext from "../context/auth-context";
 
 export const useAxios = () => {
 	const { token } = useContext(AuthContext);

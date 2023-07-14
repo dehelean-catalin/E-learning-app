@@ -1,7 +1,7 @@
+import { useAxios } from "data/hooks/useAxios";
+import { useFetchData } from "data/hooks/useFetchData";
 import { CreatedLectureModel } from "data/models/creatorModel";
 import { getCreatedLectures } from "data/services/creatorService";
-import { useAxios } from "hooks/useAxios";
-import { useFetchData } from "hooks/useFetchData";
 import { DataView, DataViewLayoutType } from "primereact/dataview";
 import { useState } from "react";
 import NotFoundError from "../../NotFound/NotFoundError/NotFoundError";

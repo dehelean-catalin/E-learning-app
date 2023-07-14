@@ -3,12 +3,12 @@ import { useMutation } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
 import ProfilePicture from "../../../../components/ProfilePicture/ProfilePicture";
 import Spinner from "../../../../components/Spinner/Spinner";
+import { useAxios } from "../../../../data/hooks/useAxios";
 import {
 	AccountDataActions,
 	AccountDataState,
 } from "../../../../data/redux/accountReducer";
 import { RootState } from "../../../../data/redux/store";
-import { useAxios } from "../../../../hooks/useAxios";
 import "./AccountDataCard.scss";
 
 const AccountDataCard = () => {

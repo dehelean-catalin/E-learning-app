@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { useAxios } from "hooks/useAxios";
+import { useAxios } from "data/hooks/useAxios";
 import { Dropdown } from "primereact/dropdown";
 import { InputText } from "primereact/inputtext";
 import { FormEvent, useState } from "react";

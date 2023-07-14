@@ -1,11 +1,11 @@
 import { ProgressSpinner } from "primereact/progressspinner";
 import { useParams } from "react-router";
+import { useAxios } from "../../data/hooks/useAxios";
+import { useFetchData } from "../../data/hooks/useFetchData";
 import {
 	getLecture,
 	getLectureReviews,
 } from "../../data/services/lectureService";
-import { useAxios } from "../../hooks/useAxios";
-import { useFetchData } from "../../hooks/useFetchData";
 import LectureReviewCard from "../LectureOverview/LectureOverviewTabs/LectureReviewCard/LectureReviewCard";
 import ReviewChart from "../LectureOverview/ReviewChart/ReviewChart";
 import NotFoundError from "../NotFound/NotFoundError/NotFoundError";

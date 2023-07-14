@@ -3,14 +3,14 @@ import {
 	formatDisplayNameError,
 	formatEmailError,
 	formatPasswordError,
-} from "helpers/registerHelper";
+} from "data/helpers/registerHelper";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import InputTextField from "../../../components/Inputs/InputTextField/InputTextField";
 import PRButton from "../../../components/PRButton/PRButton";
 import AuthForm from "../../../components/auth/AuthForm/AuthForm";
-import { passwordReggex } from "../../../helpers/inputPasswordHelper";
-import { useAuthentication } from "../../../hooks/useAuthentication";
+import { passwordReggex } from "../../../data/helpers/inputPasswordHelper";
+import { useAuthentication } from "../../../data/hooks/useAuthentication";
 import styles from "./Register.module.scss";
 
 const Register = () => {

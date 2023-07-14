@@ -1,14 +1,12 @@
+import InputTextField from "components/Inputs/InputTextField/InputTextField";
+import InputPasswordField from "components/Inputs/PRPassword/InputPasswordField";
+import PRButton from "components/PRButton/PRButton";
+import AuthForm from "components/auth/AuthForm/AuthForm";
+import { formatEmailError } from "data/helpers/loginHelper";
+import { formatPasswordError } from "data/helpers/registerHelper";
+import { useAuthentication } from "data/hooks/useAuthentication";
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import InputTextField from "../../../components/Inputs/InputTextField/InputTextField";
-import InputPasswordField from "../../../components/Inputs/PRPassword/InputPasswordField";
-import PRButton from "../../../components/PRButton/PRButton";
-import AuthForm from "../../../components/auth/AuthForm/AuthForm";
-import {
-	formatEmailError,
-	formatPasswordError,
-} from "../../../helpers/loginHelper";
-import { useAuthentication } from "../../../hooks/useAuthentication";
 import styles from "./Login.module.scss";
 
 const Login = () => {

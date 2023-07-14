@@ -1,9 +1,9 @@
 import { AxiosResponse } from "axios";
 import PRButton from "components/PRButton/PRButton";
+import { useAxios } from "data/hooks/useAxios";
 import { Content } from "data/models/creatorModel";
 import { VideoProgress } from "data/models/usersModel";
 import { NotificationActions } from "data/redux/notificationReducer";
-import { useAxios } from "hooks/useAxios";
 import { FC, useEffect, useState } from "react";
 import { FaPlay } from "react-icons/fa";
 import { useMutation } from "react-query";

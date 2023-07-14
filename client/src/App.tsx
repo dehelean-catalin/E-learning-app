@@ -19,6 +19,12 @@ import {
 	createRoutesFromElements,
 } from "react-router-dom";
 import "./App.scss";
+import RootLayout from "./data/routes/RootLayout";
+import VerifyEmailLayout from "./data/routes/VerifyEmailLayout";
+import {
+	CreatedLecturesRoute,
+	LECTURE_OVERVIEW_ROUTE,
+} from "./data/routes/baseRoutes";
 import AuthLayout from "./pages/Auth/AuthLayout/AuthLayout";
 import ForgotPassword from "./pages/Auth/ForgotPassoword/ForgotPassword";
 import Login from "./pages/Auth/Login/Login";
@@ -37,12 +43,6 @@ import NotFound from "./pages/NotFound/NotFound";
 import Account from "./pages/Settings/Profile/AccountPage";
 import Security from "./pages/Settings/Security/Security";
 import Settings from "./pages/Settings/Settings";
-import RootLayout from "./routes/RootLayout";
-import VerifyEmailLayout from "./routes/VerifyEmailLayout";
-import {
-	CreatedLecturesRoute,
-	LECTURE_OVERVIEW_ROUTE,
-} from "./routes/baseRoutes";
 
 function App() {
 	const { handleEmailVerified, handleProviderId, logout } =

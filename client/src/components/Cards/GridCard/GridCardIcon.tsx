@@ -4,8 +4,8 @@ import { BiDotsVerticalRounded, BiLinkAlt } from "react-icons/bi";
 import { BsBookmark } from "react-icons/bs";
 import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
+import { useAxios } from "../../../data/hooks/useAxios";
 import { NotificationActions } from "../../../data/redux/notificationReducer";
-import { useAxios } from "../../../hooks/useAxios";
 import "./GridCardIcon.scss";
 
 const GridCardIcon: FC<{ id: string }> = ({ id }) => {

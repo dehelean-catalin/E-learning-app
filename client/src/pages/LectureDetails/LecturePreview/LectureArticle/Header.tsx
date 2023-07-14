@@ -3,7 +3,7 @@ import { FaPlay } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { showVideoDialog } from "../../../../data/redux/dialogReducer";
 
-const Header: FC<{ caption: string; promoVideo; title }> = ({
+const Header: FC<{ caption: string; promoVideo: string; title: string }> = ({
 	caption,
 	promoVideo,
 	title,

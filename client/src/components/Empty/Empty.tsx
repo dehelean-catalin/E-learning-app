@@ -1,4 +1,4 @@
-import image from "images/empty.png";
+import image from "data/images/empty.png";
 import { FC, PropsWithChildren } from "react";
 import "./Empty.scss";
 

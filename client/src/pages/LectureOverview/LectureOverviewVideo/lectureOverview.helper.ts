@@ -2,7 +2,7 @@ import { Content, ContentData } from "../../../data/models/creatorModel";
 
 export const getChapterVideoWithProgress = (
 	data: Content[],
-	chapterId
+	chapterId: string
 ): ContentData | undefined => {
 	let content;
 	for (const i in data) {

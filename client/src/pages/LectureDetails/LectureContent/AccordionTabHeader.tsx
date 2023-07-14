@@ -1,4 +1,4 @@
-import { convertSecondsToTime } from "../../../helpers";
+import { convertSecondsToTime } from "../../../data/helpers";
 
 const AccordionTabHeader = ({ label, children }) => {
 	return (

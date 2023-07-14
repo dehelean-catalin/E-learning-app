@@ -1,12 +1,12 @@
+import ProfilePicture from "components/ProfilePicture/ProfilePicture";
+import { toRelativeTime } from "data/helpers";
+import { useAxios } from "data/hooks/useAxios";
+import { Review } from "data/models/creatorModel";
+import { deleteLectureReview } from "data/services/lectureService";
 import { Rating } from "primereact/rating";
 import { FC } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useParams } from "react-router";
-import ProfilePicture from "../../../../components/ProfilePicture/ProfilePicture";
-import { Review } from "../../../../data/models/creatorModel";
-import { deleteLectureReview } from "../../../../data/services/lectureService";
-import { toRelativeTime } from "../../../../helpers";
-import { useAxios } from "../../../../hooks/useAxios";
 import "./LectureReviewCard.scss";
 
 type Props = { value: Omit<Review, "authorId">; canEdit?: boolean };

@@ -1,9 +1,9 @@
-import image from "images/empty.png";
+import image from "data/images/empty.png";
 import { NavLink } from "react-router-dom";
 import GridCard from "../../components/Cards/GridCard/GridCard";
+import { useAxios } from "../../data/hooks/useAxios";
+import { useFetchData } from "../../data/hooks/useFetchData";
 import { getHistoryLectures } from "../../data/services/monitoringService";
-import { useAxios } from "../../hooks/useAxios";
-import { useFetchData } from "../../hooks/useFetchData";
 import HomeSkeleton from "../Home/HomeSkeleton/HomeSkeleton";
 import NotFound from "../NotFound/NotFound";
 import NotFoundError from "../NotFound/NotFoundError/NotFoundError";

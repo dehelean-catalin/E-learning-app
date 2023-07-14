@@ -3,11 +3,11 @@ import { OnProgressProps } from "react-player/base";
 import ReactPlayer from "react-player/lazy";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
+import { useAxios } from "../../../data/hooks/useAxios";
 import { Content, Publish } from "../../../data/models/creatorModel";
 import { VideoProgressItem } from "../../../data/models/usersModel";
 import { ProgressActions } from "../../../data/redux/progressReducer";
 import { RootState } from "../../../data/redux/store";
-import { useAxios } from "../../../hooks/useAxios";
 import "./LectureOverviewVideo.scss";
 import { getChapterVideoWithProgress } from "./lectureOverview.helper";
 

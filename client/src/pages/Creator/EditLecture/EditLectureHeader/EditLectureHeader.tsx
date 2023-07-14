@@ -6,12 +6,12 @@ import { useMutation } from "react-query";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import PRButton from "../../../../components/PRButton/PRButton";
-import { NotificationActions } from "../../../../data/redux/notificationReducer";
 import {
 	convertSecondsToTime,
 	lectureDurationBasedOnContent,
-} from "../../../../helpers";
-import { useAxios } from "../../../../hooks/useAxios";
+} from "../../../../data/helpers";
+import { useAxios } from "../../../../data/hooks/useAxios";
+import { NotificationActions } from "../../../../data/redux/notificationReducer";
 import "./EditLectureHeader.scss";
 
 type EditLectureHeaderProps = { isLoading: boolean };

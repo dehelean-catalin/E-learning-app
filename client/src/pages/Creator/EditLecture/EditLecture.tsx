@@ -1,4 +1,6 @@
 import Spinner from "components/Spinner/Spinner";
+import { useAxios } from "data/hooks/useAxios";
+import { useFetchData } from "data/hooks/useFetchData";
 import { CreatedLectureModel } from "data/models/creatorModel";
 import { NotificationActions } from "data/redux/notificationReducer";
 import {
@@ -6,8 +8,6 @@ import {
 	updateCreatedLecturePlan,
 } from "data/services/creatorService";
 import { Formik } from "formik";
-import { useAxios } from "hooks/useAxios";
-import { useFetchData } from "hooks/useFetchData";
 import { useMutation, useQueryClient } from "react-query";
 import { useDispatch } from "react-redux";
 import { Outlet, useParams } from "react-router";

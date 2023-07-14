@@ -1,6 +1,6 @@
 import { useField } from "formik";
+import { keyOf } from "../../../../data/helpers";
 import { CreatedLectureModel } from "../../../../data/models/creatorModel";
-import { keyOf } from "../../../../helpers";
 import PlanLectureField from "./PlanLectureField";
 
 const PlanLecture = () => {

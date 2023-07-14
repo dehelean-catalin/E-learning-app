@@ -1,17 +1,17 @@
+import { useAxios } from "data/hooks/useAxios";
+import { useFetchData } from "data/hooks/useFetchData";
 import { AccountDataActions } from "data/redux/accountReducer";
-import { useAxios } from "hooks/useAxios";
-import { useFetchData } from "hooks/useFetchData";
 import NotFoundError from "pages/NotFound/NotFoundError/NotFoundError";
 import { ScrollTop } from "primereact/scrolltop";
 import { useContext, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Navigate, Outlet } from "react-router";
-import Header from "../components/Header/Header";
-import Notification from "../components/Notification/Notification";
-import SideBar from "../components/SideBar/SideBar";
-import AuthContext from "../data/context/auth-context";
-import { getAccountData } from "../data/services/userService";
-import GenericConfirmDialog from "../pages/Creator/EditLecture/GenericConfirmDialog";
+import Header from "../../components/Header/Header";
+import Notification from "../../components/Notification/Notification";
+import SideBar from "../../components/SideBar/SideBar";
+import GenericConfirmDialog from "../../pages/Creator/EditLecture/GenericConfirmDialog";
+import AuthContext from "../context/auth-context";
+import { getAccountData } from "../services/userService";
 
 const RootLayout = () => {
 	const { token, emailVerified } = useContext(AuthContext);

@@ -1,6 +1,5 @@
 {
 	"compilerOptions": {
-		"skipLibCheck": true,
 		"module": "es6",
 		"target": "ES5",
 		"jsx": "react-jsx",
@@ -13,6 +12,7 @@
 		"paths": {
 			"react-icons/*": ["node_modules/react-icons/*"]
 		},
-		"isolatedModules": true
+		"isolatedModules": true,
+		"skipLibCheck": true
 	}
 }

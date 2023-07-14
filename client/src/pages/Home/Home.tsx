@@ -1,11 +1,11 @@
-import { useFetchData } from "hooks/useFetchData";
-import image from "images/empty.png";
+import { useFetchData } from "data/hooks/useFetchData";
+import image from "data/images/empty.png";
 import { FC, useState } from "react";
 import { useNavigate } from "react-router";
 import { NavLink, useSearchParams } from "react-router-dom";
+import { useAxios } from "../../data/hooks/useAxios";
 import { Category } from "../../data/models/creatorModel";
 import { getLectures } from "../../data/services/lectureService";
-import { useAxios } from "../../hooks/useAxios";
 import NotFound from "../NotFound/NotFound";
 import NotFoundError from "../NotFound/NotFoundError/NotFoundError";
 import FilterList from "./FilterList/FilterList";

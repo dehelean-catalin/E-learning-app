@@ -29,7 +29,6 @@ export type AccountState = {
 	data: AccountDataState;
 	profileLoading: boolean;
 	bannerLoading: boolean;
-	error: boolean;
 };
 
 const INITIAL_STATE: AccountState = {
@@ -43,7 +42,6 @@ const INITIAL_STATE: AccountState = {
 	},
 	profileLoading: false,
 	bannerLoading: false,
-	error: false,
 };
 
 const accountDataReducer: Reducer<AccountState, AccountDataAction> = (

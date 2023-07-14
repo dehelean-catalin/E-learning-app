@@ -1,9 +1,9 @@
 import { NavLink, useMatch } from "react-router-dom";
-import { CreatedLecturesRoute } from "../../../../routes/baseRoutes";
+import { CreatedLecturesRoute } from "../../../../data/routes/baseRoutes";
 import "./NavMenu.scss";
 
 const NavMenu = () => {
-	const matchCreatedLectureRoute = useMatch(CreatedLecturesRoute);
+	const matchCreatedLectureRoute = !!useMatch(CreatedLecturesRoute);
 
 	return (
 		<nav className="nav-menu">
