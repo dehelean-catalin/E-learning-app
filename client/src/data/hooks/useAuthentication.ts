@@ -2,12 +2,13 @@ import {
 	GithubAuthProvider,
 	GoogleAuthProvider,
 	createUserWithEmailAndPassword,
+	sendEmailVerification,
 	signInWithEmailAndPassword,
 	signInWithPopup,
 } from "firebase/auth";
 import platform from "platform";
 import { useContext, useState } from "react";
-import { auth } from "../../config/firebase.config";
+import auth from "../../config/firebase.config";
 import AuthContext from "../context/auth-context";
 import {
 	postLoginProvider,
@@ -31,10 +32,9 @@ export const useAuthentication = () => {
 		setIsLoading(true);
 		try {
 			const response = await signInWithEmailAndPassword(auth, email, password);
-			const { uid } = response.user;
 			const tokenID = await response.user.getIdToken();
 			const location = await axios.get("https://ipapi.co/json/");
-			login(tokenID, uid);
+			login(tokenID);
 			await updateConnection(axios, device, location.data.city);
 		} catch (err) {
 			console.log(err);
@@ -57,10 +57,12 @@ export const useAuthentication = () => {
 				password
 			);
 
-			const { uid } = response.user;
+			const { emailVerified } = response.user;
+			if (!emailVerified) sendEmailVerification(response.user);
+
 			const token = await response.user.getIdToken();
 			const loc = await axios.get("https://ipapi.co/json/");
-			login(token, uid);
+			login(token);
 
 			await postRegister(axios, {
 				displayName,
@@ -84,11 +86,10 @@ export const useAuthentication = () => {
 		try {
 			provider.addScope("email");
 			const res = await signInWithPopup(auth, provider);
-			const { uid } = res.user;
 			const token = await res.user.getIdToken();
 			const { email, displayName, photoURL } = res.user.providerData[0];
 			const location = await axios.get("https://ipapi.co/json/");
-			login(token, uid);
+			login(token);
 			localStorage.setItem("emailVerified", "true");
 			await postLoginProvider(axios, {
 				email,

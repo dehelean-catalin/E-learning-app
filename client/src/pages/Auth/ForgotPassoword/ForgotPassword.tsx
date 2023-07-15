@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import InfoBoxEmail from "../../../components/InfoBoxEmail/InfoBoxEmail";
 import InputTextField from "../../../components/Inputs/InputTextField/InputTextField";
 import PRButton from "../../../components/PRButton/PRButton";
-import { auth } from "../../../config/firebase.config";
+import auth from "../../../config/firebase.config";
 import styles from "./ForgotPassword.module.scss";
 
 const ForgotPassword = () => {

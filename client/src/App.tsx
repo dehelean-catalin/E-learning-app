@@ -1,9 +1,4 @@
-import AuthContext from "data/context/auth-context";
-import {
-	getAuth,
-	onAuthStateChanged,
-	sendEmailVerification,
-} from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import Create from "pages/Creator/Create/Create";
 import CreatedLectures from "pages/Creator/Dashboard/Dashboard";
 import EditLecture from "pages/Creator/EditLecture/EditLecture";
@@ -11,7 +6,6 @@ import Search from "pages/Search/Search";
 import "primeicons/primeicons.css";
 import "primereact/resources/primereact.min.css";
 import "primereact/resources/themes/md-dark-indigo/theme.css";
-import { useContext } from "react";
 import {
 	Route,
 	RouterProvider,
@@ -19,6 +13,7 @@ import {
 	createRoutesFromElements,
 } from "react-router-dom";
 import "./App.scss";
+import auth from "./config/firebase.config";
 import RootLayout from "./data/routes/RootLayout";
 import VerifyEmailLayout from "./data/routes/VerifyEmailLayout";
 import {
@@ -45,37 +40,31 @@ import Security from "./pages/Settings/Security/Security";
 import Settings from "./pages/Settings/Settings";
 
 function App() {
-	const { handleEmailVerified, handleProviderId, logout } =
-		useContext(AuthContext);
+	onAuthStateChanged(auth, async (user) => {
+		localStorage.setItem(
+			"email_verified",
+			user?.emailVerified ? "true" : "false"
+		);
 
-	onAuthStateChanged(getAuth(), (user) => {
-		if (!user) return;
 		let userSessionTimeout = null;
-		const { emailVerified } = user;
 
-		if (user === null && userSessionTimeout) {
+		if (!user && userSessionTimeout) {
 			clearTimeout(userSessionTimeout);
 			userSessionTimeout = null;
-		} else {
-			user.getIdTokenResult().then((idTokenResult) => {
-				const authTime =
-					new Date(idTokenResult.claims.auth_time).getTime() * 1000;
-				const sessionDurationInMilliseconds = 3600 * 1000;
-				const expirationInMilliseconds =
-					sessionDurationInMilliseconds - (Date.now() - authTime);
-				userSessionTimeout = setTimeout(
-					() => logout(),
-					expirationInMilliseconds
-				);
-			});
+			return;
 		}
 
-		if (!emailVerified) sendEmailVerification(user);
+		const idToken = await user.getIdTokenResult();
 
-		if (emailVerified || user.providerData[0].providerId !== "password")
-			handleEmailVerified();
+		const authTime = new Date(idToken.claims.auth_time).getTime() * 1000;
+		const sessionDurationInMilliseconds = 60 * 1000;
+		const expirationInMilliseconds =
+			sessionDurationInMilliseconds - (Date.now() - authTime);
 
-		handleProviderId(user.providerData[0].providerId);
+		userSessionTimeout = setTimeout(async () => {
+			const newToken = await auth.currentUser?.getIdToken(true);
+			localStorage.setItem("token", newToken);
+		}, expirationInMilliseconds);
 	});
 
 	const router = createBrowserRouter(

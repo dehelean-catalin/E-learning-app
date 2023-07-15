@@ -1,5 +1,9 @@
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
+import {
+	browserLocalPersistence,
+	getAuth,
+	setPersistence,
+} from "firebase/auth";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyAMCfsGozkpBxF4I32Xq5gqj5RaxNHu37g",
@@ -12,8 +16,22 @@ const firebaseConfig = {
 	measurementId: "G-7N69D2R5N9",
 };
 
-export const application = initializeApp(firebaseConfig);
-export const auth = getAuth(application);
+const application = initializeApp(firebaseConfig);
+const auth = getAuth(application);
+
+setPersistence(auth, browserLocalPersistence)
+	.then(() => {
+		console.log("aici");
+	})
+	.catch((error) => {
+		console.error("Eroare la setarea persistenței:", error);
+	});
+
+export async function initializeAuthState() {
+	return await setPersistence(auth, browserLocalPersistence);
+}
+
+export default auth;
 
 export const loginRoute = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${firebaseConfig.apiKey}`;
 export const registerRoute = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${firebaseConfig.apiKey}`;

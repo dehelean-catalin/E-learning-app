@@ -3,21 +3,21 @@ import { useFetchData } from "data/hooks/useFetchData";
 import { AccountDataActions } from "data/redux/accountReducer";
 import NotFoundError from "pages/NotFound/NotFoundError/NotFoundError";
 import { ScrollTop } from "primereact/scrolltop";
-import { useContext, useEffect } from "react";
+import { FC, useContext, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Navigate, Outlet } from "react-router";
 import Header from "../../components/Header/Header";
 import Notification from "../../components/Notification/Notification";
 import SideBar from "../../components/SideBar/SideBar";
+import Spinner from "../../components/Spinner/Spinner";
 import GenericConfirmDialog from "../../pages/Creator/EditLecture/GenericConfirmDialog";
 import AuthContext from "../context/auth-context";
 import { getAccountData } from "../services/userService";
 
-const RootLayout = () => {
-	const { token, emailVerified } = useContext(AuthContext);
+const RootLayout: FC = () => {
+	const { token } = useContext(AuthContext);
 	const dispatch = useDispatch();
 	const axios = useAxios();
-
 	const onSuccess = (e) => dispatch(AccountDataActions.setAccountData(e));
 
 	const { isLoading, isError } = useFetchData(
@@ -32,10 +32,12 @@ const RootLayout = () => {
 	useEffect(() => {
 		if (isLoading) dispatch(AccountDataActions.setLoading(true));
 	}, [isLoading]);
-
-	if (isError) return <NotFoundError />;
-	if (!emailVerified) return <Navigate to="/email-verified" replace />;
 	if (!token) return <Navigate to="/login" replace />;
+	if (localStorage.getItem("email_verified") === "false")
+		return <Navigate to="/email-verified" replace />;
+
+	if (isLoading) return <Spinner />;
+	if (isError) return <NotFoundError />;
 
 	return (
 		<div className="App">

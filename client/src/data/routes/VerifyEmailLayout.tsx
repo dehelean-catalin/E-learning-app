@@ -1,12 +1,13 @@
-import { useContext } from "react";
+import { FC, useContext } from "react";
 import { Navigate, Outlet } from "react-router";
 import AuthContext from "../context/auth-context";
 
-const VerifyEmailLayout = () => {
-	const { emailVerified, token } = useContext(AuthContext);
+const VerifyEmailLayout: FC = () => {
+	const { token } = useContext(AuthContext);
 
-	if (!token) return <Navigate to="/login" replace={true} />;
-	if (emailVerified) return <Navigate to="/home?category=All" replace={true} />;
+	if (!token) return <Navigate to="/login" replace />;
+	if (token && localStorage.getItem("email_verified") === "true")
+		return <Navigate to="/home" replace />;
 
 	return (
 		<div className="Auth">

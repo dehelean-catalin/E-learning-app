@@ -1,25 +1,25 @@
-import AuthContext from "data/context/auth-context";
 import { CreatedLectureModel, Review } from "data/models/creatorModel";
 import { VideoProgressItem } from "data/models/usersModel";
 import { RootState } from "data/redux/store";
 import { LECTURE_OVERVIEW_ROUTE } from "data/routes/baseRoutes";
 import { Knob } from "primereact/knob";
 import { OverlayPanel } from "primereact/overlaypanel";
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
 import { useMatch } from "react-router";
+import auth from "../../../config/firebase.config";
 import PRButton from "../../PRButton/PRButton";
 import LeaveRatingDialog from "./LeaveRatingDialog";
 
 const LectureButtons = () => {
 	const progressRef = useRef(null);
-	const { userId } = useContext(AuthContext);
+	const uid = auth?.currentUser?.uid;
 	const isMatchingLectureOverview = !!useMatch(LECTURE_OVERVIEW_ROUTE);
 	const queryClient = useQueryClient();
 
 	const data = queryClient.getQueryData("getLectureReview") as Review[];
-	const isLectureReviewed = data?.find((d) => d.authorId === userId);
+	const isLectureReviewed = data?.find((d) => d.authorId === uid);
 	const [visibile, setVisible] = useState(false);
 	const progress = useSelector<RootState, VideoProgressItem[]>(
 		(s) => s.progressReducer.data

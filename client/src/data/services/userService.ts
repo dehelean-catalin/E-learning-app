@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import { sendPasswordResetEmail } from "firebase/auth";
-import { auth } from "../../config/firebase.config";
+import auth from "../../config/firebase.config";
 import { AccountData, AuthModel } from "../models/usersModel";
 
 export const getAccountData = async (axios: AxiosInstance) => {

@@ -1,7 +1,6 @@
-import { useContext } from "react";
 import { useParams } from "react-router";
 import Spinner from "../../../components/Spinner/Spinner";
-import AuthContext from "../../../data/context/auth-context";
+import auth from "../../../config/firebase.config";
 import { useAxios } from "../../../data/hooks/useAxios";
 import { useFetchData } from "../../../data/hooks/useFetchData";
 import { getLectureReviews } from "../../../data/services/lectureService";
@@ -13,7 +12,7 @@ import LectureReviews from "./LectureReviews/LectureReviews";
 const LectureOverviewReviews = () => {
 	const axios = useAxios();
 	const { id } = useParams();
-	const { userId } = useContext(AuthContext);
+	const uid = auth?.currentUser.uid;
 
 	const { data, isLoading, isError } = useFetchData("getLectureReview", () =>
 		getLectureReviews(axios, id)
@@ -23,8 +22,8 @@ const LectureOverviewReviews = () => {
 	if (isError) return <>Error</>;
 	if (!data.length) return <></>;
 
-	const reviews = data.filter((d) => d.authorId !== userId);
-	const userReview = data.find((d) => d.authorId === userId);
+	const reviews = data.filter((d) => d.authorId !== uid);
+	const userReview = data.find((d) => d.authorId === uid);
 
 	return (
 		<div className="lecture-overview-reviews">
