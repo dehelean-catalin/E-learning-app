@@ -35,6 +35,7 @@ import LectureDetails from "./pages/LectureDetails/LectureDetails";
 import LectureOverview from "./pages/LectureOverview/LectureOverview";
 import SavedLectures from "./pages/Library/SavedLectures/SavedLectures";
 import NotFound from "./pages/NotFound/NotFound";
+import NotFoundError from "./pages/NotFound/NotFoundError/NotFoundError";
 import Account from "./pages/Settings/Profile/AccountPage";
 import Security from "./pages/Settings/Security/Security";
 import Settings from "./pages/Settings/Settings";
@@ -82,20 +83,24 @@ function App() {
 				<Route path="/*" element={<RootLayout />}>
 					<Route index element={<Home />} />
 					<Route path="home" element={<Home />} />
+					<Route path="lecture/:id" element={<LectureDetails />}></Route>
+					<Route path={LECTURE_OVERVIEW_ROUTE} element={<LectureOverview />} />
+					<Route path="library" element={<SavedLectures />} />
+					<Route path="history" element={<History />} />
+					<Route path="search" element={<Search />} />
+
 					<Route path="settings/" element={<Settings />}>
 						<Route index element={<Account />} />
 						<Route path="account" element={<Account />} />
 						<Route path="change-password" element={<Security />} />
 					</Route>
 
-					<Route path="lecture/:id" element={<LectureDetails />}></Route>
-					<Route path={LECTURE_OVERVIEW_ROUTE} element={<LectureOverview />} />
-					<Route path="library" element={<SavedLectures />} />
-					<Route path="history" element={<History />} />
-					<Route path="search" element={<Search />} />
 					<Route path="create" element={<Create />} />
-
-					<Route path="creator/dashboard" element={<CreatedLectures />} />
+					<Route
+						path="creator/dashboard"
+						element={<CreatedLectures />}
+						errorElement={<NotFoundError />}
+					/>
 					<Route path={CreatedLecturesRoute} element={<EditLecture />}>
 						<Route index element={<PlanLecture />} />
 						<Route path="plan" element={<PlanLecture />} />

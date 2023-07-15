@@ -20,21 +20,16 @@ const RootLayout: FC = () => {
 	const axios = useAxios();
 	const onSuccess = (e) => dispatch(AccountDataActions.setAccountData(e));
 
-	const { isLoading, isError } = useFetchData(
-		["getProfileData", token],
-		() => getAccountData(axios),
-		{
-			onSuccess,
-			enabled: !!token,
-		}
-	);
+	const { isLoading, isError } = useFetchData(["getProfileData", token], () => getAccountData(axios), {
+		onSuccess,
+		enabled: !!token,
+	});
 
 	useEffect(() => {
 		if (isLoading) dispatch(AccountDataActions.setLoading(true));
 	}, [isLoading]);
 	if (!token) return <Navigate to="/login" replace />;
-	if (localStorage.getItem("email_verified") === "false")
-		return <Navigate to="/email-verified" replace />;
+	if (localStorage.getItem("email_verified") === "false") return <Navigate to="/email-verified" replace />;
 
 	if (isLoading) return <Spinner />;
 	if (isError) return <NotFoundError />;
@@ -46,12 +41,7 @@ const RootLayout: FC = () => {
 				<Header />
 				<div className="app-wrapper">
 					<Outlet />
-					<ScrollTop
-						target="parent"
-						threshold={600}
-						className="mr-4 bg-primary"
-						icon="pi pi-arrow-up text-base"
-					/>
+					<ScrollTop target="parent" threshold={600} className="mr-4 bg-primary" icon="pi pi-arrow-up text-base" />
 				</div>
 			</main>
 			<Notification />
