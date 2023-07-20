@@ -6,6 +6,7 @@ import Search from "pages/Search/Search";
 import "primeicons/primeicons.css";
 import "primereact/resources/primereact.min.css";
 import "primereact/resources/themes/md-dark-indigo/theme.css";
+import { useContext } from "react";
 import {
 	Route,
 	RouterProvider,
@@ -14,6 +15,7 @@ import {
 } from "react-router-dom";
 import "./App.scss";
 import auth from "./config/firebase.config";
+import AuthContext from "./data/context/auth-context";
 import RootLayout from "./data/routes/RootLayout";
 import VerifyEmailLayout from "./data/routes/VerifyEmailLayout";
 import {
@@ -35,18 +37,14 @@ import LectureDetails from "./pages/LectureDetails/LectureDetails";
 import LectureOverview from "./pages/LectureOverview/LectureOverview";
 import SavedLectures from "./pages/Library/SavedLectures/SavedLectures";
 import NotFound from "./pages/NotFound/NotFound";
-import NotFoundError from "./pages/NotFound/NotFoundError/NotFoundError";
 import Account from "./pages/Settings/Profile/AccountPage";
 import Security from "./pages/Settings/Security/Security";
 import Settings from "./pages/Settings/Settings";
 
 function App() {
+	const { login } = useContext(AuthContext);
 	onAuthStateChanged(auth, async (user) => {
-		localStorage.setItem(
-			"email_verified",
-			user?.emailVerified ? "true" : "false"
-		);
-
+		if (user?.emailVerified) localStorage.setItem("email_verified", "true");
 		let userSessionTimeout = null;
 
 		if (!user && userSessionTimeout) {
@@ -64,7 +62,7 @@ function App() {
 
 		userSessionTimeout = setTimeout(async () => {
 			const newToken = await auth.currentUser?.getIdToken(true);
-			localStorage.setItem("token", newToken);
+			login(newToken);
 		}, expirationInMilliseconds);
 	});
 
@@ -96,11 +94,7 @@ function App() {
 					</Route>
 
 					<Route path="create" element={<Create />} />
-					<Route
-						path="creator/dashboard"
-						element={<CreatedLectures />}
-						errorElement={<NotFoundError />}
-					/>
+					<Route path="creator/dashboard" element={<CreatedLectures />} />
 					<Route path={CreatedLecturesRoute} element={<EditLecture />}>
 						<Route index element={<PlanLecture />} />
 						<Route path="plan" element={<PlanLecture />} />

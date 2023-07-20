@@ -7,11 +7,12 @@ import { Rating } from "primereact/rating";
 import { FC } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useParams } from "react-router";
+import auth from "../../../../config/firebase.config";
 import "./LectureReviewCard.scss";
 
-type Props = { value: Omit<Review, "authorId">; canEdit?: boolean };
+type Props = { value: Review };
 
-const LectureReviewCard: FC<Props> = ({ value, canEdit }) => {
+const LectureReviewCard: FC<Props> = ({ value }) => {
 	const { author, message, date, rating, profilePicture } = value;
 	const { id } = useParams();
 	const axios = useAxios();
@@ -30,21 +31,23 @@ const LectureReviewCard: FC<Props> = ({ value, canEdit }) => {
 
 	return (
 		<div className="review-card">
-			<ProfilePicture initials={author} picture={profilePicture} />
-			<article>
-				<header>
-					<h3>{author}</h3>
-					{canEdit && (
-						<i className="pi pi-trash" onClick={() => handleDelete()}></i>
-					)}
-				</header>
-
-				<div className="rating-container">
+			<div>
+				<ProfilePicture initials={author} picture={profilePicture} />
+			</div>
+			<div className="rating-container">
+				<p className="font-semibold">{author}</p>
+				<div className="flex align-items-center gap-2">
 					<Rating value={rating} cancel={false} readOnly />
-					<p>{toRelativeTime(new Date(date).getTime())}</p>
+					<p className="text-surface-card">
+						{toRelativeTime(new Date(date).getTime())}
+					</p>
 				</div>
-				<i>{message}</i>
-			</article>
+
+				<p>{message}</p>
+			</div>
+			{value.authorId === auth.currentUser.uid && (
+				<i className="pi pi-trash" onClick={() => handleDelete()}></i>
+			)}
 		</div>
 	);
 };

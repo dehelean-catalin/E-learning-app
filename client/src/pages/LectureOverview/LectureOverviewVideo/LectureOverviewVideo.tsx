@@ -1,9 +1,14 @@
 import { FC, useEffect, useRef, useState } from "react";
+import { FaUserAltSlash } from "react-icons/fa";
 import { OnProgressProps } from "react-player/base";
 import ReactPlayer from "react-player/lazy";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
+import GridCardIcon from "../../../components/Cards/GridCard/GridCardIcon";
+import ProfilePicture from "../../../components/ProfilePicture/ProfilePicture";
+import Spinner from "../../../components/Spinner/Spinner";
 import { useAxios } from "../../../data/hooks/useAxios";
+import { useFetchData } from "../../../data/hooks/useFetchData";
 import { Content, Publish } from "../../../data/models/creatorModel";
 import { VideoProgressItem } from "../../../data/models/usersModel";
 import { ProgressActions } from "../../../data/redux/progressReducer";
@@ -35,10 +40,14 @@ const LectureOverviewVideo: FC<LectureOverviewVideoProps> = ({
 
 	const contentData = getChapterVideoWithProgress(value, chapterId);
 
+	const { data, isLoading, isError } = useFetchData("getUserById", async () => {
+		return await axios.get(`/user/${publish.authorId}`).then((res) => res.data);
+	});
+
 	useEffect(() => {
 		if (playerReady)
 			playerRef.current.seekTo(
-				progress.find((p) => p.id === chapterId).current
+				progress.find((p) => p.id === chapterId)?.current ?? 0
 			);
 	}, [chapterId, playerReady]);
 
@@ -84,20 +93,46 @@ const LectureOverviewVideo: FC<LectureOverviewVideoProps> = ({
 	};
 
 	return (
-		<div className="lecture-video">
-			<ReactPlayer
-				ref={playerRef}
-				url={contentData?.content}
-				controls
-				progressInterval={2000}
-				onProgress={handleProgress}
-				onReady={handleReady}
-				playing={false}
-				muted={false}
-			/>
-			<h3>{publish.title}</h3>
-			{publish.author}
-		</div>
+		<>
+			<div className="lecture-video">
+				<ReactPlayer
+					ref={playerRef}
+					url={contentData?.content}
+					controls
+					progressInterval={2000}
+					onProgress={handleProgress}
+					onReady={handleReady}
+					playing={false}
+					muted={false}
+				/>
+			</div>
+			<div className="flex justify-content-between">
+				<h2>{publish.title}</h2>
+				<GridCardIcon id={id} />
+			</div>
+
+			{isLoading ? (
+				<Spinner />
+			) : isError ? (
+				<div>
+					<ProfilePicture
+						initials={publish.author}
+						icon={<FaUserAltSlash color="gray" />}
+					/>
+					{publish.author}
+				</div>
+			) : (
+				<div className="flex gap-2 align-items-center">
+					<ProfilePicture
+						size="medium"
+						initials={data.displayName}
+						picture={data.profilePicture}
+					/>
+
+					<h3>{data.displayName}</h3>
+				</div>
+			)}
+		</>
 	);
 };
 

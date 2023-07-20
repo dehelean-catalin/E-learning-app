@@ -38,13 +38,7 @@ const LectureOverviewChapters: FC<LectureOverviewChaptersProps> = ({
 	};
 
 	return (
-		<Accordion
-			multiple
-			className="lecture-overview-chapters"
-			activeIndex={[0]}
-			onTabOpen={(e) => console.log(e.index)}
-			onTabClose={(e) => console.log(e.index)}
-		>
+		<Accordion multiple className="lecture-overview-chapters" activeIndex={[0]}>
 			{data.map(({ label, children }, index) => (
 				<AccordionTab
 					header={
@@ -64,7 +58,7 @@ const LectureOverviewChapters: FC<LectureOverviewChaptersProps> = ({
 						>
 							<div className="right">
 								{Math.round(data.duration - data.duration / 20) <=
-								Math.round(progress?.find((p) => p.id === data.id).total) ? (
+								Math.round(progress?.find((p) => p.id === data.id)?.total) ? (
 									<i className="pi pi-check-square align-self-center text-primary" />
 								) : (
 									<i className="pi pi-stop align-self-center" />

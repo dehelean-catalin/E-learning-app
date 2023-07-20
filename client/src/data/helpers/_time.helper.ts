@@ -20,17 +20,6 @@ export const toRelativeTime = (time: number) => {
 	return `${days}d ago`;
 };
 
-export const formattedVideoDuration = (time: number) => {
-	const formattedTime = Math.round(time);
-	if (!formattedTime) return;
-
-	if (formattedTime < 60) return `${formattedTime} s`;
-
-	if (formattedTime < 3600) return `${(formattedTime / 60).toFixed(2)} min`;
-
-	return `${(formattedTime / 3600).toFixed(2)} h`;
-};
-
 export const formattedDate = (date: string): string | "Invalid Date" => {
 	const currentDate = new Date(date);
 

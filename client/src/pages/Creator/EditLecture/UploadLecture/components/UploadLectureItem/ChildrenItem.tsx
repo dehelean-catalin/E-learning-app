@@ -53,6 +53,7 @@ const ChildrenItem: FC<{
 			Math.round(video?.duration) ?? 0
 		);
 	};
+
 	const [trackUrl, setTrackUrl] = useState("");
 
 	useEffect(() => {

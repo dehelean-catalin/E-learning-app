@@ -10,13 +10,13 @@ type Props = {
 	icon: JSX.Element;
 };
 
-const LectureListCard: FC<Props> = ({ value, captionClassName, icon }) => {
+const ListCard: FC<Props> = ({ value, captionClassName = "", icon }) => {
 	const navigate = useNavigate();
 
 	return (
 		<div className="lecture-list-card">
 			<img
-				className={`${captionClassName ? captionClassName : ""}`}
+				className={captionClassName}
 				src={value.caption}
 				alt="caption"
 				onClick={() => navigate(`/lecture/${value.id}`)}
@@ -38,4 +38,4 @@ const LectureListCard: FC<Props> = ({ value, captionClassName, icon }) => {
 	);
 };
 
-export default LectureListCard;
+export default ListCard;

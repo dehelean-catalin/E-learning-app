@@ -4,6 +4,7 @@ import {
 	deleteAccount,
 	getAccount,
 	getConnectionList,
+	getUserById,
 	loginWithProvider,
 	updateAccount,
 	updateConnectionList,
@@ -19,7 +20,7 @@ import {
 } from "../schema/user.schema";
 
 const router = Router();
-
+router.get("/user/:id", getUserById);
 router.get("/account", getAccount);
 router.post("/account", validation(createAccountSchema), createAccount);
 router.put("/account", validation(AccountSchema), updateAccount);

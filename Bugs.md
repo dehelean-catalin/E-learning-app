@@ -8,26 +8,5 @@ Articole licenta:
 
 # FE:
 
-- history lecture card title max limit of characters;
-- profile picture min-width;
-- fix review rerender;
-- remove userId;
-- fix leave rating button;
-- set active index for lecture overview tabs;
-- fix create account
-- fix settings lecture privacy
-- check what happens if you enter unothorize pages
-
-# Nice to have:
-
-- check empty req and goals; ???
-- revoke password;
-- LO additional info;
-- LO comment section;
-- link email with provider;
-- multifactor authentication;
-- Add Notes for a lecture chapter;
-- Ask question functionality
-- Lecture Overview: take a test functionality;
-- Multi language support;
-- Multi notification support;
+- Review chart rerenders;
+- Check public lecture privacy;

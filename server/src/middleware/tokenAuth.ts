@@ -2,7 +2,7 @@ import { RequestHandler } from "express";
 import { adminAuth } from "../config/firebase-admin";
 import { ValidatedRequest } from "../models/genericModels";
 
-class HttpError extends Error {
+export class HttpError extends Error {
 	statusCode: number;
 	constructor(statusCode, message) {
 		super(message);

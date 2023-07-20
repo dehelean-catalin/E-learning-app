@@ -24,6 +24,7 @@ const ReviewChart: FC<{ value: Review[]; chartClassName?: string }> = ({
 			},
 		],
 	};
+
 	const chartOptions = {
 		indexAxis: "y",
 		maintainAspectRatio: false,
@@ -60,7 +61,7 @@ const ReviewChart: FC<{ value: Review[]; chartClassName?: string }> = ({
 					readOnly
 					cancel={false}
 				/>
-				<p>based on {value.length} reviews</p>
+				<p>({value.length} reviews)</p>
 			</div>
 			<Chart
 				className={`chart ${chartClassName ? chartClassName : ""}`}

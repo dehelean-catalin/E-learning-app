@@ -1,12 +1,26 @@
 import { randomUUID } from "crypto";
 import { WriteResult } from "firebase-admin/firestore";
 import { adminAuth, firestoreDb, storageDb } from "../config/firebase-admin";
+import { HttpError } from "../middleware/tokenAuth";
 import {
 	AccountData,
 	ConnectionItem,
 	CreateAccount,
 	UserModel,
 } from "../models/userModels";
+
+export const getUserByIdData = async (userId: string) => {
+	const userRef = firestoreDb.collection("users").doc(userId);
+	const userSnap = await userRef.get();
+	if (!userSnap.exists) throw new HttpError(404, "User not found");
+
+	const { displayName, profilePicture } = userSnap.data() as AccountData;
+
+	return {
+		displayName,
+		profilePicture,
+	};
+};
 
 export const getAccountData = async (userId: string) => {
 	const userRef = firestoreDb.collection("users").doc(userId);

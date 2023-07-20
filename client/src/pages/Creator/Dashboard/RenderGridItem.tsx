@@ -14,7 +14,7 @@ const RenderGridItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {
 		value;
 
 	return (
-		<div className="p-4 border-1 surface-border border-round">
+		<div className="p-4 border-1 surface-border border-round flex flex-column">
 			<div className="flex flex-wrap align-items-center justify-content-between gap-2">
 				<p className="flex align-items-center gap-2 text-color-secondary">
 					<i className="pi pi-history"></i>
@@ -26,7 +26,7 @@ const RenderGridItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {
 					icon={itemIcon(publish.status)}
 				/>
 			</div>
-			<div className="flex flex-column align-items-center gap-2 pt-5 pb-4">
+			<div className="flex flex-1 flex-column align-items-center gap-2 pt-5 pb-4">
 				{publish.caption ? (
 					<img
 						className="w-9 shadow-2 border-round"
@@ -40,7 +40,7 @@ const RenderGridItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {
 						alt="caption"
 					/>
 				)}
-				<div className="text-2xl font-bold">{publish.title}</div>
+				<div className="text-xl font-bold text-center">{publish.title}</div>
 				{!!rating ? (
 					<CustomRating rating={rating} numberOfRates={numberOfRatings} />
 				) : (

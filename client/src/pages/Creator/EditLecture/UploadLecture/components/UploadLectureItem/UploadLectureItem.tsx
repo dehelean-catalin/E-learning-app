@@ -34,7 +34,7 @@ const UploadLectureItem: FC<Props> = ({ arrayHelpers, children, index }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const { id } = useParams();
 
-	const { mutate, isLoading } = useMutation(
+	const { mutate: uploadLesson, isLoading } = useMutation(
 		({ label, description, content, duration, type }: LectureItemFormState) => {
 			return axios
 				.post<{ content: string; track: string }>(`/content/${id}`, content)
@@ -71,7 +71,7 @@ const UploadLectureItem: FC<Props> = ({ arrayHelpers, children, index }) => {
 			{isLoading && <Spinner className="h-2rem mx-auto my-2 w-full" />}
 
 			{isOpen ? (
-				<LectureItemForm toggleVisibility={setIsOpen} onSubmit={mutate} />
+				<LectureItemForm toggleVisibility={setIsOpen} onSubmit={uploadLesson} />
 			) : (
 				<Button
 					type="button"

@@ -10,7 +10,6 @@ const actions = {
 		"setProfilePictureSucces",
 		(payload: string) => payload
 	)(),
-	setLoading: createAction("setLoading", (payload: boolean) => payload)(),
 };
 
 export type AccountDataAction = ActionType<typeof actions>;
@@ -27,8 +26,6 @@ export type AccountDataState = {
 
 export type AccountState = {
 	data: AccountDataState;
-	profileLoading: boolean;
-	bannerLoading: boolean;
 };
 
 const INITIAL_STATE: AccountState = {
@@ -40,8 +37,6 @@ const INITIAL_STATE: AccountState = {
 		aboutYou: "",
 		profilePicture: "",
 	},
-	profileLoading: false,
-	bannerLoading: false,
 };
 
 const accountDataReducer: Reducer<AccountState, AccountDataAction> = (
@@ -62,11 +57,7 @@ const accountDataReducer: Reducer<AccountState, AccountDataAction> = (
 					profilePicture: action.payload,
 				},
 			};
-		case getType(AccountDataActions.setLoading):
-			return {
-				...state,
-				loading: action.payload,
-			};
+
 		default:
 			return state;
 	}

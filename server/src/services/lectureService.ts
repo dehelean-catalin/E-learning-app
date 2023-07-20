@@ -217,6 +217,7 @@ export const getAllSearchedLecturesData = async (
 
 export const getLectureReviewsData = async (id: string) => {
 	const reviewsRef = firestoreDb.collection(`lectures/${id}/reviews`);
+
 	const reviewsSnap = await reviewsRef.get();
 
 	const reviews = reviewsSnap.docs.map((doc) => doc.data()) as Review[];

@@ -13,6 +13,7 @@ export const useAxios = () => {
 	});
 
 	axiosInstance.interceptors.request.use(async (req) => {
+		console.log(req);
 		if (!token) {
 			const token = localStorage.getItem("token");
 			req.headers.authorization = `Bearer ${token}`;

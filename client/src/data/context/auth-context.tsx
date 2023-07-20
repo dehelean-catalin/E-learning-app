@@ -46,6 +46,7 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
 
 	const contexValue = {
 		token,
+		setToken,
 		login: loginHandler,
 		logout: logoutHandler,
 		handleDeleteUser,

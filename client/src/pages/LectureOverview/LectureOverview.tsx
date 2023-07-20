@@ -2,7 +2,6 @@ import Spinner from "components/Spinner/Spinner";
 import { useFetchData } from "data/hooks/useFetchData";
 import { ProgressActions } from "data/redux/progressReducer";
 import NotFoundError from "pages/NotFound/NotFoundError/NotFoundError";
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import { useAxios } from "../../data/hooks/useAxios";
@@ -23,12 +22,6 @@ const LectureOverview = () => {
 	const { data, isLoading, isError } = useFetchData("getLectureOverview", () =>
 		getLecture(axios, id)
 	);
-
-	useEffect(() => {
-		return () => {
-			console.log("hi");
-		};
-	}, []);
 
 	const { isLoading: isProgressLoading, isError: isProgressError } =
 		useFetchData("getLectureProgress", () => getLectureProgress(axios, id), {

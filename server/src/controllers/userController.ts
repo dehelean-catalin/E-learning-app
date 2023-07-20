@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import { firestoreDb } from "../config/firebase-admin";
+import { HttpError } from "../middleware/tokenAuth";
 import { FileRequest, ValidatedRequest } from "../models/genericModels";
 import {
 	AccountData,
@@ -11,10 +12,26 @@ import {
 	createAccountData,
 	deleteAccountData,
 	getAccountData,
+	getUserByIdData,
 	updateConnectionListData,
 	uploadProfilePictureData,
 } from "../services/userService";
+export const getUserById: RequestHandler = async (req, res) => {
+	const validatedReq = req as ValidatedRequest;
+	const { id } = validatedReq.params;
 
+	try {
+		const data = await getUserByIdData(id);
+		res.status(200).json(data);
+	} catch (err: any) {
+		if (err instanceof HttpError) {
+			return res
+				.status(err.statusCode)
+				.json({ code: err.statusCode, message: err.message });
+		}
+		res.status(200).json({ code: 400, message: err.message });
+	}
+};
 export const getAccount: RequestHandler = async (req, res) => {
 	const validatedReq = req as ValidatedRequest;
 	const { userId } = validatedReq.userData;

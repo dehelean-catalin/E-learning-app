@@ -90,7 +90,7 @@ export const useAuthentication = () => {
 			const { email, displayName, photoURL } = res.user.providerData[0];
 			const location = await axios.get("https://ipapi.co/json/");
 			login(token);
-			localStorage.setItem("emailVerified", "true");
+			localStorage.setItem("email_verified", "true");
 			await postLoginProvider(axios, {
 				email,
 				displayName,

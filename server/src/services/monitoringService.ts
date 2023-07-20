@@ -123,7 +123,7 @@ export const createLectureProgressData = async (
 	const userRef = firestoreDb.collection("users").doc(userId);
 	const lectureRef = firestoreDb.collection("lectures").doc(id);
 
-	await lectureRef.update({ enrolledUsers: FieldValue.arrayUnion(id) });
+	await lectureRef.update({ enrolledUsers: FieldValue.arrayUnion(userId) });
 
 	const userSnap = await userRef.get();
 
