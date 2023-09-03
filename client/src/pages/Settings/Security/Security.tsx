@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 import PRButton from "../../../components/PRButton/PRButton";
 import Spinner from "../../../components/Spinner/Spinner";
 import AuthContext from "../../../data/context/auth-context";
@@ -13,6 +14,7 @@ import ConnectionSection from "./ConnectionsSection/ConnectionsSection";
 const Security = () => {
 	const axios = useAxios();
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const { handleDeleteUser } = useContext(AuthContext);
 	const email = useSelector<RootState, string>(
 		(s) => s.accountReducer.data.email
@@ -85,9 +87,10 @@ const Security = () => {
 					onClick={() => {
 						dispatch(
 							showConfirmDialog({
-								onConfirm: () =>
-									axios.delete("/account").then(() => {
+								onConfirm: async () =>
+									await axios.delete("/account").then(() => {
 										handleDeleteUser();
+										navigate("/login", { replace: true });
 									}),
 							})
 						);

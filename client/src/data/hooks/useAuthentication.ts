@@ -71,7 +71,6 @@ export const useAuthentication = () => {
 				location: loc.data.city,
 			});
 		} catch (err) {
-			console.log(err);
 			const { getRegisterError } = authenticationErrorService();
 			const error = getRegisterError(err);
 			setError(error);

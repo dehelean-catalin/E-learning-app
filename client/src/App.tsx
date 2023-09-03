@@ -6,7 +6,6 @@ import Search from "pages/Search/Search";
 import "primeicons/primeicons.css";
 import "primereact/resources/primereact.min.css";
 import "primereact/resources/themes/md-dark-indigo/theme.css";
-import { useContext } from "react";
 import {
 	Route,
 	RouterProvider,
@@ -15,7 +14,6 @@ import {
 } from "react-router-dom";
 import "./App.scss";
 import auth from "./config/firebase.config";
-import AuthContext from "./data/context/auth-context";
 import RootLayout from "./data/routes/RootLayout";
 import VerifyEmailLayout from "./data/routes/VerifyEmailLayout";
 import {
@@ -42,7 +40,6 @@ import Security from "./pages/Settings/Security/Security";
 import Settings from "./pages/Settings/Settings";
 
 function App() {
-	const { login } = useContext(AuthContext);
 	onAuthStateChanged(auth, async (user) => {
 		if (user?.emailVerified) localStorage.setItem("email_verified", "true");
 		let userSessionTimeout = null;
@@ -52,18 +49,6 @@ function App() {
 			userSessionTimeout = null;
 			return;
 		}
-
-		const idToken = await user.getIdTokenResult();
-
-		const authTime = new Date(idToken.claims.auth_time).getTime() * 1000;
-		const sessionDurationInMilliseconds = 60 * 1000;
-		const expirationInMilliseconds =
-			sessionDurationInMilliseconds - (Date.now() - authTime);
-
-		userSessionTimeout = setTimeout(async () => {
-			const newToken = await auth.currentUser?.getIdToken(true);
-			login(newToken);
-		}, expirationInMilliseconds);
 	});
 
 	const router = createBrowserRouter(

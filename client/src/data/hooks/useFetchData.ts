@@ -14,6 +14,7 @@ export const useFetchData = <Data>(
 		data,
 		isError,
 		isFetching: isLoading,
+		error,
 	} = useQuery<Data>(key, fetcher, {
 		...options,
 		retry: false,
@@ -25,5 +26,6 @@ export const useFetchData = <Data>(
 		data,
 		isError,
 		isLoading,
+		error,
 	};
 };

@@ -35,6 +35,8 @@ const LectureButtons = () => {
 		(d, index) => Math.round(d - d / 20) <= Math.round(totalProgress[index])
 	).length;
 
+	const knobValue = +((completed / duration.length) * 100).toFixed(0);
+
 	return (
 		<>
 			<div
@@ -42,7 +44,7 @@ const LectureButtons = () => {
 				onClick={(e) => progressRef.current.toggle(e)}
 			>
 				<Knob
-					value={(completed / duration.length) * 100}
+					value={knobValue}
 					valueTemplate={"{value}%"}
 					strokeWidth={8}
 					size={45}

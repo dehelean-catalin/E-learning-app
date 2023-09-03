@@ -145,7 +145,7 @@ export const uploadLessonData = async (id, buffer, originalname) => {
 		expires: "2050-12-12",
 	});
 
-	const [track] = await file.getSignedUrl({
+	const [track] = await trackFile.getSignedUrl({
 		action: "read",
 		expires: "2050-12-12",
 	});

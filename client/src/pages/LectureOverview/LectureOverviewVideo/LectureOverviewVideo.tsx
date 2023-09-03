@@ -53,6 +53,7 @@ const LectureOverviewVideo: FC<LectureOverviewVideoProps> = ({
 
 	useEffect(() => {
 		const fetchVTTFile = async () => {
+			console.log(contentData);
 			try {
 				const response = await fetch(contentData.track);
 				if (!response.ok) {
@@ -114,12 +115,12 @@ const LectureOverviewVideo: FC<LectureOverviewVideoProps> = ({
 			{isLoading ? (
 				<Spinner />
 			) : isError ? (
-				<div>
+				<div className="flex gap-2 align-items-center">
 					<ProfilePicture
 						initials={publish.author}
 						icon={<FaUserAltSlash color="gray" />}
 					/>
-					{publish.author}
+					<h3>{publish.author}</h3>
 				</div>
 			) : (
 				<div className="flex gap-2 align-items-center">

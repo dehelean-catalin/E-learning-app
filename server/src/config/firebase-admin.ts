@@ -16,5 +16,5 @@ export const storageDb = adminDb.storage().bucket();
 export const adminAuth = getAuth();
 
 export const deepgram = new Deepgram(
-	"2a13dd5e7f255c33ce8556d7544f7ce7226b8d51"
+	"3fae9ebc8e1342a23166d930f1908472fe4dcd6f"
 );

@@ -31,6 +31,8 @@ export const tokenAuth: RequestHandler = async (req, res, next) => {
 				.status(err.statusCode)
 				.json({ code: err.statusCode, message: err.message });
 		}
-		res.status(400).json({ code: 400, message: err.message });
+		res
+			.status(500)
+			.json({ code: 500, message: "Try again! Something went wrong" });
 	}
 };

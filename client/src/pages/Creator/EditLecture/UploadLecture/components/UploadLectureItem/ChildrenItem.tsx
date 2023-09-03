@@ -3,8 +3,6 @@ import { ContentData, CreatedLectureModel } from "data/models/creatorModel";
 import { useFormikContext } from "formik";
 import { classNames } from "primereact/utils";
 import { FC, useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { showConfirmDialog } from "../../../../../../data/redux/dialogReducer";
 import useDragAndDropContent from "../../hooks/useUploadContent";
 import "./ChildrenItem.scss";
 
@@ -18,7 +16,6 @@ const ChildrenItem: FC<{
 	};
 }> = ({ index, arrayHelpers, value, subIndex }) => {
 	const { setFieldValue } = useFormikContext<CreatedLectureModel>();
-	const dispatch = useDispatch();
 	const {
 		data: { content, status, track, date, duration, type },
 		label,
@@ -41,6 +38,7 @@ const ChildrenItem: FC<{
 	useEffect(() => {
 		const video = videoRef.current;
 		if (video) video.load();
+		console.log(track);
 	}, [content]);
 
 	const displayedDate = formattedDate(date);
@@ -57,6 +55,33 @@ const ChildrenItem: FC<{
 	const [trackUrl, setTrackUrl] = useState("");
 
 	useEffect(() => {
+		const fetchVTTFile = async () => {
+			try {
+				const response = await fetch(track);
+				if (!response.ok) {
+					throw new Error("Error retrieving VTT file: " + response.status);
+				}
+
+				const data = await response.blob();
+				const url = URL.createObjectURL(data);
+
+				let trackElement = document.querySelector("track");
+
+				if (!trackElement) trackElement = document.createElement("track");
+				trackElement.src = url;
+				trackElement.kind = "captions";
+				trackElement.srclang = "en";
+				trackElement.label = "English";
+				trackElement.default = false;
+
+				const videoElement = document.querySelector("video");
+				videoElement.appendChild(trackElement);
+			} catch (error) {
+				console.error(error);
+			}
+		};
+
+		fetchVTTFile();
 		fetch(track)
 			.then((response) => {
 				if (response.ok) {
@@ -67,13 +92,17 @@ const ChildrenItem: FC<{
 			})
 			.then((data) => {
 				const url = URL.createObjectURL(data);
+				console.log(url);
 				setTrackUrl(url);
 			})
 			.catch((error) => {
 				console.error(error);
 			});
-	}, []);
+	}, [track]);
 
+	const handleDelete = () => {
+		arrayHelpers.remove(subIndex);
+	};
 	return (
 		<div
 			className="children-item"
@@ -141,13 +170,7 @@ const ChildrenItem: FC<{
 			</table>
 			<i
 				className="pi pi-trash align-self-center cursor-pointer"
-				onClick={() =>
-					dispatch(
-						showConfirmDialog({
-							onConfirm: () => arrayHelpers.remove(index),
-						})
-					)
-				}
+				onClick={handleDelete}
 			/>
 		</div>
 	);

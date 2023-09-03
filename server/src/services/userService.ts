@@ -121,8 +121,8 @@ export const updateConnectionListData = async (
 
 	const userSnap = await usersRef.get();
 	const connections: ConnectionItem[] = userSnap.get("connections");
-
-	const filter = connections.find(
+	console.log(connections);
+	const filter = connections?.find(
 		(doc) => doc.location === location && doc.device === device
 	);
 

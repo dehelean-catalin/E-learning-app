@@ -41,7 +41,6 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
 	const handleDeleteUser = () => {
 		setToken(null);
 		localStorage.clear();
-		window.location.replace("/login");
 	};
 
 	const contexValue = {

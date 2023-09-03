@@ -1,6 +1,7 @@
 import { AxiosInstance } from "axios";
 import { sendPasswordResetEmail } from "firebase/auth";
 import auth from "../../config/firebase.config";
+
 import { AccountData, AuthModel } from "../models/usersModel";
 
 export const getAccountData = async (axios: AxiosInstance) => {
@@ -13,14 +14,12 @@ export const updateConnection = async (
 	location: string
 ) => {
 	return await axios
-		.post<string>("http://localhost:4000/connections", { device, location })
+		.post<string>("/connections", { device, location })
 		.then((res) => res.data);
 };
 
 export const postRegister = async (axios: AxiosInstance, data: AuthModel) => {
-	return await axios
-		.post<string>("http://localhost:4000/account", data)
-		.then((res) => res.data);
+	return await axios.post<string>("/account", data).then((res) => res.data);
 };
 
 export const postLoginProvider = async (
@@ -28,7 +27,7 @@ export const postLoginProvider = async (
 	data: AuthModel
 ) => {
 	return await axios
-		.post<string>("http://localhost:4000/login-provider", data)
+		.post<string>("/login-provider", data)
 		.then((res) => res.data);
 };
 

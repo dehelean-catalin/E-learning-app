@@ -1,9 +1,5 @@
 import { initializeApp } from "firebase/app";
-import {
-	browserLocalPersistence,
-	getAuth,
-	setPersistence,
-} from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyAMCfsGozkpBxF4I32Xq5gqj5RaxNHu37g",
@@ -18,18 +14,6 @@ const firebaseConfig = {
 
 const application = initializeApp(firebaseConfig);
 const auth = getAuth(application);
-
-setPersistence(auth, browserLocalPersistence)
-	.then(() => {
-		console.log("aici");
-	})
-	.catch((error) => {
-		console.error("Eroare la setarea persistenței:", error);
-	});
-
-export async function initializeAuthState() {
-	return await setPersistence(auth, browserLocalPersistence);
-}
 
 export default auth;
 
