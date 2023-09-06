@@ -1,9 +1,4 @@
-import {
-	browserLocalPersistence,
-	onAuthStateChanged,
-	sendEmailVerification,
-	setPersistence,
-} from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import Create from "pages/Creator/Create/Create";
 import CreatedLectures from "pages/Creator/Dashboard/Dashboard";
 import EditLecture from "pages/Creator/EditLecture/EditLecture";
@@ -46,11 +41,10 @@ import Settings from "./pages/Settings/Settings";
 
 onAuthStateChanged(auth, async (user) => {
 	try {
-		if (user?.emailVerified) {
-			await setPersistence(auth, browserLocalPersistence);
+		const isPasswordLogin = user?.providerData[0].providerId === "password";
+
+		if (user?.emailVerified || !isPasswordLogin) {
 			localStorage.setItem("email_verified", "true");
-		} else if (user?.emailVerified === false) {
-			await sendEmailVerification(user);
 		}
 	} catch (error) {
 		console.log(error);

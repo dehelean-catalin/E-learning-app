@@ -7,6 +7,7 @@ const VerifyEmailLayout: FC = () => {
 
 	if (token && localStorage.getItem("email_verified") === "true")
 		return <Navigate to="/home" replace />;
+	if (!token) return <Navigate to="/login" replace />;
 
 	return (
 		<div className="Auth">

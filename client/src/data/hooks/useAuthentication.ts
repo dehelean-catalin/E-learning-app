@@ -2,7 +2,10 @@ import axiosPub from "axios";
 import {
 	GithubAuthProvider,
 	GoogleAuthProvider,
+	browserLocalPersistence,
 	createUserWithEmailAndPassword,
+	sendEmailVerification,
+	setPersistence,
 	signInWithEmailAndPassword,
 	signInWithPopup,
 } from "firebase/auth";
@@ -10,7 +13,7 @@ import platform from "platform";
 import { useContext, useState } from "react";
 import auth from "../../config/firebase.config";
 import AuthContext from "../context/auth-context";
-import { postLoginProvider, updateConnection } from "../services/userService";
+import { updateConnection } from "../services/userService";
 import authenticationErrorService from "./authError.helper";
 import { useAxios } from "./useAxios";
 
@@ -31,6 +34,8 @@ export const useAuthentication = () => {
 			const tokenID = await response.user.getIdToken();
 			const location = await axiosPub.get("https://ipapi.co/json/");
 			login(tokenID);
+			localStorage.setItem("email_verified", "true");
+			await setPersistence(auth, browserLocalPersistence);
 			await updateConnection(axios, device, location.data.city);
 		} catch (err) {
 			const { getLoginError } = authenticationErrorService();
@@ -55,7 +60,10 @@ export const useAuthentication = () => {
 			const token = await response.user.getIdToken();
 			const loc = await axiosPub.get("https://ipapi.co/json/");
 			login(token);
+			localStorage.setItem("email_verified", "false");
 
+			await setPersistence(auth, browserLocalPersistence);
+			await sendEmailVerification(response.user);
 			await axios.post(
 				"/account",
 				{
@@ -80,19 +88,25 @@ export const useAuthentication = () => {
 	) => {
 		try {
 			provider.addScope("email");
-			const res = await signInWithPopup(auth, provider);
-			const token = await res.user.getIdToken();
-			const { email, displayName, photoURL } = res.user.providerData[0];
-			const location = await axios.get("https://ipapi.co/json/");
+			const response = await signInWithPopup(auth, provider);
+			const { email, displayName, photoURL } = response.user.providerData[0];
+			const location = await axiosPub.get("https://ipapi.co/json/");
+			const token = await response.user.getIdToken();
+			console.log(token);
+			await axios.post(
+				"/login-provider",
+				{
+					email,
+					displayName,
+					photoURL,
+					device,
+					location: location.data.city,
+				},
+				{ headers: { Authorization: `Bearer ${token}` } }
+			);
 			login(token);
 			localStorage.setItem("email_verified", "true");
-			await postLoginProvider(axios, {
-				email,
-				displayName,
-				photoURL,
-				device,
-				location: location.data.city,
-			});
+			await setPersistence(auth, browserLocalPersistence);
 		} catch (err) {
 			const { getLoginError } = authenticationErrorService();
 			const error = getLoginError(err);
