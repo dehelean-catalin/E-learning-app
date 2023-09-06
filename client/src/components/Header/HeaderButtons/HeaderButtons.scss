@@ -64,3 +64,9 @@
 		}
 	}
 }
+
+@media (max-width: 480px) {
+	.header-buttons {
+		display: none;
+	}
+}

@@ -24,7 +24,10 @@ const Register = () => {
 	const [emailTouched, setEmailTouched] = useState(false);
 	const [passwordTouched, setPasswordTouched] = useState(false);
 
-	const hasValue = !!email && !!password && !!displayName;
+	const hasValue =
+		!formatEmailError(error, email, emailTouched) &&
+		!!password &&
+		!!displayName;
 	const disabled = !hasValue || passwordReggex(password);
 
 	const handleSubmit = (e: React.FormEvent) => {

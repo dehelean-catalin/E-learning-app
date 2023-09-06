@@ -5,3 +5,10 @@
 	padding: 6px 12px;
 	z-index: 2;
 }
+
+@media (max-width: 480px) {
+	.app-header {
+		display: flex !important;
+		justify-content: center;
+	}
+}

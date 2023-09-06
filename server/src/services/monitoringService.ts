@@ -109,7 +109,7 @@ export const getLectureProgressData = async (id: string, userId: string) => {
 
 	const historyItem = history.find((i) => i.id === id);
 
-	if (!historyItem) throw new Error("Progress not found");
+	if (!historyItem) return [];
 
 	return historyItem.videoProgress;
 };

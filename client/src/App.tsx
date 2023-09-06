@@ -1,4 +1,9 @@
-import { onAuthStateChanged } from "firebase/auth";
+import {
+	browserLocalPersistence,
+	onAuthStateChanged,
+	sendEmailVerification,
+	setPersistence,
+} from "firebase/auth";
 import Create from "pages/Creator/Create/Create";
 import CreatedLectures from "pages/Creator/Dashboard/Dashboard";
 import EditLecture from "pages/Creator/EditLecture/EditLecture";
@@ -39,18 +44,20 @@ import Account from "./pages/Settings/Profile/AccountPage";
 import Security from "./pages/Settings/Security/Security";
 import Settings from "./pages/Settings/Settings";
 
-function App() {
-	onAuthStateChanged(auth, async (user) => {
-		if (user?.emailVerified) localStorage.setItem("email_verified", "true");
-		let userSessionTimeout = null;
-
-		if (!user && userSessionTimeout) {
-			clearTimeout(userSessionTimeout);
-			userSessionTimeout = null;
-			return;
+onAuthStateChanged(auth, async (user) => {
+	try {
+		if (user?.emailVerified) {
+			await setPersistence(auth, browserLocalPersistence);
+			localStorage.setItem("email_verified", "true");
+		} else if (user?.emailVerified === false) {
+			await sendEmailVerification(user);
 		}
-	});
+	} catch (error) {
+		console.log(error);
+	}
+});
 
+function App() {
 	const router = createBrowserRouter(
 		createRoutesFromElements(
 			<Route>

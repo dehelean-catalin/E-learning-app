@@ -8,22 +8,24 @@ export const formatEmailError = (
 	const formattedEmail = email?.trim();
 	const emailExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-	if (error?.message?.toLocaleLowerCase().includes("email") && !emailTouched) {
+	if (error?.message?.toLocaleLowerCase().includes("email") && emailTouched)
 		return error.message;
-	}
+
 	if (!formattedEmail.length && emailTouched) return "Email is required";
 
 	if (!formattedEmail.match(emailExp) && emailTouched)
 		return "Not an email format";
+
+	return "";
 };
 
 export const formatDisplayNameError = (
 	email: string | null,
 	emailTouched: boolean
 ) => {
-	if (email?.trim().length === 0 && emailTouched) {
-		return "Name is required";
-	}
+	if (email?.trim().length === 0 && emailTouched) return "Name is required";
+
+	return;
 };
 
 export const formatPasswordError = (
@@ -46,4 +48,5 @@ export const formatPasswordError = (
 	if (passwordReggex(password) && passwordTouched) {
 		return "Password does not match the pattern";
 	}
+	return;
 };

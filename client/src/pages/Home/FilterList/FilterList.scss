@@ -3,12 +3,19 @@
 	display: flex;
 	justify-content: center;
 	gap: 6px;
+	-webkit-line-clamp: 2; /* number of lines to show */
+	line-clamp: 2;
+	-webkit-box-orient: vertical;
 
 	.category {
 		text-align: center;
 		background-color: var(--color-30);
-		min-width: 70px;
+		max-width: 16ch;
 		color: white;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+
 		padding: 4px 16px;
 		border-radius: 8px;
 		cursor: pointer;
@@ -22,4 +29,7 @@
 		border-radius: 8px;
 		cursor: default;
 	}
+}
+.p-carousel-indicators {
+	display: none !important;
 }

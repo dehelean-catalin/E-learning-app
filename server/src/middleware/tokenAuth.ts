@@ -26,6 +26,11 @@ export const tokenAuth: RequestHandler = async (req, res, next) => {
 
 		next();
 	} catch (err: any) {
+		if (err.codePrefix === "auth") {
+			return res
+				.status(403)
+				.json({ code: 403, message: err.errorInfo.message });
+		}
 		if (err instanceof HttpError) {
 			return res
 				.status(err.statusCode)

@@ -45,7 +45,7 @@ const LectureReviewCard: FC<Props> = ({ value }) => {
 
 				<p>{message}</p>
 			</div>
-			{value.authorId === auth.currentUser.uid && (
+			{value.authorId === auth?.currentUser.uid && (
 				<i className="pi pi-trash" onClick={() => handleDelete()}></i>
 			)}
 		</div>

@@ -23,7 +23,6 @@ const LectureOverviewReviews = () => {
 
 	if (isLoading) return <Spinner />;
 	if (isError) return <>Error</>;
-	if (!data.length) return <></>;
 
 	const index = data.findIndex((d) => d?.authorId === uid);
 	if (index > -1) {
@@ -45,9 +44,12 @@ const LectureOverviewReviews = () => {
 					/>
 				)}
 			</div>
-
-			<ReviewChart value={data} />
-			<LectureReviews value={data} />
+			{!!data.length && (
+				<>
+					<ReviewChart value={data} />
+					<LectureReviews value={data} />
+				</>
+			)}
 			<LeaveRatingDialog visible={visibile} onHide={() => setVisible(false)} />
 		</div>
 	);

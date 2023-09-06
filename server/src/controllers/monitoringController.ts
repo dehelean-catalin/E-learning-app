@@ -20,8 +20,8 @@ export const getMonitoringHistoryList: RequestHandler = async (
 		const data = await getMonitoringHistoryListData(userId);
 
 		res.status(200).json(data);
-	} catch (err) {
-		next(err);
+	} catch (err: any) {
+		res.status(400).json({ code: 400, message: err.message });
 	}
 };
 

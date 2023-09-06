@@ -16,6 +16,7 @@ import { getAccountData } from "../services/userService";
 
 const RootLayout: FC = () => {
 	const { token } = useContext(AuthContext);
+	const email_verified = localStorage.getItem("email_verified");
 	const dispatch = useDispatch();
 	const axios = useAxios();
 	const onSuccess = (e) => dispatch(AccountDataActions.setAccountData(e));
@@ -30,7 +31,7 @@ const RootLayout: FC = () => {
 	);
 
 	if (!token) return <Navigate to="/login" replace />;
-	if (localStorage.getItem("email_verified") === "false")
+	if (email_verified === "false" || !email_verified)
 		return <Navigate to="/email-verified" replace />;
 
 	if (isLoading) return <Spinner />;

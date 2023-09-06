@@ -50,6 +50,8 @@ export const createAccount: RequestHandler<any, any, CreateAccount> = async (
 ) => {
 	const validatedReq = req as ValidatedRequest;
 	const { userId } = validatedReq.userData;
+	console.log(userId);
+	console.log(req.body);
 
 	try {
 		const data = await createAccountData(userId, req.body);

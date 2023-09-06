@@ -2,8 +2,10 @@ import InputTextField from "components/Inputs/InputTextField/InputTextField";
 import InputPasswordField from "components/Inputs/PRPassword/InputPasswordField";
 import PRButton from "components/PRButton/PRButton";
 import AuthForm from "components/auth/AuthForm/AuthForm";
-import { formatEmailError } from "data/helpers/loginHelper";
-import { formatPasswordError } from "data/helpers/registerHelper";
+import {
+	formatEmailError,
+	formatPasswordError,
+} from "data/helpers/loginHelper";
 import { useAuthentication } from "data/hooks/useAuthentication";
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
@@ -68,6 +70,7 @@ const Login = () => {
 					onBlur={() => setPasswordTouched(true)}
 					errorMessage={formatPasswordError(error, password, passwordTouched)}
 				/>
+
 				<div className={styles.password}>
 					<NavLink to="/forgot-password">Forget password?</NavLink>
 				</div>

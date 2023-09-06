@@ -12,3 +12,9 @@
 		opacity: 0.8;
 	}
 }
+
+@media (max-width: 480px) {
+	.search-field {
+		display: none;
+	}
+}

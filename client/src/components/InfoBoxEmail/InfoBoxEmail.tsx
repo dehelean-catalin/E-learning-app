@@ -1,6 +1,5 @@
 import { FC } from "react";
 import { MdOutlineMarkEmailRead } from "react-icons/md";
-import { useNavigate } from "react-router";
 import "./InfoBoxEmail.scss";
 
 type Props = {
@@ -9,7 +8,6 @@ type Props = {
 };
 
 const InfoBoxEmail: FC<Props> = ({ email, link }) => {
-	const navigate = useNavigate();
 	return (
 		<div className="info-box-email">
 			<MdOutlineMarkEmailRead />
@@ -19,12 +17,8 @@ const InfoBoxEmail: FC<Props> = ({ email, link }) => {
 				<br />
 				Press the button bellow to redirect to your email
 			</div>
-			<a
-				href="https://mail.google.com"
-				target="_blank"
-				rel="noreferrer"
-				onClick={() => navigate("/login")}
-			>
+
+			<a href="https://mail.google.com" target="_blank" rel="noreferrer">
 				Check your email
 			</a>
 		</div>

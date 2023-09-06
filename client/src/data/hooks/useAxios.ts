@@ -1,9 +1,9 @@
 import axios from "axios";
-import { useContext } from "react";
-import AuthContext from "../context/auth-context";
+import { useEffect } from "react";
+import auth from "../../config/firebase.config";
 
 export const useAxios = () => {
-	const { token } = useContext(AuthContext);
+	const token = localStorage.getItem("token");
 
 	const axiosInstance = axios.create({
 		baseURL: "http://localhost:4000",
@@ -12,14 +12,34 @@ export const useAxios = () => {
 		},
 	});
 
-	axiosInstance.interceptors.request.use(async (req) => {
-		if (!token) {
-			const token = localStorage.getItem("token");
-			req.headers.authorization = `Bearer ${token}`;
-		}
-
-		return req;
-	});
+	useEffect(() => {
+		const reqIntercept = axiosInstance.interceptors.request.use(
+			(config) => {
+				if (!config.headers["Authorization"]) {
+					config.headers["Authorization"] = `Bearer ${token}`;
+				}
+				return config;
+			},
+			(err) => Promise.reject(err)
+		);
+		const respIntercept = axiosInstance.interceptors.response.use(
+			(response) => response,
+			async (err) => {
+				const prevReq = err?.congfig;
+				if (err?.response?.status === 403 && !prevReq?.sent) {
+					prevReq.sent = true;
+					const newToken = await auth?.currentUser.getIdToken(true);
+					prevReq.headers["Authorization"] = `Bearer ${newToken}`;
+					return axiosInstance(prevReq);
+				}
+				return Promise.reject(err);
+			}
+		);
+		return () => {
+			axiosInstance.interceptors.response.eject(respIntercept);
+			axiosInstance.interceptors.request.eject(reqIntercept);
+		};
+	}, [token, auth]);
 
 	return axiosInstance;
 };

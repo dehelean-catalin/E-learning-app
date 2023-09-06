@@ -1,7 +1,7 @@
 import { Category } from "data/models/creatorModel";
 import { FC } from "react";
 import { useLocation } from "react-router";
-import styles from "./FilterList.module.scss";
+import "./FilterList.scss";
 
 type Props = {
 	onFilterChange: (filter: Category) => void;
@@ -12,13 +12,13 @@ const FilterList: FC<Props> = ({ onFilterChange }) => {
 
 	const getClassName = (filter: Category) => {
 		if (filter === category) {
-			return styles["active-category"];
+			return "active-category";
 		}
-		return styles.category;
+		return "category";
 	};
 
 	return (
-		<div className={styles["filer-section"]}>
+		<div className="filer-section">
 			{Object.values(Category).map((category, key) => (
 				<div
 					key={key}

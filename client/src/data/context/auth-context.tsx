@@ -26,15 +26,14 @@ export const AuthContextProvider: FC<Props> = ({ children }) => {
 	const [token, setToken] = useState(initialToken);
 
 	const loginHandler = (token: string) => {
-		setToken(token);
 		localStorage.setItem("token", token);
+		setToken(token);
 	};
 
 	const logoutHandler = () => {
 		signOut(auth).then(() => {
 			setToken(null);
 			localStorage.clear();
-			window.location.replace("/login");
 		});
 	};
 

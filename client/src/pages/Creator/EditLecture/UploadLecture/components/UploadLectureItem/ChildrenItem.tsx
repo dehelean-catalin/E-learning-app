@@ -38,7 +38,6 @@ const ChildrenItem: FC<{
 	useEffect(() => {
 		const video = videoRef.current;
 		if (video) video.load();
-		console.log(track);
 	}, [content]);
 
 	const displayedDate = formattedDate(date);
@@ -92,7 +91,6 @@ const ChildrenItem: FC<{
 			})
 			.then((data) => {
 				const url = URL.createObjectURL(data);
-				console.log(url);
 				setTrackUrl(url);
 			})
 			.catch((error) => {
@@ -143,27 +141,11 @@ const ChildrenItem: FC<{
 				<tbody>
 					<tr>
 						<td>{label ?? "-"}</td>
-						<td>{type ?? "-"}</td>
-						<td className={statusClassName}>
-							{status ? (
-								<>
-									<i className="pi pi-check-circle mr-2" />
-									{status}
-								</>
-							) : (
-								"-"
-							)}
-						</td>
+						<td>{type.replace("video/", "") ?? "-"}</td>
+						<td className={statusClassName}>{status ? <>{status}</> : "-"}</td>
 
 						<td>
-							{displayedDate !== "Invalid Date" ? (
-								<>
-									<i className="pi pi-calendar mr-2" />
-									{displayedDate}
-								</>
-							) : (
-								"-"
-							)}
+							{displayedDate !== "Invalid Date" ? <>{displayedDate}</> : "-"}
 						</td>
 					</tr>
 				</tbody>

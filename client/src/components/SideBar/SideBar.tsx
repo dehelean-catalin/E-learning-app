@@ -1,4 +1,4 @@
-import { MdOutlineHistory } from "react-icons/md";
+import { MdOutlineBookmarks, MdOutlineHistory } from "react-icons/md";
 import { RxDashboard } from "react-icons/rx";
 import { VscHome } from "react-icons/vsc";
 import { NavLink, useLocation } from "react-router-dom";
@@ -18,37 +18,31 @@ const NavigationHeader = () => {
 				to={`home?category=${Category.ALL}`}
 				className={({ isActive }) => (isActive ? "active" : "")}
 			>
-				<span>
-					<VscHome />
-					Home
-				</span>
+				<VscHome />
+				<span>Home</span>
 			</NavLink>
 
 			<NavLink
 				to={"/creator/dashboard"}
 				className={({ isActive }) => (isActive ? "active" : "")}
 			>
-				<span>
-					<RxDashboard size="32px" /> Dashboard
-				</span>
+				<RxDashboard size="32px" />
+				<span>Dashboard</span>
 			</NavLink>
 
 			<NavLink
 				to="history"
 				className={({ isActive }) => (isActive ? "active" : "")}
 			>
-				<span>
-					<MdOutlineHistory />
-					History
-				</span>
+				<MdOutlineHistory />
+				<span>History</span>
 			</NavLink>
 			<NavLink
 				to={"library"}
 				className={(navData) => (navData.isActive ? "active" : "")}
 			>
-				<span>
-					<i className="pi pi-book text-3xl mb-2" /> Library
-				</span>
+				<MdOutlineBookmarks />
+				<span>Library</span>
 			</NavLink>
 		</nav>
 	);

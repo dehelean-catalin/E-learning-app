@@ -30,24 +30,14 @@ const GridCard: FC<Props> = ({ value, icon }) => {
 
 	return (
 		<article className="grid-card">
-			<img
-				className={classNames({ "gray-out": "progress" in value })}
-				src={caption}
-				alt="caption"
-				loading="lazy"
-				onClick={handleImgClick}
-			/>
-
-			<div className="flex">
-				<div className="flex-1">
-					<h3 className="mb-1">{title}</h3>
-					<p className="text-color-secondary">{author}</p>
-					{!!numberOfRatings && (
-						<CustomRating rating={rating} numberOfRates={numberOfRatings} />
-					)}
-				</div>
-
-				{icon}
+			<div className="img-container">
+				<img
+					className={classNames({ "gray-out": "progress" in value })}
+					src={caption}
+					alt="caption"
+					loading="lazy"
+					onClick={handleImgClick}
+				/>
 				{"progress" in value && (
 					<div
 						className="progress-wrapper"
@@ -62,6 +52,18 @@ const GridCard: FC<Props> = ({ value, icon }) => {
 						></ProgressBar>
 					</div>
 				)}
+			</div>
+
+			<div className="flex">
+				<div className="flex-1">
+					<h3 className="mb-1">{title}</h3>
+					<p className="text-color-secondary">{author}</p>
+					{!!numberOfRatings && (
+						<CustomRating rating={rating} numberOfRates={numberOfRatings} />
+					)}
+				</div>
+
+				{icon}
 			</div>
 		</article>
 	);
