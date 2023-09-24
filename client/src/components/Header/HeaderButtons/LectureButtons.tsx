@@ -54,7 +54,7 @@ const LectureButtons = () => {
 
 			<OverlayPanel ref={progressRef} className={"profile-overlay"}>
 				<h4>
-					{completed} of {progress.length} completed
+					{completed} of {progress?.length} completed
 				</h4>
 			</OverlayPanel>
 		</>

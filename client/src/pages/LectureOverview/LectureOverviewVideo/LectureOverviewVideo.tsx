@@ -53,7 +53,6 @@ const LectureOverviewVideo: FC<LectureOverviewVideoProps> = ({
 
 	useEffect(() => {
 		const fetchVTTFile = async () => {
-			console.log(contentData);
 			try {
 				const response = await fetch(contentData.track);
 				if (!response.ok) {

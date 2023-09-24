@@ -13,7 +13,6 @@ import platform from "platform";
 import { useContext, useState } from "react";
 import auth from "../../config/firebase.config";
 import AuthContext from "../context/auth-context";
-import { updateConnection } from "../services/userService";
 import authenticationErrorService from "./authError.helper";
 import { useAxios } from "./useAxios";
 
@@ -21,7 +20,7 @@ type ErrorState = { code: string; message: string } | undefined;
 
 export const useAuthentication = () => {
 	const axios = useAxios();
-	const { login } = useContext(AuthContext);
+	const { login, setEmailVerified } = useContext(AuthContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<ErrorState>();
 
@@ -34,9 +33,17 @@ export const useAuthentication = () => {
 			const tokenID = await response.user.getIdToken();
 			const location = await axiosPub.get("https://ipapi.co/json/");
 			login(tokenID);
-			localStorage.setItem("email_verified", "true");
+			setEmailVerified("true");
+
 			await setPersistence(auth, browserLocalPersistence);
-			await updateConnection(axios, device, location.data.city);
+			await axiosPub.post(
+				"http://localhost:4000/connections",
+				{
+					device,
+					location: location.data.city,
+				},
+				{ headers: { Authorization: `Bearer ${tokenID}` } }
+			);
 		} catch (err) {
 			const { getLoginError } = authenticationErrorService();
 			const error = getLoginError(err);
@@ -60,7 +67,7 @@ export const useAuthentication = () => {
 			const token = await response.user.getIdToken();
 			const loc = await axiosPub.get("https://ipapi.co/json/");
 			login(token);
-			localStorage.setItem("email_verified", "false");
+			setEmailVerified("false");
 
 			await setPersistence(auth, browserLocalPersistence);
 			await sendEmailVerification(response.user);
@@ -92,9 +99,8 @@ export const useAuthentication = () => {
 			const { email, displayName, photoURL } = response.user.providerData[0];
 			const location = await axiosPub.get("https://ipapi.co/json/");
 			const token = await response.user.getIdToken();
-			console.log(token);
-			await axios.post(
-				"/login-provider",
+			await axiosPub.post(
+				"http://localhost:4000/login-provider",
 				{
 					email,
 					displayName,
@@ -105,7 +111,7 @@ export const useAuthentication = () => {
 				{ headers: { Authorization: `Bearer ${token}` } }
 			);
 			login(token);
-			localStorage.setItem("email_verified", "true");
+			setEmailVerified("true");
 			await setPersistence(auth, browserLocalPersistence);
 		} catch (err) {
 			const { getLoginError } = authenticationErrorService();

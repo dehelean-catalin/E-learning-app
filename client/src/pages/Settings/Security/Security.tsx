@@ -72,14 +72,15 @@ const Security = () => {
 				)}
 			</div>
 			<h3 className="my-2">Delete account</h3>
-			<div className="flex gap-2 align-items-center">
+			<div className="flex gap-3 align-items-center">
 				<i className="pi pi-exclamation-triangle mr-2 text-2xl" />
 				<p>
 					This will permanently delete the data related to this course and the
 					information will no longer be retrievable.
 				</p>
 				<PRButton
-					className="surface-card text-white w-2"
+					className="surface-card text-white"
+					style={{ width: "200px" }}
 					label="Delete"
 					type="button"
 					iconPos="left"

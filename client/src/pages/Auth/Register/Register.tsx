@@ -14,7 +14,7 @@ import { useAuthentication } from "../../../data/hooks/useAuthentication";
 import styles from "./Register.module.scss";
 
 const Register = () => {
-	const { isLoading, handleRegister, error } = useAuthentication();
+	const { isLoading, handleRegister, error, setError } = useAuthentication();
 
 	const [displayName, setDisplayName] = useState("");
 	const [email, setEmail] = useState("");
@@ -30,7 +30,7 @@ const Register = () => {
 		!!displayName;
 	const disabled = !hasValue || passwordReggex(password);
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
 		if (disabled) return;
 
@@ -40,11 +40,11 @@ const Register = () => {
 			displayName,
 		};
 
-		handleRegister(data);
-		setDisplayNameTouched(false);
-		setPasswordTouched(false);
-		setEmailTouched(false);
+		await handleRegister(data);
 	};
+
+	const emailErrorMessage = formatEmailError(error, email, emailTouched);
+	console.log(emailErrorMessage);
 
 	return (
 		<div className="m-auto">
@@ -75,9 +75,14 @@ const Register = () => {
 					value={email}
 					placeholder="Enter email"
 					label="Email"
-					onChange={setEmail}
+					onChange={(v) => {
+						if (!!emailErrorMessage) {
+							setError(null);
+						}
+						setEmail(v);
+					}}
 					onBlur={() => setEmailTouched(true)}
-					errorMessage={formatEmailError(error, email, emailTouched)}
+					errorMessage={emailErrorMessage}
 				/>
 				<InputPasswordField
 					overlay="white"

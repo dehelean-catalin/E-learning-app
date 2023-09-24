@@ -82,6 +82,7 @@ const AccountSection = () => {
 							label="About you"
 							placeholder="Enter something about you"
 							value={values?.aboutYou}
+							onBlur={() => console.log("test")}
 							onChange={(e) => setValues({ ...values, aboutYou: e })}
 						/>
 					</div>

@@ -37,8 +37,11 @@ export const getAllLectures: RequestHandler = async (req, res) => {
 
 export const getLectureById: RequestHandler = async (req, res) => {
 	const { id } = req.params;
+	const validatedRequest = req as ValidatedRequest;
+	const { userId } = validatedRequest.userData;
+
 	try {
-		const data = await getLectureByIdData(id);
+		const data = await getLectureByIdData(id, userId);
 		res.status(200).json(data);
 	} catch (err: any) {
 		res.status(400).json({ code: 400, message: err.message });

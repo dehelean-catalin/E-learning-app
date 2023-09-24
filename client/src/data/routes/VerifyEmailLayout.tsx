@@ -3,10 +3,10 @@ import { Navigate, Outlet } from "react-router";
 import AuthContext from "../context/auth-context";
 
 const VerifyEmailLayout: FC = () => {
-	const { token } = useContext(AuthContext);
+	const { token, emailVerified } = useContext(AuthContext);
 
-	if (token && localStorage.getItem("email_verified") === "true")
-		return <Navigate to="/home" replace />;
+	if (token && emailVerified === "true") return <Navigate to="/home" replace />;
+	console.log(token, emailVerified);
 	if (!token) return <Navigate to="/login" replace />;
 
 	return (

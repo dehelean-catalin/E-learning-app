@@ -170,6 +170,14 @@ export const updateLectureProgressData = async (
 
 	currentLecture.lastDate = new Date().toISOString();
 
+	if (!currentLecture.items.find((i) => i.id === chapterId)) {
+		currentLecture.items.push({
+			id: chapterId,
+			total: progress,
+			current: progress,
+		});
+	}
+
 	currentLecture.items.forEach((i) => {
 		if (i.id === chapterId) {
 			i.current = progress;

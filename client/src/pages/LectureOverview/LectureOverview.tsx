@@ -23,14 +23,23 @@ const LectureOverview = () => {
 		getLecture(axios, id)
 	);
 
-	const { isLoading: isProgressLoading, isError: isProgressError } =
-		useFetchData("getLectureProgress", () => getLectureProgress(axios, id), {
-			initialData: [],
-			onSuccess: (res) => dispatch(ProgressActions.setProgress(res.items)),
-		});
+	const {
+		data: progress,
+		isLoading: isProgressLoading,
+		isError: isProgressError,
+	} = useFetchData("getLectureProgress", () => getLectureProgress(axios, id), {
+		onSuccess: (res) => {
+			if (!!res.items) {
+				dispatch(ProgressActions.setProgress(res.items));
+			}
+		},
+	});
 
-	if (isLoading || isProgressLoading) return <Spinner />;
+	if (isLoading) return <Spinner />;
+	if (isProgressLoading) return <Spinner />;
+
 	if (isError || isProgressError) return <NotFoundError />;
+	if (!progress) return <>Not authorized</>;
 
 	return (
 		<div className="lecture-overview">

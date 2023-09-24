@@ -5,6 +5,7 @@ import {
 } from "firebase-admin/firestore";
 import { firestoreDb } from "../config/firebase-admin";
 import { applyFilters } from "../helpers/lecture.helper";
+import { HttpError } from "../middleware/tokenAuth";
 import {
 	Category,
 	CreatedLectureModel,
@@ -76,14 +77,22 @@ export const getAllLecturesData = async (
 	return data;
 };
 
-export const getLectureByIdData = async (id: string) => {
+export const getLectureByIdData = async (id: string, userId: string) => {
 	const lectureRef = firestoreDb.collection("lectures").doc(id);
 
 	const lectureSnap = await lectureRef.get();
 
-	if (!lectureSnap.exists) throw new Error("Lecture not found");
+	if (!lectureSnap.exists) {
+		throw new Error("Lecture not found");
+	}
 
 	const data = lectureSnap.data() as CreatedLectureModel;
+	if (
+		data.publish.status === "Unlisted" &&
+		!data.enrolledUsers.includes(userId)
+	) {
+		throw new HttpError(401, "Not authorized");
+	}
 
 	return data;
 };

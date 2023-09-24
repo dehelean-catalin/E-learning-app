@@ -17,7 +17,9 @@ const InputTextField: FC<Props> = ({
 	label,
 	placeholder,
 	onChange: setValue,
-	onBlur = () => {},
+	onBlur = () => {
+		console.log("test");
+	},
 	errorMessage,
 }) => {
 	return (

@@ -6,6 +6,7 @@ import Search from "pages/Search/Search";
 import "primeicons/primeicons.css";
 import "primereact/resources/primereact.min.css";
 import "primereact/resources/themes/md-dark-indigo/theme.css";
+import { useContext } from "react";
 import {
 	Route,
 	RouterProvider,
@@ -14,6 +15,7 @@ import {
 } from "react-router-dom";
 import "./App.scss";
 import auth from "./config/firebase.config";
+import AuthContext from "./data/context/auth-context";
 import RootLayout from "./data/routes/RootLayout";
 import VerifyEmailLayout from "./data/routes/VerifyEmailLayout";
 import {
@@ -39,19 +41,19 @@ import Account from "./pages/Settings/Profile/AccountPage";
 import Security from "./pages/Settings/Security/Security";
 import Settings from "./pages/Settings/Settings";
 
-onAuthStateChanged(auth, async (user) => {
-	try {
-		const isPasswordLogin = user?.providerData[0].providerId === "password";
-
-		if (user?.emailVerified || !isPasswordLogin) {
-			localStorage.setItem("email_verified", "true");
-		}
-	} catch (error) {
-		console.log(error);
-	}
-});
-
 function App() {
+	const { setEmailVerified } = useContext(AuthContext);
+	onAuthStateChanged(auth, async (user) => {
+		try {
+			const isPasswordLogin = user?.providerData[0].providerId === "password";
+
+			if (user?.emailVerified && isPasswordLogin) {
+				setEmailVerified("true");
+			}
+		} catch (error) {
+			console.log(error);
+		}
+	});
 	const router = createBrowserRouter(
 		createRoutesFromElements(
 			<Route>

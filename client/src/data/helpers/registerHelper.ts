@@ -1,13 +1,14 @@
 import { passwordReggex } from "./inputPasswordHelper";
 
+export const emailExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
 export const formatEmailError = (
 	error: null | { message: string },
 	email: string,
 	emailTouched: boolean
 ) => {
 	const formattedEmail = email?.trim();
-	const emailExp = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
+	console.log(error);
 	if (error?.message?.toLocaleLowerCase().includes("email") && emailTouched)
 		return error.message;
 
@@ -16,7 +17,7 @@ export const formatEmailError = (
 	if (!formattedEmail.match(emailExp) && emailTouched)
 		return "Not an email format";
 
-	return "";
+	return;
 };
 
 export const formatDisplayNameError = (
