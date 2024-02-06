@@ -5,6 +5,7 @@ export interface ValidatedRequest extends Request<any> {
 		userId: string;
 	};
 }
+
 export interface FileRequest extends ValidatedRequest {
 	file: {
 		fieldname: string;

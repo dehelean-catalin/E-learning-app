@@ -68,9 +68,10 @@ export const useAuthentication = () => {
 			const loc = await axiosPub.get("https://ipapi.co/json/");
 			login(token);
 			setEmailVerified("false");
+			await sendEmailVerification(response.user);
 
 			await setPersistence(auth, browserLocalPersistence);
-			await sendEmailVerification(response.user);
+
 			await axios.post(
 				"/account",
 				{

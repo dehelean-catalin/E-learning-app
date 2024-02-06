@@ -49,8 +49,8 @@ const LectureDetails = () => {
 					{!!reviews.length ? (
 						<>
 							<ReviewChart value={reviews} chartClassName="details-chart" />
-							{reviews.map((r) => (
-								<LectureReviewCard key={r.authorId} value={r} />
+							{reviews.map((review) => (
+								<LectureReviewCard key={review.authorId} value={review} />
 							))}
 						</>
 					) : (

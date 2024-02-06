@@ -43,7 +43,7 @@ const Subtitle: FC<SubtitleProps> = ({
 				</span>
 				<span>
 					<i className="pi pi-history mr-2" />
-					Last updated: {toRelativeTime(lastUpdate)}
+					Last update: {toRelativeTime(lastUpdate)}
 				</span>
 			</p>
 		</div>

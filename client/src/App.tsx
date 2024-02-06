@@ -43,6 +43,7 @@ import Settings from "./pages/Settings/Settings";
 
 function App() {
 	const { setEmailVerified } = useContext(AuthContext);
+
 	onAuthStateChanged(auth, async (user) => {
 		try {
 			const isPasswordLogin = user?.providerData[0].providerId === "password";
@@ -54,6 +55,7 @@ function App() {
 			console.log(error);
 		}
 	});
+
 	const router = createBrowserRouter(
 		createRoutesFromElements(
 			<Route>

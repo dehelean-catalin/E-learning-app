@@ -10,9 +10,9 @@ import { useParams } from "react-router";
 import auth from "../../../../config/firebase.config";
 import "./LectureReviewCard.scss";
 
-type Props = { value: Review };
+type Props = { value: Review; showActions?: boolean };
 
-const LectureReviewCard: FC<Props> = ({ value }) => {
+const LectureReviewCard: FC<Props> = ({ value, showActions }) => {
 	const { author, message, date, rating, profilePicture } = value;
 	const { id } = useParams();
 	const axios = useAxios();
@@ -45,7 +45,7 @@ const LectureReviewCard: FC<Props> = ({ value }) => {
 
 				<p>{message}</p>
 			</div>
-			{value.authorId === auth?.currentUser.uid && (
+			{showActions && value.authorId === auth?.currentUser.uid && (
 				<i className="pi pi-trash" onClick={() => handleDelete()}></i>
 			)}
 		</div>

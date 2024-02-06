@@ -10,9 +10,16 @@
 		font-weight: 600;
 		text-decoration: none;
 	}
+
 	.delete-btn {
 		color: #ef4444;
 		border: 1px solid #ef4444;
 		background: transparent;
+	}
+}
+
+@media (max-width: 960px) {
+	.nav-menu {
+		flex-direction: row !important;
 	}
 }

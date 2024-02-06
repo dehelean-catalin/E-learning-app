@@ -16,10 +16,12 @@ const ChildrenItem: FC<{
 	};
 }> = ({ index, arrayHelpers, value, subIndex }) => {
 	const { setFieldValue } = useFormikContext<CreatedLectureModel>();
+
 	const {
 		data: { content, status, track, date, duration, type },
 		label,
 	} = value;
+
 	const {
 		handleDragStart,
 		handleDragEnd,
@@ -28,6 +30,8 @@ const ChildrenItem: FC<{
 		handleDrop,
 	} = useDragAndDropContent();
 
+	const [trackUrl, setTrackUrl] = useState("");
+
 	const videoRef = useRef<HTMLVideoElement>(null);
 
 	const statusClassName = classNames({
@@ -35,72 +39,50 @@ const ChildrenItem: FC<{
 		"font-semibold": true,
 	});
 
-	useEffect(() => {
-		const video = videoRef.current;
-		if (video) video.load();
-	}, [content]);
-
 	const displayedDate = formattedDate(date);
+
 	const handleLoadedMetadata = () => {
 		const video = videoRef.current;
 
 		if (duration === Math.round(video?.duration)) return;
+
 		setFieldValue(
 			`content.${index}.children.${subIndex}.data.duration`,
 			Math.round(video?.duration) ?? 0
 		);
 	};
 
-	const [trackUrl, setTrackUrl] = useState("");
+	const getTrackUrl = async (track) => {
+		try {
+			const response = await fetch(track);
+
+			if (!response.ok) {
+				throw new Error("Error retrieving VTT file: " + response.status);
+			}
+
+			const blob = await response.blob();
+
+			setTrackUrl(URL.createObjectURL(blob));
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
 	useEffect(() => {
-		const fetchVTTFile = async () => {
-			try {
-				const response = await fetch(track);
-				if (!response.ok) {
-					throw new Error("Error retrieving VTT file: " + response.status);
-				}
+		getTrackUrl(track);
+	}, []);
 
-				const data = await response.blob();
-				const url = URL.createObjectURL(data);
+	useEffect(() => {
+		const video = videoRef.current;
+		if (video) {
+			video.load();
+		}
+	}, [content]);
 
-				let trackElement = document.querySelector("track");
-
-				if (!trackElement) trackElement = document.createElement("track");
-				trackElement.src = url;
-				trackElement.kind = "captions";
-				trackElement.srclang = "en";
-				trackElement.label = "English";
-				trackElement.default = false;
-
-				const videoElement = document.querySelector("video");
-				videoElement.appendChild(trackElement);
-			} catch (error) {
-				console.error(error);
-			}
-		};
-
-		fetchVTTFile();
-		fetch(track)
-			.then((response) => {
-				if (response.ok) {
-					return response.blob();
-				} else {
-					throw new Error("Error retrieving VTT file: " + response.status);
-				}
-			})
-			.then((data) => {
-				const url = URL.createObjectURL(data);
-				setTrackUrl(url);
-			})
-			.catch((error) => {
-				console.error(error);
-			});
-	}, [track]);
-
-	const handleDelete = () => {
+	function handleDelete() {
 		arrayHelpers.remove(subIndex);
-	};
+	}
+
 	return (
 		<div
 			className="children-item"
@@ -113,20 +95,22 @@ const ChildrenItem: FC<{
 		>
 			<i className="pi pi-bars" />
 			<video
-				controls
+				controls={true}
 				muted={false}
 				ref={videoRef}
 				onLoadedMetadata={handleLoadedMetadata}
 			>
 				<source src={content} type="video/mp4" />
 				<source src={content} type="video/webm" />
-				<track
-					kind="captions"
-					src={trackUrl}
-					label="English"
-					srcLang="en"
-					default
-				/>
+				{trackUrl && (
+					<track
+						label="English"
+						kind="captions"
+						src={trackUrl}
+						srcLang="en"
+						default
+					/>
+				)}
 				Your browser does not support the video tag.
 			</video>
 			<table className="flex-1">
@@ -142,7 +126,7 @@ const ChildrenItem: FC<{
 					<tr>
 						<td>{label ?? "-"}</td>
 						<td>{type.replace("video/", "") ?? "-"}</td>
-						<td className={statusClassName}>{status ? <>{status}</> : "-"}</td>
+						<td className={statusClassName}>{status ?? "-"}</td>
 
 						<td>
 							{displayedDate !== "Invalid Date" ? <>{displayedDate}</> : "-"}

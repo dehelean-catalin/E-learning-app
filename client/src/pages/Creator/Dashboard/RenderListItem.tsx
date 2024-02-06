@@ -11,18 +11,19 @@ import { itemIcon, itemStatus } from "./item.helper";
 const RenderListItem: FC<{ value: CreatedLectureModel }> = ({ value }) => {
 	const navigate = useNavigate();
 	const { rating, publish, lastUpdate, numberOfRatings, enrolledUsers } = value;
+
 	return (
 		<div className="col-12">
 			<div className="flex p-4 gap-4">
 				{publish.caption ? (
 					<img
-						className="w-16rem shadow-2 block border-round"
+						className="w-18rem h-10rem shadow-2 block border-round"
 						src={publish.caption}
 						alt="caption"
 					/>
 				) : (
 					<img
-						className="w-16rem shadow-2 border-round surface-card"
+						className="w-18rem h-10rem shadow-2 border-round surface-card"
 						src={baseImg}
 						alt="caption"
 						style={{ objectFit: "contain" }}

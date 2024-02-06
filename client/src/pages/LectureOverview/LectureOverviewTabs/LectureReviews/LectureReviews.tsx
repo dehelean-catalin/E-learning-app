@@ -42,7 +42,7 @@ const LectureReviews: FC<{ value: Review[] }> = ({ value }) => {
 
 			<div className="review-list">
 				{reviews.map((review, index) => (
-					<LectureReviewCard key={index} value={review} />
+					<LectureReviewCard key={index} value={review} showActions={true} />
 				))}
 			</div>
 		</>
